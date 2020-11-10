@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <b-navbar toggleable="sm" type="light" variant="light">
-      <b-navbar-brand href="#">
+      <b-navbar-brand to="/">
         <img src="@/assets/en-logo.png" />
         <div id="logo-name">
           <span>EN KKU</span>
@@ -15,17 +15,17 @@
       <b-collapse id="nav-collapse" is-nav>
         
         <b-navbar-nav>
-          <b-nav-item href="#" id="menu-bar"
+          <b-nav-item id="menu-bar" to="/manageproject" exact exact-active-class="active"
             ><font-awesome-icon
               :icon="['fas', 'clipboard-list']"
             />&nbsp;จัดการโครงการ</b-nav-item
           >
-          <b-nav-item href="#" id="menu-bar"
+          <b-nav-item id="menu-bar" to="/summary" exact exact-active-class="active"
             ><font-awesome-icon
               :icon="['fas', 'chart-bar']"
             />&nbsp;สรุปงบประมาณ</b-nav-item
           >
-          <b-nav-item href="#" id="menu-bar"
+          <b-nav-item id="menu-bar" to="/history" exact exact-active-class="active"
             ><font-awesome-icon
               :icon="['fas', 'history']"
             />&nbsp;ประวัติการแก้ไข</b-nav-item

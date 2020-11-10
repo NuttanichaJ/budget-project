@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+
 import Layout from '@/components/Layout.vue'
 import ManageProject from '@/views/ManageProject.vue'
-
+import Summary from '@/views/Summary.vue'
+import History from '@/views/History.vue'
 
 Vue.use(VueRouter)
 
@@ -17,9 +19,17 @@ const routes = [
       path: '/manageproject',
       name: 'ManageProject',
       component: ManageProject,
+    },
+    {
+      path: '/summary',
+      name: 'Summary',
+      component: Summary,
+    },
+    {
+      path: '/history',
+      name: 'History',
+      component: History,
     }
-      
-
     ]
   }
 ]
