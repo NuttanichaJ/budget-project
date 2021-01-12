@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <b-navbar toggleable="sm" type="light" variant="light">
-      <b-navbar-brand to="/">
+      <b-navbar-brand to="/home">
         <img src="@/assets/en-logo.png" />
         <div id="logo-name">
           <span>EN KKU</span>
@@ -53,8 +53,9 @@
 </template>
 
 <script>
+
 export default {
-  name: "Header",
+  name: "Header"
 };
 </script>
 
