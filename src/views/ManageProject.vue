@@ -11,9 +11,7 @@
       </div>
     </div>
     <br><br>
-
     <div ref="table"></div>
-
   </div>
 
 </template>
@@ -51,7 +49,6 @@ export default {
     //instantiate Tabulator when element is mounted
     this.tabulator = new Tabulator(this.$refs.table, {
       data: this.tableData, //link data to table
-      layout:"fitColumns",
       columns: [
         {title:"Name", field:"name", width:150, editor:"input"},
         {title:"Location", field:"location", width:130, editor:"autocomplete", editorParams:{allowEmpty:true, showListOnEmpty:true, values:true}},
@@ -82,7 +79,7 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import  "~vue-tabulator/dist/scss/bootstrap/tabulator_bootstrap4";
 
 #manageproject {
