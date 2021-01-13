@@ -7,6 +7,7 @@ import ManageProject from '@/views/ManageProject.vue'
 import Summary from '@/views/Summary.vue'
 import History from '@/views/History.vue'
 import Transfer from '@/views/Transfer.vue'
+import ManageSubProject from '@/views/ManageSubProject.vue'
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,11 @@ const routes = [
     path: '/transfer',
     name: 'Tranfer',
     component: Transfer,
+  },
+  {
+    path: '/managesubproject',
+    name: 'ManageSubProject',
+    component: ManageSubProject,
   },
   ]
 }

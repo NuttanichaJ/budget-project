@@ -12,58 +12,58 @@
           </div>
 
         <b-row class="row">
-          <b-col xs="12" lg="6" xl="12">
+          <b-col xs="10" lg="6" xl="10">
             <Widget class="h-100 mb-0" title="">
               <div class="d-flex justify-content-between align-items-center mb-lg">
-              <h4>4,332</h4>
+              <h4>งบประมาณ</h4>
               <i class="la la-arrow-right text-primary la-lg rotate-315" />
             </div>
             <div class="d-flex flex-wrap justify-content-between">
               <div class="mt">
-                <h2>+830</h2><p class="text-muted mb-0 mr"><small>Logins</small></p>
+                <h2>8300</h2><p class="text-muted mb-0 mr"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
               </div>
               <div class="mt">
-                <h2>0.5%</h2><p class="text-muted mb-0"><small>Sign Out</small></p>
+                <h2>5000</h2><p class="text-muted mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
               </div>
               <div class="mt">
-                <h2>4.5%</h2><p class="text-muted mb-0 mr"><small>Rate</small></p>
+                <h2>4500</h2><p class="text-muted mb-0 mr"><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
               </div>
               <div class="mt">
-                <h2>4.5%</h2><p class="text-muted mb-0 mr"><small>Rate</small></p>
+                <h2>4500</h2><p class="text-muted mb-0 mr"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
               </div>
             </div>
             </Widget>
           </b-col>
-          <b-col class="col" xs="12" lg="6" xl="12">
+          <b-col class="col" xs="10" lg="6" xl="10">
             <Widget class="h-100 mb-0" title="">
               <apexchart type="bar" height="350" :series="cd.apex.column.series" :options="cd.apex.column.options"/>
             </Widget>
           </b-col>
         </b-row>
         <b-row class="row">
-          <b-col xs="12" lg="6" xl="12">
+          <b-col xs="10" lg="6" xl="10">
             <Widget class="h-100 mb-0" title="">
               <div class="d-flex justify-content-between align-items-center mb-lg">
-              <h4>4,332</h4>
+              <h4>โครงการ</h4>
               <i class="la la-arrow-right text-primary la-lg rotate-315" />
             </div>
             <div class="d-flex flex-wrap justify-content-between">
               <div class="mt">
-                <h2>+830</h2><p class="text-muted mb-0 mr"><small>Logins</small></p>
+                <h2>5</h2><p class="text-muted mb-0 mr"><small>โครงการที่กำลังดำเนินการ</small></p>
               </div>
               <div class="mt">
-                <h2>0.5%</h2><p class="text-muted mb-0"><small>Sign Out</small></p>
+                <h2>2</h2><p class="text-muted mb-0"><small>โครงการที่เสร็จสิ้น</small></p>
               </div>
               <div class="mt">
-                <h2>4.5%</h2><p class="text-muted mb-0 mr"><small>Rate</small></p>
+                <h2>4</h2><p class="text-muted mb-0 mr"><small>โครงการที่ยังไม่ได้ดำเนินการ</small></p>
               </div>
               <div class="mt">
-                <h2>4.5%</h2><p class="text-muted mb-0 mr"><small>Rate</small></p>
+                <h2>11</h2><p class="text-muted mb-0 mr"><small>โครงการทั้งหมด</small></p>
               </div>
             </div>
             </Widget>
           </b-col>
-          <b-col class="col" xs="12" lg="6" xl="12">
+          <b-col class="col" xs="10" lg="6" xl="10">
             <Widget class="h-100 mb-0" title="">
               <apexchart type="pie" height="300" :series="cd.apex.pie.series" :options="cd.apex.pie.options"/>
             </Widget>
