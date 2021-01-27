@@ -4,12 +4,13 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Layout from '@/components/Layout.vue'
 import ManageProject from '@/views/ManageProject.vue'
-import Summary from '@/views/Summary.vue'
 import History from '@/views/History.vue'
 import Transfer from '@/views/Transfer.vue'
 import ManageSubProject from '@/views/ManageSubProject.vue'
 import AdminLayout from '@/components/AdminLayout.vue'
 import adminManagement from '@/views/adminManagement.vue'
+import AllSummary from '@/views/AllSummary.vue'
+import SubSummary from '@/views/SubSummary.vue'
 
 Vue.use(VueRouter)
 
@@ -30,9 +31,14 @@ const routes = [
       component: ManageProject,
     },
     {
-      path: '/summary',
-      name: 'Summary',
-      component: Summary,
+      path: '/allsummary',
+      name: 'AllSummary',
+      component: AllSummary,
+    },
+    {
+      path: '/subsummary',
+      name: 'SubSummary',
+      component: SubSummary,
     },
     {
     path: '/history',

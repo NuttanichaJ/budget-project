@@ -2,15 +2,21 @@
   <div class="transfer">
         <h1>บันทึกการโอนเงินเข้า-ออก</h1>
     <div class="top">
-      <div class="left">
-        <b-button @click='addrow'>เพิ่มการโอน</b-button>
-      </div>
-      <div class="right">
-        <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='save'>บันทึก</b-button>
-        <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='cancel'>ยกเลิก</b-button>
-      </div>
+      <b-nav class="mt-3" id="menu">
+        <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 ml-auto">
+                <b-nav-form>
+                    <b-input-group >
+                        <b-form-input placeholder="ค้นหา"></b-form-input>
+                        <b-input-group-append>
+                            <b-button class="mb-2 mr-sm-2 mb-sm-0"><font-awesome-icon icon="search" /></b-button>                        
+                        </b-input-group-append>
+                        <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='save'>บันทึก</b-button>
+                        <b-button class="mb-2 mr-sm-0 mb-sm-0" @click='cancel'>ยกเลิก</b-button>
+                    </b-input-group>
+                </b-nav-form>        
+        </b-navbar-nav>
+    </b-nav>
     </div>
-    <br><br><br>
     <div class="income"> 
         <b-form inline>
           <label class="mr-sm-2" for="inline-form-custom-select-pref">โอนเข้า: </label>
@@ -22,7 +28,18 @@
           <label class="mr-sm-2" for="inline-form-custom-select-pref">บาท</label>
         </b-form>
     </div>
-    <br>
+
+     <div>
+       <b-nav class="mt-3" id="menu">
+        <b-navbar-nav class="mb-2 mr-sm-0 mb-sm-0 mr-auto">
+                <b-nav-form>
+                    <b-input-group >
+                        <b-button id="add-subproject" class="mb-2 ml-sm-2 mb-sm-0" @click='addRow'>เพิ่มการโอน</b-button>      
+                    </b-input-group>
+                </b-nav-form>        
+        </b-navbar-nav>
+      </b-nav>
+    </div>
     <div class="outcome">
         <div ref="table"></div>
     </div>
@@ -60,6 +77,11 @@ export default {
   },
 
   mounted(){
+    var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
+        cell, formatterParams, onRendered;
+        return '<a class="btn btn-secondary" target="_self">ลบ</a>'
+    };
+
     //instantiate Tabulator when element is mounted
     this.tabulator = new Tabulator(this.$refs.table, {
       data: this.tableData, //link data to table
@@ -68,7 +90,10 @@ export default {
         {title:"โอนจาก", field:"outcome", editor:"select",headerFilter:"input", headerFilterPlaceholder:"...", editorParams:{values:{"โครงการหลัก 1":"โครงการหลัก 1", "โครงการหลัก 2":"โครงการหลัก 2", "โครงการย่อย 1":"โครงการย่อย 1", "โครงการย่อย 2":"โครงการย่อย 2" }, hozAlign:"right",},  width:400},  
          {title:"จำนวน", field:"amount", width:150, editor:"number", hozAlign:"right", formatter:"money", formatterParams:{
     decimal:".",
-    thousand:",", }},
+    thousand:",", 
+    }},
+    {formatter:printDelIcon, width:100, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().name + " ใช่หรือไม่?")== true){
+          cell.getRow().delete()}}, },
          ], //define table columns
     });
   },
@@ -89,7 +114,7 @@ export default {
     )
     },
     //Add row on "Add Row" button click
-    addrow() {
+    addRow() {
       this.tabulator.addRow({});
     },
   },

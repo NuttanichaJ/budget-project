@@ -20,7 +20,7 @@
               :icon="['fas', 'clipboard-list']"
             />&nbsp;จัดการโครงการ</b-nav-item
           >
-          <b-nav-item id="menu-bar" to="/summary" exact exact-active-class="active"
+          <b-nav-item id="menu-bar" to="/allsummary" exact exact-active-class="active"
             ><font-awesome-icon
               :icon="['fas', 'chart-bar']"
             />&nbsp;สรุปงบประมาณ</b-nav-item
