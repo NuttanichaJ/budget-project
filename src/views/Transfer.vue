@@ -17,7 +17,7 @@
           <b-form-select id="inline-form-custom-select-pref"
             class="mb-2 mr-sm-5 mb-sm-0" v-model="selectedProject" :options="optionsProject"></b-form-select>   
             <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
-                <b-form-input id="inline-form-input-username" placeholder="0" readonly></b-form-input>
+                <b-form-input id="inline-form-input-username" placeholder="5000" readonly></b-form-input>
             </b-input-group>
           <label class="mr-sm-2" for="inline-form-custom-select-pref">บาท</label>
         </b-form>
@@ -66,7 +66,9 @@ export default {
       addRowPos:"bottom",
       columns: [
         {title:"โอนจาก", field:"outcome", editor:"select",headerFilter:"input", headerFilterPlaceholder:"...", editorParams:{values:{"โครงการหลัก 1":"โครงการหลัก 1", "โครงการหลัก 2":"โครงการหลัก 2", "โครงการย่อย 1":"โครงการย่อย 1", "โครงการย่อย 2":"โครงการย่อย 2" }, hozAlign:"right",},  width:400},  
-         {title:"จำนวน", field:"amount", width:150, editor:"number", hozAlign:"right",},
+         {title:"จำนวน", field:"amount", width:150, editor:"number", hozAlign:"right", formatter:"money", formatterParams:{
+    decimal:".",
+    thousand:",", }},
          ], //define table columns
     });
   },

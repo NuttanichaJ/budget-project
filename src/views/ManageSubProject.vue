@@ -1,17 +1,26 @@
 <template>
   <div id="managesubproject">
-    <h1>จัดการโครงการ</h1>
-      <div class="right">
-        <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='save'>บันทึก</b-button>
-        <b-button class="mb-2 mr-sm-0 mb-sm-0" @click='cancel'>ยกเลิก</b-button>
-      </div>
+    <h1 class="ml-2">จัดการโครงการ</h1>
+    <b-nav class="mt-3" id="menu">
+        <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 ml-auto">
+                <b-nav-form>
+                    <b-input-group >
+                        <b-form-input placeholder="ค้นหา"></b-form-input>
+                        <b-input-group-append>
+                            <b-button class="mb-2 mr-sm-2 mb-sm-0"><font-awesome-icon icon="search" /></b-button>                        
+                        </b-input-group-append>
+                        <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='save'>บันทึก</b-button>
+                        <b-button class="mb-2 mr-sm-0 mb-sm-0" @click='cancel'>ยกเลิก</b-button>
+                    </b-input-group>
+                </b-nav-form>        
+        </b-navbar-nav>
+    </b-nav>
       <div>
-      <br><br>
       <div class="header">
-        <b-row>
-      <b-col lg="8" sm="6" xs="12">
+    <b-row>
+      <b-col lg="6" sm="6" xs="12" class="ml-2">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Visits Today" close>
+          <Widget class="h-100 mb-0" title="" close>
            <div class="d-flex justify-content-between align-items-center mb-lg">
               <h3>โครงการหลัก 1</h3>
               <i class="la la-arrow-right text-primary la-lg rotate-315" />
@@ -21,7 +30,7 @@
                 <h5>1</h5><p class="text-muted mb-0 mr"><small>ประเด็นยุทธศาสตร์</small></p>
               </div>
               <div class="mt">
-                <h5>1</h5><p class="text-muted mb-0"><small>ยุทธศาสตร์</small></p>
+                <h5>1</h5><p class="text-muted mb-0 mr"><small>ยุทธศาสตร์</small></p>
               </div>
               <div class="mt">
                 <h5>1</h5><p class="text-muted mb-0 mr"><small>กลยุทธ์</small></p>
@@ -32,18 +41,20 @@
       </b-col>
         </b-row>
       </div>
-      <br>
+       <b-nav class="mt-3" id="menu">
+        <b-navbar-nav class="mb-2 mr-sm-0 mb-sm-0 mr-auto">
+                <b-nav-form>
+                    <b-input-group >
+                        <b-button id="add-subproject" class="mb-2 ml-sm-2 mb-sm-0" @click='addRow'>เพิ่มโครงการย่อย</b-button>      
+                        <b-button class="mb-2 ml-sm-2 mb-sm-0" to="/transfer">โอนเงินเข้า-ออก</b-button>
+                    </b-input-group>
+                </b-nav-form>        
+        </b-navbar-nav>
+    </b-nav>
       </div>
-      <div class="left">
-        <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='addrow' id="add-row">เพิ่มโครงการย่อย</b-button>
-        <b-button class="mb-2 mr-sm-2 mb-sm-0" to="/transfer">โอนเงินเข้า-ออก</b-button>
-      </div>
-
-    <br>
     <div>
-  <br><br>
-  </div>
 
+  </div>
     <div ref="table"></div>
   </div>
 
@@ -122,23 +133,47 @@ export default {
     this.tabulator = new Tabulator(this.$refs.table, {
       data: this.tableData, //link data to table
       columns: [
-        {title:"ชื่อโครงการ", field:"name", width:140, editor:"input", headerFilter:"input", headerFilterPlaceholder:"...", hozAlign:"right",},
-        {title:"ผู้รับผิดชอบ", field:"owner", width:140, editor:"input", headerFilter:"input", headerFilterPlaceholder:"...", hozAlign:"right",},
-        {title:"ตัวชี้วัด", field:"indicator",  width:140, editor:"input", hozAlign:"right", headerFilter:"input", headerFilterPlaceholder:"..."},
-        {title:"ค่าเป้าหมาย", field:"target_value", editor:"input",  width:140, headerFilter:"input", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"งบประมาณตามแผน", field:"budget", editor:"input",  width:140, headerFilter:"number", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"โอนเข้า", field:"income", editor:"input",  width:140, headerFilter:"number", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"โอนออก", field:"outcome", editor:"input",  width:140, headerFilter:"number", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"คงเหลือตามแผน", field:"total_amount", editor:"input",  width:140, headerFilter:"number", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"ขออนุมัติใช้", field:"approve_use", editor:"input",  width:140, headerFilter:"number", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"เบิกจ่าย", field:"disburse", editor:"input",  width:140, headerFilter:"number", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"คงเหลือตามหลักการ", field:"total_from_priciple", editor:"input",  width:140, headerFilter:"number", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"คงเหลือจากเบิกจ่ายจริง", field:"total_from_disburse", editor:"input",  width:160, headerFilter:"number", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"ผลการดำเนินงาน", field:"performance_result", editor:"input",  width:160, headerFilter:"input", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"ปัญหาและอุปสรรค", field:"problem", editor:"input",  width:160, headerFilter:"input", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"รายละเอียดผลการดำเนินงาน", field:"detail_result", editor:"input",  width:160, headerFilter:"input", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"หมายเหตุ", field:"annotation", editor:"input",  width:160, headerFilter:"input", headerFilterPlaceholder:"...", hozAlign:"right",}, //define table columns
-        {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว", hozAlign:"right", }},  width:160}, 
+        {title:"ชื่อโครงการ", field:"name", width:140, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true},
+        {title:"ผู้รับผิดชอบ", field:"owner", width:140, editor:"input", hozAlign:"left",},
+        {title:"ตัวชี้วัด", field:"indicator",  width:140, editor:"input", hozAlign:"left", },
+        {title:"ค่าเป้าหมาย", field:"target_value", editor:"input",  width:140, hozAlign:"left",}, //define table columns
+        {title:"งบประมาณตามแผน", field:"budget", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+    decimal:".",
+    thousand:",",
+}}, //define table columns
+        {title:"โอนเข้า", field:"income", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+    decimal:".",
+    thousand:",",
+}}, //define table columns
+        {title:"โอนออก", field:"outcome", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+    decimal:".",
+    thousand:",",
+}}, //define table columns
+        {title:"คงเหลือตามแผน", field:"total_amount", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+    decimal:".",
+    thousand:",",
+}}, //define table columns
+        {title:"ขออนุมัติใช้", field:"approve_use", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+    decimal:".",
+    thousand:",",
+}}, //define table columns
+        {title:"เบิกจ่าย", field:"disburse", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+    decimal:".",
+    thousand:",",
+}}, //define table columns
+        {title:"คงเหลือตามหลักการ", field:"total_from_priciple", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+    decimal:".",
+    thousand:",",
+}}, //define table columns
+        {title:"คงเหลือจากเบิกจ่ายจริง", field:"total_from_disburse", editor:"number",  width:160, hozAlign:"right", formatter:"money", formatterParams:{
+    decimal:".",
+    thousand:",",
+}}, //define table columns
+        {title:"ผลการดำเนินงาน", field:"performance_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"ปัญหาและอุปสรรค", field:"problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"รายละเอียดผลการดำเนินงาน", field:"detail_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"หมายเหตุ", field:"annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว", }, hozAlign:"left"},  width:160}, 
         ], //define table columns
     });
   },
@@ -159,7 +194,7 @@ export default {
     )
     },
     //Add row on "Add Row" button click
-    addrow() {
+    addRow() {
       this.tabulator.addRow({});
     },
   },
@@ -173,12 +208,6 @@ export default {
 #managesubproject {
   margin: 20px;
 }
-  .left {
-    float: left;
-  }
-  .right {
-    float: right;
-  }
 
 </style>
 

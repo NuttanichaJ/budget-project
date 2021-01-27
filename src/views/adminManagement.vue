@@ -55,27 +55,9 @@ export default {
       deep: true,
     }
   },
-  mounted(){   
-    //instantiate Tabulator when element is mounted
-    this.tabulator = new Tabulator(this.$refs.table, {
-      data: this.tableData, //link data to table
-      addRowPos: "bottom",
-      layout:"fitColumns",
-      columns: [
-        {title:"ชื่อ - นามสกุล", field:"name", width:200, editor:"input"},
-        {title:"E-mail", field:"mail", headerSort:false, width:250, editor:"input"},
-        {title:"ฝ่าย / สาขาวิชา", field:"branch", width:180, editor:"select", editorParams:{values:{"วิศวกรรมคอมพิวเตอร์":"วิศวกรรมคอมพิวเตอร์", "วิศวกรรมโยธา":"วิศวกรรมโยธา", "วิศวกรรมไฟฟ้า":"วิศวกรรมไฟฟ้า"}}},
-        {title:"สิทธิ์การใช้งาน", field:"permission", width:180, editor:"select", editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
-        {formatter:delUser, width:80, align:"center", frozen:true, headerSort:false,}
-        ], //define table columns
-    });
-
-  },
-
-  template: '<div ref="table"></div>', //create table holder element
 
   mounted(){
-    var delUser = function(cell, formatterParams){ //plain text value
+    var delUser = function(){ //plain text value
         //cell, formatterParams, onRendered;
         return '<b-button @click="addRow">ลบ</b-button>';}
     //instantiate Tabulator when element is mounted
@@ -93,9 +75,10 @@ export default {
    
 
   },
+  template: '<div ref="table"></div>', //create table holder element
   
  methods: {
-    del(e, cell) {
+    del() {
       this.$confirm({
         message: 'ต้องการลบข้อมูลของ....ใช่หรือไม่',
         button: {

@@ -1,7 +1,7 @@
 <template>
-  <div id="nav">
+  <div id="adminheader">
     <b-navbar toggleable="sm" type="light" variant="light">
-        <b-navbar-brand to="/">
+        <b-navbar-brand to="/admin">
           <img src="@/assets/en-logo.png" />
           <div id="logo-name">
             <span>EN KKU</span>
@@ -14,7 +14,7 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item id="menu-bar" to="/" exact exact-active-class="active"
+          <b-nav-item id="menu-bar" to="/adminmanagement" exact exact-active-class="active"
               ><font-awesome-icon
               :icon="['fas', 'user']"
               />&nbsp;จัดการสมาชิก</b-nav-item
@@ -53,8 +53,10 @@ export default {
 <style lang="scss">
 img {
   width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
+
 #logo-name {
   text-align: center;
   float: right;
@@ -82,6 +84,9 @@ img {
     );
     font-weight: bold;
   }
+}
+#menu-bar {
+  padding-right: 10px;
 }
 
 </style>

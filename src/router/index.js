@@ -8,12 +8,14 @@ import Summary from '@/views/Summary.vue'
 import History from '@/views/History.vue'
 import Transfer from '@/views/Transfer.vue'
 import ManageSubProject from '@/views/ManageSubProject.vue'
+import AdminLayout from '@/components/AdminLayout.vue'
+import adminManagement from '@/views/adminManagement.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/user',
     name: 'Layout',
     component: Layout,
     children: [
@@ -47,8 +49,21 @@ const routes = [
     name: 'ManageSubProject',
     component: ManageSubProject,
   },
+  ],
+},
+{
+  path: '/admin',
+  name: 'adminLayout',
+  component: AdminLayout,
+  children: [
+    {
+      path: '/adminmanagement',
+      name: 'adminManagement',
+      component: adminManagement,
+    }
   ]
 }
+  
 ]
 
 const router = new VueRouter({
