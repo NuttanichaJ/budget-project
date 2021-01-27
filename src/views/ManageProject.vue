@@ -114,11 +114,15 @@ export default {
   mounted(){
     var printEditIcon = function(cell, formatterParams, onRendered){ //plain text value
         cell, formatterParams, onRendered;
-        return '<a href="/managesubproject" class="btn btn-secondary" target="_self">แก้ไข</a>'
+        if(cell.getRow().getData().name != undefined) {
+          return '<a href="/managesubproject" class="btn btn-secondary" target="_self">แก้ไข</a>'
+        }
+        
     };
     var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
         cell, formatterParams, onRendered;
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
+        
     };
     //instantiate Tabulator when element is mounted
     this.tabulator = new Tabulator(this.$refs.table, {
@@ -188,7 +192,7 @@ export default {
     )
     },
     //Add row on "Add Row" button click
-    addrow() {
+    addRow() {
       this.tabulator.addRow({});
     },
   },

@@ -20,7 +20,7 @@
                   <h2 class="mb-0 text-center">23</h2>
                   <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
                 </div>
-                <div id="border">
+                <div class="mr-2" id="border">
                   <p class="mb-0"><small>โครงการย่อยที่เสร็จสิ้น</small></p>
                   <h2 class="mb-0 text-center">50</h2>
                   <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
