@@ -129,6 +129,11 @@ export default {
   },
 
   mounted(){
+    var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
+        cell, formatterParams, onRendered;
+        return '<a class="btn btn-secondary" target="_self">ลบ</a>'
+        
+    };
     //instantiate Tabulator when element is mounted
     this.tabulator = new Tabulator(this.$refs.table, {
       data: this.tableData, //link data to table
@@ -174,6 +179,8 @@ export default {
         {title:"รายละเอียดผลการดำเนินงาน", field:"detail_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"หมายเหตุ", field:"annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว", }, hozAlign:"left"},  width:160}, 
+        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().name + " ใช่หรือไม่?")== true){
+          cell.getRow().delete()}} }, //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
         ], //define table columns
     });
   },
