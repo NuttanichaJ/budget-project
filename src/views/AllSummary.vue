@@ -3,10 +3,11 @@
     <SummaryHead/>
     <div class="allsummary">    
         <b-container fluid>
-        
+  
           <!-- สาขาวิชา -->
-          <div class="mt-5 mx-3" id="branch" to="/src/views/Summary2.vue">
-            <b-row class="mt-3 d-flex align-items-center">              
+          <a class="brancebtn btn btn-block" href="/SubSummary">
+          <div class="mt-5 mx-3" id="branch">
+            <b-row class="mt-3 d-flex align-items-center" >              
               <b-col cols="4" class="border border-dark rounded-left p-2">
                   <div class="d-flex flex-wrap justify-content-around">  
                     <div class="d-flex align-items-center">
@@ -52,7 +53,59 @@
               </b-col>
             </b-row>
           </div>
+          </a>
 
+          <a class="brancebtn btn btn-block" href="/SubSummary">
+            <div class="mt-5 mx-3" id="branch">
+            <b-row class="mt-3 d-flex align-items-center">              
+              <b-col cols="4" class="border border-dark rounded-left p-2">
+                  <div class="d-flex flex-wrap justify-content-around">  
+                    <div class="d-flex align-items-center">
+                      <h4 class="border border-dark rounded p-2">EE</h4>
+                    </div>
+                    <div class="">
+                      <p class="mb-0"><small>โครงการย่อยที่กำลังดำเนินการ</small></p>
+                      <h2 class="mb-0 text-center">23</h2>
+                      <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
+                    </div>
+                    <div class="">
+                      <p class="mb-0"><small>โครงการย่อยที่เสร็จสิ้น</small></p>
+                      <h2 class="mb-0 text-center">23</h2>
+                      <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
+                    </div>
+                    
+                  </div>  
+              </b-col> 
+                        
+              <b-col cols="8" class="border border-dark rounded-right p-2 ">
+                <div class="d-flex flex-wrap justify-content-around">                  
+                   <div class="">
+                    <p class="mb-0"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
+                    <h2 class="mb-0 text-center">8300</h2>
+                    <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                  </div>
+                  <div class="">
+                    <p class="mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
+                    <h2 class="mb-0 text-center">5000</h2>
+                    <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                  </div>
+                  <div class="">
+                    <p class="mb-0 "><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
+                    <h2 class="mb-0 text-center">4500</h2>
+                    <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                  </div>
+                  <div class="">
+                    <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
+                    <h2 class="mb-0 text-center">4500</h2>
+                    <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                  </div>
+                </div> 
+              </b-col>
+            </b-row>
+          </div>
+          </a>
+          
+          <a class="brancebtn btn btn-block" href="/SubSummary">
           <div class="mt-5 mx-3" id="branch">
             <b-row class="mt-3 d-flex align-items-center">              
               <b-col cols="4" class="border border-dark rounded-left p-2">
@@ -100,54 +153,7 @@
               </b-col>
             </b-row>
           </div>
-
-          <div class="mt-5 mx-3" id="branch">
-            <b-row class="mt-3 d-flex align-items-center">              
-              <b-col cols="4" class="border border-dark rounded-left p-2">
-                  <div class="d-flex flex-wrap justify-content-around">  
-                    <div class="d-flex align-items-center">
-                      <h4 class="border border-dark rounded p-2">EE</h4>
-                    </div>
-                    <div class="">
-                      <p class="mb-0"><small>โครงการย่อยที่กำลังดำเนินการ</small></p>
-                      <h2 class="mb-0 text-center">23</h2>
-                      <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
-                    </div>
-                    <div class="">
-                      <p class="mb-0"><small>โครงการย่อยที่เสร็จสิ้น</small></p>
-                      <h2 class="mb-0 text-center">23</h2>
-                      <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
-                    </div>
-                    
-                  </div>  
-              </b-col> 
-                        
-              <b-col cols="8" class="border border-dark rounded-right p-2 ">
-                <div class="d-flex flex-wrap justify-content-around">                  
-                   <div class="">
-                    <p class="mb-0"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
-                    <h2 class="mb-0 text-center">8300</h2>
-                    <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                  </div>
-                  <div class="">
-                    <p class="mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
-                    <h2 class="mb-0 text-center">5000</h2>
-                    <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                  </div>
-                  <div class="">
-                    <p class="mb-0 "><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
-                    <h2 class="mb-0 text-center">4500</h2>
-                    <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                  </div>
-                  <div class="">
-                    <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
-                    <h2 class="mb-0 text-center">4500</h2>
-                    <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                  </div>
-                </div> 
-              </b-col>
-            </b-row>
-          </div>
+          </a>
 
         </b-container>     
       </div>
@@ -180,6 +186,12 @@ export default {
 </script>
 
 <style>
+.brancebtn:focus {
+    outline: none !important;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
 
 .summary{
   margin: 20px;
