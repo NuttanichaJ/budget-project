@@ -1,0 +1,87 @@
+<template>
+  <div id="nav">
+    <b-navbar toggleable="sm" type="light" variant="light">
+        <b-navbar-brand to="/">
+          <img src="@/assets/en-logo.png" />
+          <div id="logo-name">
+            <span>EN KKU</span>
+            <br />
+            <span id="fullname">Engineering KKU</span>
+          </div>
+        </b-navbar-brand>
+
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item id="menu-bar" to="/" exact exact-active-class="active"
+              ><font-awesome-icon
+              :icon="['fas', 'user']"
+              />&nbsp;จัดการสมาชิก</b-nav-item
+            >
+        </b-navbar-nav>
+
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item-dropdown right>
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <div id="admin-info">
+                <span id="adminname">ADMIN's Name</span>
+                <br />
+                <div id="status">
+                  <span><font-awesome-icon :icon="['fas', 'check-circle']"/>&nbsp;Admin</span>
+                </div>
+              </div>
+            </template>
+            <b-dropdown-item href="#">ออกจากระบบ</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+  </div>
+  
+</template>
+<script>
+export default {
+  name: 'Adminheader',
+  components: {}
+}
+</script>
+
+
+<style lang="scss">
+img {
+  width: 50px;
+  border-radius: 50%;
+}
+#logo-name {
+  text-align: center;
+  float: right;
+  font-size: 14px;
+  padding-left: 5px;
+  #fullname {
+    font-size: 12px;
+    color: #817979;
+  }
+}
+
+#admin-info {
+  float: left;
+  text-align: center;
+  #status {
+    color: #ffffff;
+    border: 2px solid;
+    border-radius: 25px;
+    font-size: 12px;
+    background: rgb(237, 118, 94);
+    background: linear-gradient(
+      90deg,
+      rgb(108, 195, 245) 7%,
+      rgb(206, 56, 243) 93%
+    );
+    font-weight: bold;
+  }
+}
+
+</style>
