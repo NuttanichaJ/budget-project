@@ -57,9 +57,10 @@ export default {
   },
 
   mounted(){
-    var delUser = function(){ //plain text value
-        //cell, formatterParams, onRendered;
-        return '<b-button @click="addRow">ลบ</b-button>';}
+    var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
+        cell, formatterParams, onRendered;
+        return '<a class="btn btn-secondary" target="_self">ลบ</a>'
+    };
     //instantiate Tabulator when element is mounted
     this.tabulator = new Tabulator(this.$refs.table, {
       data: this.tableData, //link data to table
@@ -69,7 +70,8 @@ export default {
         {title:"E-mail", field:"mail", headerSort:false, width:250, editor:"input"},
         {title:"ฝ่าย / สาขาวิชา", field:"branch", width:180, editor:"select", editorParams:{values:{"วิศวกรรมคอมพิวเตอร์":"วิศวกรรมคอมพิวเตอร์", "วิศวกรรมโยธา":"วิศวกรรมโยธา", "วิศวกรรมไฟฟ้า":"วิศวกรรมไฟฟ้า"}}},
         {title:"สิทธิ์การใช้งาน", field:"permission", width:180, editor:"select", editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
-        {formatter:delUser, width:80, align:"center", frozen:true, headerSort:false,}
+        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().name + " ใช่หรือไม่?")== true){
+          cell.getRow().delete()}}, frozen:true }
           ,], //define table columns
     });
    
