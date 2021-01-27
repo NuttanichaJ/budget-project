@@ -80,23 +80,12 @@ export default {
   template: '<div ref="table"></div>', //create table holder element
   
  methods: {
-    del() {
-      this.$confirm({
-        message: 'ต้องการลบข้อมูลของ....ใช่หรือไม่',
-        button: {
-          yes: 'ตกลง',
-          no: 'ยกเลิก'
-        }
-      })
-    },
+    
 
     addRow() {
       this.tabulator.addRow({});
     }, // add row table
     
-    delRow() {
-      this.tabulator.deleteRow([1]);
-    },
 
        
   },
