@@ -1,11 +1,11 @@
 <template>
     <div id="history">
       <b-nav class="mt-3" id="menu">
-        <b-dropdown id="dropdown-left" text="สิทธิ์การใช้งาน" class="m-2">
-            <b-dropdown-item>ผู้บริหาร</b-dropdown-item>
-            <b-dropdown-item>ส่วนกลาง</b-dropdown-item>
-            <b-dropdown-item>สาขาวิชา</b-dropdown-item>        
-        </b-dropdown>        
+        <b-form inline class="p-2 mx-3" >          
+          <b-form-select v-model="selectedBranch" :options="optionsBranch" 
+          id="select-branch" size="sm" >
+        </b-form-select>
+        </b-form>       
         
         <b-navbar-nav class="mt-2 ml-auto">
           <b-nav-form>
@@ -19,7 +19,8 @@
         </b-navbar-nav>        
       </b-nav>
 
-      <div ref="table" class="table-sty"></div>
+      <div ref="table" class="table-sty tabulator tabulator-header tabulator-col"></div>
+      
 
     </div>
 </template>
@@ -31,10 +32,20 @@ export default {
 
   data () {
     return {
+      // selected Permissin
+      selectedBranch: null,
+        optionsBranch: [
+          {value: null, text: 'ฝ่าย/สาขาวิชา', disabled: true},
+          { value: 'center', text: 'ส่วนกลาง' },
+          { value: 'coe', text: 'สาขาวิชาวิศวกรรมคอมพิวเตอร์' },
+          { value: 'ee', text: 'สาขาวิชาวิศวกรรมไฟฟ้า' },
+          { value: 'ce', text: 'สาขาวิชาวิศวกรรมโยธา' },
+        ],
       tabulator: null, //variable to hold your table
         tableData: [
-          {date:"18/02/21",username:"userA"},
-          {date:"1/03/21",username:"userB"}
+          {date:"18/02/21",username:"userA",branch:'สาขาวิชาวิศวกรรมโยธา'},
+          {date:"1/03/21",username:"userB",branch:'สาขาวิชาวิศวกรรมคอมพิวเตอร์'},
+          {date:"1/03/21",username:"userB",branch:'สาขาวิชาวิศวกรรมโยธา'}
         ],
       }
   },
@@ -55,23 +66,37 @@ export default {
         layout:"fitDataStretch",
         responsiveLayout:"hide",
         columns: [
-          {title: "วัน-เวลา", field:"date", align:"center", width: 300, },
-          {title: "username", field:"username", align:"center", width: 300 },
-          {title: "รายการแก้ไข", field:"listedit", align:"center", headerSort:false}
+          {title: "วัน-เวลา", field:"date", align:"center", width: 300,headerHozAlign:"center" },
+          {title: "username", field:"username", align:"center", width: 300 ,headerHozAlign:"center"},
+          {title: "ฝ่าย/สาขา", field:"branch", align:"center", width: 300, headerHozAlign:"center"},
+          {title: "รายการแก้ไข", field:"listedit", align:"center", headerHozAlign:"center",headerSort:false}
           
-          ], //define table columns
+        ], //define table columns
+
+
+      
       });
+
+      //select
+      var selectBr = document.getElementById("select-branch")
+      document.addEventListener("click", function(){
+        this.tabulator.options[selectBr.selectedIndex].value;
+        return this.date.branch ;
+      
+      })
+   
      
     },
   template: '<div ref="table"></div>', //create table holder element
-    
-
+  
 };
 
 
 </script>
 
-<style scoped>
+<style lang="scss">
+
+@import  "~vue-tabulator/dist/scss/bootstrap/tabulator_bootstrap4";
 #menu {
     padding: 10px;
     padding-right: 50px;
@@ -81,6 +106,10 @@ export default {
   padding: 30px;
   padding-top: 10px;
 
+}
+
+.tabulator .tabulator-header .tabulator-col-group>.tabulator-col-content {
+    text-align:center;
 }
 
 

@@ -6,10 +6,8 @@
         <b-form inline class="p-2 mx-3" >          
           <b-form-select v-model="selectedPermissin" :options="optionsPermissin" 
           size="sm" >
-          
         </b-form-select>
         </b-form>        
-        
         <b-navbar-nav class="mt-2 ml-auto">
           <b-nav-form>
             <b-input-group >
@@ -36,9 +34,9 @@ export default {
         selectedPermissin: null,
         optionsPermissin: [
           {value: null, text: 'สิทธ์ผู้ใช้งาน', disabled: true},
-          { value: '2564', text: 'ผู้บริหาร' },
-          { value: '2563', text: 'ส่วนกลาง' },
-          { value: '2562', text: 'สาขาวิชา' },
+          { value: 'dean', text: 'ผู้บริหาร' },
+          { value: 'center', text: 'ส่วนกลาง' },
+          { value: 'branch', text: 'สาขาวิชา' },
         ],
 
         modalShow: false,
