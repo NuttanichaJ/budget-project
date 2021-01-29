@@ -34,16 +34,11 @@ export default {
       return {
         modalShow: false,
         tabulator: null, //variable to hold your table
-        tableData: [{
-          name: 'Teste',
-            location: "this place",
-            progress: 100,
-        },{
-            name: 'Nurse',
-            location: "this place",
-            progress: 12,
-        
-        }], //data for table to display
+        tableData: [
+          {name: 'Teste', mail: 'asd@gmail.com',branch:'วิศวกรรมคอมพิวเตอร์',permission:'ผู้บริหาร'},
+          {name: 'ABC', mail: 'cds@gmail.com',branch:'วิศวกรรมไฟฟ้า',permission:'สาขาวิชา'},      
+      
+      ], //data for table to display
       }
   },
    watch:{
