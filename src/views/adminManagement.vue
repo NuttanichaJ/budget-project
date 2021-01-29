@@ -3,22 +3,23 @@
     <b-nav class="mt-3" id="menu">
         <b-button id="add-user" class="my-2" @click='addRow'>เพิ่มสมาชิก</b-button>
 
-        <b-dropdown id="dropdown-left" text="สิทธิ์การใช้งาน" class="m-2">
-            <b-dropdown-item>ผู้บริหาร</b-dropdown-item>
-            <b-dropdown-item>ส่วนกลาง</b-dropdown-item>
-            <b-dropdown-item>สาขาวิชา</b-dropdown-item>        
-        </b-dropdown>        
+        <b-form inline class="p-2 mx-3" >          
+          <b-form-select v-model="selectedPermissin" :options="optionsPermissin" 
+          size="sm" >
+          
+        </b-form-select>
+        </b-form>        
         
-            <b-navbar-nav class="mt-2 ml-auto">
-                <b-nav-form>
-                    <b-input-group >
-                        <b-form-input placeholder="ค้นหา"></b-form-input>
-                        <b-input-group-append>
-                            <b-button><font-awesome-icon icon="search" /></b-button>                        
-                        </b-input-group-append>
-                    </b-input-group>
-                </b-nav-form>        
-            </b-navbar-nav>
+        <b-navbar-nav class="mt-2 ml-auto">
+          <b-nav-form>
+            <b-input-group >
+              <b-form-input placeholder="ค้นหา"></b-form-input>
+                <b-input-group-append>
+                  <b-button><font-awesome-icon icon="search" /></b-button>                        
+                </b-input-group-append>
+              </b-input-group>
+          </b-nav-form>        
+        </b-navbar-nav>
         
     </b-nav>
     <div ref="table" class="table-sty"></div>
@@ -32,6 +33,14 @@ export default {
   name: "ManageUser",
   data() {
       return {
+        selectedPermissin: null,
+        optionsPermissin: [
+          {value: null, text: 'สิทธ์ผู้ใช้งาน', disabled: true},
+          { value: '2564', text: 'ผู้บริหาร' },
+          { value: '2563', text: 'ส่วนกลาง' },
+          { value: '2562', text: 'สาขาวิชา' },
+        ],
+
         modalShow: false,
         tabulator: null, //variable to hold your table
         tableData: [
