@@ -5,9 +5,9 @@
         <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 ml-auto">
                 <b-nav-form>
                     <b-input-group >
-                        <b-form-input placeholder="ค้นหา"></b-form-input>
+                        <b-form-input id='search' placeholder="ค้นหา"></b-form-input>
                         <b-input-group-append>
-                            <b-button class="mb-2 mr-sm-2 mb-sm-0"><font-awesome-icon icon="search" /></b-button>                        
+                            <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='search'><font-awesome-icon icon="search" /></b-button>                        
                         </b-input-group-append>
                         <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='save'>บันทึก</b-button>
                         <b-button class="mb-2 mr-sm-0 mb-sm-0" @click='cancel'>ยกเลิก</b-button>
@@ -132,7 +132,6 @@ export default {
     var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
         cell, formatterParams, onRendered;
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
-        
     };
     //instantiate Tabulator when element is mounted
     this.tabulator = new Tabulator(this.$refs.table, {
@@ -204,6 +203,13 @@ export default {
     addRow() {
       this.tabulator.addRow({});
     },
+
+    search() {
+      var valueEl = document.getElementById("search");
+      if(valueEl != '') {
+        this.tabulator.setFilter('name','regex', valueEl.value);
+      }
+    }
   },
 };
 
