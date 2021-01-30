@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         MP_OUTCOME : DataTypes.FLOAT ,
         MP_CREATE_DATE : DataTypes.DATE ,
         MP_CREATE_USER_ID : DataTypes.INTEGER ,
+
     })
 
     return Main_Project
