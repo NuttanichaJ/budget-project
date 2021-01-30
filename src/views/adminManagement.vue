@@ -68,10 +68,10 @@ export default {
       data: this.tableData, //link data to table
       addRowPos:"bottom",
       columns: [
-        {title:"ชื่อ - นามสกุล", field:"name", width:200, editor:"input"},
-        {title:"E-mail", field:"mail", headerSort:false, width:250, editor:"input"},
-        {title:"ฝ่าย / สาขาวิชา", field:"branch", width:180, editor:"select", editorParams:{values:{"วิศวกรรมคอมพิวเตอร์":"วิศวกรรมคอมพิวเตอร์", "วิศวกรรมโยธา":"วิศวกรรมโยธา", "วิศวกรรมไฟฟ้า":"วิศวกรรมไฟฟ้า"}}},
-        {title:"สิทธิ์การใช้งาน", field:"permission", width:180, editor:"select", editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
+        {title:"ชื่อ - นามสกุล", field:"name", width:300, editor:"input",headerHozAlign:"center",validator:"required"},
+        {title:"E-mail", field:"mail", headerSort:false,headerHozAlign:"center", width:350, editor:"input" ,sorter:'mail',validator:"required"},
+        {title:"ฝ่าย / สาขาวิชา", field:"branch", width:200,validator:"required", editor:"select", editorParams:{values:{"วิศวกรรมคอมพิวเตอร์":"วิศวกรรมคอมพิวเตอร์", "วิศวกรรมโยธา":"วิศวกรรมโยธา", "วิศวกรรมไฟฟ้า":"วิศวกรรมไฟฟ้า"}}},
+        {title:"สิทธิ์การใช้งาน", field:"permission", width:200,validator:"required", editor:"select", editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
         {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().name + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}}, frozen:true }
           ,], //define table columns
