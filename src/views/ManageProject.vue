@@ -5,10 +5,10 @@
     <b-nav class="mt-3" id="menu">
         <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 ml-auto">
                 <b-nav-form>
-                    <b-input-group >
-                        <b-form-input placeholder="ค้นหา" id='search'></b-form-input>
+                    <b-input-group>
                         <b-input-group-append>
-                            <b-button @click='search' class="mb-2 mr-sm-2 mb-sm-0"><font-awesome-icon icon="search" /></b-button>                        
+                          <b-form-input placeholder="ค้นหา" id='search' @keyup.enter="search"></b-form-input>
+                          <b-button @click='search' class="mb-2 mr-sm-2 mb-sm-0"><font-awesome-icon icon="search" /></b-button>                        
                         </b-input-group-append>
                         <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='save'>บันทึก</b-button>
                         <b-button class="mb-2 mr-sm-0 mb-sm-0" @click='cancel'>ยกเลิก</b-button>

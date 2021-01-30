@@ -1,27 +1,19 @@
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const config = require('../config/config');
+const dbConfig = require("../config/db.config");
+
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+  host: dbConfig.HOST,
+  dialect: dbConfig.dialect,
+  storage: dbConfig.storage,
+  operatorsAliases: false,
+
+});
+
 const db = {};
 
-const sequelize = new Sequelize (
-    config.db.database,
-    config.db.user,
-    config.db.password,
-    confid.db.options,
-)
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
-fs.readSync(__dirname)
-    .filter((file) => 
-        file !== 'index.js'
-    )
+db.Main_Project = require("./mainProject.js")(sequelize, Sequelize);
 
-    .forfech((file) => {
-        const model = sequlize.import(path.join(__dirname.file))
-    });
-
-    db.sequelize = sequelize
-    db.sequelize = sequelize
-
-    module.exports = db
-
+module.exports = db;
