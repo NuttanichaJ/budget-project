@@ -28,7 +28,7 @@
         </b-navbar-nav>
       </b-nav>
     </div>
-    <div ref="table"></div>
+    <div ref="table" class="sty-table"></div>
   </div>
 
 </template>
@@ -47,7 +47,7 @@ export default {
             strategic_issue: '1',
             strategic: "1",
             strategy: "1",
-            name: "โครงการหลัก1jhfvjkjkfvjfndjcjdjfjvnfjvfjbvj",
+            name: "โครงการหลัก1jhfvjkjkfvjfndjcjdjfbvj",
             owner: "CoE",
             indicator: "ร้อยละจำนวน..",
             target_value: "ร้อยละ 80",
@@ -169,8 +169,8 @@ export default {
     thousand:",",
 }}, //define table columns
         {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว" }, hozAlign:"left",},  width:160},  
-        {formatter:printEditIcon, hozAlign:"left", },
-        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().name + " ใช่หรือไม่?")== true){
+        {formatter:printEditIcon, hozAlign:"left", headerSort:false,},
+        {formatter:printDelIcon, hozAlign:"left",headerSort:false, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().name + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}} }, //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
         ], //define table columns
     });
