@@ -102,9 +102,9 @@ export default {
   
  methods: {
 
-    addRow() {
-      this.tabulator.addRow({});
-    }, // add row table
+    // addRow() {
+    //   this.tabulator.addRow({});
+    // }, // add row table
     
 
        

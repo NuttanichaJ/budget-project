@@ -5,9 +5,9 @@
         <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 ml-auto">
                 <b-nav-form>
                     <b-input-group >
-                        <b-form-input id='search' placeholder="ค้นหา"></b-form-input>
+                        <b-form-input id='search' placeholder="ค้นหาชื่อโครงการ"></b-form-input>
                         <b-input-group-append>
-                            <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='search'><font-awesome-icon icon="search" /></b-button>                        
+                            <b-button class="mb-2 mr-sm-2 mb-sm-0"><font-awesome-icon icon="search" /></b-button>                        
                         </b-input-group-append>
                         <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='save'>บันทึก</b-button>
                         <b-button class="mb-2 mr-sm-0 mb-sm-0" @click='cancel'>ยกเลิก</b-button>
@@ -45,7 +45,7 @@
         <b-navbar-nav class="mb-2 mr-sm-0 mb-sm-0 mr-auto">
                 <b-nav-form>
                     <b-input-group >
-                        <b-button id="add-subproject" class="mb-2 ml-sm-2 mb-sm-0" @click='addRow'>เพิ่มโครงการย่อย</b-button>      
+                        <b-button id="add-subproject" class="mb-2 ml-sm-2 mb-sm-0" >เพิ่มโครงการย่อย</b-button>      
                         <b-button class="mb-2 ml-sm-2 mb-sm-0" to="/transfer">โอนเงินเข้า-ออก</b-button>
                     </b-input-group>
                 </b-nav-form>        
@@ -134,7 +134,7 @@ export default {
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
     };
     //instantiate Tabulator when element is mounted
-    this.tabulator = new Tabulator(this.$refs.table, {
+    var table = new Tabulator(this.$refs.table, {
       data: this.tableData, //link data to table
       columns: [
         {title:"ชื่อโครงการ", field:"name", width:140, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true},
@@ -182,8 +182,21 @@ export default {
           cell.getRow().delete()}} }, //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
         ], //define table columns
     });
+
+     // search name
+      var valueEl = document.getElementById("search");
+      valueEl.addEventListener("keyup", function(){
+        table.setFilter('name','like', valueEl.value);        
+      })
+
+      //add row
+       document.getElementById("add-subproject").addEventListener("click", function(){
+        table.addRow({});
+      });
+
+
   },
-  template: '<div ref="table"></div>', //create table holder element
+  //template: '<div ref="table"></div>', //create table holder element
   methods: {
     save() {
      this.$confirm(

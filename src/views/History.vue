@@ -85,7 +85,7 @@ export default {
 
       var valueEl = document.getElementById("search-his");
       valueEl.addEventListener("keyup", function(){
-        table.setFilter('username','regex', valueEl.value);
+        table.setFilter('username','like', valueEl.value);
         
       })
       var selectEl = document.getElementById("select-branch");

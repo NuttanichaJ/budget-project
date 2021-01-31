@@ -6,9 +6,9 @@
         <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 ml-auto">
                 <b-nav-form>
                     <b-input-group >
-                        <b-form-input placeholder="ค้นหา" id='search'></b-form-input>
+                        <b-form-input placeholder="ค้นหาชื่อโครงการ" id='search'></b-form-input>
                         <b-input-group-append>
-                            <b-button @click='search' class="mb-2 mr-sm-2 mb-sm-0"><font-awesome-icon icon="search" /></b-button>                        
+                            <b-button class="mb-2 mr-sm-2 mb-sm-0"><font-awesome-icon icon="search" /></b-button>                        
                         </b-input-group-append>
                         <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='save'>บันทึก</b-button>
                         <b-button class="mb-2 mr-sm-0 mb-sm-0" @click='cancel'>ยกเลิก</b-button>
@@ -21,14 +21,14 @@
         <b-navbar-nav class="mb-2 mr-sm-0 mb-sm-0 mr-auto">
                 <b-nav-form>
                     <b-input-group >
-                        <b-button id="add-subproject" class="mb-2 ml-sm-2 mb-sm-0" @click='addRow'>เพิ่มโครงการหลัก</b-button>      
+                        <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0" >เพิ่มโครงการหลัก</b-button>      
                         <b-button class="mb-2 ml-sm-2 mb-sm-0" to="/transfer">โอนเงินเข้า-ออก</b-button>
                     </b-input-group>
                 </b-nav-form>        
         </b-navbar-nav>
       </b-nav>
     </div>
-    <div ref="table" class="sty-table"></div>
+    <div id="table" class="sty-table"></div>
   </div>
 
 </template>
@@ -125,7 +125,7 @@ export default {
         
     };
     //instantiate Tabulator when element is mounted
-    this.tabulator = new Tabulator(this.$refs.table, {
+    var table = new Tabulator('#table', {
       data: this.tableData, //link data to table
       addRowPos:"bottom",
       columns: [
@@ -173,9 +173,21 @@ export default {
         {formatter:printDelIcon, hozAlign:"left",headerSort:false, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().name + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}} }, //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
         ], //define table columns
-    });
+    });   
+
+      // search name
+      var valueEl = document.getElementById("search");
+      valueEl.addEventListener("keyup", function(){
+        table.setFilter('name','like', valueEl.value);        
+      })
+
+      //add row
+       document.getElementById("add-project").addEventListener("click", function(){
+        table.addRow({});
+      });
+
   },
-  template: '<div ref="table"></div>', //create table holder element
+  //template: '<div ref="table"></div>', //create table holder element
   methods: {
     save() {
      this.$confirm(
@@ -192,16 +204,16 @@ export default {
     )
     },
     //Add row on "Add Row" button click
-    addRow() {
-      this.tabulator.addRow({});
-    },
+    // addRow() {
+    //   this.tabulator.addRow({});
+    // },
 
-    search() {
-      var valueEl = document.getElementById("search");
-      if(valueEl != '') {
-        this.tabulator.setFilter('name','regex', valueEl.value);
-      }
-    }
+    // search() {
+    //   var valueEl = document.getElementById("search");
+    //   if(valueEl != '') {
+    //     this.tabulator.setFilter('name','regex', valueEl.value);
+    //   }
+    // }
   },
 };
 
