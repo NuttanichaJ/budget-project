@@ -40,7 +40,6 @@ export default {
                 {name:"โครงการย่อยB2", strategic_issue: "1", strategic: "2", strategy: "3", budged: 2000,}],
             },
             {name: 'โครงการหลักC',strategic_issue: "4",strategic: "1",strategy: "2",},
-            {type:"Swiss", rind:"none", age:"9 months", color:"yellow", image:"swiss.jpg"},
  
         ],//data for table to display
 
