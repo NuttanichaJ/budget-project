@@ -103,8 +103,6 @@ export default {
   margin: 20px;
 }
 
-
-
 .row {
   margin-bottom: 20px;
 }

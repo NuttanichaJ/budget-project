@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 
 import Home from '@/views/Home.vue'
 import Layout from '@/components/Layout.vue'
-import ManageProject from '@/views/ManageProject.vue'
+import ManageProjectC from '@/views/ManageProjectC.vue'
+import ManageProjectB from '@/views/ManageProjectB.vue'
 import History from '@/views/History.vue'
 import Transfer from '@/views/Transfer.vue'
 import ManageSubProject from '@/views/ManageSubProject.vue'
@@ -27,9 +28,14 @@ const routes = [
       component: Home,
     },
     {
-      path: '/manageproject',
-      name: 'ManageProject',
-      component: ManageProject,
+      path: '/manageprojectcenter',
+      name: 'ManageProjectCenter',
+      component: ManageProjectC,
+    },
+    {
+      path: '/manageprojectbrance',
+      name: 'ManageProjectBrance',
+      component: ManageProjectB,
     },
     {
       path: '/allsummary',

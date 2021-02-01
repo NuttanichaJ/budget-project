@@ -3,7 +3,6 @@
     <SummaryHead/>
     <div class="allsummary">    
         <b-container fluid>
-  
           <!-- สาขาวิชา -->
           <a class="brancebtn btn btn-block" href="/SubSummary">
           <div class="mt-5 mx-3" id="branch">
