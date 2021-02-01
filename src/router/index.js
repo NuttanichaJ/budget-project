@@ -11,6 +11,7 @@ import AdminLayout from '@/components/AdminLayout.vue'
 import adminManagement from '@/views/adminManagement.vue'
 import AllSummary from '@/views/AllSummary.vue'
 import SubSummary from '@/views/SubSummary.vue'
+import Login from '@/views/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -68,6 +69,12 @@ const routes = [
       component: adminManagement,
     }
   ]
+},
+{
+  path: '/login',
+  name: 'login',
+  component: Login,
+
 }
   
 ]
