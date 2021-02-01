@@ -41,13 +41,10 @@ export default {
   name: "ManageProject",
   data() {
       return {
+        modalShow: false,
         tabulator: null, //variable to hold your table
         tableData: [
-          {
-            strategic_issue: '1',
-            strategic: "1",
-            strategy: "1",
-            name: "โครงการหลัก1jhfvjkjkfvjfndjcjdjfbvj",
+            {name: 'โครงการหลักA',strategic_issue: "2",strategic: "1",strategy: "1",
             owner: "CoE",
             indicator: "ร้อยละจำนวน..",
             target_value: "ร้อยละ 80",
@@ -59,47 +56,101 @@ export default {
             disburse: "0",
             total_from_priciple: "0",
             total_from_disburse: "0",
-            status: "ยังไม่ได้ดำเนินการ",
-        },
-          {
-            strategic_issue: '2',
-            strategic: "1",
-            strategy: "1",
-            name: "โครงการหลัก2",
-            owner: "CoE",
-            indicator: "ร้อยละจำนวน..",
-            target_value: "ร้อยละ 80",
-            budget: "0",
-            income: "0",
-            outcome: "0",
-            total_amount: "0",
-            approve_use: "0",
-            disburse: "0",
-            total_from_priciple: "0",
-            total_from_disburse: "0",
-            status: "ยังไม่ได้ดำเนินการ",
-        },
-          {
-            strategic_issue: '3',
-            strategic: "1",
-            strategy: "1",
-            name: "โครงการหลัก3",
-            owner: "CoE",
-            indicator: "ร้อยละจำนวน..",
-            target_value: "ร้อยละ 80",
-            budget: "0",
-            income: "0",
-            outcome: "0",
-            total_amount: "0",
-            approve_use: "0",
-            disburse: "0",
-            total_from_priciple: "0",
-            total_from_disburse: "0",
-            status: "ยังไม่ได้ดำเนินการ",
-        },
+            status: "ยังไม่ได้ดำเนินการ", 
 
-        ], //data for table to display
-      }
+            _children:[
+                {name:"โครงการย่อยA1", 
+                  owner: "CoE",
+                  indicator: "ร้อยละจำนวน..",
+                  target_value: "ร้อยละ 80", 
+                  budget: "0",
+                  income: "0",
+                  outcome: "0",
+                  total_amount: "0",
+                  approve_use: "0",
+                  disburse: "0",
+                  total_from_priciple: "0",
+                  total_from_disburse: "0",
+                  status: "ยังไม่ได้ดำเนินการ",
+                },
+                {name:"โครงการย่อยA2",  
+                  owner: "CoE",
+                  indicator: "ร้อยละจำนวน..",
+                  target_value: "ร้อยละ 80", 
+                  budget: "0",
+                  income: "0",
+                  outcome: "0",
+                  total_amount: "0",
+                  approve_use: "0",
+                  disburse: "0",
+                  total_from_priciple: "0",
+                  total_from_disburse: "0",
+                  status: "ยังไม่ได้ดำเนินการ",
+                }],
+             },
+            {name: 'โครงการหลักB',strategic_issue: "1",strategic: "3",strategy: "1",
+            owner: "CoE",
+            indicator: "ร้อยละจำนวน..",
+            target_value: "ร้อยละ 80",
+            budget: "0",
+            income: "0",
+            outcome: "0",
+            total_amount: "0",
+            approve_use: "0",
+            disburse: "0",
+            total_from_priciple: "0",
+            total_from_disburse: "0",
+            status: "ยังไม่ได้ดำเนินการ",
+
+            _children:[
+                {name:"โครงการย่อยB1",
+                  owner: "CoE",
+                  indicator: "ร้อยละจำนวน..",
+                  target_value: "ร้อยละ 80", 
+                  budget: "0",
+                  income: "0",
+                  outcome: "0",
+                  total_amount: "0",
+                  approve_use: "0",
+                  disburse: "0",
+                  total_from_priciple: "0",
+                  total_from_disburse: "0",
+                  status: "ยังไม่ได้ดำเนินการ",
+
+                  },
+                {name:"โครงการย่อยB2", owner: "CoE",
+                  indicator: "ร้อยละจำนวน..",
+                  target_value: "ร้อยละ 80", 
+                  budget: "0",
+                  income: "0",
+                  outcome: "0",
+                  total_amount: "0",
+                  approve_use: "0",
+                  disburse: "0",
+                  total_from_priciple: "0",
+                  total_from_disburse: "0",
+                  status: "ยังไม่ได้ดำเนินการ",
+                  }],
+            },
+
+            {name: 'โครงการหลักC',strategic_issue: "4",strategic: "1",strategy: "2",
+            owner: "CoE",
+            indicator: "ร้อยละจำนวน..",
+            target_value: "ร้อยละ 80",
+            budget: "0",
+            income: "0",
+            outcome: "0",
+            total_amount: "0",
+            approve_use: "0",
+            disburse: "0",
+            total_from_priciple: "0",
+            total_from_disburse: "0",
+            status: "ยังไม่ได้ดำเนินการ",},
+ 
+        ],//data for table to display
+
+
+        }
   },
    watch:{
     //update table if data changes
@@ -127,9 +178,14 @@ export default {
     //instantiate Tabulator when element is mounted
     var table = new Tabulator('#table', {
       data: this.tableData, //link data to table
+      dataTree:true,
+      dataTreeStartExpanded:true,
+      dataTreeChildIndent : 20, //indent child rows
+      resizableColumns:false,
+      
       addRowPos:"bottom",
       columns: [
-        {title:"ชื่อโครงการ", field:"name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true},
+        {title:"ชื่อโครงการ", field:"name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
         {title:"ประเด็นยุทธศาสตร์", field:"strategic_issue", width:100, editor:"input", hozAlign:"right", },
         {title:"ยุทธศาสตร์", field:"strategic", width:100, editor:"input", hozAlign:"right", },
         {title:"กลยุทธ์", field:"strategy", width:100, editor:"input", hozAlign:"right",},
@@ -168,6 +224,10 @@ export default {
     decimal:".",
     thousand:",",
 }}, //define table columns
+        {title:"ผลการดำเนินงาน", field:"performance_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"ปัญหาและอุปสรรค", field:"problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"รายละเอียดผลการดำเนินงาน", field:"detail_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"หมายเหตุ", field:"annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว" }, hozAlign:"left",},  width:160},  
         {formatter:printEditIcon, hozAlign:"left", headerSort:false,},
         {formatter:printDelIcon, hozAlign:"left",headerSort:false, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().name + " ใช่หรือไม่?")== true){
