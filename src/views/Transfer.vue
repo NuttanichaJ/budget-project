@@ -88,7 +88,7 @@ export default {
       addRowPos:"bottom",
       columns: [
         {title:"โอนจาก", field:"outcome", editor:"select",headerFilter:"input", headerFilterPlaceholder:"...", editorParams:{values:{"โครงการหลัก 1":"โครงการหลัก 1", "โครงการหลัก 2":"โครงการหลัก 2", "โครงการย่อย 1":"โครงการย่อย 1", "โครงการย่อย 2":"โครงการย่อย 2" }, hozAlign:"right",},  width:400},  
-         {title:"จำนวน", field:"amount", width:150, editor:"number", hozAlign:"right", formatter:"money", formatterParams:{
+        {title:"จำนวน", field:"amount", width:150, editor:"number", hozAlign:"right", formatter:"money", formatterParams:{
     decimal:".",
     thousand:",", 
     }},

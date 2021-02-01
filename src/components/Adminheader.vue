@@ -2,7 +2,7 @@
   <div id="adminheader">
     <b-navbar toggleable="sm" type="light" variant="light">
         <b-navbar-brand to="/admin">
-          <img src="@/assets/en-logo.png" />
+          <img id="img" src="@/assets/en-logo.png" />
           <div id="logo-name">
             <span>EN KKU</span>
             <br />
@@ -51,7 +51,7 @@ export default {
 
 
 <style lang="scss">
-img {
+#img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
