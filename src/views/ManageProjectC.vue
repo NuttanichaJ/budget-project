@@ -1,7 +1,6 @@
 <template>
   <div id="manageproject">
     <h1 class="ml-2">จัดการโครงการ</h1>
-    <h2 class="ml-2">โครงการหลัก</h2>
     <b-nav class="mt-3" id="menu">
         <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 ml-auto">
                 <b-nav-form>
@@ -41,13 +40,24 @@ export default {
   name: "ManageProject",
   data() {
       return {
+        modalShow: false,
         tabulator: null, //variable to hold your table
         tableData: [
-          {
-            strategic_issue: '1',
-            strategic: "1",
-            strategy: "1",
-            name: "โครงการหลัก1jhfvjkjkfvjfndjcjdjfbvj",
+            {name: 'โครงการหลักA',strategic_issue: "2",strategic: "1",strategy: "1",
+            owner: "CoE",
+            indicator: "ร้อยละจำนวน..",
+            target_value: "ร้อยละ 80",
+            budget: "0",
+            income: "0",
+            outcome: "0",
+            total_amount: "0",
+            approve_use: "0",
+            disburse: "0",
+            total_from_priciple: "0",
+            total_from_disburse: "0",
+            status: "ยังไม่ได้ดำเนินการ", 
+             },
+            {name: 'โครงการหลักB',strategic_issue: "1",strategic: "3",strategy: "1",
             owner: "CoE",
             indicator: "ร้อยละจำนวน..",
             target_value: "ร้อยละ 80",
@@ -60,46 +70,27 @@ export default {
             total_from_priciple: "0",
             total_from_disburse: "0",
             status: "ยังไม่ได้ดำเนินการ",
-        },
-          {
-            strategic_issue: '2',
-            strategic: "1",
-            strategy: "1",
-            name: "โครงการหลัก2",
-            owner: "CoE",
-            indicator: "ร้อยละจำนวน..",
-            target_value: "ร้อยละ 80",
-            budget: "0",
-            income: "0",
-            outcome: "0",
-            total_amount: "0",
-            approve_use: "0",
-            disburse: "0",
-            total_from_priciple: "0",
-            total_from_disburse: "0",
-            status: "ยังไม่ได้ดำเนินการ",
-        },
-          {
-            strategic_issue: '3',
-            strategic: "1",
-            strategy: "1",
-            name: "โครงการหลัก3",
-            owner: "CoE",
-            indicator: "ร้อยละจำนวน..",
-            target_value: "ร้อยละ 80",
-            budget: "0",
-            income: "0",
-            outcome: "0",
-            total_amount: "0",
-            approve_use: "0",
-            disburse: "0",
-            total_from_priciple: "0",
-            total_from_disburse: "0",
-            status: "ยังไม่ได้ดำเนินการ",
-        },
 
-        ], //data for table to display
-      }
+            },
+
+            {name: 'โครงการหลักC',strategic_issue: "4",strategic: "1",strategy: "2",
+            owner: "CoE",
+            indicator: "ร้อยละจำนวน..",
+            target_value: "ร้อยละ 80",
+            budget: "0",
+            income: "0",
+            outcome: "0",
+            total_amount: "0",
+            approve_use: "0",
+            disburse: "0",
+            total_from_priciple: "0",
+            total_from_disburse: "0",
+            status: "ยังไม่ได้ดำเนินการ",},
+ 
+        ],//data for table to display
+
+
+        }
   },
    watch:{
     //update table if data changes
@@ -112,13 +103,13 @@ export default {
   },
 
   mounted(){
-    var printEditIcon = function(cell, formatterParams, onRendered){ //plain text value
+    var printSPIcon = function(cell, formatterParams, onRendered){ //plain text value
         cell, formatterParams, onRendered;
         if(cell.getRow().getData().name != undefined) {
-          return '<a href="/managesubproject" class="btn btn-secondary" target="_self">แก้ไข</a>'
+          return '<a class="btn btn-secondary" href="/managesubproject" target="_self">แก้ไขโครงการย่อย</a>'
         }
-        
     };
+
     var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
         cell, formatterParams, onRendered;
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
@@ -127,9 +118,10 @@ export default {
     //instantiate Tabulator when element is mounted
     var table = new Tabulator('#table', {
       data: this.tableData, //link data to table
+      resizableColumns:false,
       addRowPos:"bottom",
       columns: [
-        {title:"ชื่อโครงการ", field:"name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true},
+        {title:"ชื่อโครงการ", field:"name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
         {title:"ประเด็นยุทธศาสตร์", field:"strategic_issue", width:100, editor:"input", hozAlign:"right", },
         {title:"ยุทธศาสตร์", field:"strategic", width:100, editor:"input", hozAlign:"right", },
         {title:"กลยุทธ์", field:"strategy", width:100, editor:"input", hozAlign:"right",},
@@ -168,8 +160,12 @@ export default {
     decimal:".",
     thousand:",",
 }}, //define table columns
-        {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว" }, hozAlign:"left",},  width:160},  
-        {formatter:printEditIcon, hozAlign:"left", headerSort:false,},
+        {title:"ผลการดำเนินงาน", field:"performance_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"ปัญหาและอุปสรรค", field:"problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"รายละเอียดผลการดำเนินงาน", field:"detail_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"หมายเหตุ", field:"annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว" }, hozAlign:"left",},  width:160},
+        {formatter:printSPIcon, hozAlign:"left",headerSort:false, },
         {formatter:printDelIcon, hozAlign:"left",headerSort:false, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().name + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}} }, //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
         ], //define table columns
@@ -178,7 +174,7 @@ export default {
       // search name
       var valueEl = document.getElementById("search");
       valueEl.addEventListener("keyup", function(){
-        table.setFilter('name','like', valueEl.value);        
+        table.setFilter('name','like', valueEl.value);       
       })
 
       //add row

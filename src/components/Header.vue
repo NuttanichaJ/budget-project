@@ -15,7 +15,7 @@
       <b-collapse id="nav-collapse" is-nav>
         
         <b-navbar-nav>
-          <b-nav-item id="menu-bar" to="/manageproject" exact exact-active-class="active"
+          <b-nav-item id="menu-bar" to="/manageprojectcenter" exact exact-active-class="active"
             ><font-awesome-icon
               :icon="['fas', 'clipboard-list']"
             />&nbsp;จัดการโครงการ</b-nav-item

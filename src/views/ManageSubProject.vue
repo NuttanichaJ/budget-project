@@ -17,29 +17,96 @@
     </b-nav>
       <div>
       <div class="header">
-    <b-row>
-      <b-col lg="6" sm="6" xs="12" class="ml-2">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="" close>
            <div class="d-flex justify-content-between align-items-center mb-lg">
               <h3>โครงการหลัก 1</h3>
-              <i class="la la-arrow-right text-primary la-lg rotate-315" />
+              <i class="la la-arrow-right text-primary la-lg rotate-315"/>
             </div>
+            
+        </div>
+        <div>
+  <b-button v-b-toggle.collapse-1>ข้อมูลโครงการ</b-button>
+  <b-collapse id="collapse-1" class="mt-2">
+    <b-card>
+      <div id="collapseInfoMP">
+          <b-row>
+      <b-col lg="6" sm="10" xs="12" class="ml-2">
             <div class="d-flex flex-wrap justify-content-between">
               <div class="mt">
-                <h5>1</h5><p class="text-muted mb-0 mr"><small>ประเด็นยุทธศาสตร์</small></p>
+                <p class="text-muted mb-0 mr"><small>ประเด็นยุทธศาสตร์ : 1</small></p>
+                <p class="text-muted mb-0 mr"><small>ยุทธศาสตร์ : 1</small></p>
+                <p class="text-muted mb-0 mr"><small>กลยุทธ์ : 1</small></p>
+                <p class="text-muted mb-0 mr"><small>ผู้รับผิดชอบ : CoE</small></p>
+                <p class="text-muted mb-0 mr"><small>ค่าเป้าหมาย : ร้อยละจำนวนของผู้เข้าร่วมโครงการ</small></p>
               </div>
-              <div class="mt">
-                <h5>1</h5><p class="text-muted mb-0 mr"><small>ยุทธศาสตร์</small></p>
-              </div>
-              <div class="mt">
-                <h5>1</h5><p class="text-muted mb-0 mr"><small>กลยุทธ์</small></p>
+               <div class="mt">
+                <p class="text-muted mb-0 mr"><small>ผลการดำเนินงาน : </small></p>
+                <p class="text-muted mb-0 mr"><small>ปัญหาและอุปสรรค : </small></p>
+                <p class="text-muted mb-0 mr"><small>รายละเอียดผลการดำเนินงาน : </small></p>
+                <p class="text-muted mb-0 mr"><small>หมายเหตุ : </small></p>
               </div>
             </div>
-          </Widget>
-        </div>
       </b-col>
-        </b-row>
+    </b-row>
+        <b-container fluid>
+          <b-row class="mt-3 mb-2">
+            <b-col class="mr-0" cols="12" >
+              <div class="d-flex flex-wrap justify-content-betweet">
+                <div class="mr-2 col-sm-2" id="border">
+                  <p class="mb-0"><small>งบประมาณตามแผน</small></p>
+                  <h5 class="mb-0 text-center">2300</h5>
+                  <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                </div>
+                <div class="mr-2 col-sm-2" id="border">
+                  <p class="mb-0"><small>โอนเข้า</small></p>
+                  <h5 class="mb-0 text-center">0</h5>
+                  <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                </div>
+                <div class="mr-2 col-sm-2" id="border">
+                  <p class="mb-0"><small>โอนออก</small></p>
+                  <h5 class="mb-0 text-center">0</h5>
+                  <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                </div>
+                <div class="mr-2 col-sm-2" id="border">
+                  <p class="mb-0"><small>คงเหลือตามแผน</small></p>
+                  <h5 class="mb-0 text-center">2300</h5>
+                  <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                </div>
+              </div>  
+            </b-col>
+            <b-col class="mr-0" cols="12">
+              <div class="d-flex flex-wrap justify-content-betweet">
+                <div class="mr-2 col-sm-2" id="border">
+                  <p class="mb-0"><small>ขออนุมัติใช้</small></p>
+                  <h5 class="mb-0 text-center">0</h5>
+                  <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                </div>
+                <div class="mr-2 col-sm-2" id="border">
+                  <p class="mb-0"><small>เบิกจ่าย</small></p>
+                  <h5 class="mb-0 text-center">0</h5>
+                  <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                </div>
+                <div class="mr-2 col-sm-2" id="border">
+                  <p class="mb-0"><small>คงเหลือตามหลักการ</small></p>
+                  <h5 class="mb-0 text-center">2300</h5>
+                  <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                </div>
+                <div class="mr-2 col-sm-2" id="border">
+                  <p class="mb-0"><small>คงเหลือจากเบิกจ่ายจริง</small></p>
+                  <h5 class="mb-0 text-center">2300</h5>
+                  <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                </div>
+              </div>  
+            </b-col>
+          </b-row>
+        </b-container>
+        </div>  
+    </b-card>
+  </b-collapse>
+</div>
+        
+        
+    
       </div>
        <b-nav class="mt-3" id="menu">
         <b-navbar-nav class="mb-2 mr-sm-0 mb-sm-0 mr-auto">
@@ -222,7 +289,8 @@ export default {
       if(valueEl != '') {
         this.tabulator.setFilter('name','regex', valueEl.value);
       }
-    }
+    },
+    
   },
 };
 
@@ -234,6 +302,7 @@ export default {
 #managesubproject {
   margin: 20px;
 }
+
 
 </style>
 

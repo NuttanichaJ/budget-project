@@ -23,7 +23,7 @@
     "jquery.tabulator": "^3.5.3",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.5.0",
-    "sqlite3": "^5.0.1",
+    "sqlite3": "^5.0.0",
     "tabulator-tables": "^4.9.3",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.6.0",
