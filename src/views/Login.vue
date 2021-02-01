@@ -5,7 +5,7 @@
                 <b-card border-variant="dark" class="bgcard">
                     <b-row align-v="center">
                         <b-col md="6">                            
-                            <img src="@/assets/img-enkku.jpg" alt="EN-KKU" class="rounded-0" width="100">
+                            <img src="@/assets/img-enkku.jpg" alt="EN-KKU" class="rounded-0 imgen" width="100">
                         </b-col>
                         <b-col md="6">
                             <b-card-body>
@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss">
-img {
+.imgen {
   width: 100%;
   height: 100%;
   
