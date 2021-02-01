@@ -106,7 +106,7 @@ export default {
     var printSPIcon = function(cell, formatterParams, onRendered){ //plain text value
         cell, formatterParams, onRendered;
         if(cell.getRow().getData().name != undefined) {
-          return '<a class="btn btn-secondary" href="/managesubproject" target="_self">แก้ไข</a>'
+          return '<a class="btn btn-secondary" href="/managesubproject" target="_self">แก้ไขโครงการย่อย</a>'
         }
     };
 
