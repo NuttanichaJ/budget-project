@@ -74,33 +74,33 @@ export default {
             {title:"กลยุทธ", field:"strategy", width:180,hozAlign:"right"},
            
         ],    
-        rowFormatter:function(row){
-            //create and style holder elements
-            var holderEl = document.createElement("div");
-            var tableEl = document.createElement("div");
+        // rowFormatter:function(row){
+        //     //create and style holder elements
+        //     var holderEl = document.createElement("div");
+        //     var tableEl = document.createElement("div");
 
-            // holderEl.style.boxSizing = "border-box";
-            holderEl.style.padding = "10px 30px 10px 10px";
-            // holderEl.style.borderTop = "1px solid #333";
-            // holderEl.style.borderBotom = "1px solid #333";
-            // holderEl.style.background = "#ddd";
+        //     // holderEl.style.boxSizing = "border-box";
+        //     holderEl.style.padding = "10px 30px 10px 10px";
+        //     // holderEl.style.borderTop = "1px solid #333";
+        //     // holderEl.style.borderBotom = "1px solid #333";
+        //     // holderEl.style.background = "#ddd";
 
-            // tableEl.style.border = "1px solid #333";
+        //     // tableEl.style.border = "1px solid #333";
 
-            holderEl.appendChild(tableEl);
+        //     holderEl.appendChild(tableEl);
 
-            row.getElement().appendChild(holderEl);
+        //     row.getElement().appendChild(holderEl);
 
-            this.tabulator = new Tabulator(tableEl, {
-                layout:"fitColumns",
-                //data: this.tableData.serviceHistory,              
-                columns:[
-                    {title:"Date", field:"date", sorter:"date"},
-                    {title:"Engineer", field:"engineer"},
-                    {title:"Action", field:"actions"},
-                ]
-            })
-        },
+        //     this.tabulator = new Tabulator(tableEl, {
+        //         layout:"fitColumns",
+        //         //data: this.tableData.serviceHistory,              
+        //         columns:[
+        //             {title:"Date", field:"date", sorter:"date"},
+        //             {title:"Engineer", field:"engineer"},
+        //             {title:"Action", field:"actions"},
+        //         ]
+        //     })
+        // },
     });
 
 
