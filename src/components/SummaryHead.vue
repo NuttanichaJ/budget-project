@@ -101,7 +101,7 @@
               <b-form inline class="p-2 mx-3">
                 <b-form-select id="select-printOwner" class="mb-2 mr-sm-2 mb-sm-0"            
                   v-model="selectedPrintOwner" :options="optionsPrintOwner" 
-                  multiple :select-size="4" size="sm" value-field="text">
+                  multiple="multiple" :select-size="4" size="sm" value-field="text">
                 </b-form-select>
               </b-form>
             </b-col>
@@ -158,6 +158,8 @@ export default {
           { value: 'user3', text: 'ผู้รับผิดชอบคนที่3' },
           { value: 'user4', text: 'ผู้รับผิดชอบคนที่4' }
         ],
+        value: [1],
+        multiple: true
       }
     },    
    
