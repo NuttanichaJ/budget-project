@@ -69,13 +69,12 @@ export default {
       var table = new Tabulator("#table", {
         data: this.tableData, //link data to table
         layout:"fitDataStretch",
-        responsiveLayout:"hide",
+        //responsiveLayout:"hide",
         columns: [
           {title: "วัน-เวลา", field:"date", align:"center", width: 300,headerHozAlign:"center" },
           {title: "username", field:"username", align:"center", width: 300 ,headerHozAlign:"center"},
           {title: "ฝ่าย/สาขา", field:"branch", align:"center", width: 300, headerHozAlign:"center",},
-          {title: "รายการแก้ไข", field:"listedit", align:"center", headerHozAlign:"center",headerSort:false,},
-          
+          {title: "รายการแก้ไข", field:"listedit", align:"center", headerHozAlign:"center",headerSort:false,},  
           
         ], //define table columns
       

@@ -107,7 +107,7 @@
             </b-col>
           </b-row>          
           
-          <!-- <div class="mt-3">ผู้รับผิดชอบ: {{ selectedPrintOwner }}</div> -->
+          <div class="mt-3">ผู้รับผิดชอบ: {{ selectedPrintOwner }}</div>
 
         </div>
         <b-row class="justify-content-md-center"> 
@@ -143,16 +143,15 @@ export default {
           { value: '2561', text: '2561' }
           
         ],
-        selectedPrintBranch: "ทั้งหมด",
+        selectedPrintBranch: "branchAll",
         optionsPrintBranch: [
-          { value: 'brancgAll', text: 'ทั้งหมด' },
+          { value: 'branchAll', text: 'ทั้งหมด' },
           { value: 'CoE', text: 'CoE' },
           { value: 'EE', text: 'EE' },
           { value: 'ฝ่ายวิชาการ', text: 'ฝ่ายวิชาการ' }
         ],
-        selectedPrintOwner: [],
-        optionsPrintOwner: [
-          
+        selectedPrintOwner: 'userAll',
+        optionsPrintOwner: [          
           { value: 'userAll', text: 'ทั้งหมด' },
           { value: 'user1', text: 'ผู้รับผิดชอบคนที่1' },
           { value: 'user2', text: 'ผู้รับผิดชอบคนที่2' },
