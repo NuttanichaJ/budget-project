@@ -65,7 +65,6 @@ export default {
         dataTree:true,
         dataTreeStartExpanded:true,
         dataTreeChildIndent : 20, //indent child rows
-        resizableColumns:false,
         columns: [
             {title:"ชื่อโครงการ", field:"name", width:200, responsive:0,},
             {title:"ประเด็นยุทธศาสตร์", field:"strategic_issue", width:200, hozAlign:"right"},

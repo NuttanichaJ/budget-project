@@ -6,7 +6,7 @@
           <!-- สาขาวิชา -->
           <a class="brancebtn btn btn-block" href="/SubSummary">
           <div class="mt-5 mx-3" id="branch">
-            <b-row class="mt-3 d-flex align-items-center" >              
+            <b-row class="mt-3 d-flex align-items-center">              
               <b-col cols="4" class="border border-dark rounded-left p-2">
                   <div class="d-flex flex-wrap justify-content-around">  
                     <div class="d-flex align-items-center">
@@ -110,7 +110,7 @@
               <b-col cols="4" class="border border-dark rounded-left p-2">
                   <div class="d-flex flex-wrap justify-content-around">  
                     <div class="d-flex align-items-center">
-                      <h4 class="border border-dark rounded p-2">EE</h4>
+                      <h4 class="border border-dark rounded p-2">CE</h4>
                     </div>
                     <div class="">
                       <p class="mb-0"><small>โครงการย่อยที่กำลังดำเนินการ</small></p>

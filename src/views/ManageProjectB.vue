@@ -164,13 +164,12 @@ export default {
     //instantiate Tabulator when element is mounted
     var table = new Tabulator('#table', {
       data: this.tableData, //link data to table
-      layout:"fitColumns",
       movableRows:true,
       dataTree:true,
       dataTreeStartExpanded:true,
       dataTreeChildIndent : 20, //indent child rows
-      resizableColumns:false,
       addRowPos:"bottom",
+      layout:"fitDataStretch",
 
       columns: [
         
@@ -215,7 +214,7 @@ export default {
         {title:"รายละเอียดผลการดำเนินงาน", field:"detail_result", width:160, hozAlign:"left",}, //define table columns
         {title:"หมายเหตุ", field:"annotation", width:160, hozAlign:"left",}, //define table columns
         {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว" }, hozAlign:"left",},  width:160},  
-        {formatter:printSPIcon, hozAlign:"left",headerSort:false, width:100},
+        {formatter:printSPIcon, hozAlign:"left",headerSort:false, width:160, },
         ], //define table columns
     });
     

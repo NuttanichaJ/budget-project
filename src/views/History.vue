@@ -46,7 +46,7 @@ export default {
       tableData: [
         {date:"18/02/21",username:"theui",branch:'สาขาวิชาวิศวกรรมโยธา'},
         {date:"1/03/21",username:"jaehyun",branch:'สาขาวิชาวิศวกรรมคอมพิวเตอร์'},
-        {date:"1/03/21",username:"นุ้งนุ้ง",branch:'ส่วนกลาง'},
+        {date:"1/03/21",username:"ABC",branch:'ส่วนกลาง'},
         {date:"1/03/21",username:"sdf-kku",branch:'สาขาวิชาวิศวกรรมคอมพิวเตอร์'},
         {date:"1/03/21",username:"sdfff",branch:'สาขาวิชาวิศวกรรมไฟฟ้า'},
         

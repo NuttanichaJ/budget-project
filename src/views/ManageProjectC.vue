@@ -118,7 +118,10 @@ export default {
     //instantiate Tabulator when element is mounted
     var table = new Tabulator('#table', {
       data: this.tableData, //link data to table
+<<<<<<< Updated upstream
       //resizableColumns:false,
+=======
+>>>>>>> Stashed changes
       addRowPos:"bottom",
       columns: [
         {title:"ชื่อโครงการ", field:"name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
