@@ -14,7 +14,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.Main_Project = require("./mainProject.js")(sequelize, Sequelize);
+db.Main_Project = require("./Main_Project.js")(sequelize, Sequelize);
 db.Sub_Project = require("./subProject.js")(sequelize, Sequelize);
 db.Department = require("./department")(sequelize, Sequelize);
 db.History = require("./history")(sequelize, Sequelize);

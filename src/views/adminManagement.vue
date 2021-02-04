@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-nav class="mt-3" id="menu">
-        <b-button id="add-user" class="my-2">เพิ่มสมาชิก</b-button>
+        <b-button id="add-user" class="my-2" @click="addRow">เพิ่มสมาชิก</b-button>
 
         <b-form inline class="p-2 mx-3" >          
           <b-form-select v-model="selectedPermissin" :options="optionsPermissin" 
@@ -27,6 +27,8 @@
 
 <script>
 import Tabulator from 'tabulator-tables'; 
+import AdminDataSevice from "../services/AdminManagement.DataSevice";
+
 export default {
   name: "ManageUser",
   data() {
@@ -62,37 +64,39 @@ export default {
   },
 
   mounted(){
+    this.retrieveUser();
+
     var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
         cell, formatterParams, onRendered;
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
     };
     //instantiate Tabulator when element is mounted
-    var table = new Tabulator('#table', {
+    this.tabulator = new Tabulator('#table', {
       data: this.tableData, //link data to table
       addRowPos:"bottom",
       columns: [
-        {title:"ชื่อ - นามสกุล", field:"name", width:300, editor:"input",headerHozAlign:"center",validator:"required"},
-        {title:"E-mail", field:"mail", headerSort:false, headerHozAlign:"center", width:350, editor:"input" ,validator:"required"},
-        {title:"ฝ่าย / สาขาวิชา", field:"branch", width:200,validator:"required", editor:"select", editorParams:{values:{"วิศวกรรมคอมพิวเตอร์":"วิศวกรรมคอมพิวเตอร์", "วิศวกรรมโยธา":"วิศวกรรมโยธา", "วิศวกรรมไฟฟ้า":"วิศวกรรมไฟฟ้า"}}},
-        {title:"สิทธิ์การใช้งาน", field:"permission", width:200,validator:"required", editor:"select", editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
-        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().name + " ใช่หรือไม่?")== true){
+        {title:"ชื่อ - นามสกุล", field:"USER_FNAME", width:300, editor:"input",headerHozAlign:"center",validator:"required"},
+        {title:"E-mail", field:"EMAIL", headerSort:false, headerHozAlign:"center", width:350, editor:"input" ,validator:"required"},
+        {title:"ฝ่าย / สาขาวิชา", field:"D_ID", width:200,validator:"required", editor:"select", editorParams:{values:{"วิศวกรรมคอมพิวเตอร์":"วิศวกรรมคอมพิวเตอร์", "วิศวกรรมโยธา":"วิศวกรรมโยธา", "วิศวกรรมไฟฟ้า":"วิศวกรรมไฟฟ้า"}}},
+        {title:"สิทธิ์การใช้งาน", field:"PERMISSION", width:200,validator:"required", editor:"select", editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
+        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().USER_FNAME + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}}, frozen:true, headerSort:false,},
       ], //define table columns
     });
 
      //add row
-      document.getElementById("add-user").addEventListener("click", function(){
-        table.addRow({});
-      });
+      // document.getElementById("add-user").addEventListener("click", function(){
+      //   this.tabulator.addRow({});
+      // });
 
       // search
       var valueEl = document.getElementById("search");
       valueEl.addEventListener("keyup", function(){
-        table.setFilter('name','like', valueEl.value);  
+        this.tabulator.setFilter('name','like', valueEl.value);  
       })
       var selectEl = document.getElementById("selectPer");
       selectEl.addEventListener("change", function(){
-        table.setFilter('permission','like', selectEl.options[selectEl.selectedIndex].text);
+        this.tabulator.setFilter('permission','like', selectEl.options[selectEl.selectedIndex].text);
           
       })
    
@@ -102,11 +106,19 @@ export default {
   
  methods: {
 
-    // addRow() {
-    //   this.tabulator.addRow({});
-    // }, // add row table
-    
-
+    addRow() {
+      this.tabulator.addRow({});
+    }, // add row table
+    retrieveUser() {
+          AdminDataSevice.getAll()
+            .then(response => {
+              this.tableData = response.data;
+              console.log(response.data);
+            })
+            .catch(e => {
+              console.log(e);
+            });
+    },
        
   },
   

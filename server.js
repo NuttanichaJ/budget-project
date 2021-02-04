@@ -21,6 +21,9 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
+require("./src/routes/mainProjectCenter.routes")(app);
+require("./src/routes/subProject.routes")(app);
+require("./src/routes/adminManagement.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
@@ -28,6 +31,6 @@ app.listen(PORT, () => {
 });
 
 const db = require("./src/models");
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   console.log("Drop and re-sync db.");
 });
