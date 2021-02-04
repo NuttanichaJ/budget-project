@@ -65,49 +65,93 @@
           <font-awesome-icon :icon="['fas', 'file-excel']" />&nbsp;&nbsp;พิมพ์
         </template>
         <div class="d-block text-center">
-          <b-row>
+          <b-row class="pt-5 pb-5">
             <b-col cols="3">
               <label class="mr-sm-2" for="select-printYear">ปีงบประมาณ:</label>
             </b-col>
             <b-col cols="9"> 
               <b-form inline class="p-2 mx-3">
-                <b-form-select id="select-printYear" class="mb-2 mr-sm-2 mb-sm-0" 
-                  v-model="selectedPrintYear" :options="optionsPrintYear"
-                  multiple :select-size="4" size="sm" value-field="text">
-                </b-form-select>
+                <vue-multi-select 
+                  ref="multiSelect"
+                  v-model="valuesPrintYear"
+                  search
+                  historyButton
+                  :options="options"
+                  :filters="filters"
+                  :btnLabel="btnLabelYear"
+                  searchPlaceholder="ค้นหาปีงบประมาณ"
+                  position=''
+                  @open="open"
+                  @close="close"
+                  :selectOptions="dataPrintYear">
+                  <template v-slot:option="{option}" class="w-25">
+                    <input type="checkbox" :checked="option.selected"/>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;{{option.name}}</span>
+                  </template>
+                </vue-multi-select>  
+
               </b-form>
             </b-col>
           </b-row>
 
-          <b-row>
+          <b-row class="pt-5 pb-5">
             <b-col cols="3">
               <label class="mr-sm-2" for="select-printBranch">ฝ่าย/สาขา:</label>
             </b-col>
             <b-col cols="9"> 
               <b-form inline class="p-2 mx-3">
-                <b-form-select id="select-printBranch" class="mb-2 mr-sm-2 mb-sm-0"            
-                  v-model="selectedPrintBranch" :options="optionsPrintBranch" 
-                  multiple :select-size="4" size="sm" value-field="text">
-                </b-form-select>
+                <vue-multi-select 
+                  ref="multiSelect"
+                  v-model="valuesPrintBranch"
+                  search
+                  historyButton
+                  :options="options"
+                  :filters="filters"
+                  :btnLabel="btnLabelBranch"
+                  searchPlaceholder="ค้นหาฝ่าย/สาขาวิชา"
+                  position=''
+                  @open="open"
+                  @close="close"
+                  :selectOptions="dataPrintBranch">
+                  <template v-slot:option="{option}">
+                    <input type="checkbox" :checked="option.selected"/>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;{{option.name}}</span>
+                  </template>
+                </vue-multi-select>  
+                
               </b-form>
             </b-col>
           </b-row>
           
-          <b-row>
+          <b-row class="pt-5 pb-5">
             <b-col cols="3">
-              <label class="mr-sm-2" for="select-printBranch">ผู้รับผิดชอบ:</label>
+              <label class="mr-sm-2 " for="select-printBranch">ผู้รับผิดชอบ:</label>
             </b-col>
             <b-col cols="9"> 
               <b-form inline class="p-2 mx-3">
-                <b-form-select id="select-printOwner" class="mb-2 mr-sm-2 mb-sm-0"            
-                  v-model="selectedPrintOwner" :options="optionsPrintOwner" 
-                  multiple :select-size="4" size="sm" value-field="text">
-                </b-form-select>
+                <vue-multi-select 
+                  ref="multiSelect"
+                  v-model="valuesPrintOwner"
+                  search
+                  historyButton
+                  :options="options"
+                  :filters="filters"
+                  :btnLabel="btnLabelOwner"
+                  searchPlaceholder="ค้นหาชื่อผู้รับผิดชอบ"
+                  position=''
+                  @open="open"
+                  @close="close"
+                  :selectOptions="dataPrintOwner">
+                  <template v-slot:option="{option}">
+                    <input type="checkbox" :checked="option.selected"/>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;{{option.name}}</span>
+                  </template>
+                </vue-multi-select> 
+                
               </b-form>
             </b-col>
           </b-row>          
           
-          <div class="mt-3">ผู้รับผิดชอบ: {{ selectedPrintOwner }}</div>
 
         </div>
         <b-row class="justify-content-md-center"> 
@@ -123,8 +167,14 @@
 </template>
 
 <script>
+import vueMultiSelect from 'vue-multi-select';
+import 'vue-multi-select/dist/lib/vue-multi-select.css';
+
 export default {
     name: "SummaryHead",
+    components: {
+      vueMultiSelect,
+    },
     data() {
       return {
         selectedYear: "2564",
@@ -134,34 +184,54 @@ export default {
           { value: '2562', text: '2562' },
           { value: '2561', text: '2561' }
         ],
-        selectedPrintYear: "ทั้งหมด",
-        optionsPrintYear: [
-          { value: 'all', text: 'ทั้งหมด' },
-          { value: '2564', text: '2564' },
-          { value: '2563', text: '2563' },
-          { value: '2562', text: '2562' },
-          { value: '2561', text: '2561' }
-          
-        ],
-        selectedPrintBranch: "branchAll",
-        optionsPrintBranch: [
-          { value: 'branchAll', text: 'ทั้งหมด' },
-          { value: 'CoE', text: 'CoE' },
-          { value: 'EE', text: 'EE' },
-          { value: 'ฝ่ายวิชาการ', text: 'ฝ่ายวิชาการ' }
-        ],
-        selectedPrintOwner: 'userAll',
-        optionsPrintOwner: [          
-          { value: 'userAll', text: 'ทั้งหมด' },
-          { value: 'user1', text: 'ผู้รับผิดชอบคนที่1' },
-          { value: 'user2', text: 'ผู้รับผิดชอบคนที่2' },
-          { value: 'user3', text: 'ผู้รับผิดชอบคนที่3' },
-          { value: 'user4', text: 'ผู้รับผิดชอบคนที่4' }
-        ],
-      }
-    },    
-   
+        
+        btnLabelYear: values => `เลือกปีงบประมาณ (${values.length})`,
+        valuesPrintYear: [],
+        dataPrintYear: [{
+          list: [
+            { name: '2564' },
+            { name: '2563' },
+            { name: '2562' },
+            { name: '2561' },
+            { name: '2560' },
+          ],
+        }],
+        btnLabelOwner: values => `เลือกผู้รับผิดชอบ (${values.length})`,
+        valuesPrintOwner: [],
+        dataPrintOwner:[{
+          list: [
+            {name: 'ผู้ใช้งานคนที่1'},
+            {name: 'ผู้ใช้งานคนที่2'},
+            {name: 'ผู้ใช้งานคนที่3'},
+            {name: 'ผู้ใช้งานคนที่4'},
+            {name: 'ผู้ใช้งานคนที่5'},            
+          ]
+        }],
+        btnLabelBranch: values => `เลือกฝ่าย/สาขาวิชา (${values.length})`,
+        valuesPrintBranch: [],
+        dataPrintBranch:[{
+          list: [
+            {name: 'CoE'},
+            {name: 'EE'},
+            {name: 'CE'},
+            {name: 'ฝ่ายวิชาการ'},            
+          ]
+        }],
+        filters: [{
+          nameAll: 'เลือกทั้งหมด',
+          nameNotAll: 'ยกเลิกเลือกทั้งหมด',
+          func() {
+            return true;
+          },      
+        }],
+        options: {
+          multi: true,
+          groups: true,
+        },
+    };
+  }
 }
+    
 
 </script>
 
@@ -188,6 +258,8 @@ export default {
   background-color: white;
 
 }
-
+.show{
+  display: none;
+}
 
 </style>

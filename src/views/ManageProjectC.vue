@@ -135,10 +135,11 @@ export default {
       //   table.setFilter('name','like', valueEl.value);       
       // })
 
-      // //add row
+      //add row
       //  document.getElementById("add-project").addEventListener("click", function(){
-      //   table.addRow({});
+      //   this.tabulator.addRow({});
       // });
+
 
   },
   template: '<div ref="table"></div>', //create table holder element
