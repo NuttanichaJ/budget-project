@@ -17,12 +17,12 @@
               <div class="d-flex flex-wrap justify-content-betweet" >
                 <div class="mr-2" id="border">
                   <p class="mb-0"><small>โครงการย่อยที่กำลังดำเนินการ</small></p>
-                  <h2 class="mb-0 text-center">23</h2>
+                  <h2 class="mb-0 text-center">21</h2>
                   <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
                 </div>
                 <div class="mr-2" id="border">
                   <p class="mb-0"><small>โครงการย่อยที่เสร็จสิ้น</small></p>
-                  <h2 class="mb-0 text-center">50</h2>
+                  <h2 class="mb-0 text-center">32</h2>
                   <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
                 </div>
               </div>  
@@ -31,22 +31,22 @@
               <div class="d-flex flex-wrap justify-content-around">
                 <div class="mr-1" id="border">
                   <p class="mb-0"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
-                  <h2 class="mb-0 text-center">8300</h2>
+                  <h2 class="mb-0 text-center">5,438,020</h2>
                   <p class="text-muted mt-0 mb-0 float-right" ><small>บาท</small></p>
                 </div>
                 <div class="mr-1" id="border">
                   <p class="mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
-                  <h2 class="mb-0 text-center">5000</h2>
+                  <h2 class="mb-0 text-center">78,505</h2>
                   <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                 </div>
                 <div class="mr-1" id="border">
                   <p class="mb-0"><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
-                  <h2 class="mb-0 text-center">4500</h2>
+                  <h2 class="mb-0 text-center">5,538,020</h2>
                   <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                 </div>
                 <div class="" id="border">
                   <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
-                  <h2 class="mb-0 text-center">4500</h2>
+                  <h2 class="mb-0 text-center">5,459,515</h2>
                   <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                 </div>
               </div>            
