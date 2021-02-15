@@ -12,7 +12,7 @@ export const chartData = {
     apex: {
         column: {
           series: [{
-            data: [21, 22, 10, 28, 16, 21, 13, 30]
+            data: [21, 22, 10, 28]
           }],
           options: {
             chart: {
@@ -22,7 +22,7 @@ export const chartData = {
             colors: columnColors,
             plotOptions: {
               bar: {
-                columnWidth: '45%',
+                columnWidth: '20%',
                 distributed: true
               }
             },
@@ -30,12 +30,13 @@ export const chartData = {
               enabled: false,
             },
             xaxis: {
-              categories: ['John', 'Joe', 'Jake', 'Amber', 'Peter', 'Mary', 'David', 'Lily'],
+              categories: ['งบประมาณทั้งหมด (ตามแผน)', 'เบิกจ่ายทั้งหมด', 'งบประมาณทคงเหลือ (ตามแผน)', 'งบประมาณทคงเหลือ (เบิกจ่ายจริง)'],
               labels: {
-                style: {
-                  colors: columnColors,
-                  fontSize: '14px'
-                }
+                show: false,
+                // style: {
+                //   colors: columnColors,
+                //   fontSize: '14px'
+                // }
               },
               axisBorder: {
                 show: false
@@ -54,20 +55,17 @@ export const chartData = {
           }
         },
         pie: {
-          series: [25, 15, 44, 55, 41, 17],
+          series: [15, 44, 55,],
           options: {
-            labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            theme: {
-              monochrome: {
-                enabled: true,
-                color: primary,
-              }
-            },
+            labels: ["โครงการที่กำลังดำเนินการ", "โครงการที่ยังไม่ได้ดำเนินการ", "โครงการที่เสร็จสิ้น"],
+            colors: [success, warning, '#FF0000',],
             stroke: {
               show: false,
               width: 0
             },
-            legend: false,
+            legend: {
+              position: 'bottom'
+            },
             responsive: [{
               breakpoint: 480,
               options: {
@@ -78,7 +76,11 @@ export const chartData = {
                   position: 'bottom'
                 }
               }
-            }]
+            }],
+            chart: {
+              height: 350,
+              type: 'pie',
+            },
           }
         }
       },

@@ -19,25 +19,27 @@
       <div class="header">
         <div class="pb-xlg h-100">
            <div class="d-flex justify-content-between align-items-center mb-lg">
-              <h3>โครงการหลัก 1</h3>
+              <h3>ส่งเสริมให้นักศึกษามีภาวะผู้นำ และคิดวิเคราะห์</h3>
               <i class="la la-arrow-right text-primary la-lg rotate-315"/>
             </div>
             
         </div>
         <div>
-  <b-button v-b-toggle.collapse-1>ข้อมูลโครงการ</b-button>
-  <b-collapse id="collapse-1" class="mt-2">
+  
+  <!-- <b-button v-b-toggle.collapse-1>ข้อมูลโครงการ</b-button> -->
     <b-card>
       <div id="collapseInfoMP">
           <b-row>
       <b-col lg="6" sm="10" xs="12" class="ml-2">
+        <h5>ข้อมูลโครงการ</h5>
             <div class="d-flex flex-wrap justify-content-between">
               <div class="mt">
                 <p class="text-muted mb-0 mr"><small>ประเด็นยุทธศาสตร์ : 1</small></p>
                 <p class="text-muted mb-0 mr"><small>ยุทธศาสตร์ : 1</small></p>
                 <p class="text-muted mb-0 mr"><small>กลยุทธ์ : 1</small></p>
-                <p class="text-muted mb-0 mr"><small>ผู้รับผิดชอบ : CoE</small></p>
-                <p class="text-muted mb-0 mr"><small>ค่าเป้าหมาย : ร้อยละจำนวนของผู้เข้าร่วมโครงการ</small></p>
+                <p class="text-muted mb-0 mr"><small>ผู้รับผิดชอบ : วิศวกรรมคอมพิวเตอร์</small></p>
+                <p class="text-muted mb-0 mr"><small>ตัวชี้วัด : ร้อยละนักศึกษาที่สำเร็จการศึกษาตามระยะเวลาที่หลักสูตรกำหนด</small></p>
+                <p class="text-muted mb-0 mr"><small>ค่าเป้าหมาย : ร้อยละ 55</small></p>
               </div>
                <div class="mt">
                 <p class="text-muted mb-0 mr"><small>ผลการดำเนินงาน : </small></p>
@@ -54,7 +56,7 @@
               <div class="d-flex flex-wrap justify-content-betweet">
                 <div class="mr-2 col-sm-2" id="border">
                   <p class="mb-0"><small>งบประมาณตามแผน</small></p>
-                  <h5 class="mb-0 text-center">2300</h5>
+                  <h5 class="mb-0 text-center">163470</h5>
                   <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                 </div>
                 <div class="mr-2 col-sm-2" id="border">
@@ -69,7 +71,7 @@
                 </div>
                 <div class="mr-2 col-sm-2" id="border">
                   <p class="mb-0"><small>คงเหลือตามแผน</small></p>
-                  <h5 class="mb-0 text-center">2300</h5>
+                  <h5 class="mb-0 text-center">163470</h5>
                   <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                 </div>
               </div>  
@@ -78,22 +80,22 @@
               <div class="d-flex flex-wrap justify-content-betweet">
                 <div class="mr-2 col-sm-2" id="border">
                   <p class="mb-0"><small>ขออนุมัติใช้</small></p>
-                  <h5 class="mb-0 text-center">0</h5>
+                  <h5 class="mb-0 text-center">107340</h5>
                   <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                 </div>
                 <div class="mr-2 col-sm-2" id="border">
                   <p class="mb-0"><small>เบิกจ่าย</small></p>
-                  <h5 class="mb-0 text-center">0</h5>
+                  <h5 class="mb-0 text-center">87777</h5>
                   <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                 </div>
                 <div class="mr-2 col-sm-2" id="border">
                   <p class="mb-0"><small>คงเหลือตามหลักการ</small></p>
-                  <h5 class="mb-0 text-center">2300</h5>
+                  <h5 class="mb-0 text-center">56130</h5>
                   <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                 </div>
                 <div class="mr-2 col-sm-2" id="border">
                   <p class="mb-0"><small>คงเหลือจากเบิกจ่ายจริง</small></p>
-                  <h5 class="mb-0 text-center">2300</h5>
+                  <h5 class="mb-0 text-center">154693</h5>
                   <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                 </div>
               </div>  
@@ -102,7 +104,6 @@
         </b-container>
         </div>  
     </b-card>
-  </b-collapse>
 </div>
         
         
@@ -112,7 +113,7 @@
         <b-navbar-nav class="mb-2 mr-sm-0 mb-sm-0 mr-auto">
                 <b-nav-form>
                     <b-input-group >
-                        <b-button id="add-subproject" class="mb-2 ml-sm-2 mb-sm-0" >เพิ่มโครงการย่อย</b-button>      
+                        <b-button id="add-subproject" class="mb-2 ml-sm-2 mb-sm-0" @click="addRow">เพิ่มโครงการย่อย</b-button>      
                         <b-button class="mb-2 ml-sm-2 mb-sm-0" to="/transfer">โอนเงินเข้า-ออก</b-button>
                     </b-input-group>
                 </b-nav-form>        
@@ -246,9 +247,9 @@ export default {
             });
     },
     //Add row on "Add Row" button click
-    // addRow() {
-    //   this.tabulator.addRow({});
-    // },
+    addRow() {
+      this.tabulator.addRow({});
+    },
 
     search() {
       var valueEl = document.getElementById("search");

@@ -10,7 +10,7 @@
         </b-form>        
         <b-navbar-nav class="mt-2 ml-auto">
           <b-nav-form>
-            <b-input-group >
+            <b-input-group>
               <b-form-input placeholder="ค้นหา" id="search"></b-form-input>
                 <b-input-group-append>
                   <b-button><font-awesome-icon icon="search" /></b-button>                        
@@ -43,12 +43,7 @@ export default {
 
         modalShow: false,
         tabulator: null, //variable to hold your table
-        tableData: [
-          {name: 'Teste', mail: 'asd@gmail.com',branch:'วิศวกรรมคอมพิวเตอร์',permission:'ผู้บริหาร'},
-          {name: 'ABC', mail: 'cds@gmail.com',branch:'วิศวกรรมไฟฟ้า',permission:'สาขาวิชา'},
-           {name: 'eghf', mail: 'cds@gmail.com',branch:'วิศวกรรมไฟฟ้า',permission:'ส่วนกลาง'},      
-      
-      ], //data for table to display
+        tableData: [], //data for table to display
       }
 
       
@@ -92,23 +87,23 @@ export default {
       // search
       var valueEl = document.getElementById("search");
       valueEl.addEventListener("keyup", function(){
-        this.tabulator.setFilter('name','like', valueEl.value);  
+        //table.setFilter('name','like', valueEl.value);  
       })
       var selectEl = document.getElementById("selectPer");
       selectEl.addEventListener("change", function(){
-        this.tabulator.setFilter('permission','like', selectEl.options[selectEl.selectedIndex].text);
-          
+        //table.setFilter('permission','like', selectEl.options[selectEl.selectedIndex].text);
       })
    
 
   },
-  //template: '<div ref="table"></div>', //create table holder element
+  template: '<div ref="table"></div>', //create table holder element
   
  methods: {
 
     addRow() {
       this.tabulator.addRow({});
     }, // add row table
+
     retrieveUser() {
           AdminDataSevice.getAll()
             .then(response => {
