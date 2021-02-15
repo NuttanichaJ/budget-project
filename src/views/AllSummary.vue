@@ -10,16 +10,16 @@
               <b-col cols="4" class="border border-dark rounded-left p-2">
                   <div class="d-flex flex-wrap justify-content-around">  
                     <div class="d-flex align-items-center">
-                      <h4 class="border border-dark rounded p-2">CoE</h4>
+                      <h4 class="border border-dark rounded p-2">CE</h4>
                     </div>
                     <div class="">
                       <p class="mb-0"><small>โครงการย่อยที่กำลังดำเนินการ</small></p>
-                      <h2 class="mb-0 text-center">23</h2>
+                      <h2 class="mb-0 text-center">5</h2>
                       <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
                     </div>
                     <div class="">
                       <p class="mb-0"><small>โครงการย่อยที่เสร็จสิ้น</small></p>
-                      <h2 class="mb-0 text-center">23</h2>
+                      <h2 class="mb-0 text-center">3</h2>
                       <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
                     </div>
                     
@@ -30,22 +30,22 @@
                 <div class="d-flex flex-wrap justify-content-around">                  
                    <div class="">
                     <p class="mb-0"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
-                    <h2 class="mb-0 text-center">8300</h2>
+                    <h2 class="mb-0 text-center">2,881,340</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
                     <p class="mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
-                    <h2 class="mb-0 text-center">5000</h2>
+                    <h2 class="mb-0 text-center">0</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
                     <p class="mb-0 "><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
-                    <h2 class="mb-0 text-center">4500</h2>
+                    <h2 class="mb-0 text-center">2,881,340</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
                     <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
-                    <h2 class="mb-0 text-center">4500</h2>
+                    <h2 class="mb-0 text-center">2,881,340</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                 </div> 
@@ -64,12 +64,12 @@
                     </div>
                     <div class="">
                       <p class="mb-0"><small>โครงการย่อยที่กำลังดำเนินการ</small></p>
-                      <h2 class="mb-0 text-center">23</h2>
+                      <h2 class="mb-0 text-center">11</h2>
                       <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
                     </div>
                     <div class="">
                       <p class="mb-0"><small>โครงการย่อยที่เสร็จสิ้น</small></p>
-                      <h2 class="mb-0 text-center">23</h2>
+                      <h2 class="mb-0 text-center">20</h2>
                       <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
                     </div>
                     
@@ -80,22 +80,22 @@
                 <div class="d-flex flex-wrap justify-content-around">                  
                    <div class="">
                     <p class="mb-0"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
-                    <h2 class="mb-0 text-center">8300</h2>
+                    <h2 class="mb-0 text-center">1,667,400</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
                     <p class="mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
-                    <h2 class="mb-0 text-center">5000</h2>
+                    <h2 class="mb-0 text-center">27,750</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
                     <p class="mb-0 "><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
-                    <h2 class="mb-0 text-center">4500</h2>
+                    <h2 class="mb-0 text-center">1,667,400</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
                     <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
-                    <h2 class="mb-0 text-center">4500</h2>
+                    <h2 class="mb-0 text-center">1,639,650</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                 </div> 
@@ -110,16 +110,16 @@
               <b-col cols="4" class="border border-dark rounded-left p-2">
                   <div class="d-flex flex-wrap justify-content-around">  
                     <div class="d-flex align-items-center">
-                      <h4 class="border border-dark rounded p-2">CE</h4>
+                      <h4 class="border border-dark rounded p-2">AE</h4>
                     </div>
                     <div class="">
                       <p class="mb-0"><small>โครงการย่อยที่กำลังดำเนินการ</small></p>
-                      <h2 class="mb-0 text-center">23</h2>
+                      <h2 class="mb-0 text-center">5</h2>
                       <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
                     </div>
                     <div class="">
                       <p class="mb-0"><small>โครงการย่อยที่เสร็จสิ้น</small></p>
-                      <h2 class="mb-0 text-center">23</h2>
+                      <h2 class="mb-0 text-center">9</h2>
                       <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
                     </div>
                     
@@ -130,22 +130,22 @@
                 <div class="d-flex flex-wrap justify-content-around">                  
                    <div class="">
                     <p class="mb-0"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
-                    <h2 class="mb-0 text-center">8300</h2>
+                    <h2 class="mb-0 text-center">889,280</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
                     <p class="mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
-                    <h2 class="mb-0 text-center">5000</h2>
+                    <h2 class="mb-0 text-center">50,755</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
                     <p class="mb-0 "><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
-                    <h2 class="mb-0 text-center">4500</h2>
+                    <h2 class="mb-0 text-center">989,280</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
                     <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
-                    <h2 class="mb-0 text-center">4500</h2>
+                    <h2 class="mb-0 text-center">938,525</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                 </div> 
