@@ -122,67 +122,21 @@
     <div>
 
   </div>
-    <div ref="table"></div>
+    <div ref="table" class="sty-table"></div>
   </div>
 
 </template>
 
 <script>
 import Tabulator from 'tabulator-tables'; 
+import SubProjectDataSevice from "../services/SP.DataSevice";
 
 export default {
   name: "ManageSubProject",
   data() {
       return {
         tabulator: null, //variable to hold your table
-        tableData: [
-          {
-            name: "โครงการย่อย1",
-            owner: "CoE",
-            indicator: "ร้อยละจำนวน..",
-            target_value: "ร้อยละ 80",
-            budget: "0",
-            income: "0",
-            outcome: "0",
-            total_amount: "0",
-            approve_use: "0",
-            disburse: "0",
-            total_from_priciple: "0",
-            total_from_disburse: "0",
-            status: "ยังไม่ได้ดำเนินการ",
-        },
-          {
-            name: "โครงการย่อย2",
-            owner: "CoE",
-            indicator: "ร้อยละจำนวน..",
-            target_value: "ร้อยละ 80",
-            budget: "0",
-            income: "0",
-            outcome: "0",
-            total_amount: "0",
-            approve_use: "0",
-            disburse: "0",
-            total_from_priciple: "0",
-            total_from_disburse: "0",
-            status: "ยังไม่ได้ดำเนินการ",
-        },
-          {
-            name: "โครงการย่อย3",
-            owner: "CoE",
-            indicator: "ร้อยละจำนวน..",
-            target_value: "ร้อยละ 80",
-            budget: "0",
-            income: "0",
-            outcome: "0",
-            total_amount: "0",
-            approve_use: "0",
-            disburse: "0",
-            total_from_priciple: "0",
-            total_from_disburse: "0",
-            status: "ยังไม่ได้ดำเนินการ",
-        },
-
-        ], //data for table to display
+        tableData: [], //data for table to display
       }
   },
    watch:{
@@ -196,74 +150,76 @@ export default {
   },
 
   mounted(){
+    this.retrieveSubProject();
+
     var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
         cell, formatterParams, onRendered;
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
     };
     //instantiate Tabulator when element is mounted
-    var table = new Tabulator(this.$refs.table, {
+    this.tabulator = new Tabulator(this.$refs.table, {
       data: this.tableData, //link data to table
       columns: [
-        {title:"ชื่อโครงการ", field:"name", width:140, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true},
-        {title:"ผู้รับผิดชอบ", field:"owner", width:140, editor:"input", hozAlign:"left",},
-        {title:"ตัวชี้วัด", field:"indicator",  width:140, editor:"input", hozAlign:"left", },
-        {title:"ค่าเป้าหมาย", field:"target_value", editor:"input",  width:140, hozAlign:"left",}, //define table columns
-        {title:"งบประมาณตามแผน", field:"budget", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"ชื่อโครงการ", field:"SP_NAME", width:140, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true},
+        {title:"ผู้รับผิดชอบ", field:"SP_OWNER", width:140, editor:"input", hozAlign:"left",},
+        {title:"ตัวชี้วัด", field:"SP_INDICATOR",  width:140, editor:"input", hozAlign:"left", },
+        {title:"ค่าเป้าหมาย", field:"SP_TARGET_VALUE", editor:"input",  width:140, hozAlign:"left",}, //define table columns
+        {title:"งบประมาณตามแผน", field:"SP_BUDGET", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
     decimal:".",
     thousand:",",
 }}, //define table columns
-        {title:"โอนเข้า", field:"income", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"โอนเข้า", field:"SP_INCOME", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
     decimal:".",
     thousand:",",
 }}, //define table columns
-        {title:"โอนออก", field:"outcome", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"โอนออก", field:"SP_OUTCOME", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
     decimal:".",
     thousand:",",
 }}, //define table columns
-        {title:"คงเหลือตามแผน", field:"total_amount", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามแผน", field:"SP_TOTAL_AMOUNT", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
     decimal:".",
     thousand:",",
 }}, //define table columns
-        {title:"ขออนุมัติใช้", field:"approve_use", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"ขออนุมัติใช้", field:"SP_APPROVE_USE", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
     decimal:".",
     thousand:",",
 }}, //define table columns
-        {title:"เบิกจ่าย", field:"disburse", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"เบิกจ่าย", field:"SP_DISBURSE", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
     decimal:".",
     thousand:",",
 }}, //define table columns
-        {title:"คงเหลือตามหลักการ", field:"total_from_priciple", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามหลักการ", field:"SP_TOTAL_FROM_PRINCIPLE", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
     decimal:".",
     thousand:",",
 }}, //define table columns
-        {title:"คงเหลือจากเบิกจ่ายจริง", field:"total_from_disburse", editor:"number",  width:160, hozAlign:"right", formatter:"money", formatterParams:{
+        {title:"คงเหลือจากเบิกจ่ายจริง", field:"SP_TOTAL_FROM_DISBURSE", editor:"number",  width:160, hozAlign:"right", formatter:"money", formatterParams:{
     decimal:".",
     thousand:",",
 }}, //define table columns
-        {title:"ผลการดำเนินงาน", field:"performance_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
-        {title:"ปัญหาและอุปสรรค", field:"problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
-        {title:"รายละเอียดผลการดำเนินงาน", field:"detail_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
-        {title:"หมายเหตุ", field:"annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"ผลการดำเนินงาน", field:"PERFORMANCE_RESULT", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"ปัญหาและอุปสรรค", field:"PROBLEM", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"รายละเอียดผลการดำเนินงาน", field:"DETAIL_RESULT", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"หมายเหตุ", field:"ANNOTATION", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว", }, hozAlign:"left"},  width:160}, 
-        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().name + " ใช่หรือไม่?")== true){
+        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().SP_NAME + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}} }, //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
         ], //define table columns
     });
 
      // search name
-      var valueEl = document.getElementById("search");
-      valueEl.addEventListener("keyup", function(){
-        table.setFilter('name','like', valueEl.value);        
-      })
+      // var valueEl = document.getElementById("search");
+      // valueEl.addEventListener("keyup", function(){
+      //   table.setFilter('name','like', valueEl.value);        
+      // })
 
       //add row
        document.getElementById("add-subproject").addEventListener("click", function(){
-        table.addRow({});
+        this.tabulator.addRow({});
       });
 
 
   },
-  //template: '<div ref="table"></div>', //create table holder element
+  template: '<div ref="table"></div>', //create table holder element
   methods: {
     save() {
      this.$confirm(
@@ -279,10 +235,20 @@ export default {
       "error"
     )
     },
-    //Add row on "Add Row" button click
-    addRow() {
-      this.tabulator.addRow({});
+    retrieveSubProject() {
+          SubProjectDataSevice.getAll()
+            .then(response => {
+              this.tableData = response.data;
+              console.log(response.data);
+            })
+            .catch(e => {
+              console.log(e);
+            });
     },
+    //Add row on "Add Row" button click
+    // addRow() {
+    //   this.tabulator.addRow({});
+    // },
 
     search() {
       var valueEl = document.getElementById("search");

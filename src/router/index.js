@@ -29,6 +29,7 @@ const routes = [
     },
     {
       path: '/manageprojectcenter',
+      alias: "/manageprojectcenter",
       name: 'ManageProjectCenter',
       component: ManageProjectC,
     },
