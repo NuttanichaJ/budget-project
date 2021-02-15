@@ -235,7 +235,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 .summary{
   margin: 20px;
