@@ -20,16 +20,16 @@
             </div>
             <div class="d-flex flex-wrap justify-content-between">
               <div class="mt">
-                <h2>8300</h2><p class="text-muted mb-0 mr"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
+                <h2>5,438,020</h2><p class="text-muted mb-0 mr"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
               </div>
               <div class="mt">
-                <h2>5000</h2><p class="text-muted mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
+                <h2>78,505</h2><p class="text-muted mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
               </div>
               <div class="mt">
-                <h2>4500</h2><p class="text-muted mb-0 mr"><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
+                <h2>5,538,020</h2><p class="text-muted mb-0 mr"><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
               </div>
               <div class="mt">
-                <h2>4500</h2><p class="text-muted mb-0 mr"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
+                <h2>5,459,515</h2><p class="text-muted mb-0 mr"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
               </div>
             </div>
             </Widget>
@@ -49,16 +49,16 @@
             </div>
             <div class="d-flex flex-wrap justify-content-between">
               <div class="mt">
-                <h2>5</h2><p class="text-muted mb-0 mr"><small>โครงการที่กำลังดำเนินการ</small></p>
+                <h2>21</h2><p class="text-muted mb-0 mr"><small>โครงการที่กำลังดำเนินการ</small></p>
               </div>
               <div class="mt">
-                <h2>2</h2><p class="text-muted mb-0"><small>โครงการที่เสร็จสิ้น</small></p>
+                <h2>32</h2><p class="text-muted mb-0"><small>โครงการที่เสร็จสิ้น</small></p>
               </div>
               <div class="mt">
-                <h2>4</h2><p class="text-muted mb-0 mr"><small>โครงการที่ยังไม่ได้ดำเนินการ</small></p>
+                <h2>11</h2><p class="text-muted mb-0 mr"><small>โครงการที่ยังไม่ได้ดำเนินการ</small></p>
               </div>
               <div class="mt">
-                <h2>11</h2><p class="text-muted mb-0 mr"><small>โครงการทั้งหมด</small></p>
+                <h2>64</h2><p class="text-muted mb-0 mr"><small>โครงการทั้งหมด</small></p>
               </div>
             </div>
             </Widget>

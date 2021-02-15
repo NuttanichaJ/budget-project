@@ -12,7 +12,7 @@ export const chartData = {
     apex: {
         column: {
           series: [{
-            data: [21, 22, 10, 28]
+            data: [5438020, 78505, 5538020, 5459515]
           }],
           options: {
             chart: {
@@ -55,7 +55,7 @@ export const chartData = {
           }
         },
         pie: {
-          series: [15, 44, 55,],
+          series: [21, 11, 32,],
           options: {
             labels: ["โครงการที่กำลังดำเนินการ", "โครงการที่ยังไม่ได้ดำเนินการ", "โครงการที่เสร็จสิ้น"],
             colors: [success, warning, '#FF0000',],
