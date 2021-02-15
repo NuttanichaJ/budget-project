@@ -11,7 +11,7 @@ import Adminheader from "./Adminheader"
 export default {
     name: "AdminLayout",
     components: {
-        Adminheader
+       Adminheader
     }
 }
 </script>

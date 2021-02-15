@@ -193,5 +193,9 @@ export default {
   margin: 20px;
 }
 
+.tabulator-frozen {
+  background-color: red;
+}
+
 </style>
 
