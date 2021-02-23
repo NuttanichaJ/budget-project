@@ -15,6 +15,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import { LoaderPlugin } from 'vue-google-login';
+
 
 library.add(fas)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -23,6 +25,10 @@ Vue.component('apexchart', VueApexCharts)
 Vue.config.productionTip = false
 Vue.use(VueSimpleAlert);
 Vue.use(VueTabulator);
+
+Vue.use(LoaderPlugin, {
+  client_id: '739770244137-b1d92li2tcs044jsj49ck7qmvbnchr9c.apps.googleusercontent.com'
+});
 
 
 new Vue({

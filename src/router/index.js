@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+//import { createRouter, createWebHistory } from 'vue-router';
+//import store from '@/store';
 
 import Home from '@/views/Home.vue'
 import Layout from '@/components/Layout.vue'
@@ -83,13 +85,13 @@ const routes = [
   component: Login,
 
 }
-  
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
+
 
 export default router
