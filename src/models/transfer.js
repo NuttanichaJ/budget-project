@@ -2,9 +2,7 @@ module.exports = (sequelize, DataTypes) => {
     const Transfer = sequelize.define('Transfer', {
         TRANSFER_ID : { 
             type: DataTypes.INTEGER,
-            defaultValue: function() {
-                return generateMyId()
-            },
+            autoIncrement: true,
             primaryKey: true,
         },
         AMOUNT : DataTypes.FLOAT ,
@@ -13,8 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         MP_ID_OUT : DataTypes.INTEGER,
         SP_ID_OUT : DataTypes.INTEGER,
         USER_ID : DataTypes.INTEGER,
-        TRANSFER_DATE : DataTypes.DATE ,
-
     })
 
     return Transfer

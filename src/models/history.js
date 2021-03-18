@@ -2,9 +2,7 @@ module.exports = (sequelize, DataTypes) => {
     const History = sequelize.define('History', {
         HISTORY_ID : { 
             type: DataTypes.INTEGER,
-            defaultValue: function() {
-                return generateMyId()
-            },
+            autoIncrement: true,
             primaryKey: true,
         },
         MASSAGE : DataTypes.STRING,

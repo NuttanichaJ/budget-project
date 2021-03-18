@@ -18,12 +18,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to application." });
 });
 
-require("./src/routes/mainProjectCenter.routes")(app);
+require("./src/routes/mainProject.routes")(app);
 require("./src/routes/subProject.routes")(app);
 require("./src/routes/adminManagement.routes")(app);
+require("./src/routes/transfer.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

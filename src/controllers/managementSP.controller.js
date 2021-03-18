@@ -12,14 +12,14 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a mainProject
+  // Create a Sub_Project
   const managementSP = {
     USER_ID: req.body.USER_ID,
     SP_ID: req.body.SP_ID,
     LAST_MANAGE_DATE: req.body.LAST_MANAGE_DATE,
   };
 
-  // Save Tutorial in the database
+  // Save Sub_Project in the database
   Management_SP.create(managementSP)
     .then(data => {
       res.send(data);
@@ -56,12 +56,30 @@ exports.findOne = (req, res) => {
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
-  
+  const SP_ID = req.params.id;
+
+  Management_SP.update(req.body, {
+    where: {SP_ID: SP_ID}
+  })
+
+  .catch(err => {
+    res.status(500).send({
+      message: 'Error updating MainProject with SP_ID=' + SP_ID
+    })
+  })
 };
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-  
+  const SP_ID = req.params.id;
+  Management_SP.destroy({
+    where: { SP_ID: SP_ID }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "ไม่สามารถลบได้"
+    });
+  });
 };
 
 // Delete all Tutorials from the database.

@@ -1,28 +1,28 @@
 module.exports = app => {
     const Transfer = require("../controllers/transfer.controller");
   
-    // var router = require("express").Router();
+    var router = require("express").Router();
   
-    // Create a new Tutorial
-    // router.post("/", manageMPcenter.create);
+    // Create a new Transfer
+    router.post("/", Transfer.create);
   
-    // Retrieve all Tutorials
+    // Retrieve all Transfers
     router.get("/", Transfer.findAll);
   
-    // // Retrieve all published Tutorials
-    // router.get("/published", tutorials.findAllPublished);
+    // // Retrieve all published Transfer
+    // router.get("/published", Transfer.findAllPublished);
   
-    // // Retrieve a single Tutorial with id
-    // router.get("/:id", tutorials.findOne);
+    // Retrieve a single Transfer with id
+    router.get("/:id", Transfer.findOne);
   
-    // // Update a Tutorial with id
-    // router.put("/:id", tutorials.update);
+    // Update a Transfer with id
+    router.put("/:id", Transfer.update);
   
-    // // Delete a Tutorial with id
-    // router.delete("/:id", tutorials.delete);
+    // Delete a Transfer with id
+    router.delete("/:id", Transfer.delete);
   
-    // // Delete all Tutorials
-    // router.delete("/", tutorials.deleteAll);
+    // // Delete all Transfer
+    // router.delete("/", Transfer.deleteAll);
   
     app.use('/api/transfer', router);
   };

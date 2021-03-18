@@ -1,11 +1,11 @@
 const db = require("../models");
 const SubProject = db.Sub_Project;
-// const Op = db.Sequelize.Op;
+const Op = db.Sequelize.Op;
 
 // Create and Save a new subProject
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.SP_ID) {
+  if (!req.body.SP_NAME) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -42,12 +42,12 @@ exports.create = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the tableData."
+          err.message || "Some error occurred while creating the table."
       });
     });
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all SubProject from the database.
 exports.findAll = (req, res) => {
     const SP_NAME = req.query.SP_NAME;
     var condition = SP_NAME ? { SP_NAME: { [Op.like]: `%${SP_NAME}%` } } : null;
@@ -59,24 +59,56 @@ exports.findAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "Some error occurred while retrieving SubProject."
         });
       });
 };
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
-  
+  const id = req.params.id;
+  console.log(id)
+
+  SubProject.findAll({
+    where: {
+      MP_ID: id}
+    })
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving MP_ID=" + id
+      });
+  });
 };
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
-  
+  const SP_ID = req.query.SP_ID;
+
+  SubProject.update(req.body, {
+    where: {SP_ID: SP_ID}
+  })
+
+  .catch(err => {
+    res.status(500).send({
+      message: 'Error updating MainProject with SP_ID=' + SP_ID
+    })
+  })
 };
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-  
+  const SP_ID = req.query.SP_ID;
+  SubProject.destroy({
+    where: { SP_ID: SP_ID }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "ไม่สามารถลบได้"
+    });
+  });
 };
 
 // Delete all Tutorials from the database.

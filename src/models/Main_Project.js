@@ -1,32 +1,27 @@
 module.exports = (sequelize, DataTypes) => {
-    const Main_Project = sequelize.define('Main_Project', {
+    const MAIN_PROJECT = sequelize.define('MAIN_PROJECT', {
         MP_ID : { 
             type: DataTypes.INTEGER,
-            defaultValue: function() {
-                return generateMyId()
-            },
             primaryKey: true,
+            autoIncrement: true
         },
-        D_ID : DataTypes.INTEGER,
-        MP_NAME : DataTypes.STRING,
-        MP_OWNER : DataTypes.STRING ,
-        STRATEGIC_ISSUE_ID : DataTypes.INTEGER ,
-        STRATEGIC_ID : DataTypes.INTEGER ,
-        STRATEGY_ID : DataTypes.INTEGER ,
-        MP_INDICATOR : DataTypes.STRING ,
-        MP_TARGET_VALUE : DataTypes.STRING ,
-        MP_BUDGET : DataTypes.FLOAT ,
-        MP_TOTAL_AMOUNT : DataTypes.FLOAT ,
-        MP_APPROVE_USE : DataTypes.FLOAT ,
-        MP_DISBURSE : DataTypes.FLOAT ,
-        MP_TOTAL_FROM_PRINCIPLE : DataTypes.FLOAT ,
-        MP_TOTAL_FROM_DISBURSE : DataTypes.FLOAT ,
-        MP_INCOME : DataTypes.FLOAT ,
-        MP_OUTCOME : DataTypes.FLOAT ,
-        MP_CREATE_DATE : DataTypes.DATE ,
-        MP_CREATE_USER_ID : DataTypes.INTEGER ,
-
+        MP_Name : DataTypes.STRING,
+        MP_Owner : DataTypes.STRING ,
+        MP_Indicator : DataTypes.STRING ,
+        MP_Target_Value : DataTypes.STRING ,
+        MP_Budget : DataTypes.FLOAT ,
+        MP_Total_Amount : DataTypes.FLOAT ,
+        MP_Approve_Use : DataTypes.FLOAT ,
+        MP_Disburse : DataTypes.FLOAT ,
+        MP_Total_From_Priciple : DataTypes.FLOAT ,
+        MP_Total_From_Disburse : DataTypes.FLOAT ,
+        MP_Income : DataTypes.FLOAT,
+        MP_Outcome : DataTypes.FLOAT,
+        Problem : DataTypes.STRING,
+        Annotation : DataTypes.STRING,
+        Performance_Result : DataTypes.STRING,
+        Detail_Result : DataTypes.STRING,
     })
 
-    return Main_Project
+    return MAIN_PROJECT
 }

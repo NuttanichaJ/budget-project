@@ -6,16 +6,14 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   dialect: dbConfig.dialect,
   storage: dbConfig.storage,
   operatorsAliases: false,
-
 });
 
 const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-
 db.Main_Project = require("./Main_Project.js")(sequelize, Sequelize);
-db.Sub_Project = require("./subProject.js")(sequelize, Sequelize);
+db.Sub_Project = require("./Sub_Project.js")(sequelize, Sequelize);
 db.Department = require("./department")(sequelize, Sequelize);
 db.History = require("./history")(sequelize, Sequelize);
 db.Strategic_Issue = require("./strategic_issue")(sequelize, Sequelize);

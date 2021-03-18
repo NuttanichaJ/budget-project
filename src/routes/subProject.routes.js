@@ -1,28 +1,28 @@
 module.exports = app => {
-    const manageSP = require("../controllers/subproject.controller");
+    const subproject = require("../controllers/subproject.controller");
   
     var router = require("express").Router();
   
-    // Create a new Tutorial
-    router.post("/", manageSP.create);
+    // Create a new SubProject
+    router.post("/", subproject.create);
   
-    // Retrieve all Tutorials
-    router.get("/", manageSP.findAll);
+    // Retrieve all SubProject
+    router.get("/", subproject.findAll);
   
-    // // Retrieve all published Tutorials
-    // router.get("/published", tutorials.findAllPublished);
+    // // Retrieve all published SubProject
+    // router.get("/published", subproject.findAllPublished);
   
-    // // Retrieve a single Tutorial with id
-    // router.get("/:id", tutorials.findOne);
+    // Retrieve a single SubProject with id
+    router.get("/:id", subproject.findOne);
   
-    // // Update a Tutorial with id
-    // router.put("/:id", tutorials.update);
+    // Update a SubProject with id
+    router.put("/:id", subproject.update);
   
-    // // Delete a Tutorial with id
-    // router.delete("/:id", tutorials.delete);
+    // Delete a SubProject with id
+    router.delete("/:id", subproject.delete);
   
-    // // Delete all Tutorials
-    // router.delete("/", tutorials.deleteAll);
+    // // Delete all SubProject
+    // router.delete("/", subproject.deleteAll);
   
     app.use('/api/subproject', router);
   };

@@ -4,5 +4,5 @@ module.exports = {
     PASSWORD: "",
     DB: "budgetENdb",
     dialect: "sqlite",
-    storage: "./budgetENdb.sqlite",
+    storage: "./budgetENdb2.sqlite",
   };

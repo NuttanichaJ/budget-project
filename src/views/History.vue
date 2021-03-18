@@ -12,24 +12,22 @@
             <b-input-group >
               <b-form-input placeholder="ค้นหา" id="search-his"></b-form-input>
                 <b-input-group-append>
-                  <b-button ><font-awesome-icon icon="search" /></b-button>                        
+                  <b-button ><font-awesome-icon icon="search" /></b-button> 
                 </b-input-group-append>
               </b-input-group>
           </b-nav-form>        
         </b-navbar-nav>        
       </b-nav>
-
-      <div id="table" class="table-sty"></div>
       
-
     </div>
 </template>
 
 <script>
 import Tabulator from 'tabulator-tables';
+var table;
+
 export default {
   name: "History",
-
   data () {
     return {
       // selected Permissin
@@ -54,34 +52,23 @@ export default {
     }
   },
   
-  watch:{
-    //update table if data changes
-    tableData:{
-      handler: function (newData) {
-        this.tabulator.replaceData(newData);
-      },
-        deep: true,
-    }
-  },
-
     mounted(){
       //instantiate Tabulator when element is mounted
-      var table = new Tabulator("#table", {
+      table = new Tabulator("#table", {
         data: this.tableData, //link data to table
+        history: true,
         layout:"fitDataStretch",
         //responsiveLayout:"hide",
         columns: [
-          {title: "วัน-เวลา", field:"date", align:"center", width: 300,headerHozAlign:"center" },
-          {title: "username", field:"username", align:"center", width: 300 ,headerHozAlign:"center"},
-          {title: "ฝ่าย/สาขา", field:"branch", align:"center", width: 300, headerHozAlign:"center",},
+          {title: "วัน-เวลา", field:"date", align:"center", width: 300,headerHozAlign:"center", editor: true,},
+          {title: "username", field:"username", align:"center", width: 300 ,headerHozAlign:"center", editor: true,},
+          {title: "ฝ่าย/สาขา", field:"branch", align:"center", width: 300, headerHozAlign:"center", },
           {title: "รายการแก้ไข", field:"listedit", align:"center", headerHozAlign:"center",headerSort:false,},  
           
         ], //define table columns
       
       });
-      //////////////////////    
-
-
+  
       var valueEl = document.getElementById("search-his");
       valueEl.addEventListener("keyup", function(){
         table.setFilter('username','like', valueEl.value);
@@ -92,18 +79,22 @@ export default {
         //table.setFilter("branch",'regex', selectEl.value);
         table.setFilter('branch','like', selectEl.options[selectEl.selectedIndex].text);  
       })
+
+      //undo button
+      document.getElementById("history-undo").addEventListener("click", function(){
+        console.log(this.tableData)
+        table.undo();
+      });
+
+      //redo button
+      document.getElementById("history-redo").addEventListener("click", function(){
+        table.redo();
+      });
       
      
   },
   //template: '<div ref="table"></div>', //create table holder element
   methods: {
-    search() {
-        var valueEl = document.getElementById("search-his");
-        if(valueEl != '') {
-          this.tabulator.setFilter('username','regex', valueEl.value);
-        }
-      },
-
      
   },
   

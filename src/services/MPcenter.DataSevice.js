@@ -2,31 +2,31 @@ import http from "../http-common";
 
 class MainProjectDataSevice {
   getAll() {
-    return http.get("/mainprojectcenter");
+    return http.get("/mainproject");
   }
 
   get(id) {
-    return http.get(`/mainprojectcenter/${id}`);
+    return http.get(`/mainproject/${id}`);
   }
 
   create(data) {
-    return http.post("/mainprojectcenter", data);
+    return http.post("/mainproject", data);
   }
 
   update(id, data) {
-    return http.put(`/mainprojectcenter/${id}`, data);
+    return http.put(`/mainproject/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/mainprojectcenter/${id}`);
+    return http.delete(`/mainproject/${id}`);
   }
 
   deleteAll() {
-    return http.delete(`/mainprojectcenter`);
+    return http.delete(`/mainproject`);
   }
 
   findByTitle(title) {
-    return http.get(`/mainprojectcenter?title=${title}`);
+    return http.get(`/mainproject?title=${title}`);
   }
 }
 

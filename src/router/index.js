@@ -31,7 +31,6 @@ const routes = [
     },
     {
       path: '/manageprojectcenter',
-      alias: "/manageprojectcenter",
       name: 'ManageProjectCenter',
       component: ManageProjectC,
     },
@@ -61,7 +60,7 @@ const routes = [
     component: Transfer,
   },
   {
-    path: '/managesubproject',
+    path: '/managesubproject/:id',
     name: 'ManageSubProject',
     component: ManageSubProject,
   },

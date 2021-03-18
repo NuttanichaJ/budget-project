@@ -1,11 +1,11 @@
 const db = require("../models");
 const MainProject = db.Main_Project;
-// const Op = db.Sequelize.Op;
+const Op = db.Sequelize.Op;
 
 // Create and Save a new mainProject
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.MP_ID) {
+  if (!req.body.MP_NAME) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -32,7 +32,7 @@ exports.create = (req, res) => {
     MP_OUTCOME: req.body.MP_OUTCOME,
   };
 
-  // Save Tutorial in the database
+  // Save Main Project in the database
   MainProject.create(mainProject)
     .then(data => {
       res.send(data);
@@ -40,12 +40,12 @@ exports.create = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the tableData."
+          err.message || "Some error occurred while creating the table."
       });
     });
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all MainProject from the database.
 exports.findAll = (req, res) => {
     const MP_NAME = req.query.MP_NAME;
     var condition = MP_NAME ? { MP_NAME: { [Op.like]: `%${MP_NAME}%` } } : null;
@@ -57,24 +57,54 @@ exports.findAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "Some error occurred while retrieving."
         });
       });
 };
 
-// Find a single Tutorial with an id
+// Find a single Main Project with an id
 exports.findOne = (req, res) => {
-  
+  // console.log(req.body.MP_ID)
+  const id = req.params.id;
+
+  MainProject.findByPk(id)
+  .then(data => {
+    res.send(data)
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Eroror retrieving MP_ID=" + id
+    });
+  });
 };
 
-// Update a Tutorial by the id in the request
+// Update a MainProject by the id in the request
 exports.update = (req, res) => {
-  
+  const MP_ID = req.params.id;
+
+  MainProject.update(req.body, {
+    where: {MP_ID: MP_ID}
+  })
+
+  .catch(err => {
+    res.status(500).send({
+      message: 'Error updating MainProject with MP_ID=' + MP_ID
+    })
+  })
+
 };
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-  
+  const MP_ID = req.params.id;
+  MainProject.destroy({
+    where: { MP_ID: MP_ID }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "ไม่สามารถลบได้"
+    });
+  });
 };
 
 // Delete all Tutorials from the database.

@@ -1,6 +1,8 @@
 const db = require("../models");
 const Transfer = db.Transfer;
-// const Op = db.Sequelize.Op;
+const SubProject = db.Sub_Project;
+const MainProject = db.Main_Project;
+const Op = db.Sequelize.Op;
 
 // Create and Save a new transfer
 exports.create = (req, res) => {
@@ -11,6 +13,15 @@ exports.create = (req, res) => {
     });
     return;
   }
+
+  // const subProject = {
+  //   SP_ID: req.body.SP_ID,
+  //   SP_NAME: req.body.SP_NAME,
+  // };
+  // const mainProject = {
+  //   MP_ID: req.body.SP_ID,
+  //   MP_NAME: req.body.SP_NAME,
+  // };
 
   // Create a transfer
   const transfer = {
@@ -36,21 +47,21 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all Transfer from the database.
 exports.findAll = (req, res) => {
-    const TRANSFER_ID = req.query.TRANSFER_ID;
-    var condition = TRANSFER_ID ? { TRANSFER_ID: { [Op.like]: `%${TRANSFER_ID}%` } } : null;
-  
-    Transfer.findAll({ where: condition })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials."
-        });
+  const SP_NAME = req.query.SP_NAME;
+  var condition = SP_NAME ? { SP_NAME: { [Op.like]: `%${SP_NAME}%` } } : null;
+
+  SubProject.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving Transfer."
       });
+    });
 };
 
 // Find a single Tutorial with an id
@@ -60,12 +71,30 @@ exports.findOne = (req, res) => {
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
-  
+  const TRANSFER_ID = req.query.TRANSFER_ID;
+
+  Transfer.update(req.body, {
+    where: {TRANSFER_ID: TRANSFER_ID}
+  })
+
+  .catch(err => {
+    res.status(500).send({
+      message: 'Error updating MainProject with TRANSFER_ID=' + TRANSFER_ID
+    })
+  })
 };
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-  
+  const TRANSFER_ID = req.query.TRANSFER_ID;
+  Transfer.destroy({
+    where: { TRANSFER_ID: TRANSFER_ID }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "ไม่สามารถลบได้"
+    });
+  });
 };
 
 // Delete all Tutorials from the database.
