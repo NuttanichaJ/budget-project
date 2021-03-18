@@ -1,16 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
-    const History = sequelize.define('History', {
-        HISTORY_ID : { 
+    const HISTORY = sequelize.define('HISTORY', {
+        History_ID : { 
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        MASSAGE : DataTypes.STRING,
-        EDITED_USER_ID : DataTypes.INTEGER,
-        EDITED_PROJECT_ID : DataTypes.INTEGER,
-        DATE : DataTypes.DATE ,
-
+        Massage : DataTypes.STRING,
+        Edited_User_ID : DataTypes.INTEGER,
+        Edited_Project_ID : DataTypes.INTEGER,
     })
 
-    return History
+    return HISTORY
 }

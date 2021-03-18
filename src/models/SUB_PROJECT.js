@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         Annotation : DataTypes.STRING,
         Performance_Result : DataTypes.STRING,
         Detail_Result : DataTypes.STRING,
-
+        SP_Create_User_ID : DataTypes.INTEGER,
     })
 
     return SUB_PROJECT

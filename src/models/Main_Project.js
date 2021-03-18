@@ -17,10 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         MP_Total_From_Disburse : DataTypes.FLOAT ,
         MP_Income : DataTypes.FLOAT,
         MP_Outcome : DataTypes.FLOAT,
-        Problem : DataTypes.STRING,
-        Annotation : DataTypes.STRING,
-        Performance_Result : DataTypes.STRING,
-        Detail_Result : DataTypes.STRING,
+        MP_Create_User_ID : DataTypes.INTEGER,
     })
 
     return MAIN_PROJECT
