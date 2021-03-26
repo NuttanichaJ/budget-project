@@ -12,181 +12,197 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.MAIN_PROJECT = require("./MAIN_PROJECT")(sequelize, Sequelize);
-db.SUB_PROJECT = require("./SUB_PROJECT")(sequelize, Sequelize);
-db.DEPARTMENT = require("./DEPARTMENT")(sequelize, Sequelize);
-db.HISTORY = require("./HISTORY")(sequelize, Sequelize);
-db.STRATEGIC_ISSUE = require("./STRATEGIC_ISSUE")(sequelize, Sequelize);
-db.STRATEGIC = require("./STRATEGIC")(sequelize, Sequelize);
-db.STRATEGY = require("./STRATEGY")(sequelize, Sequelize);
-db.TRANSFER = require("./TRANSFER")(sequelize, Sequelize);
-db.USER = require("./USER")(sequelize, Sequelize);
 
-//Define 1:1 SUB_PROJECT + STRATEGY
-db.DEPARTMENT.hasOne(db.USER, {
-  as: "USER"
-})
-db.USER.belongsTo(db.DEPARTMENT, {
-  foreignKey: "D_ID",
-  as: "DEPARTMENT"
-})
+db.mainproject = require("./mainproject.model")(sequelize, Sequelize);
+db.user = require("./user.model")(sequelize, Sequelize);
+db.subproject = require("./subproject.model")(sequelize, Sequelize);
+db.department = require("./department.model")(sequelize, Sequelize);
+db.strategicissue = require("./strategicissue.model")(sequelize, Sequelize);
+db.strategic = require("./strategic.model")(sequelize, Sequelize);
+db.strategy = require("./strategy.model")(sequelize, Sequelize);
+db.history = require("./history.model")(sequelize, Sequelize);
+db.transfer = require("./transfer.model")(sequelize, Sequelize);
 
-// Define 1:1 MAIN_PROJECT + DEPARTMENT
-db.DEPARTMENT.hasOne(db.MAIN_PROJECT, {
-  as: "MAIN_PROJECT",
+//Define M:M USER + MAIN_PROJECT
+db.user.belongsToMany(db.mainproject, {
+  through: "MANAGEMENT_MP",
+  as: "managed_mainprojects",
+  foreignKey: "User_ID",
 })
-db.MAIN_PROJECT.belongsTo(db.DEPARTMENT, {
-  foreignKey: "D_ID",
-  as: "DEPARTMENT"
+db.mainproject.belongsToMany(db.user, {
+  through: "MANAGEMENT_MP",
+  as: "users",
+  foreignKey: "MP_ID",
 })
 
-//Define 1:1 MAIN_PROJECT + STRATEGIC_ISSUE
-db.STRATEGIC_ISSUE.hasOne(db.MAIN_PROJECT, {
-  as: "MAIN_PROJECT"
+//Define M:M USER + SUB_PROJECT
+db.user.belongsToMany(db.subproject, {
+  through: "MANAGEMENT_SP",
+  as: "managed_subprojects",
+  foreignKey: "User_ID",
 })
-db.MAIN_PROJECT.belongsTo(db.STRATEGIC_ISSUE, {
-  foreignKey: "Strategic_Issue_ID",
-  as: "STRATEGIC_ISSUE"
-})
-
-//Define 1:1 MAIN_PROJECT + STRATEGIC
-db.STRATEGIC.hasOne(db.MAIN_PROJECT, {
-  as: "MAIN_PROJECT"
-})
-db.MAIN_PROJECT.belongsTo(db.STRATEGIC, {
-  foreignKey: "Strategic_ID",
-  as: "STRATEGIC"
-})
-
-//Define 1:1 MAIN_PROJECT + STRATEGY
-db.STRATEGY.hasOne(db.MAIN_PROJECT, {
-  as: "MAIN_PROJECT"
-})
-db.MAIN_PROJECT.belongsTo(db.STRATEGY, {
-  foreignKey: "Strategy_ID",
-  as: "STRATEGY"
+db.subproject.belongsToMany(db.user, {
+  through: "MANAGEMENT_SP",
+  as: "users",
+  foreignKey: "SP_ID",
 })
 
 //Define 1:M MAIN_PROJECT + SUB_PROJECT
-db.MAIN_PROJECT.hasMany(db.SUB_PROJECT, {
-  as: "SUB_PROJECT"
-})
-db.SUB_PROJECT.belongsTo(db.MAIN_PROJECT, {
+db.mainproject.hasMany(db.subproject, {
   foreignKey: "MP_ID",
-  as: "MAIN_PROJECT"
+  as: "subprojects"
+});
+db.subproject.belongsTo(db.mainproject, {
+  foreignKey: "MP_ID",
+  as: "mainprojects"
+});
+
+//Define 1:M USER + DEPARTMENT
+db.department.hasMany(db.user, {
+  as: "users",
+  foreignKey: "D_ID",
+})
+db.user.belongsTo(db.department, {
+  foreignKey: "D_ID",
+  as:"departments"
+});
+
+// Define M:1 MAIN_PROJECT + DEPARTMENT
+db.department.hasMany(db.mainproject, {
+  foreignKey: "D_ID",
+  as: "mainprojects",
+});
+db.mainproject.belongsTo(db.department, {
+  foreignKey: "D_ID",
+  as: "departments"
+});
+
+//Define M:1 MAIN_PROJECT + USER
+db.user.hasMany(db.mainproject, {
+  foreignKey: "MP_Create_User_ID",
+  as: "created_MP"
+})
+db.mainproject.belongsTo(db.user, {
+  foreignKey: "MP_Create_User_ID",
+  as: "created_user"
+})
+
+//Define M:1 SUB_PROJECT + USER
+db.user.hasOne(db.subproject, {
+  foreignKey: "SP_Create_User_ID",
+  as: "created_SP"
+})
+db.subproject.belongsTo(db.user, {
+  foreignKey: "SP_Create_User_ID",
+  as: "created_user"
+})
+
+//Define M:1 MAIN_PROJECT + STRATEGIC_ISSUE
+db.strategicissue.hasMany(db.mainproject, {
+  foreignKey: "Strategic_Issue_ID",
+  as: "mainprojects"
+})
+db.mainproject.belongsTo(db.strategicissue, {
+  foreignKey: "Strategic_Issue_ID",
+  as: "strategicissue"
+})
+
+//Define M:1 MAIN_PROJECT + STRATEGIC
+db.strategic.hasOne(db.mainproject, {
+  foreignKey: "Strategy_ID",
+  as: "mainprojects"
+})
+db.mainproject.belongsTo(db.strategic, {
+  foreignKey: "Strategic_ID",
+  as: "strategic"
+})
+
+//Define M:1 MAIN_PROJECT + STRATEGY
+db.strategy.hasOne(db.mainproject, {
+  foreignKey: "Strategy_ID",
+  as: "mainprojects"
+})
+db.mainproject.belongsTo(db.strategy, {
+  foreignKey: "Strategy_ID",
+  as: "strategy"
 })
 
 //Define 1:M MAIN_PROJECT + HISTORY
-db.MAIN_PROJECT.hasMany(db.HISTORY, {
-  as: "HISTORY"
-})
-db.HISTORY.belongsTo(db.MAIN_PROJECT, {
+db.mainproject.hasMany(db.history, {
   foreignKey: "Edited_MP_ID",
-  as: "MAIN_PROJECT"
+  as: "histories"
+})
+db.history.belongsTo(db.mainproject, {
+  foreignKey: "Edited_MP_ID",
+  as: "mainproject"
 })
 
 //Define 1:M SUB_PROJECT + HISTORY
-db.SUB_PROJECT.hasMany(db.HISTORY, {
-  as: "HISTORY"
-})
-db.HISTORY.belongsTo(db.SUB_PROJECT, {
+db.subproject.hasMany(db.history, {
   foreignKey: "Edited_SP_ID",
-  as: "SUB_PROJECT"
+  as: "histories"
+})
+db.history.belongsTo(db.subproject, {
+  foreignKey: "Edited_SP_ID",
+  as: "subproject"
 })
 
-//Define 1:1 MAIN_PROJECT + USER
-db.USER.hasOne(db.MAIN_PROJECT, {
-  as: "CREATE_MP"
-})
-db.MAIN_PROJECT.belongsTo(db.USER, {
-  foreignKey: "MP_Create_User_ID",
-  as: "CREATE_USER"
-})
-
-//Define 1:1 SUB_PROJECT + USER
-db.USER.hasOne(db.SUB_PROJECT, {
-  as: "CREATE_SP"
-})
-db.SUB_PROJECT.belongsTo(db.USER, {
-  foreignKey: "SP_Create_User_ID",
-  as: "CREATE_USER"
-})
-
-//Define 1:1 USER + HISTORY
-db.USER.hasMany(db.HISTORY, {
-  as: "HISTORY"
-})
-db.HISTORY.belongsTo(db.USER, {
+//Define 1:M USER + HISTORY
+db.user.hasMany(db.history, {
   foreignKey: "Edited_User_ID",
-  as: "USER"
+  as: "histories"
+})
+db.history.belongsTo(db.user, {
+  foreignKey: "Edited_User_ID",
+  as: "user"
 })
 
-//Define 1:1 USER + TRANSFER
-db.USER.hasOne(db.TRANSFER, {
-  as: "TRANSFER"
-})
-db.TRANSFER.belongsTo(db.USER, {
+//Define M:1 USER + TRANSFER
+db.user.hasMany(db.transfer, {
   foreignKey: "User_ID",
-  as: "TRANSFER"
+  as: "tranfers"
+})
+db.transfer.belongsTo(db.user, {
+  foreignKey: "User_ID",
+  as: "user"
 })
 
-//Define 1:1 TRANSFER + MP_ID_In (MAIN_PROJECT)
-db.MAIN_PROJECT.hasOne(db.TRANSFER, {
-  as: "TRANSFER_In"
-})
-db.TRANSFER.belongsTo(db.MAIN_PROJECT, {
+//Define M:1 TRANSFER + MP_ID_In (MAIN_PROJECT)
+db.mainproject.hasMany(db.transfer, {
   foreignKey: "MP_ID_In",
-  as: "MP_TRANSFER_IN"
+  as: "transfers_in"
 })
-//Define 1:1 TRANSFER + MP_ID_Out (MAIN_PROJECT)
-db.MAIN_PROJECT.hasOne(db.TRANSFER, {
-  as: "TRANSFER_Out"
+db.transfer.belongsTo(db.mainproject, {
+  foreignKey: "MP_ID_In",
+  as: "MPtranfers_In"
 })
-db.TRANSFER.belongsTo(db.MAIN_PROJECT, {
+//Define M:1 TRANSFER + MP_ID_Out (MAIN_PROJECT)
+db.mainproject.hasMany(db.transfer, {
   foreignKey: "MP_ID_Out",
-  as: "MP_TRANSFER_OUT"
+  as: "transfers_Out"
+})
+db.transfer.belongsTo(db.mainproject, {
+  foreignKey: "MP_ID_Out",
+  as: "MPtranfers_Out"
 })
 
 //Define 1:1 TRANSFER + SP_ID_In (SUB_PROJECT)
-db.SUB_PROJECT.hasOne(db.TRANSFER, {
-  as: "TRANSFER_In"
-})
-db.TRANSFER.belongsTo(db.SUB_PROJECT, {
+db.subproject.hasMany(db.transfer, {
   foreignKey: "SP_ID_In",
-  as: "SP_TRANSFER_IN"
+  as: "transfers_in"
+})
+db.transfer.belongsTo(db.subproject, {
+  foreignKey: "SP_ID_In",
+  as: "SPtranfers_In"
 })
 //Define 1:1 TRANSFER + SP_ID_Out (SUB_PROJECT)
-db.SUB_PROJECT.hasOne(db.TRANSFER, {
-  as: "TRANSFER_Out"
-})
-db.TRANSFER.belongsTo(db.SUB_PROJECT, {
+db.subproject.hasMany(db.transfer, {
   foreignKey: "SP_ID_Out",
-  as: "SP_TRANSFER_OUT"
+  as: "transfers_Out"
 })
-
-
-//Define M:M USER + SUB_PROJECT
-db.USER.belongsToMany(db.SUB_PROJECT, {
-  through: "MANAGEMENT_SP",
-  as: "USER_MANAGEMENT_SP",
-  foreignKey: "SP_ID",
-})
-db.SUB_PROJECT.belongsToMany(db.USER, {
-  through: "MANAGEMENT_SP",
-  as: "USER",
-  foreignKey: "User_ID",
-})
-
-//Define M:M USER + MAIN_PROJECT
-db.USER.belongsToMany(db.MAIN_PROJECT, {
-  through: "MANAGEMENT_MP",
-  as: "USER_MANAGEMENT_MP",
-  foreignKey: "SP_ID",
-})
-db.MAIN_PROJECT.belongsToMany(db.USER, {
-  through: "MANAGEMENT_MP",
-  as: "USER",
-  foreignKey: "User_ID",
+db.transfer.belongsTo(db.subproject, {
+  foreignKey: "SP_ID_Out",
+  as: "SPtranfers_Out"
 })
 
 module.exports = db;

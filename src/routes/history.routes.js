@@ -1,10 +1,10 @@
 module.exports = app => {
     const History = require("../controllers/history.controller");
   
-    // var router = require("express").Router();
+    var router = require("express").Router();
   
     // Create a new Tutorial
-    // router.post("/", manageMPcenter.create);
+    router.post("/", History.create);
   
     // Retrieve all Tutorials
     router.get("/", History.findAll);

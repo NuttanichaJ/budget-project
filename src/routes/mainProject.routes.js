@@ -1,34 +1,34 @@
 module.exports = app => {
-    const mainProject = require("../controllers/mainproject.controller");
+    const mainproject = require("../controllers/mainproject.controller");
   
     var router = require("express").Router();
   
     // Create a new MainProject
-    router.post("/", mainProject.create);
+    router.post("/", mainproject.create);
   
     // Retrieve all MainProject
-    router.get("/", mainProject.findAll);
+    router.get("/", mainproject.findAll);
 
-    // // Retrieve all published Tutorials
-    // router.get("/published", tutorials.findAllPublished);
+    // // Retrieve all published MainProject
+    // router.get("/published", mainProject.findAllPublished);
   
     // Retrieve a single MainProject with id
-    router.get("/:id", mainProject.findOne);
+    //router.get("/:id", mainProject.findById);
   
     // // Update a MainProject with id
-    router.put("/:id", mainProject.update);
+    //router.put("/:id", mainProject.update);
   
     // Delete a MainProject with id
-    router.delete("/:id", mainProject.delete);
+    //router.delete("/:id", mainProject.delete);
   
-    // // Retrieve all published Tutorials
-    // router.get("/published", tutorials.findAllPublished);
+    // // Retrieve all published MainProject
+    // router.get("/published", mainProject.findAllPublished);
   
-    // // Retrieve a single Tutorial with id
-    // router.get("/:id", tutorials.findOne);
+    // // Retrieve a single MainProject with id
+    // router.get("/:id", mainProject.findOne);
   
-    // // Delete all Tutorials
-    // router.delete("/", tutorials.deleteAll);
+    // // Delete all MainProject
+    // router.delete("/", mainProject.deleteAll);
   
     app.use('/api/mainproject', router);
   };

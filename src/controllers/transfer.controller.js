@@ -1,37 +1,25 @@
 const db = require("../models");
-const Transfer = db.Transfer;
-const SubProject = db.Sub_Project;
-const MainProject = db.Main_Project;
+const Transfer = db.transfer;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new transfer
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.TRANSFER_ID) {
+  if (!req.body.Transfer_ID) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
     return;
   }
 
-  // const subProject = {
-  //   SP_ID: req.body.SP_ID,
-  //   SP_NAME: req.body.SP_NAME,
-  // };
-  // const mainProject = {
-  //   MP_ID: req.body.SP_ID,
-  //   MP_NAME: req.body.SP_NAME,
-  // };
-
   // Create a transfer
   const transfer = {
-    MP_ID_IN: req.body.MP_ID_IN,
-    SP_ID_IN: req.body.SP_ID_IN,
-    MP_ID_OUT: req.body.MP_ID_OUT,
-    SP_ID_OUT: req.body.SP_ID_OUT,
-    AMOUNT: req.body.AMOUNT,
-    TRANSFER_ID: req.body.TRANSFER_ID,
-    USER_ID: req.body.USER_ID,
+    MP_ID_In: req.body.MP_ID_In,
+    SP_ID_In: req.body.SP_ID_In,
+    MP_ID_Out: req.body.MP_ID_Out,
+    SP_ID_Out: req.body.SP_ID_Out,
+    Amount: req.body.Amount,
+    User_ID: req.body.User_ID,
   };
 
   // Save Tutorial in the database
@@ -49,10 +37,10 @@ exports.create = (req, res) => {
 
 // Retrieve all Transfer from the database.
 exports.findAll = (req, res) => {
-  const SP_NAME = req.query.SP_NAME;
-  var condition = SP_NAME ? { SP_NAME: { [Op.like]: `%${SP_NAME}%` } } : null;
 
-  SubProject.findAll({ where: condition })
+  Transfer.findAll({
+    include: ["user", "MPtranfers_In", "MPtranfers_Out", "SPtranfers_In", "SPtranfers_Out"]
+  })
     .then(data => {
       res.send(data);
     })
@@ -66,29 +54,42 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
-  
+  const id = req.params.id;
+
+  Transfer.findByPk(id, {
+    include: ["user", "MPtranfers_In", "MPtranfers_Out", "SPtranfers_In", "SPtranfers_Out"]
+  })
+  .then(data => {
+    res.send(data)
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Eroror retrieving MP_ID=" + id
+    });
+  });
 };
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
-  const TRANSFER_ID = req.query.TRANSFER_ID;
+  const Transfer_ID = req.query.Transfer_ID;
 
   Transfer.update(req.body, {
-    where: {TRANSFER_ID: TRANSFER_ID}
+    where: {Transfer_ID: Transfer_ID}
   })
 
   .catch(err => {
     res.status(500).send({
-      message: 'Error updating MainProject with TRANSFER_ID=' + TRANSFER_ID
+      message: 'Error updating MainProject with TRANSFER_ID=' + Transfer_ID
     })
   })
 };
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-  const TRANSFER_ID = req.query.TRANSFER_ID;
+  const Transfer_ID = req.query.Transfer_ID;
+  
   Transfer.destroy({
-    where: { TRANSFER_ID: TRANSFER_ID }
+    where: { Transfer_ID: Transfer_ID }
   })
   .catch(err => {
     res.status(500).send({

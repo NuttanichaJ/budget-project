@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const USER = sequelize.define('USER', {
+    const User = sequelize.define('USER', {
         User_ID : { 
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -12,5 +12,5 @@ module.exports = (sequelize, DataTypes) => {
         Password : DataTypes.STRING,
     })
 
-    return USER
+    return User
 }

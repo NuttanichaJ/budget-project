@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const DEPARTMENT = sequelize.define('DEPARTMENT', {
+    const Department = sequelize.define('DEPARTMENT', {
         D_ID : { 
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -8,5 +8,5 @@ module.exports = (sequelize, DataTypes) => {
         D_Name : DataTypes.STRING,
     })
 
-    return DEPARTMENT
+    return Department
 }

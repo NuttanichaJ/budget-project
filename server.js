@@ -21,10 +21,15 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to application." });
 });
 
-require("./src/routes/mainProject.routes")(app);
-require("./src/routes/subProject.routes")(app);
-require("./src/routes/adminManagement.routes")(app);
+require("./src/routes/mainproject.routes")(app);
+require("./src/routes/subproject.routes")(app);
 require("./src/routes/transfer.routes")(app);
+require("./src/routes/history.routes")(app);
+require("./src/routes/department.routes")(app);
+require("./src/routes/strategic.routes")(app);
+require("./src/routes/strategicissue.routes")(app);
+require("./src/routes/strategy.routes")(app);
+require("./src/routes/user.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
@@ -32,6 +37,6 @@ app.listen(PORT, () => {
 });
 
 const db = require("./src/models");
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   console.log("Drop and re-sync db.");
 });

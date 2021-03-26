@@ -45,8 +45,8 @@
 
 <script>
 import Tabulator from 'tabulator-tables'; 
-import MainProjectDataSevice from "../services/MPcenter.DataSevice";
-import SubProjectDataSevice from "../services/SP.DataSevice"
+import MainprojectDataSevice from "../services/mainproject.datasevice.js";
+import SubprojectDataSevice from "../services/subproject.datasevice"
 
 var table;
 var listEditMP = [];
@@ -174,42 +174,42 @@ export default {
       history: true,
       //nestedFieldSeparator:"|",
       columns: [
-        {title:"ชื่อโครงการ", field:"SP_NAME", width:200, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
-        {title:"ประเด็นยุทธศาสตร์", field:"STRATEGIC_ISSUE_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
-        {title:"ยุทธศาสตร์", field:"STRATEGIC_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
-        {title:"กลยุทธ์", field:"STRATEGY_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right",},
-        {title:"ผู้รับผิดชอบ", field:"MP_OWNER", width:140, editor:"input",  editable:editCheck, hozAlign:"left",},
-        {title:"ตัวชี้วัด", field:"MP_INDICATOR",  width:140, editor:"input",  editable:editCheck, hozAlign:"left", },
-        {title:"ค่าเป้าหมาย", field:"MP_TARGET_VALUE", editor:"input",   editable:editCheck, width:140, hozAlign:"left",}, //define table columns
-        {title:"งบประมาณตามแผน", field:"MP_BUDGET", editor:"number",   editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
+        {title:"ชื่อโครงการ", field:"MP_Name", width:200, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
+        {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
+        {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
+        {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right",},
+        {title:"ผู้รับผิดชอบ", field:"MP_Owner", width:140, editor:"input",  editable:editCheck, hozAlign:"left",},
+        {title:"ตัวชี้วัด", field:"MP_Indicator",  width:140, editor:"input",  editable:editCheck, hozAlign:"left", },
+        {title:"ค่าเป้าหมาย", field:"MP_Target_Value", editor:"input",   editable:editCheck, width:140, hozAlign:"left",}, //define table columns
+        {title:"งบประมาณตามแผน", field:"MP_Budget", editor:"number",   editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"โอนเข้า", field:"MP_INCOME", editor:"number",   editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
+        {title:"โอนเข้า", field:"MP_Income", editor:"number",   editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"โอนออก", field:"MP_OUTCOME", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"โอนออก", field:"MP_Outcome", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือตามแผน", field:"MP_TOTAL_AMOUNT", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามแผน", field:"MP_Total_Amount", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"ขออนุมัติใช้", field:"MP_APPROVE_USE", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"ขออนุมัติใช้", field:"MP_Approve_Use", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"เบิกจ่าย", field:"MP_DISBURSE", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"เบิกจ่าย", field:"MP_Disburse", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือตามหลักการ", field:"MP_TOTAL_FROM_PRINCIPLE",  editable:editCheck, editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามหลักการ", field:"MP_Total_From_Priciple",  editable:editCheck, editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_TOTAL_FROM_DISBURSE", editor:"number",  editable:editCheck, width:160, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_Total_From_Disburse", editor:"number",  editable:editCheck, width:160, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
@@ -308,7 +308,7 @@ export default {
 
     //fetch Main Project data
     retrieveMainProject() {
-        MainProjectDataSevice.getAll()
+        MainprojectDataSevice.getAll()
           .then(response => {
             this.tableData = response.data;
             this.retrieveSubProject();
@@ -322,7 +322,7 @@ export default {
     },
 
     deleteMainProject(listDelMP) {
-      MainProjectDataSevice.delete(listDelMP)
+      MainprojectDataSevice.delete(listDelMP)
           .then(response => {
             console.log(response.data);
           })
@@ -332,7 +332,7 @@ export default {
     },
     
     addNewProject(data) {
-        MainProjectDataSevice.create(data)
+        MainprojectDataSevice.create(data)
           .then(response => {
             console.log(response.data);
           })
@@ -342,7 +342,7 @@ export default {
     },
 
     updateProject(MP_ID, data) {
-      MainProjectDataSevice.update(MP_ID, data)
+      MainprojectDataSevice.update(MP_ID, data)
       .then(response => {
         console.log(response.data)
       })
@@ -353,7 +353,7 @@ export default {
 
     //fetch Main Project data
     retrieveSubProject() {
-          SubProjectDataSevice.getAll()
+          SubprojectDataSevice.getAll()
             .then(response => {
               this.childrenTableData = response.data;
               this.addSubProjectTableData()

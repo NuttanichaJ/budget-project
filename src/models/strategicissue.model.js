@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const STRATEGIC_ISSUE = sequelize.define('STRATEGIC_ISSUE', {
+    const Strategic_Issue = sequelize.define('STRATEGIC_ISSUE', {
         Strategic_Issue_ID : { 
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -7,5 +7,5 @@ module.exports = (sequelize, DataTypes) => {
         Strategic_Issue_Desc : DataTypes.STRING,
     })
 
-    return STRATEGIC_ISSUE
+    return Strategic_Issue
 }

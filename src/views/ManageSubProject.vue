@@ -135,7 +135,7 @@
 
 <script>
 import Tabulator from 'tabulator-tables'; 
-import SubProjectDataSevice from "../services/SP.DataSevice";
+import SubprojectDataSevice from "../services/subproject.datasevice";
 
 var table, countDb;
 var listEditSP, undoDatas, listAddSP = [];
@@ -176,46 +176,46 @@ export default {
       layout:"fitDataStretch",
       addRowPos: "bottom",
       columns: [
-        {title:"ชื่อโครงการ", field:"SP_NAME", width:140, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true},
-        {title:"ผู้รับผิดชอบ", field:"SP_OWNER", width:140, editor:"input", editable:editCheck, hozAlign:"left",},
-        {title:"ตัวชี้วัด", field:"SP_INDICATOR",  width:140, editor:"input", editable:editCheck, hozAlign:"left", },
-        {title:"ค่าเป้าหมาย", field:"SP_TARGET_VALUE", editor:"input",  editable:editCheck, width:140, hozAlign:"left",}, //define table columns
-        {title:"งบประมาณตามแผน", field:"SP_BUDGET", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"ชื่อโครงการ", field:"SP_Name", width:140, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true},
+        {title:"ผู้รับผิดชอบ", field:"SP_Owner", width:140, editor:"input", editable:editCheck, hozAlign:"left",},
+        {title:"ตัวชี้วัด", field:"SP_Indicator",  width:140, editor:"input", editable:editCheck, hozAlign:"left", },
+        {title:"ค่าเป้าหมาย", field:"SP_Target_Value", editor:"input",  editable:editCheck, width:140, hozAlign:"left",}, //define table columns
+        {title:"งบประมาณตามแผน", field:"SP_Budget", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"โอนเข้า", field:"SP_INCOME", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"โอนเข้า", field:"SP_Income", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"โอนออก", field:"SP_OUTCOME", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"โอนออก", field:"SP_Outcome", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือตามแผน", field:"SP_TOTAL_AMOUNT", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามแผน", field:"SP_Total_Amount", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"ขออนุมัติใช้", field:"SP_APPROVE_USE", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"ขออนุมัติใช้", field:"SP_Approve_Use", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"เบิกจ่าย", field:"SP_DISBURSE", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"เบิกจ่าย", field:"SP_Disburse", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือตามหลักการ", field:"SP_TOTAL_FROM_PRINCIPLE", editable:editCheck, editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามหลักการ", field:"SP_Total_From_Priciple", editable:editCheck, editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือจากเบิกจ่ายจริง", field:"SP_TOTAL_FROM_DISBURSE", editable:editCheck, editor:"number",  width:160, hozAlign:"right", formatter:"money", formatterParams:{
+        {title:"คงเหลือจากเบิกจ่ายจริง", field:"SP_Total_From_Disburse", editable:editCheck, editor:"number",  width:160, hozAlign:"right", formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"ผลการดำเนินงาน", field:"PERFORMANCE_RESULT", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
-        {title:"ปัญหาและอุปสรรค", field:"PROBLEM", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
-        {title:"รายละเอียดผลการดำเนินงาน", field:"DETAIL_RESULT", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
-        {title:"หมายเหตุ", field:"ANNOTATION", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
+        {title:"ผลการดำเนินงาน", field:"Performance_Result", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
+        {title:"ปัญหาและอุปสรรค", field:"Problem", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
+        {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
+        {title:"หมายเหตุ", field:"Annotation", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
         {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว", }, hozAlign:"left"},  width:160}, 
         {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){
           if(confirm("ต้องการลบ " + cell.getRow().getData().SP_NAME + " ใช่หรือไม่?")== true){
@@ -313,7 +313,7 @@ export default {
 
     //fetch Sub Project data from MP_ID
     getSubProject(MP_ID) {
-          SubProjectDataSevice.get(MP_ID)
+          SubprojectDataSevice.get(MP_ID)
             .then(response => {
               this.tableData = response.data;
               countDb = this.tableData.length
@@ -326,7 +326,7 @@ export default {
     },
 
     deleteMainProject(listDelSP) {
-      SubProjectDataSevice.delete(listDelSP)
+      SubprojectDataSevice.delete(listDelSP)
           .then(response => {
             console.log(response.data);
           })
@@ -351,7 +351,7 @@ export default {
     },
     
     addNewProject(data) {
-        SubProjectDataSevice.create(data)
+        SubprojectDataSevice.create(data)
           .then(response => {
             console.log(response.data);
           })
@@ -361,7 +361,7 @@ export default {
     },
 
     updateProject(SP_ID, data) {
-      SubProjectDataSevice.update(SP_ID, data)
+      SubprojectDataSevice.update(SP_ID, data)
       .then(response => {
         console.log(response.data)
       })

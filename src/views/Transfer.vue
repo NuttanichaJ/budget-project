@@ -61,7 +61,7 @@
 
 <script>
 import Tabulator from 'tabulator-tables'; 
-import TransferDataService from '../services/Transfer.DataService'
+import TransferDataService from '../services/transfer.datasevice'
 
 var table, countDb;
 var listEdit, undoDatas, listAdd = [];

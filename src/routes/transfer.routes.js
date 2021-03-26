@@ -13,13 +13,13 @@ module.exports = app => {
     // router.get("/published", Transfer.findAllPublished);
   
     // Retrieve a single Transfer with id
-    router.get("/:id", Transfer.findOne);
+    //router.get("/:id", Transfer.findOne);
   
     // Update a Transfer with id
-    router.put("/:id", Transfer.update);
+    //router.put("/:id", Transfer.update);
   
     // Delete a Transfer with id
-    router.delete("/:id", Transfer.delete);
+    //router.delete("/:id", Transfer.delete);
   
     // // Delete all Transfer
     // router.delete("/", Transfer.deleteAll);

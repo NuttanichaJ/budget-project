@@ -1,6 +1,6 @@
 import http from "../http-common";
 
-class SubProjectDataSevice {
+class SubprojectDataSevice {
   getAll() {
     return http.get("/subproject");
   }
@@ -30,4 +30,4 @@ class SubProjectDataSevice {
   }
 }
 
-export default new SubProjectDataSevice();
+export default new SubprojectDataSevice();
