@@ -138,8 +138,9 @@ import Tabulator from 'tabulator-tables';
 import SubprojectDataSevice from "../services/subproject.datasevice";
 
 var table, countDb;
-var listEditSP, undoDatas, listAddSP = [];
-
+var listEditSP = [];
+var undoDatas = [];
+var listAddSP = [];
 
 export default {
   name: "ManageSubProject",

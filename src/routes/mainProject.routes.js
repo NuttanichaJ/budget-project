@@ -15,17 +15,17 @@ module.exports = app => {
     // Retrieve a single MainProject with id
     //router.get("/:id", mainProject.findById);
   
-    // // Update a MainProject with id
-    //router.put("/:id", mainProject.update);
+    // Update a MainProject with id
+    router.put("/:id", mainproject.update);
   
     // Delete a MainProject with id
-    //router.delete("/:id", mainProject.delete);
+    router.delete("/:id", mainproject.delete);
   
     // // Retrieve all published MainProject
     // router.get("/published", mainProject.findAllPublished);
   
-    // // Retrieve a single MainProject with id
-    // router.get("/:id", mainProject.findOne);
+    // Retrieve a single MainProject with id
+    router.get("/:id", mainproject.findOne);
   
     // // Delete all MainProject
     // router.delete("/", mainProject.deleteAll);

@@ -165,9 +165,6 @@ export default {
     //instantiate Tabulator when element is mounted
     table = new Tabulator('#table', {
       //data: this.tableData,
-      dataTree: true,
-      dataTreeStartExpanded: true,
-      dataTreeChildField:"childRows",
       //dataTreeChildIndent: 20, //indent child rows
       addRowPos:"bottom",
       layout:"fitDataStretch",

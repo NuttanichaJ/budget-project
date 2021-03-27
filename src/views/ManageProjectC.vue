@@ -50,13 +50,16 @@ import Tabulator from 'tabulator-tables';
 import MainprojectDataSevice from "../services/mainproject.datasevice.js";
 
 var table, countDb;
-var listEditMP, listAddMP, undoDatas = [];
- 
+var listEditMP = [];
+var undoDatas = [];
+var listAddMP = [];
+
 export default {
   name: "ManageProject",
   data() {
       return {
         modalShow: false,
+        tabulator: null, //variable to hold your table
         tableData: [],
     }
   },
@@ -69,7 +72,7 @@ export default {
     var printSPIcon = function(cell, formatterParams, onRendered){ //plain text value
         cell, formatterParams, onRendered;
         var MP_ID = cell.getRow().getData().MP_ID
-        if(cell.getRow().getData().MP_NAME != undefined) {
+        if(cell.getRow().getData().MP_Name != undefined) {
           return '<a class="btn btn-secondary" href="/managesubproject/' + MP_ID + '"' + 'target="_self">แก้ไขโครงการย่อย</a>'
         }
     };
@@ -89,6 +92,7 @@ export default {
             data.Action = 'edit';
             listEditMP.push(data)
         }
+
       return listEditMP
     };
 
@@ -99,7 +103,7 @@ export default {
       layout:"fitDataStretch",
       addRowPos: "bottom",
       columns: [
-        {title:"ชื่อโครงการ", field:"MP_Name", width:200, editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
+        {title:"ชื่อโครงการ", field:"MP_Name", width:200, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
         {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
         {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
         {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right",},
@@ -144,12 +148,12 @@ export default {
         {title:"หมายเหตุ", field:"Annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว" }, hozAlign:"left",},  width:160},
         {formatter:printSPIcon, hozAlign:"left",headerSort:false, },
-        {formatter:printDelIcon, hozAlign:"left",headerSort:false, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().MP_NAME + " ใช่หรือไม่?")== true){
+        {formatter:printDelIcon, hozAlign:"left",headerSort:false, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().MP_Name + " ใช่หรือไม่?")== true){
           var delMP_ID = cell.getRow().getData().MP_ID
           if (delMP_ID != undefined) {
             listEditMP.push({ 'MP_ID': delMP_ID , 'Action': 'del'})
           } 
-          cell.getRow().delete()
+            cell.getRow().delete()
           }}
           }, //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
         ], //define table columns
@@ -202,6 +206,7 @@ export default {
         for (i in listEditMP) {
           var action = listEditMP[i].Action
           var editMP_ID = listEditMP[i].MP_ID
+          console.log(editMP_ID)
           if (action == 'edit') {
             this.updateProject(editMP_ID, listEditMP[i])
           }
@@ -210,12 +215,13 @@ export default {
           }
         }
 
+        //listAddMP = [{MP_Name: "Nurse"}]
         this.checkNewProject(table, countDb, listAddMP)
         listAddMP.reverse()
         if (listAddMP.length != 0) {
           var j;
           for (j in listAddMP) {
-              listAddMP[j].MP_ID = this.$route.params.id
+              // listAddMP[j].MP_ID = this.$route.params.id
               this.addNewProject(listAddMP[j])
           }
         }
@@ -262,7 +268,7 @@ export default {
           })
     },
     
-    checkNewProject(table, countDb, listAddSP) {
+    checkNewProject(table, countDb, listAddMP) {
       var rowCount = table.getDataCount();
       var data = table.getData();
       
@@ -270,9 +276,9 @@ export default {
         var i;
         var countNewProject = rowCount - countDb;
         for (i = 0; i < countNewProject; i++) {
-          listAddSP.push(data.pop())
+          listAddMP.push(data.pop())
         }
-        return listAddSP
+        return listAddMP
       }
     },
 
