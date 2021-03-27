@@ -3,13 +3,13 @@
         <h1>บันทึกการโอนเงินเข้า-ออก</h1>
     <div class="top">
       <b-nav class="mt-3">
-        <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 mr-auto">
+        <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-0 mr-auto">
           <b-nav-form>
             <b-input-group>
-                <b-button class="mb-2 ml-sm-2 mb-sm-0" id='history-undo' v-b-tooltip.hover title="เลิกทำ">
+                <b-button class="mb-2 ml-sm-2 mb-sm-0 mr-1" variant="primary" id='history-undo' v-b-tooltip.hover title="เลิกทำ">
                   <font-awesome-icon :icon="['fas', 'undo']"/></b-button>
-                <b-button class="mb-2 ml-sm-2 mb-sm-0" id='history-redo' v-b-tooltip.hover title="ทำซ้ำ">
-                  <font-awesome-icon :icon="['fas', 'redo']"/></b-button> 
+                <b-button class="mb-2 ml-sm-2 mb-sm-0" variant="primary" id='history-redo' v-b-tooltip.hover title="ทำซ้ำ">
+                  <font-awesome-icon :icon="['fas', 'redo']"/></b-button>
             </b-input-group>
           </b-nav-form>
         </b-navbar-nav>
@@ -18,43 +18,38 @@
                   <b-input-group>
                     <b-form-input placeholder="ค้นหาชื่อโครงการ" id='search'></b-form-input>
                       <b-input-group-append>
-                          <b-button class="mb-2 mr-sm-2 mb-sm-0"><font-awesome-icon icon="search" /></b-button>                        
+                          <b-button class="mb-2 mr-sm-2 mb-sm-0 mr-1 rounded-right"><font-awesome-icon icon="search" /></b-button>
                       </b-input-group-append>
-                          <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='save'>บันทึก</b-button>
-                          <b-button class="mb-2 mr-sm-0 mb-sm-0" @click='cancel'>ยกเลิก</b-button> 
+                          <b-button class="mb-2 mr-sm-2 mb-sm-0 mr-1" variant="success" @click='save'>บันทึก</b-button>
+                          <b-button class="mb-2 mr-sm-0 mb-sm-0" variant="danger" @click='cancel'>ยกเลิก</b-button> 
                       </b-input-group>
-                  </b-nav-form>        
+                  </b-nav-form>
           </b-navbar-nav>
       </b-nav>
     </div>
     <div class="income"> 
       <b-nav class="mt-3">
         <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 mr-auto">
-          <b-nav-form>
-            <b-input-group>
-              <label class="mr-sm-2 ml-2" for="inline-form-custom-select-pref">โอนเข้า: </label>
-              <b-form-select id="inline-form-custom-select-pref"
-                class="mb-2 mr-sm-5 mb-sm-0" v-model="selectedProject" :options="optionsProject"></b-form-select>   
-                <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
-                    <b-form-input id="inline-form-input-username" placeholder="5000" readonly></b-form-input>
-                </b-input-group>
-              <label class="mr-sm-2" for="inline-form-custom-select-pref">บาท</label>
-            </b-input-group>
-          </b-nav-form>
+          <b-form inline class="nav-text">
+            <label class="mr-4" for="form-custom-select-pref">โอนเงินเข้า</label>
+            <b-form-select id="form-custom-select-pref" class="mb-2 mr-sm-5 mb-sm-0" 
+            v-model="selectedProject" :options="optionsProject"></b-form-select>
+            <label for="text-money">ยอดเงิน<strong class="mx-4 mr-sm-3 money-text">5000</strong>บาท</label>
+          </b-form>
         </b-navbar-nav>
       </b-nav>
     </div>
      <div>
        <b-nav class="mt-3">
         <b-navbar-nav class="mb-2 mr-sm-0 mb-sm-0 mr-auto">
-                <b-nav-form>
-                    <b-input-group >
-                        <b-button id="add-subproject" class="mb-2 ml-sm-2 mb-sm-2">เพิ่มการโอน</b-button>      
-                    </b-input-group>
-                </b-nav-form>        
+          <b-nav-form>
+            <b-button id="add-subproject" class="mb-2 ml-sm-2 mb-sm-2" variant="dark">เพิ่มการโอน</b-button>
+          </b-nav-form>
         </b-navbar-nav>
       </b-nav>
     </div>
+
+    <!-- tabulator -->
     <div id="table" class="sty-table"></div>
   </div>
 </template>
@@ -76,7 +71,7 @@ export default {
             { value: 'โครงการหลัก1', text: 'โครงการหลัก1' },
             { value: 'โครงการหลัก2', text: 'โครงการหลัก2' },
             { value: 'โครงการย่อย1', text: 'โครงการย่อย1' },
-            { value: 'โครงการย่อย2', text: 'โครงการย่อย2' },      
+            { value: 'โครงการย่อย2', text: 'โครงการย่อย2' },
         ],
     
         tableData: [],
@@ -143,7 +138,8 @@ export default {
      this.$confirm(
       "คุณต้องการบันทึกใช่หรือไม่?",
       " ",
-      "question"
+      "question",
+      "boolean"
       ).then(() => {
         console.log(listEdit)
         var i;
@@ -178,7 +174,7 @@ export default {
      this.$confirm(
       "คุณต้องการยกเลิกใช่หรือไม่?",
       " ",
-      "error"
+      "error",
       ).then(() => {
           window.location.reload()
           listEdit, listAdd = [];
@@ -260,6 +256,14 @@ export default {
   .right {
     float: right;
     
+  }
+}
+
+.nav-text{
+  font-size: 18px;
+  color: black;
+  .money-text{
+    font-size: 28px;
   }
 }
 </style>

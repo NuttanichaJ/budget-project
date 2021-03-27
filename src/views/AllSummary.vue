@@ -5,8 +5,8 @@
         <b-container fluid>
           <!-- สาขาวิชา -->
           <a class="brancebtn btn btn-block" href="/SubSummary">
-          <div class="mt-5 mx-3" id="branch">
-            <b-row class="mt-3 d-flex align-items-center">              
+          <div class="mt-2 mx-3" id="branch">
+            <b-row class="mt-2 d-flex align-items-center">              
               <b-col cols="4" class="border border-dark rounded-left p-2">
                   <div class="d-flex flex-wrap justify-content-around">  
                     <div class="d-flex align-items-center">
@@ -55,7 +55,7 @@
           </a>
 
           <a class="brancebtn btn btn-block" href="/SubSummary">
-            <div class="mt-5 mx-3" id="branch">
+            <div class="mt-2 mx-3" id="branch">
             <b-row class="mt-3 d-flex align-items-center">              
               <b-col cols="4" class="border border-dark rounded-left p-2">
                   <div class="d-flex flex-wrap justify-content-around">  
@@ -105,7 +105,7 @@
           </a>
           
           <a class="brancebtn btn btn-block" href="/SubSummary">
-          <div class="mt-5 mx-3" id="branch">
+          <div class="mt-2 mx-3" id="branch">
             <b-row class="mt-3 d-flex align-items-center">              
               <b-col cols="4" class="border border-dark rounded-left p-2">
                   <div class="d-flex flex-wrap justify-content-around">  

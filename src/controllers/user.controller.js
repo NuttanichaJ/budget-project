@@ -50,7 +50,7 @@ exports.findAll = (req, res) => {
             err.message || "Some error occurred while retrieving tutorials."
         });
       });
-};
+}; 
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {

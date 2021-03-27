@@ -16,6 +16,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import { LoaderPlugin } from 'vue-google-login';
+// import axios from 'axios'
 
 
 library.add(fas)
@@ -27,9 +28,10 @@ Vue.use(VueSimpleAlert);
 Vue.use(VueTabulator);
 
 Vue.use(LoaderPlugin, {
-  client_id: '739770244137-b1d92li2tcs044jsj49ck7qmvbnchr9c.apps.googleusercontent.com'
+  client_id: '739770244137-b1d92li2tcs044jsj49ck7qmvbnchr9c.apps.googleusercontent.com',
+  scope: 'profile email',
+  prompt: 'select_account'
 });
-
 
 new Vue({
   router,

@@ -1,73 +1,25 @@
 <template>
   <div class="summary">
-      <div>
-        <b-form inline class="p-2 mx-3">
-          <label class="mr-sm-2" for="select-year">ปีงบประมาณ:</label>
-          <b-form-select id="select-year"
-            class="mb-2 mr-sm-2 mb-sm-0"
-            v-model="selectedYear" :options="optionsYear" size="sm">
-          </b-form-select>
-          <b-button class="ml-auto px-3" variant="primary" @click="$bvModal.show('model-print')">
-            <font-awesome-icon :icon="['fas', 'file-excel']" />&nbsp;พิมพ์</b-button>
+    <div>
+        <b-form inline class="p-2 mx-3 nav">
+            <label class="mr-sm-2" for="select-year">ปีงบประมาณ</label>
+            <b-form-select id="select-year" class="mb-2 mr-sm-2 mb-sm-0"
+              v-model="selectedYear" :options="optionsYear" size="sm" >
+            </b-form-select>
+            <b-button class="ml-auto px-3 btnprint " variant="primary" @click="$bvModal.show('model-print')">
+            <font-awesome-icon :icon="['fas', 'file-excel']" class="mr-2" />พิมพ์</b-button>
         </b-form>
-
-        <b-container fluid>
-          <b-row class="mt-5 mb-2">
-            <b-col class="mr-0" cols="4" >
-              <div class="d-flex flex-wrap justify-content-betweet" >
-                <div class="mr-2" id="border">
-                  <p class="mb-0"><small>โครงการย่อยที่กำลังดำเนินการ</small></p>
-                  <h2 class="mb-0 text-center">21</h2>
-                  <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
-                </div>
-                <div class="mr-2" id="border">
-                  <p class="mb-0"><small>โครงการย่อยที่เสร็จสิ้น</small></p>
-                  <h2 class="mb-0 text-center">32</h2>
-                  <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
-                </div>
-              </div>  
-            </b-col>
-            <b-col class="ml-auto" cols="7">              
-              <div class="d-flex flex-wrap justify-content-around">
-                <div class="mr-1" id="border">
-                  <p class="mb-0"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
-                  <h2 class="mb-0 text-center">5,438,020</h2>
-                  <p class="text-muted mt-0 mb-0 float-right" ><small>บาท</small></p>
-                </div>
-                <div class="mr-1" id="border">
-                  <p class="mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
-                  <h2 class="mb-0 text-center">78,505</h2>
-                  <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                </div>
-                <div class="mr-1" id="border">
-                  <p class="mb-0"><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
-                  <h2 class="mb-0 text-center">5,538,020</h2>
-                  <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                </div>
-                <div class="" id="border">
-                  <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
-                  <h2 class="mb-0 text-center">5,459,515</h2>
-                  <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                </div>
-              </div>            
-
-            </b-col>
-          </b-row>
-
-        </b-container>     
-      </div>
-
-
-
-      <!-- model พิมพ์ -->
+      
+    <!-- model พิมพ์ -->
+      
       <b-modal id="model-print" hide-footer centered>
         <template #modal-title>
-          <font-awesome-icon :icon="['fas', 'file-excel']" />&nbsp;&nbsp;พิมพ์
+          <font-awesome-icon :icon="['fas', 'file-excel']" class="mr-2" />พิมพ์
         </template>
         <div class="d-block text-center">
           <b-row class="pt-5 pb-5">
             <b-col cols="3">
-              <label class="mr-sm-2" for="select-printYear">ปีงบประมาณ:</label>
+              <label class="mr-sm-2" for="select-printYear">ปีงบประมาณ</label>
             </b-col>
             <b-col cols="9"> 
               <b-form inline class="p-2 mx-3">
@@ -88,15 +40,14 @@
                     <input type="checkbox" :checked="option.selected"/>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;{{option.name}}</span>
                   </template>
-                </vue-multi-select>  
-
+                </vue-multi-select>
               </b-form>
             </b-col>
           </b-row>
 
           <b-row class="pt-5 pb-5">
             <b-col cols="3">
-              <label class="mr-sm-2" for="select-printBranch">ฝ่าย/สาขา:</label>
+              <label class="mr-sm-2" for="select-printBranch">ฝ่าย/สาขา</label>
             </b-col>
             <b-col cols="9"> 
               <b-form inline class="p-2 mx-3">
@@ -117,19 +68,18 @@
                     <input type="checkbox" :checked="option.selected"/>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;{{option.name}}</span>
                   </template>
-                </vue-multi-select>  
-                
+                </vue-multi-select>
               </b-form>
             </b-col>
           </b-row>
           
           <b-row class="pt-5 pb-5">
             <b-col cols="3">
-              <label class="mr-sm-2 " for="select-printBranch">ผู้รับผิดชอบ:</label>
+              <label class="mr-sm-2 " for="select-printBranch">ผู้รับผิดชอบ</label>
             </b-col>
             <b-col cols="9"> 
               <b-form inline class="p-2 mx-3">
-                <vue-multi-select 
+                <vue-multi-select
                   ref="multiSelect"
                   v-model="valuesPrintOwner"
                   search
@@ -146,12 +96,10 @@
                     <input type="checkbox" :checked="option.selected"/>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;{{option.name}}</span>
                   </template>
-                </vue-multi-select> 
-                
+                </vue-multi-select>
               </b-form>
             </b-col>
-          </b-row>          
-          
+          </b-row>
 
         </div>
         <b-row class="justify-content-md-center"> 
@@ -160,8 +108,56 @@
         </b-row> 
         
       </b-modal>
-          
       
+    </div>
+
+    <!-- สรุปยอดโครงการ -->
+    <div>
+      <b-container fluid>
+        <b-row class="mt-2 mb-2">
+          <b-col class="mr-0" xs="12" lg="12">
+            <div class="d-flex justify-content-betweet" >
+              <div class="mr-2" id="border">
+                <p class="mb-0"><small>โครงการย่อยที่กำลังดำเนินการ</small></p>
+                <h2 class="mb-0 text-center">21</h2>
+                <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
+              </div>
+              <div class="" id="border">
+                <p class="mb-0"><small>โครงการย่อยที่เสร็จสิ้น</small></p>
+                <h2 class="mb-0 text-center">32</h2>
+                <p class="text-muted mt-0 mb-0 float-right"><small>โครงการ</small></p>
+              </div>
+            </div>  
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col class="" xs="12" lg="12">
+            <div class="d-flex flex-wrap">
+              <div class="mr-2 mb-1" id="border">
+                <p class="mb-0"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
+                <h2 class="mb-0 text-center">5,438,020</h2>
+                <p class="text-muted mt-0 mb-0 float-right" ><small>บาท</small></p>
+              </div>
+              <div class="mr-2 mb-1" id="border">
+                <p class="mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
+                <h2 class="mb-0 text-center">78,505</h2>
+                <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+              </div>
+              <div class="mr-2 mb-1" id="border">
+                <p class="mb-0"><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
+                <h2 class="mb-0 text-center">5,538,020</h2>
+                <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+              </div>
+              <div class="" id="border">
+                <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
+                <h2 class="mb-0 text-center">5,459,515</h2>
+                <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+              </div>
+            </div>
+          </b-col>
+        </b-row>
+      </b-container>     
+    </div>
 
   </div>
 </template>
@@ -204,7 +200,7 @@ export default {
             {name: 'ผู้ใช้งานคนที่2'},
             {name: 'ผู้ใช้งานคนที่3'},
             {name: 'ผู้ใช้งานคนที่4'},
-            {name: 'ผู้ใช้งานคนที่5'},            
+            {name: 'ผู้ใช้งานคนที่5'},
           ]
         }],
         btnLabelBranch: values => `เลือกฝ่าย/สาขาวิชา (${values.length})`,
@@ -214,7 +210,7 @@ export default {
             {name: 'CoE'},
             {name: 'EE'},
             {name: 'CE'},
-            {name: 'ฝ่ายวิชาการ'},            
+            {name: 'ฝ่ายวิชาการ'},
           ]
         }],
         filters: [{
@@ -260,6 +256,12 @@ export default {
 }
 .show{
   display: none;
+}
+.nav .btnprint{
+  font-size: 18px;
+}
+small{
+  font-size: 16px;
 }
 
 </style>

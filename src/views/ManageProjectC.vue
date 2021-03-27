@@ -2,25 +2,25 @@
   <div id="manageproject">
     <h1 class="ml-2">จัดการโครงการ</h1>
     <b-nav class="mt-3">
-      <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 mr-auto">
+      <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-0 ml-0 mr-auto">
         <b-nav-form>
           <b-input-group>
-              <b-button class="mb-2 ml-sm-2 mb-sm-0" id='history-undo' v-b-tooltip.hover title="เลิกทำ">
+              <b-button class="mb-2 ml-sm-2 mb-sm-0 mr-1" variant="primary" id='history-undo' v-b-tooltip.hover title="เลิกทำ">
                 <font-awesome-icon :icon="['fas', 'undo']"/></b-button>
-              <b-button class="mb-2 ml-sm-2 mb-sm-0" id='history-redo' v-b-tooltip.hover title="ทำซ้ำ">
+              <b-button class="mb-2 ml-sm-2 mb-sm-0" variant="primary" id='history-redo' v-b-tooltip.hover title="ทำซ้ำ">
                 <font-awesome-icon :icon="['fas', 'redo']"/></b-button> 
           </b-input-group>
         </b-nav-form>
       </b-navbar-nav>
-      <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 ml-auto">
+      <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-0 ml-auto">
             <b-nav-form>
                 <b-input-group>
                   <b-form-input placeholder="ค้นหาชื่อโครงการ" id='search'></b-form-input>
                     <b-input-group-append>
-                        <b-button class="mb-2 mr-sm-2 mb-sm-0"><font-awesome-icon icon="search" /></b-button>                        
+                        <b-button class="mb-2 mr-sm-2 mb-sm-0 mr-1 rounded-right"><font-awesome-icon icon="search" /></b-button>
                     </b-input-group-append>
-                        <b-button class="mb-2 mr-sm-2 mb-sm-0" @click='save'>บันทึก</b-button>
-                        <b-button class="mb-2 mr-sm-0 mb-sm-0" @click='cancel'>ยกเลิก</b-button> 
+                        <b-button class="mb-2 mr-sm-2 mb-sm-0 mr-1" variant="success" @click='save'>บันทึก</b-button>
+                        <b-button class="mb-2 mr-sm-0 mb-sm-0 " variant="danger" @click='cancel'>ยกเลิก</b-button> 
                     </b-input-group>
                 </b-nav-form>        
         </b-navbar-nav>
@@ -31,8 +31,8 @@
                 <b-nav-form>
                   <!-- @click='addRow' -->
                     <b-input-group>
-                        <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0">เพิ่มโครงการหลัก</b-button>      
-                        <b-button class="mb-2 ml-sm-2 mb-sm-0" to="/transfer">โอนเงินเข้า-ออก</b-button>
+                        <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0 mr-1" variant="dark">เพิ่มโครงการหลัก</b-button>
+                        <b-button class="mb-2 ml-sm-2 mb-sm-0" variant="dark" to="/transfer">โอนเงินเข้า-ออก</b-button>
                     </b-input-group>
                 </b-nav-form>        
         </b-navbar-nav>
@@ -302,7 +302,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scope>
 @import  "~vue-tabulator/dist/scss/bootstrap/tabulator_bootstrap4";
 
 #manageproject {

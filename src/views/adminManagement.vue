@@ -1,27 +1,24 @@
 <template>
   <div>
     <b-nav class="mt-3" id="menu">
-        <b-button id="add-user" class="my-2" @click="addRow">เพิ่มสมาชิก</b-button>
-
-        <b-form inline class="p-2 mx-3" >          
-          <b-form-select v-model="selectedPermissin" :options="optionsPermissin" 
+      <b-button class="" id="add-user" size="sm" @click="addRow">เพิ่มสมาชิก</b-button>
+      <b-form inline class="ml-3" >
+        <b-form-select v-model="selectedPermissin" :options="optionsPermissin" 
           size="sm" id="selectPer">
         </b-form-select>
-        </b-form>        
-        <b-navbar-nav class="mt-2 ml-auto">
-          <b-nav-form>
-            <b-input-group>
-              <b-form-input placeholder="ค้นหา" id="search"></b-form-input>
-                <b-input-group-append>
-                  <b-button><font-awesome-icon icon="search" /></b-button>                        
-                </b-input-group-append>
-              </b-input-group>
-          </b-nav-form>        
-        </b-navbar-nav>
-        
+      </b-form>        
+      <b-navbar-nav class="ml-auto">
+        <b-nav-form>
+          <b-input-group>
+            <b-form-input placeholder="ค้นหา" id="search"></b-form-input>
+            <b-input-group-append>
+              <b-button><font-awesome-icon icon="search" /></b-button>
+            </b-input-group-append>
+          </b-input-group>
+        </b-nav-form>
+      </b-navbar-nav>
     </b-nav>
     <div id="table" class="table-sty"></div>
-
   </div>
 </template>
 
@@ -74,7 +71,7 @@ export default {
         {title:"E-mail", field:"EMAIL", headerSort:false, headerHozAlign:"center", width:350, editor:"input" ,validator:"required"},
         {title:"ฝ่าย / สาขาวิชา", field:"D_ID", width:200,validator:"required", editor:"select", editorParams:{values:{"วิศวกรรมคอมพิวเตอร์":"วิศวกรรมคอมพิวเตอร์", "วิศวกรรมโยธา":"วิศวกรรมโยธา", "วิศวกรรมไฟฟ้า":"วิศวกรรมไฟฟ้า"}}},
         {title:"สิทธิ์การใช้งาน", field:"PERMISSION", width:200,validator:"required", editor:"select", editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
-        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().USER_FNAME + " ใช่หรือไม่?")== true){
+        {formatter:printDelIcon, hozAlign:"left",width:100, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().USER_FNAME + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}}, frozen:true, headerSort:false,},
       ], //define table columns
     });
@@ -121,21 +118,18 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scope>
 @import  "~vue-tabulator/dist/scss/bootstrap/tabulator_bootstrap4";
 
-#menu {
-    padding: 10px;
-    padding-right: 50px;
+
+#menu{
+  padding-top: 20px;
 }
 #add-user{
-    background-color: #84a856;
-    margin-left: 30px;
-    
+  font-size: 16px;
+  background-color: #84a856;
 }
-.table-sty{
-  padding: 30px;
-  padding-top: 10px;
-}
+
+
 
 </style>

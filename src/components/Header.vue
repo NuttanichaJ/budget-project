@@ -35,7 +35,7 @@
           <b-nav-item-dropdown right>
             <template #button-content>
               <div id="user-info">
-                <span id="username">User's Name</span>
+                <span id="username">User's Name {{}}</span>
                 <br />
                 <span id="user-depart">ฝ่าย/สาขา</span>
                 <br />
@@ -44,7 +44,7 @@
                 </div>
               </div>
             </template>
-            <b-dropdown-item href="#">ออกจากระบบ</b-dropdown-item>
+            <b-dropdown-item href="/login">ออกจากระบบ</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -53,9 +53,37 @@
 </template>
 
 <script>
-
+// import axios from 'axios'
+// import {mapGetters} from 'vuex'
 export default {
-  name: "Header"
+  name: "Header",
+  // computed: {
+  //   ...mapGetters(['user'])
+  //   currentUser() {
+  //     const result = this.$router.get('/login')
+  //     this.$router.post('/user')
+  //     // return this.googleUser.getBasicProfile()
+  //     console.log("login! "+ result)
+  //     return this.$router.googleUser
+  //   }
+
+  // },
+  // async created() {
+  //   const response = await axios.get('user')
+  // }
+  // async created() {
+  //   if (!this.$store.getters.isLoggedIn) {
+  //     this.$router.push('/login');
+  //   }
+  //   this.username = this.$store.getters.getUser.username;
+  //   this.secretMessage = await AuthService.getSecretContent();
+  // },
+  // methods: {
+  //   logout() {
+  //     this.$store.dispatch('logout');
+  //     this.$router.push('/login');
+  //   }
+  // }
 };
 </script>
 
