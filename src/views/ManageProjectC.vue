@@ -47,7 +47,7 @@
 
 <script>
 import Tabulator from 'tabulator-tables';
-import MainProjectDataSevice from "../services/MPcenter.DataSevice";
+import MainprojectDataSevice from "../services/mainproject.datasevice.js";
 
 var table, countDb;
 var listEditMP, listAddMP, undoDatas = [];
@@ -99,49 +99,49 @@ export default {
       layout:"fitDataStretch",
       addRowPos: "bottom",
       columns: [
-        {title:"ชื่อโครงการ", field:"MP_NAME", width:200, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
-        {title:"ประเด็นยุทธศาสตร์", field:"STRATEGIC_ISSUE_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
-        {title:"ยุทธศาสตร์", field:"STRATEGIC_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
-        {title:"กลยุทธ์", field:"STRATEGY_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right",},
-        {title:"ผู้รับผิดชอบ", field:"MP_OWNER", width:140, editor:"input",  editable:editCheck, hozAlign:"left",},
-        {title:"ตัวชี้วัด", field:"MP_INDICATOR",  width:140, editor:"input",  editable:editCheck, hozAlign:"left", },
-        {title:"ค่าเป้าหมาย", field:"MP_TARGET_VALUE", editor:"input",   editable:editCheck, width:140, hozAlign:"left",}, //define table columns
-        {title:"งบประมาณตามแผน", field:"MP_BUDGET", editor:"number",   editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
+        {title:"ชื่อโครงการ", field:"MP_Name", width:200, editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
+        {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
+        {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
+        {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right",},
+        {title:"ผู้รับผิดชอบ", field:"MP_Owner", width:140, editor:"input",  editable:editCheck, hozAlign:"left",},
+        {title:"ตัวชี้วัด", field:"MP_Indicator",  width:140, editor:"input",  editable:editCheck, hozAlign:"left", },
+        {title:"ค่าเป้าหมาย", field:"MP_Target_Value", editor:"input",   editable:editCheck, width:140, hozAlign:"left",}, //define table columns
+        {title:"งบประมาณตามแผน", field:"MP_Budget", editor:"number",   editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"โอนเข้า", field:"MP_INCOME", editor:"number",   editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
+        {title:"โอนเข้า", field:"MP_Income", editor:"number",   editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"โอนออก", field:"MP_OUTCOME", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"โอนออก", field:"MP_Outcome", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือตามแผน", field:"MP_TOTAL_AMOUNT", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามแผน", field:"MP_Total_Amount", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"ขออนุมัติใช้", field:"MP_APPROVE_USE", editor:"number", editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"ขออนุมัติใช้", field:"MP_Approve_Use", editor:"number", editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"เบิกจ่าย", field:"MP_DISBURSE", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"เบิกจ่าย", field:"MP_Disburse", editor:"number", editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือตามหลักการ", field:"MP_TOTAL_FROM_PRINCIPLE",  editable:editCheck, editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามหลักการ", field:"MP_Total_From_Priciple",  editable:editCheck, editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_TOTAL_FROM_DISBURSE", editor:"number",  editable:editCheck, width:160, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_Total_From_Disburse", editor:"number",  editable:editCheck, width:160, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        // {title:"ผลการดำเนินงาน", field:"performance_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
-        // {title:"ปัญหาและอุปสรรค", field:"problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
-        // {title:"รายละเอียดผลการดำเนินงาน", field:"detail_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
-        // {title:"หมายเหตุ", field:"annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"ผลการดำเนินงาน", field:"Performance_Result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"ปัญหาและอุปสรรค", field:"Problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
+        {title:"หมายเหตุ", field:"Annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว" }, hozAlign:"left",},  width:160},
         {formatter:printSPIcon, hozAlign:"left",headerSort:false, },
         {formatter:printDelIcon, hozAlign:"left",headerSort:false, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().MP_NAME + " ใช่หรือไม่?")== true){
@@ -159,7 +159,7 @@ export default {
       // search name
       var valueEl = document.getElementById("search");
       valueEl.addEventListener("keyup", function(){
-        table.setFilter('MP_NAME','like', valueEl.value);       
+        table.setFilter('MP_Name','like', valueEl.value);       
       });
 
       //add row
@@ -241,7 +241,7 @@ export default {
 
     //fetch Main Project data
     retrieveMainProject() {
-          MainProjectDataSevice.getAll()
+          MainprojectDataSevice.getAll()
             .then(response => {
               this.tableData = response.data;
               table.setData(this.tableData);
@@ -253,7 +253,7 @@ export default {
     },
 
     deleteMainProject(listDelMP) {
-      MainProjectDataSevice.delete(listDelMP)
+      MainprojectDataSevice.delete(listDelMP)
           .then(response => {
             console.log(response.data);
           })
@@ -277,7 +277,7 @@ export default {
     },
 
     addNewProject(data) {
-        MainProjectDataSevice.create(data)
+        MainprojectDataSevice.create(data)
           .then(response => {
             console.log(response.data);
           })
@@ -287,7 +287,7 @@ export default {
     },
 
     updateProject(MP_ID, data) {
-      MainProjectDataSevice.update(MP_ID, data)
+      MainprojectDataSevice.update(MP_ID, data)
       .then(response => {
         console.log(response.data)
       })

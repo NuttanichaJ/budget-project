@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
-    const Strategic = sequelize.define('Strategic', {
-        STRATEGIC_ID : { 
+    const Strategic = sequelize.define('STRATEGIC', {
+        Strategic_ID : { 
             type: DataTypes.INTEGER,
             primaryKey: true,
         },
-        STRATEGIC_DESC : DataTypes.STRING,
+        Strategic_Desc : DataTypes.STRING,
     })
 
     return Strategic

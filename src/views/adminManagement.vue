@@ -24,7 +24,7 @@
 
 <script>
 import Tabulator from 'tabulator-tables'; 
-import AdminDataSevice from "../services/AdminManagement.DataSevice";
+import UserDataSevice from "../services/user.datasevice";
 
 export default {
   name: "ManageUser",
@@ -67,11 +67,11 @@ export default {
       data: this.tableData, //link data to table
       addRowPos:"bottom",
       columns: [
-        {title:"ชื่อ - นามสกุล", field:"USER_FNAME", width:300, editor:"input",headerHozAlign:"center",validator:"required"},
-        {title:"E-mail", field:"EMAIL", headerSort:false, headerHozAlign:"center", width:350, editor:"input" ,validator:"required"},
+        {title:"ชื่อ - นามสกุล", field:"User_FName", width:300, editor:"input",headerHozAlign:"center",validator:"required"},
+        {title:"E-mail", field:"Email", headerSort:false, headerHozAlign:"center", width:350, editor:"input" ,validator:"required"},
         {title:"ฝ่าย / สาขาวิชา", field:"D_ID", width:200,validator:"required", editor:"select", editorParams:{values:{"วิศวกรรมคอมพิวเตอร์":"วิศวกรรมคอมพิวเตอร์", "วิศวกรรมโยธา":"วิศวกรรมโยธา", "วิศวกรรมไฟฟ้า":"วิศวกรรมไฟฟ้า"}}},
-        {title:"สิทธิ์การใช้งาน", field:"PERMISSION", width:200,validator:"required", editor:"select", editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
-        {formatter:printDelIcon, hozAlign:"left",width:100, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().USER_FNAME + " ใช่หรือไม่?")== true){
+        {title:"สิทธิ์การใช้งาน", field:"Permission", width:200,validator:"required", editor:"select", editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
+        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().USER_FNAME + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}}, frozen:true, headerSort:false,},
       ], //define table columns
     });
@@ -102,7 +102,7 @@ export default {
     }, // add row table
 
     retrieveUser() {
-          AdminDataSevice.getAll()
+          UserDataSevice.getAll()
             .then(response => {
               this.tableData = response.data;
               console.log(response.data);

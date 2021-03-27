@@ -1,11 +1,12 @@
 const db = require("../models");
-const MainProject = db.Main_Project;
+const Mainproject = db.mainproject;
+const User = db.user;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new mainProject
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.MP_NAME) {
+  if (!req.body.MP_Name) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -13,27 +14,32 @@ exports.create = (req, res) => {
   }
 
   // Create a mainProject
-  const mainProject = {
-    MP_ID: req.body.MP_ID,
+  const mainproject = {
+    MP_Name: req.body.MP_Name,
+    MP_Owner: req.body.MP_Owner,
+    MP_Indicator: req.body.MP_Indicator,
+    Strategic_Issue_ID: req.body.Strategic_Issue_ID,
+    Strategic_ID: req.body.Strategic_ID,
+    Strategy_ID: req.body.Strategy_ID,
+    MP_Target_Value: req.body.MP_Target_Value,
+    MP_Budget: req.body.MP_Budget,
+    MP_Total_Amount: req.body.MP_Total_Amount,
+    MP_Approve_Use: req.body.MP_Approve_Use,
+    MP_Disburse: req.body.MP_Disburse,
+    MP_Total_From_Priciple: req.body.MP_Total_From_Priciple,
+    MP_Total_From_Disburse: req.body.MP_Total_From_Disburse,
+    MP_Income: req.body.MP_Income,
+    MP_Outcome: req.body.MP_Outcome,
+    Problem: req.body.Problem,
+    Annotation: req.body.Annotation,
+    Performance_Result: req.body.Performance_Result,
+    Detail_Result: req.body.Detail_Result,
     D_ID: req.body.D_ID,
-    MP_NAME: req.body.MP_NAME,
-    MP_OWNER: req.body.MP_OWNER,
-    STRATEGIC_ISSUE_ID: req.body.STRATEGIC_ISSUE_ID,
-    STRATEGIC_ID: req.body.STRATEGIC_ID,
-    STRATEGY_ID: req.body.STRATEGY_ID,
-    MP_TARGET_VALUE: req.body.MP_TARGET_VALUE,
-    MP_BUDGET: req.body.MP_BUDGET,
-    MP_TOTAL_AMOUNT: req.body.MP_TOTAL_AMOUNT,
-    MP_APPROVE_USE: req.body.MP_APPROVE_USE,
-    MP_DISBURSE: req.body.MP_DISBURSE,
-    MP_TOTAL_FROM_PRINCIPLE: req.body.MP_TOTAL_FROM_PRINCIPLE,
-    MP_TOTAL_FROM_DISBURSE: req.body.MP_TOTAL_FROM_DISBURSE,
-    MP_INCOME: req.body.MP_INCOME,
-    MP_OUTCOME: req.body.MP_OUTCOME,
+    MP_Create_User_ID: req.body.MP_Create_User_ID
   };
 
   // Save Main Project in the database
-  MainProject.create(mainProject)
+  Mainproject.create(mainproject)
     .then(data => {
       res.send(data);
     })
@@ -47,10 +53,20 @@ exports.create = (req, res) => {
 
 // Retrieve all MainProject from the database.
 exports.findAll = (req, res) => {
-    const MP_NAME = req.query.MP_NAME;
-    var condition = MP_NAME ? { MP_NAME: { [Op.like]: `%${MP_NAME}%` } } : null;
-  
-    MainProject.findAll({ where: condition })
+  Mainproject.findAll(
+    {
+      include: 
+      ["subprojects",
+        {
+          model: User,
+          as: "users",
+          attributes: ["User_ID", "User_FName", "User_LName", "Email",],
+          through: {
+            attributes: [],
+          }
+        },
+      ],
+    })
       .then(data => {
         res.send(data);
       })
@@ -67,7 +83,20 @@ exports.findOne = (req, res) => {
   // console.log(req.body.MP_ID)
   const id = req.params.id;
 
-  MainProject.findByPk(id)
+  Mainproject.findByPk(id,
+    {
+      include: 
+      ["subprojects",
+        {
+          model: User,
+          as: "users",
+          attributes: ["User_ID", "User_FName", "User_LName", "Email",],
+          through: {
+            attributes: [],
+          }
+        },
+      ],
+    })
   .then(data => {
     res.send(data)
   })
@@ -82,7 +111,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const MP_ID = req.params.id;
 
-  MainProject.update(req.body, {
+  Mainproject.update(req.body, {
     where: {MP_ID: MP_ID}
   })
 
@@ -97,7 +126,7 @@ exports.update = (req, res) => {
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
   const MP_ID = req.params.id;
-  MainProject.destroy({
+  Mainproject.destroy({
     where: { MP_ID: MP_ID }
   })
   .catch(err => {

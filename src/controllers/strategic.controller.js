@@ -1,11 +1,11 @@
 const db = require("../models");
-const Strategic = db.Main_Project;
+const Strategic = db.strategic;
 // const Op = db.Sequelize.Op;
 
 // Create and Save a new strategic
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.STRATEGIC_ID) {
+  if (!req.body.Strategic_ID) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -14,8 +14,8 @@ exports.create = (req, res) => {
 
   // Create a strategic
   const strategic = {
-    STRATEGIC_ID: req.body.STRATEGIC_ID,
-    STRATEGIC_DESC: req.body.STRATEGIC_DESC,
+    Strategic_ID: req.body.Strategic_ID,
+    Strategic_Desc: req.body.Strategic_Desc,
   };
 
   // Save Tutorial in the database
@@ -33,8 +33,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-    const STRATEGIC_DESC = req.query.MP_NAME;
-    var condition = STRATEGIC_DESC ? { STRATEGIC_DESC: { [Op.like]: `%${STRATEGIC_DESC}%` } } : null;
+    const Strategic_Desc = req.query.Strategic_Desc;
+    var condition = Strategic_Desc ? { Strategic_Desc: { [Op.like]: `%${Strategic_Desc}%` } } : null;
   
     Strategic.findAll({ where: condition })
       .then(data => {
@@ -50,7 +50,17 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
-  
+  const id = req.params.id;
+
+  Strategic.findByPk(id)
+  .then(data => {
+    res.send(data)
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Eroror retrieving MP_ID=" + id
+    });
+  });
 };
 
 // Update a Tutorial by the id in the request

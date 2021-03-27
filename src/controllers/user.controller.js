@@ -1,11 +1,14 @@
 const db = require("../models");
-const User = db.User;
+const User = db.user;
+const Mainproject = db.mainproject;
+const Subproject = db.subproject;
+
 // const Op = db.Sequelize.Op;
 
 // Create and Save a new user
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.USER_FNAME) {
+  if (!req.body.User_FName) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -14,12 +17,12 @@ exports.create = (req, res) => {
 
   // Create a User
   const user = {
-    USER_ID: req.body.USER_ID,
-    USER_FNAME: req.body.USER_FNAME,
-    USER_LNAME: req.body.USER_LNAME,
-    D_ID: req.body.D_ID,
-    EMAIL: req.body.EMAIL,
-    PERMISSION: req.body.PERMISSION,
+    User_FName: req.body.User_FName,
+    User_LName: req.body.User_LName,
+    Email: req.body.Email,
+    Permission: req.body.Permission,
+    Password: req.body.Password,
+    D_ID : req.body.D_ID,
   };
 
   // Save Tutorial in the database
@@ -37,10 +40,62 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-    const USER_FNAME = req.query.USER_FNAME;
-    var condition = USER_FNAME ? { USER_FNAME: { [Op.like]: `%${USER_FNAME}%` } } : null;
-  
-    User.findAll({ where: condition })
+    User.findAll({
+      include: [
+        {
+          model: Mainproject,
+          as: "managed_mainprojects",
+          attributes: [
+              "MP_ID", 
+              "MP_Name", 
+              "MP_Owner", 
+              "MP_Indicator", 
+              "MP_Budget", 
+              "MP_Target_Value", 
+              "MP_Total_Amount",
+              "MP_Approve_Use",
+              "MP_Disburse",
+              "MP_Total_From_Priciple",
+              "MP_Total_From_Disburse",
+              "MP_Income",
+              "MP_Outcome",
+              "Problem",
+              "Annotation",
+              "Performance_Result",
+              "Detail_Result",
+            ],
+          through: {
+            attributes: [],
+          }
+        },
+        {
+          model: Subproject,
+          as: "managed_subprojects",
+          attributes: [
+              "SP_ID", 
+              "SP_Name",
+              "SP_Owner", 
+              "SP_Indicator", 
+              "SP_Budget", 
+              "SP_Target_Value", 
+              "SP_Total_Amount",
+              "SP_Approve_Use",
+              "SP_Disburse",
+              "SP_Total_From_Priciple",
+              "SP_Total_From_Disburse",
+              "SP_Income",
+              "SP_Outcome",
+              "Problem",
+              "Annotation",
+              "Performance_Result",
+              "Detail_Result",
+            ],
+          through: {
+            attributes: [],
+          }
+        }, 
+      ],
+    })
       .then(data => {
         res.send(data);
       })
@@ -54,7 +109,72 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
-  
+  const id = req.params.id;
+
+  User.findByPk(id ,{
+    include: [
+      {
+        model: Mainproject,
+        as: "managed_mainprojects",
+        attributes: [
+            "MP_ID", 
+            "MP_Name", 
+            "MP_Owner", 
+            "MP_Indicator", 
+            "MP_Budget", 
+            "MP_Target_Value", 
+            "MP_Total_Amount",
+            "MP_Approve_Use",
+            "MP_Disburse",
+            "MP_Total_From_Priciple",
+            "MP_Total_From_Disburse",
+            "MP_Income",
+            "MP_Outcome",
+            "Problem",
+            "Annotation",
+            "Performance_Result",
+            "Detail_Result",
+          ],
+        through: {
+          attributes: [],
+        }
+      },
+      {
+        model: Subproject,
+        as: "managed_subprojects",
+        attributes: [
+            "SP_ID", 
+            "SP_Name",
+            "SP_Owner", 
+            "SP_Indicator", 
+            "SP_Budget", 
+            "SP_Target_Value", 
+            "SP_Total_Amount",
+            "SP_Approve_Use",
+            "SP_Disburse",
+            "SP_Total_From_Priciple",
+            "SP_Total_From_Disburse",
+            "SP_Income",
+            "SP_Outcome",
+            "Problem",
+            "Annotation",
+            "Performance_Result",
+            "Detail_Result",
+          ],
+        through: {
+          attributes: [],
+        }
+      }, 
+    ],
+  })
+  .then(data => {
+    res.send(data)
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Eroror retrieving MP_ID=" + id
+    });
+  });
 };
 
 // Update a Tutorial by the id in the request

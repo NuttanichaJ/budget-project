@@ -1,41 +1,43 @@
 const db = require("../models");
-const SubProject = db.Sub_Project;
+const Subproject = db.subproject;
+const User = db.user;
+
 const Op = db.Sequelize.Op;
 
-// Create and Save a new subProject
+// Create and Save a new subproject
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.SP_NAME) {
+  if (!req.body.SP_Name) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
     return;
   }
 
-  // Create a subProject
-  const subProject = {
+  // Create a subproject
+  const subproject = {
     MP_ID: req.body.MP_ID,
-    SP_ID: req.body.SP_ID,
-    SP_NAME: req.body.SP_NAME,
-    SP_OWNER: req.body.SP_OWNER,
-    SP_INDICATOR: req.body.SP_INDICATOR,
-    SP_BUDGET: req.body.SP_BUDGET,
-    SP_TARGET_VALUE: req.body.SP_TARGET_VALUE,
-    SP_TOTAL_AMOUNT: req.body.SP_TOTAL_AMOUNT,
-    SP_APPROVE_USE: req.body.SP_APPROVE_USE,
-    SP_DISBURSE: req.body.SP_DISBURSE,
-    SP_TOTAL_FROM_PRINCIPLE: req.body.SP_TOTAL_FROM_PRINCIPLE,
-    SP_TOTAL_FROM_DISBURSE: req.body.SP_TOTAL_FROM_DISBURSE,
-    SP_INCOME: req.body.SP_INCOME,
-    SP_OUTCOME: req.body.SP_OUTCOME,
-    PROBLEM: req.body.PROBLEM,
-    ANNOTATION: req.body.ANNOTATION,
-    PERFORMANCE_RESULT: req.body.PERFORMANCE_RESULT,
-    DETAIL_RESULT: req.body.DETAIL_RESULT,
+    SP_Name: req.body.SP_Name,
+    SP_Owner: req.body.SP_Owner,
+    SP_Indicator: req.body.SP_Indicator,
+    SP_Budget: req.body.SP_Budget,
+    SP_Target_Value: req.body.SP_Target_Value,
+    SP_Total_Amount: req.body.SP_Total_Amount,
+    SP_Approve_Use: req.body.SP_Approve_Use,
+    SP_Disburse: req.body.SP_Disburse,
+    SP_Total_From_Priciple: req.body.SP_Total_From_Priciple,
+    SP_Total_From_Disburse: req.body.SP_Total_From_Disburse,
+    SP_Income: req.body.SP_Income,
+    SP_Outcome: req.body.SP_Outcome,
+    Problem: req.body.Problem,
+    Annotation: req.body.Annotation,
+    Performance_Result: req.body.Performance_Result,
+    Detail_Result: req.body.Detail_Result,
+    SP_Create_User_ID: req.body.SP_Create_User_ID,
   };
 
   // Save Tutorial in the database
-  SubProject.create(subProject)
+  Subproject.create(subproject)
     .then(data => {
       res.send(data);
     })
@@ -49,10 +51,23 @@ exports.create = (req, res) => {
 
 // Retrieve all SubProject from the database.
 exports.findAll = (req, res) => {
-    const SP_NAME = req.query.SP_NAME;
-    var condition = SP_NAME ? { SP_NAME: { [Op.like]: `%${SP_NAME}%` } } : null;
+    const SP_Name = req.query.SP_Name;
+    var condition = SP_Name ? { SP_Name: { [Op.like]: `%${SP_Name}%` } } : null;
   
-    SubProject.findAll({ where: condition })
+    Subproject.findAll(
+      { where: condition }, 
+      {
+        include: [
+          {
+            model: User,
+            as: "users",
+            attributes: ["User_ID", "User_FName", "User_LName", "Email",],
+            through: {
+              attributes: [],
+            }
+          },
+        ],
+      })
       .then(data => {
         res.send(data);
       })
@@ -67,18 +82,29 @@ exports.findAll = (req, res) => {
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  console.log(id)
 
-  SubProject.findAll({
+  Subproject.findAll({
     where: {
-      MP_ID: id}
+      SP_ID: id}
+    }, 
+    {
+      include: [
+        {
+          model: User,
+          as: "users",
+          attributes: ["User_ID", "User_FName", "User_LName", "Email",],
+          through: {
+            attributes: [],
+          }
+        },
+      ],
     })
     .then(data => {
       res.send(data)
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving MP_ID=" + id
+        message: "Error retrieving SP_ID=" + id
       });
   });
 };
@@ -87,7 +113,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const SP_ID = req.query.SP_ID;
 
-  SubProject.update(req.body, {
+  Subproject.update(req.body, {
     where: {SP_ID: SP_ID}
   })
 
@@ -101,7 +127,7 @@ exports.update = (req, res) => {
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
   const SP_ID = req.query.SP_ID;
-  SubProject.destroy({
+  Subproject.destroy({
     where: { SP_ID: SP_ID }
   })
   .catch(err => {

@@ -1,6 +1,6 @@
 import http from "../http-common";
 
-class TransferDataSevice {
+class TransferDataservice {
   getAll() {
     return http.get("/transfer");
   }
@@ -30,4 +30,4 @@ class TransferDataSevice {
   }
 }
 
-export default new TransferDataSevice();
+export default new TransferDataservice();

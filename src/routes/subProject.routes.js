@@ -13,13 +13,13 @@ module.exports = app => {
     // router.get("/published", subproject.findAllPublished);
   
     // Retrieve a single SubProject with id
-    router.get("/:id", subproject.findOne);
+    //router.get("/:id", subproject.findById);
   
     // Update a SubProject with id
-    router.put("/:id", subproject.update);
+    //router.put("/:id", subproject.update);
   
     // Delete a SubProject with id
-    router.delete("/:id", subproject.delete);
+    //router.delete("/:id", subproject.delete);
   
     // // Delete all SubProject
     // router.delete("/", subproject.deleteAll);
