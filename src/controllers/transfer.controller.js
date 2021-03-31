@@ -1,11 +1,12 @@
 const db = require("../models");
 const Transfer = db.transfer;
+const Subproject = db.subproject;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new transfer
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.Transfer_ID) {
+  if (!req.body.Amount) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -54,9 +55,10 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
-  const id = req.params.id;
+  //const Transfer_ID = req.query.Transfer_ID;
+  const Transfer_ID = req.params.id;
 
-  Transfer.findByPk(id, {
+  Transfer.findByPk(Transfer_ID, {
     include: ["user", "MPtranfers_In", "MPtranfers_Out", "SPtranfers_In", "SPtranfers_Out"]
   })
   .then(data => {
@@ -64,29 +66,33 @@ exports.findOne = (req, res) => {
   })
   .catch(err => {
     res.status(500).send({
-      message: "Eroror retrieving MP_ID=" + id
+      message: "Eroror retrieving Transfer_ID=" + Transfer_ID
     });
   });
 };
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
-  const Transfer_ID = req.query.Transfer_ID;
+
+  const Transfer_ID = req.params.id;
 
   Transfer.update(req.body, {
     where: {Transfer_ID: Transfer_ID}
   })
-
   .catch(err => {
     res.status(500).send({
       message: 'Error updating MainProject with TRANSFER_ID=' + Transfer_ID
     })
   })
+
+  Subproject.increment(('SP_Income', { by: 10, where: { SP_ID: 21 }}));
+
+  
 };
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-  const Transfer_ID = req.query.Transfer_ID;
+  const Transfer_ID = req.params.id;
   
   Transfer.destroy({
     where: { Transfer_ID: Transfer_ID }

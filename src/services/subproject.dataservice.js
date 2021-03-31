@@ -17,6 +17,14 @@ class SubprojectDataSevice {
     return http.put(`/subproject/${id}`, data);
   }
 
+  // increment(id, data) {
+  //   return http.put(`/subproject/${id}`, data);
+  // }
+
+  // decrement(id, data) {
+  //   return http.put(`/subproject/${id}`, data);
+  // }
+
   delete(id) {
     return http.delete(`/subproject/${id}`);
   }

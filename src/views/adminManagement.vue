@@ -24,7 +24,7 @@
 
 <script>
 import Tabulator from 'tabulator-tables'; 
-import UserDataSevice from "../services/user.datasevice";
+import UserDataSevice from "../services/user.dataservice";
 
 export default {
   name: "ManageUser",

@@ -2,7 +2,7 @@ const db = require("../models");
 const Subproject = db.subproject;
 const User = db.user;
 
-const Op = db.Sequelize.Op;
+// const Op = db.Sequelize.Op;
 
 // Create and Save a new subproject
 exports.create = (req, res) => {
@@ -51,13 +51,10 @@ exports.create = (req, res) => {
 
 // Retrieve all SubProject from the database.
 exports.findAll = (req, res) => {
-    const SP_Name = req.query.SP_Name;
-    var condition = SP_Name ? { SP_Name: { [Op.like]: `%${SP_Name}%` } } : null;
   
     Subproject.findAll(
-      { where: condition }, 
       {
-        include: [
+        include: ["transfers_in", "transfers_Out",
           {
             model: User,
             as: "users",
@@ -83,12 +80,10 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Subproject.findAll({
-    where: {
-      SP_ID: id}
-    }, 
+  Subproject.findByPk(id,
     {
-      include: [
+      include: 
+      ["transfers_in","transfers_Out",
         {
           model: User,
           as: "users",
@@ -97,6 +92,7 @@ exports.findOne = (req, res) => {
             attributes: [],
           }
         },
+        
       ],
     })
     .then(data => {
@@ -111,10 +107,9 @@ exports.findOne = (req, res) => {
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
-  const SP_ID = req.query.SP_ID;
-
+  const SP_ID = req.params.id;
   Subproject.update(req.body, {
-    where: {SP_ID: SP_ID}
+    where: { SP_ID: SP_ID}
   })
 
   .catch(err => {
@@ -126,9 +121,10 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-  const SP_ID = req.query.SP_ID;
+  const SP_ID = req.params.id;
+
   Subproject.destroy({
-    where: { SP_ID: SP_ID }
+    where: { SP_ID: SP_ID}
   })
   .catch(err => {
     res.status(500).send({
@@ -136,6 +132,15 @@ exports.delete = (req, res) => {
     });
   });
 };
+
+// exports.increment = (req, res) => {
+//   const SP_ID = req.params.id;
+//   Subproject.increment(('SP_Income', { by: 10, where: { SP_ID: SP_ID }}));
+// }
+// exports.decrement = (req, res) => {
+//   const SP_ID = req.params.id;
+//   Subproject.decrement(('SP_Outcome', { by: req.body.SP_Outcome, where: { SP_ID: SP_ID }}));
+// }
 
 // Delete all Tutorials from the database.
 exports.deleteAll = (req, res) => {

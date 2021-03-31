@@ -135,11 +135,11 @@
 
 <script>
 import Tabulator from 'tabulator-tables'; 
-import SubprojectDataSevice from "../services/subproject.datasevice";
+import SubprojectDataService from "../services/subproject.dataservice";
+import MainprojectDataservice from "../services/mainproject.dataservice.js"
 
-var table, countDb;
+var table;
 var listEditSP = [];
-var undoDatas = [];
 var listAddSP = [];
 
 export default {
@@ -173,6 +173,19 @@ export default {
 
     ///instantiate Tabulator when element is mounted
     table = new Tabulator("#table", {
+      rowAdded:function(row){
+        //row - row component    
+        var data = row.getData();
+        listAddSP.push(data)
+      },
+      rowDeleted:function(row) {
+        var data = row.getData();
+        var SP_ID = data.SP_ID;
+        if (SP_ID != undefined) {
+          data.Action = 'del';
+          listEditSP.push(data)
+        } 
+      },
       history: true,
       layout:"fitDataStretch",
       addRowPos: "bottom",
@@ -185,11 +198,11 @@ export default {
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"โอนเข้า", field:"SP_Income", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"โอนเข้า", field:"SP_Income", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"โอนออก", field:"SP_Outcome", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"โอนออก", field:"SP_Outcome", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
@@ -219,7 +232,7 @@ export default {
         {title:"หมายเหตุ", field:"Annotation", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
         {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว", }, hozAlign:"left"},  width:160}, 
         {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){
-          if(confirm("ต้องการลบ " + cell.getRow().getData().SP_NAME + " ใช่หรือไม่?")== true){
+          if(confirm("ต้องการลบ " + cell.getRow().getData().SP_Name + " ใช่หรือไม่?")== true){
             var delSP_ID = cell.getRow().getData().SP_ID
           if (delSP_ID != undefined) {
             listEditSP.push({ 'SP_ID': delSP_ID , 'Action': 'del'})
@@ -233,7 +246,7 @@ export default {
       // search name
       var valueEl = document.getElementById("search");
       valueEl.addEventListener("keyup", function(){
-        table.setFilter('SP_NAME','like', valueEl.value);       
+        table.setFilter('SP_Name','like', valueEl.value);       
       })
 
       //add row
@@ -243,22 +256,12 @@ export default {
 
       //undo button
       document.getElementById("history-undo").addEventListener("click", function(){
-        var status = table.undo();
-        if(status) {
-          var undoData = listEditSP.pop();
-          undoDatas.push(undoData)
-          console.log(listEditSP)
-        }
+        table.undo();
       });
       
       //redo button
       document.getElementById("history-redo").addEventListener("click", function(){
-        var status = table.redo();
-        if(status) {
-          var redoData = undoDatas.pop();
-          listEditSP.push(redoData)
-          console.log(listEditSP)
-        }
+        table.redo();
       });
   },
   template: '<div id="table" class="sty-table"></div>', //create table holder element
@@ -270,25 +273,25 @@ export default {
       " ",
       "question"
       ).then(() => {
-        console.log(listEditSP)
+
         var i;
         for (i in listEditSP) {
           var action = listEditSP[i].Action
           var editSP_ID = listEditSP[i].SP_ID
+          console.log(editSP_ID)
           if (action == 'edit') {
             this.updateProject(editSP_ID, listEditSP[i])
           }
           else if (action == 'del'){
-            this.deleteMainProject(editSP_ID)
+            this.deleteSubProject(editSP_ID)
           }
         }
         
-        this.checkNewProject(table, countDb, listAddSP)
-        listAddSP.reverse()
         if (listAddSP.length != 0) {
           var j;
           for (j in listAddSP) {
               listAddSP[j].MP_ID = this.$route.params.id
+              console.log(listAddSP[j])
               this.addNewProject(listAddSP[j])
           }
         }
@@ -314,10 +317,9 @@ export default {
 
     //fetch Sub Project data from MP_ID
     getSubProject(MP_ID) {
-          SubprojectDataSevice.get(MP_ID)
+          MainprojectDataservice.get(MP_ID)
             .then(response => {
-              this.tableData = response.data;
-              countDb = this.tableData.length
+              this.tableData = response.data.subprojects;
               table.setData(this.tableData);
               console.log(this.tableData);
             })
@@ -326,8 +328,8 @@ export default {
             });
     },
 
-    deleteMainProject(listDelSP) {
-      SubprojectDataSevice.delete(listDelSP)
+    deleteSubProject(listDelSP) {
+      SubprojectDataService.delete(listDelSP)
           .then(response => {
             console.log(response.data);
           })
@@ -335,24 +337,9 @@ export default {
             console.log(e);
           })
     },
-
-    checkNewProject(table, countDb, listAddSP) {
-      var rowCount = table.getDataCount();
-      var data = table.getData();
-      
-      if (countDb <= rowCount) {
-        var i;
-        var countNewProject = rowCount - countDb;
-        for (i = 0; i < countNewProject; i++) {
-          listAddSP.push(data.pop())
-        }
-
-        return listAddSP
-      }
-    },
     
     addNewProject(data) {
-        SubprojectDataSevice.create(data)
+        SubprojectDataService.create(data)
           .then(response => {
             console.log(response.data);
           })
@@ -362,7 +349,7 @@ export default {
     },
 
     updateProject(SP_ID, data) {
-      SubprojectDataSevice.update(SP_ID, data)
+      SubprojectDataService.update(SP_ID, data)
       .then(response => {
         console.log(response.data)
       })
