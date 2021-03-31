@@ -77,6 +77,7 @@ export default {
         optionsProjectChild: [],
         tableData: [],
         updateProject: false,
+        user: this.$store.state.user,
       }
   },
 
@@ -92,16 +93,38 @@ export default {
     
     var optionsProjectOut = []
     var selectEl = document.getElementById("select-ProjectIn");
+    var dapartment_id = this.user.depart_id
+
     selectEl.addEventListener("change", function(){
       this.selectedStatus = true;
       selectedProjectIn = selectEl.options[selectEl.selectedIndex].value.split(":")
       MainprojectDataService.getAll()
             .then(response => {
+              
               // optionsProjectOut = []
               // Mainproject
               var i, j;
               var index = 0;
               for (i in response.data) {
+                
+                if(dapartment_id == response.data[i].D_ID){
+                  //Subproject
+                  if (selectedProjectIn[1] == 'SP_ID') {
+                      //console.log(response.data[i].MP_ID)
+                      // console.log(selectedProjectIn)
+                      if (selectedProjectIn[0] == response.data[i].MP_ID) {
+                        // optionsProjectOut[index] = 'M' + response.data[i].MP_ID + ': ' + response.data[i].MP_Name;
+                        // index++;
+                        for (j in response.data[i].subprojects) {
+                          if (selectedProjectIn[2] != response.data[i].subprojects[j].SP_ID) {
+                            //console.log(response.data[i].subprojects[j].SP_ID)
+                            optionsProjectOut[index] = 'S' + response.data[i].subprojects[j].SP_ID + ': ' + response.data[i].subprojects[j].SP_Name;
+                            index++;
+                          }
+                        }
+                      } 
+                  }
+                }
                 // if (selectedProjectIn[0] == 'MP_ID') {
                 //   if(index != optionsProjectOut.length) {
                 //       optionsProjectOut.splice(index, optionsProjectOut.length)
@@ -117,24 +140,7 @@ export default {
                 //   //   index++;
                 //   // }
                 // }
-                //Subproject
-                if (selectedProjectIn[1] == 'SP_ID') {
-                    //console.log(response.data[i].MP_ID)
-                    // console.log(selectedProjectIn)
-                    if (selectedProjectIn[0] == response.data[i].MP_ID) {
-                      // optionsProjectOut[index] = 'M' + response.data[i].MP_ID + ': ' + response.data[i].MP_Name;
-                      // index++;
-                      for (j in response.data[i].subprojects) {
-                        if (selectedProjectIn[2] != response.data[i].subprojects[j].SP_ID) {
-                          //console.log(response.data[i].subprojects[j].SP_ID)
-                          optionsProjectOut[index] = 'S' + response.data[i].subprojects[j].SP_ID + ': ' + response.data[i].subprojects[j].SP_Name;
-                          index++;
-                        }
-                      }
-                    }
-                    
-                    
-                }
+
               }
 
             })
@@ -147,6 +153,36 @@ export default {
                   var i;
                   //var index = 0;
                   for (i in response.data) {
+                    if(dapartment_id == response.data[i].D_ID){
+                      if (selectedProjectIn[1] == 'SP_ID') {
+                        if (selectedProjectIn[2] == response.data[i].SP_ID_In) {
+                          // if(response.data[i].MPtranfers_Out != null) {
+                            
+                          //   var index3;
+                          //   for (index3 in optionsProjectOut) {
+                          //     var getoptionsProjectOut3 = optionsProjectOut[index3].split(': ')
+                          //     //console.log(getoptionsProjectOut)
+                          //     if(getoptionsProjectOut3[1] == response.data[i].MPtranfers_Out.MP_Name) {
+                          //       optionsProjectOut.splice(index3, 1)
+                          //       //console.log(response.data[i].MPtranfers_Out.MP_Name)
+                          //     }
+                          //   }
+                          // }
+                          if(response.data[i].SPtranfers_Out != null) {
+                            var index4;
+                            for (index4 in optionsProjectOut) {
+                              var getoptionsProjectOut = optionsProjectOut[index4].split(': ')
+                              //console.log(getoptionsProjectOut)
+                              if(getoptionsProjectOut[1] == response.data[i].SPtranfers_Out.SP_Name) {
+                                optionsProjectOut.splice(index4, 1)
+                                //console.log(response.data[i].SPtranfers_Out.SP_Name)
+                              }
+                            }
+                          }
+                            
+                        }
+                      }
+                    }
                     // if (selectedProjectIn[0] == 'MP_ID') {
                     //   if (selectedProjectIn[1] == response.data[i].MP_ID_In) {
                     //     if(response.data[i].MPtranfers_Out != null) {
@@ -173,34 +209,7 @@ export default {
                     //     }
                     //   }
                     // }
-                    if (selectedProjectIn[1] == 'SP_ID') {
-                      if (selectedProjectIn[2] == response.data[i].SP_ID_In) {
-                        // if(response.data[i].MPtranfers_Out != null) {
-                          
-                        //   var index3;
-                        //   for (index3 in optionsProjectOut) {
-                        //     var getoptionsProjectOut3 = optionsProjectOut[index3].split(': ')
-                        //     //console.log(getoptionsProjectOut)
-                        //     if(getoptionsProjectOut3[1] == response.data[i].MPtranfers_Out.MP_Name) {
-                        //       optionsProjectOut.splice(index3, 1)
-                        //       //console.log(response.data[i].MPtranfers_Out.MP_Name)
-                        //     }
-                        //   }
-                        // }
-                        if(response.data[i].SPtranfers_Out != null) {
-                          var index4;
-                          for (index4 in optionsProjectOut) {
-                            var getoptionsProjectOut = optionsProjectOut[index4].split(': ')
-                            //console.log(getoptionsProjectOut)
-                            if(getoptionsProjectOut[1] == response.data[i].SPtranfers_Out.SP_Name) {
-                              optionsProjectOut.splice(index4, 1)
-                              //console.log(response.data[i].SPtranfers_Out.SP_Name)
-                            }
-                          }
-                        }
-                          
-                      }
-                    }
+                    
                   }
                   //selectedProjectIn[0] 
                   // response.data
@@ -397,12 +406,16 @@ export default {
               //Mainproject
               var i, j;
               for (i in response.data) {
-                this.optionsProjectChild = []
-                // Subproject
-                for (j in response.data[i].subprojects) {
-                  this.optionsProjectChild.push( {'value': response.data[i].MP_ID + ':SP_ID:' + response.data[i].subprojects[j].SP_ID, text: response.data[i].subprojects[j].SP_Name});
+                if(this.user.depart_id == response.data[i].D_ID){
+
+                  this.optionsProjectChild = []
+                  // Subproject
+                  for (j in response.data[i].subprojects) {
+                    this.optionsProjectChild.push( {'value': response.data[i].MP_ID + ':SP_ID:' + response.data[i].subprojects[j].SP_ID, text: response.data[i].subprojects[j].SP_Name});
+                  }
+                  this.optionsProject.push({'label': response.data[i].MP_Name, 'options': this.optionsProjectChild});
                 }
-                this.optionsProject.push({'label': response.data[i].MP_Name, 'options': this.optionsProjectChild});
+                
               }
               //console.log(this.optionsProject)
             })
@@ -415,7 +428,12 @@ export default {
     retrieveTransfer() {
         TransferDataService.getAll()
             .then(response => {
-              this.tableData = response.data;
+    
+              for(var j in response.data) {
+                if(this.user.depart_id == response.data[j].D_ID)
+                this.tableData.push(response.data[j]);
+              }
+              
               var i;
               //var index = 0;
               for (i in response.data) {

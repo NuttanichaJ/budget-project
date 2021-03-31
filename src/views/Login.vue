@@ -47,7 +47,7 @@ import GoogleLogin from 'vue-google-login';
 
 // import User from '../models/user.model';
 // import UserService from "../services/user.sevice"
-import UserDataservice from "../services/user.datasevice.js";
+import UserDataservice from "../services/user.dataservice.js";
 export default {
     name: "login",
     components: {
@@ -98,6 +98,9 @@ export default {
         // console.log(userInfo)
         // localStorage.setItem('user', JSON.stringify(userInfo))
         // this.$store.commit("setUserInfo", userInfo)
+        // var nurse = {User_FName: 'Nurse2', Email: 'nursenicha13812@gmail.com', D_ID: 1, Permission: 'Center'}
+
+        // UserDataservice.create(nurse)
 
             UserDataservice.getAll() 
                 .then(response => {

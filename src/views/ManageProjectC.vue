@@ -57,6 +57,7 @@ export default {
   name: "ManageProject",
   data() {
       return {
+        user: this.$store.state.user,
         modalShow: false,
         tabulator: null, //variable to hold your table
         tableData: [],
@@ -65,7 +66,7 @@ export default {
   
     mounted(){  
     //retrieve Main Project
-    this.retrieveMainProject();
+    this.retrieveMainProject(this.user.depart_id);
    
     //Edit Sub-Project button
     var printSPIcon = function(cell, formatterParams, onRendered){ //plain text value
@@ -169,10 +170,6 @@ export default {
         {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว" }, hozAlign:"left",},  width:160},
         {formatter:printSPIcon, hozAlign:"left",headerSort:false, },
         {formatter:printDelIcon, hozAlign:"left",headerSort:false, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().MP_Name + " ใช่หรือไม่?")== true){
-          var delMP_ID = cell.getRow().getData().MP_ID
-          if (delMP_ID != undefined) {
-            listEditMP.push({ 'MP_ID': delMP_ID , 'Action': 'del'})
-          } 
             cell.getRow().delete()
           }}
           }, //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
@@ -224,17 +221,16 @@ export default {
             this.deleteMainProject(editMP_ID)
           }
         }
-
-        listAddMP = [{MP_Name: "Nurse"}]
-        this.checkNewProject(table, countDb, listAddMP)
-        listAddMP.reverse()
+        
         if (listAddMP.length != 0) {
           var j;
           for (j in listAddMP) {
-              this.addNewProject(listAddMP[j])
+            listAddMP[j].D_ID = this.user.depart_id
+            // console.log(listAddMP[j])
+            this.addNewProject(listAddMP[j])
           }
         }
-        
+
         window.location.reload()
         listEditMP, listAddMP = [];
         
@@ -248,17 +244,24 @@ export default {
       " ",
       "error"
       ).then(() => {
-          window.location.reload()
+          //window.location.reload()
           listEditMP, listAddMP = [];
           //do something...
+
+           this.history()
         });
     },
 
+
     //fetch Main Project data
-    retrieveMainProject() {
+    retrieveMainProject(D_ID) {
           MainprojectDataservice.getAll()
             .then(response => {
-              this.tableData = response.data;
+              for( var i in response.data) {
+                if(D_ID == response.data[i].D_ID)
+                this.tableData.push(response.data[i]);
+              }
+              
               table.setData(this.tableData);
               console.log(this.tableData);
             })
@@ -297,6 +300,11 @@ export default {
         console.log(e)
       })
     },
+
+    history() {
+      var editedCells = table.getEditedCells()
+      console.log(editedCells)
+    }
 
   },
 

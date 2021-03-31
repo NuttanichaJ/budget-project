@@ -85,6 +85,7 @@ export default {
     font-weight: bold;
   }
 }
+
 #menu-bar {
   padding-right: 10px;
 }

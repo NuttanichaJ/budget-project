@@ -11,7 +11,7 @@
       <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-0 ml-auto">
         <b-nav-form>
           <b-input-group>
-            <b-form-input class="" placeholder="ค้นหา" id='search'></b-form-input>
+            <b-form-input class="" placeholder="ค้นหา" id='search-his'></b-form-input>
             <b-input-group-append>
               <b-button class="mb-2 mr-sm-2 mb-sm-0 mr-1 rounded-right"><font-awesome-icon icon="search" /></b-button>
             </b-input-group-append>
