@@ -235,8 +235,10 @@ export default {
         {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){
           if(confirm("ต้องการลบ " + cell.getRow().getData().SP_Name + " ใช่หรือไม่?")== true){
           cell.getRow().delete()
-          }} 
-        }, //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
+
+          }
+          }
+        } //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
       ], //define table columns
     });
 
