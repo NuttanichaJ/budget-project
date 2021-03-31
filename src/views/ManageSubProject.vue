@@ -146,6 +146,7 @@ export default {
   name: "ManageSubProject",
   data() {
       return {
+        // user: this.$store.state.user,
         tableData: [], //data for table to display
       }
   },
@@ -233,13 +234,11 @@ export default {
         {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว", }, hozAlign:"left"},  width:160}, 
         {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){
           if(confirm("ต้องการลบ " + cell.getRow().getData().SP_Name + " ใช่หรือไม่?")== true){
-            var delSP_ID = cell.getRow().getData().SP_ID
-          if (delSP_ID != undefined) {
-            listEditSP.push({ 'SP_ID': delSP_ID , 'Action': 'del'})
-          } 
           cell.getRow().delete()
-          }} 
-        }, //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
+
+          }
+          }
+        } //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
       ], //define table columns
     });
 
