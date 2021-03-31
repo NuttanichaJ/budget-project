@@ -45,8 +45,8 @@
 
 <script>
 import Tabulator from 'tabulator-tables'; 
-import MainprojectDataSevice from "../services/mainproject.datasevice.js";
-import SubprojectDataSevice from "../services/subproject.datasevice"
+import MainprojectDataSevice from "../services/mainproject.dataservice.js";
+import SubprojectDataSevice from "../services/subproject.dataservice"
 
 var table;
 var listEditMP = [];

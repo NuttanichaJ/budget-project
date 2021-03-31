@@ -1,5 +1,8 @@
 const db = require("../models");
 const Mainproject = db.mainproject;
+const Subproject = db.subproject;
+const Transfer = db.transfer;
+
 const User = db.user;
 const Op = db.Sequelize.Op;
 
@@ -86,7 +89,7 @@ exports.findOne = (req, res) => {
   Mainproject.findByPk(id,
     {
       include: 
-      ["subprojects",
+      ["subprojects","transfers_in","transfers_Out",
         {
           model: User,
           as: "users",
@@ -95,6 +98,7 @@ exports.findOne = (req, res) => {
             attributes: [],
           }
         },
+        
       ],
     })
   .then(data => {
@@ -126,6 +130,15 @@ exports.update = (req, res) => {
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
   const MP_ID = req.params.id;
+  Subproject.destroy({
+    where: { MP_ID: MP_ID }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "ไม่สามารถลบได้"
+    });
+  });
+  
   Mainproject.destroy({
     where: { MP_ID: MP_ID }
   })
@@ -134,6 +147,8 @@ exports.delete = (req, res) => {
       message: "ไม่สามารถลบได้"
     });
   });
+
+  
 };
 
 // Delete all Tutorials from the database.

@@ -4,7 +4,7 @@
             <div class="mt-4 mt-5" align-self="center">
                 <b-card border-variant="dark" class="bgcard">
                     <b-row align-v="center">
-                        <b-col md="6">                            
+                        <b-col md="6">
                             <img src="@/assets/img-enkku.jpg" alt="EN-KKU" class="rounded-0 imgen" width="100">
                         </b-col>
                         <b-col md="6">
@@ -24,8 +24,9 @@
                                     </b-form-group> -->
                                     <GoogleLogin
                                     :params="params"
+                                    :renderParams="renderParams"
                                     :onSuccess="onSuccess"
-                                    class="btn-login">Login with Google
+                                    >
                                     </GoogleLogin>
                                 </b-form>
                               
@@ -66,6 +67,7 @@ export default {
             renderParams: {
                 width: 250,
                 height: 50,
+                // name: "Login with Google"
                 // longtitle: true
             },
         }

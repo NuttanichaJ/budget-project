@@ -47,11 +47,10 @@
 
 <script>
 import Tabulator from 'tabulator-tables';
-import MainprojectDataSevice from "../services/mainproject.datasevice.js";
+import MainprojectDataservice from "../services/mainproject.dataservice.js";
 
-var table, countDb;
+var table;
 var listEditMP = [];
-var undoDatas = [];
 var listAddMP = [];
 
 export default {
@@ -82,15 +81,21 @@ export default {
         cell, formatterParams, onRendered;
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
     };
-
     var editCheck = function(cell){
         //cell - the cell component for the editable cell
         //get row data
         var data = cell.getRow().getData();
-        //console.log(data)
-        if (cell.getRow().getData().MP_ID != undefined) {
-            data.Action = 'edit';
-            listEditMP.push(data)
+        var MP_ID = cell.getRow().getData().MP_ID;
+        if (MP_ID != undefined) {
+          // if(listEditMP.some(listEditMP => listEditMP.Action === 'edit' + MP_ID)){
+          //   var index = listEditMP.map(function(o) { return o.Action; }).indexOf('edit' + MP_ID);
+          //   listEditMP[index] = data;
+          // } else {
+          //   data.Action = 'edit' + MP_ID;
+          //   listEditMP.push(data)
+          // }
+          data.Action = 'edit';
+          listEditMP.push(data)
         }
 
       return listEditMP
@@ -99,6 +104,21 @@ export default {
     //instantiate Tabulator when element is mounted
     table = new Tabulator("#table", {
       //data: this.tableData, //link data to table
+      rowAdded:function(row){
+        //row - row component    
+        var data = row.getData();
+        listAddMP.push(data)
+      },
+
+      rowDeleted:function(row) {
+        var data = row.getData();
+        var MP_ID = data.MP_ID;
+        if (MP_ID != undefined) {
+          data.Action = 'del';
+          listEditMP.push(data)
+        } 
+      },
+      
       history: true,
       layout:"fitDataStretch",
       addRowPos: "bottom",
@@ -114,11 +134,11 @@ export default {
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"โอนเข้า", field:"MP_Income", editor:"number",   editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
+        {title:"โอนเข้า", field:"MP_Income", width:140, hozAlign:"right", formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"โอนออก", field:"MP_Outcome", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"โอนออก", field:"MP_Outcome", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
@@ -163,7 +183,7 @@ export default {
       // search name
       var valueEl = document.getElementById("search");
       valueEl.addEventListener("keyup", function(){
-        table.setFilter('MP_Name','like', valueEl.value);       
+        table.setFilter('MP_Name','like', valueEl.value);   
       });
 
       //add row
@@ -173,22 +193,12 @@ export default {
 
       //undo button
       document.getElementById("history-undo").addEventListener("click", function(){
-        var status = table.undo();
-        if(status) {
-          var undoData = listEditMP.pop();
-          undoDatas.push(undoData)
-          console.log(listEditMP)
-        }
+        table.undo();
       });
 
       //redo button
       document.getElementById("history-redo").addEventListener("click", function(){
-        var status = table.redo();
-        if(status) {
-          var redoData = undoDatas.pop();
-          listEditMP.push(redoData)
-          console.log(listEditMP)
-        }
+        table.redo();
       });
   },
 
@@ -221,7 +231,6 @@ export default {
         if (listAddMP.length != 0) {
           var j;
           for (j in listAddMP) {
-              // listAddMP[j].MP_ID = this.$route.params.id
               this.addNewProject(listAddMP[j])
           }
         }
@@ -247,7 +256,7 @@ export default {
 
     //fetch Main Project data
     retrieveMainProject() {
-          MainprojectDataSevice.getAll()
+          MainprojectDataservice.getAll()
             .then(response => {
               this.tableData = response.data;
               table.setData(this.tableData);
@@ -259,7 +268,7 @@ export default {
     },
 
     deleteMainProject(listDelMP) {
-      MainprojectDataSevice.delete(listDelMP)
+      MainprojectDataservice.delete(listDelMP)
           .then(response => {
             console.log(response.data);
           })
@@ -267,23 +276,10 @@ export default {
             console.log(e);
           })
     },
-  
-    checkNewProject(table, countDb, listAddMP) {
-      var rowCount = table.getDataCount();
-      var data = table.getData();
-      
-      if (countDb <= rowCount) {
-        var i;
-        var countNewProject = rowCount - countDb;
-        for (i = 0; i < countNewProject; i++) {
-          listAddMP.push(data.pop())
-        }
-        return listAddMP
-      }
-    },
+    
 
     addNewProject(data) {
-        MainprojectDataSevice.create(data)
+        MainprojectDataservice.create(data)
           .then(response => {
             console.log(response.data);
           })
@@ -293,7 +289,7 @@ export default {
     },
 
     updateProject(MP_ID, data) {
-      MainprojectDataSevice.update(MP_ID, data)
+      MainprojectDataservice.update(MP_ID, data)
       .then(response => {
         console.log(response.data)
       })
