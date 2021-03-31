@@ -31,7 +31,7 @@
       <b-nav class="mt-3">
         <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 mr-auto">
           <b-form inline class="nav-text">
-            <label class="mr-4" for="form-custom-select-pref">โอนเงินเข้า</label>
+            <label class="mb-2 ml-sm-2 mb-sm-0 mr-4" for="form-custom-select-pref">โอนเงินเข้า</label>
             <b-form-select class="font-18 rounded-2 mb-2 mr-sm-5 mb-sm-0" id="select-ProjectIn" 
               @change="retrieveTransfer()" v-model="selectedProjectIn" :options="optionsProject">
             </b-form-select>
@@ -74,6 +74,7 @@ export default {
     return {
         selectedProjectIn: '',
         optionsProject: [],
+        optionsProjectChild: [],
         tableData: [],
         updateProject: false,
       }
@@ -396,11 +397,12 @@ export default {
               //Mainproject
               var i, j;
               for (i in response.data) {
-                // this.optionsProject.push( {'value': 'MP_ID:' + response.data[i].MP_ID, text: response.data[i].MP_Name});
+                this.optionsProjectChild = []
                 // Subproject
                 for (j in response.data[i].subprojects) {
-                  this.optionsProject.push( {'value': response.data[i].MP_ID + ':SP_ID:' + response.data[i].subprojects[j].SP_ID, text: response.data[i].subprojects[j].SP_Name});
+                  this.optionsProjectChild.push( {'value': response.data[i].MP_ID + ':SP_ID:' + response.data[i].subprojects[j].SP_ID, text: response.data[i].subprojects[j].SP_Name});
                 }
+                this.optionsProject.push({'label': response.data[i].MP_Name, 'options': this.optionsProjectChild});
               }
               //console.log(this.optionsProject)
             })
