@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         User_FName : DataTypes.STRING,
         User_LName : DataTypes.STRING,
         Email : DataTypes.STRING,
-        Permission : DataTypes.STRING,
+        Permission : {
+            type: DataTypes.STRING,
+            // enum: ["Branch", "Central", "Dean"]
+        },
         Password : DataTypes.STRING,
     })
 

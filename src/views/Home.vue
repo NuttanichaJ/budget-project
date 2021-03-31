@@ -3,7 +3,8 @@
       <div id="contents">
       
           <div class="header">
-            <h1>หน้าหลัก ฝ่าย/สาขา...</h1>
+            <!-- <h1>หน้าหลัก ฝ่าย/สาขา... {{userID.permission}} </h1> -->
+            <h1>หน้าหลัก  {{ user.depart_name}}</h1>
             <b-form inline>
               <label class="mr-sm-2 mr-lg-2 font-20" for="inline-form-custom-select-pref">ปีงบประมาณ</label>
               <b-form-select id="inline-form-custom-select-pref"
@@ -84,6 +85,8 @@ export default {
   },
   data() {
       return {
+        user : this.$store.state.user,
+
       cd: chartData,
       selectedYear: '2564',
         optionsYear: [

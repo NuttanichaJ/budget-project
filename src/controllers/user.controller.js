@@ -8,12 +8,12 @@ const Subproject = db.subproject;
 // Create and Save a new user
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.User_FName) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-    return;
-  }
+  // if (!req.body.User_FName) {
+  //   res.status(400).send({
+  //     message: "Content can not be empty!"
+  //   });
+  //   return;
+  // }
 
   // Create a User
   const user = {
@@ -41,7 +41,7 @@ exports.create = (req, res) => {
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
     User.findAll({
-      include: [
+      include: ['departments',
         {
           model: Mainproject,
           as: "managed_mainprojects",
@@ -193,6 +193,22 @@ exports.deleteAll = (req, res) => {
 };
 
 // Find all published Tutorials
-exports.findAllPublished = (req, res) => {
+// exports.findAllPublished = (req, res) => {
   
-};
+// };
+
+// exports.allAccess = (req, res) => {
+//   res.status(200).send("Public Content.");
+// };
+
+// exports.userBoard = (req, res) => {
+//   res.status(200).send("User Content.");
+// };
+
+// exports.adminBoard = (req, res) => {
+//   res.status(200).send("Admin Content.");
+// };
+
+// exports.moderatorBoard = (req, res) => {
+//   res.status(200).send("Moderator Content.");
+// };

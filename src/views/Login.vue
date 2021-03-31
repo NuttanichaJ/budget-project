@@ -13,11 +13,13 @@
                                 <b-form @submit.prevent>
                                     <!-- <b-form-group >
                                         <label for="input-mail">E-mail</label>
-                                        <b-form-input id="input-mail" v-model="mail" type="email" 
+                                        <b-form-input id="input-mail" v-model="email" type="email"
                                             placeholder="Enter your email"></b-form-input>
+
                                         <label for="input-pass" class="mt-2">Password</label>
-                                        <b-form-input id="input-pass" v-model="password" type="password" placeholder="Enter your password"></b-form-input>
-                                        <b-button block pill class="mt-3" type="submit"><font-awesome-icon icon="sign-in-alt" />&nbsp;&nbsp;</b-button>                                                               
+                                        <b-form-input id="input-pass" v-model="password" type="password" 
+                                            placeholder="Enter your password"></b-form-input>
+                                        <b-button block pill class="mt-3" type="submit"><font-awesome-icon icon="sign-in-alt" />&nbsp;&nbsp;</b-button>
                                         <a class="" href="">forget password</a>
                                     </b-form-group> -->
                                     <GoogleLogin
@@ -41,8 +43,10 @@
 <script>
 // import axios from 'axios';
 import GoogleLogin from 'vue-google-login';
-// import User from '../models/user';
+
+// import User from '../models/user.model';
 // import UserService from "../services/user.sevice"
+import UserDataservice from "../services/user.datasevice.js";
 export default {
     name: "login",
     components: {
@@ -53,11 +57,8 @@ export default {
             // user: new User('', ''),
             // loading: false,
             // message: '',
-
-            email:'',
-            name:'',
-            
-            // client_id is the only required property but you can add several more params, full list down bellow on the Auth api section
+                    
+            // client_id google api
             params: {
                 client_id:'739770244137-b1d92li2tcs044jsj49ck7qmvbnchr9c.apps.googleusercontent.com',
             
@@ -68,83 +69,80 @@ export default {
                 // longtitle: true
             },
         }
-        
-    },
-    // async created() {
-    //     await this.onSuccess()
-    // },
-    methods: {
-        async onSuccess(googleUser) {
-            // console.log(googleUser);
-            // This only gets the user information: id, name, imageUrl and email
-            console.log(googleUser.getBasicProfile());
-            this.email = googleUser.getBasicProfile().getEmail();
-            this.name = googleUser.getBasicProfile().getName();
-
-            console.log(this.email)
-            console.log(this.name)
-
-            // const response = await axios.post('login', {
-            //     email: this.googleUser.getBasicProfile().getEmail(),
-            //     name: this.googleUser.getBasicProfile().getName()
-            // })
-            // const id_token = googleUser.getAuthResponse().id_token
-            // console.log(id_token)
-            // console.log(response)
-
-            // The ID token you need to pass to your backend:
-            // var id_token = googleUser.getAuthResponse().id_token;
-            // console.log("ID Token: " + id_token);
-            // this.$router.dispatch('user', response.data.token);
-            this.$router.push('/user')
-
-        },
-        // handleLogin() {
-        //     this.loading = true;
-        //     this.$validator.validateAll().then(isValid => {
-        //         if (!isValid) {
-        //         this.loading = false;
-        //         return;
-        //         }
-
-        //         if (this.user.username && this.user.password) {
-        //         this.$store.dispatch('auth/login', this.user).then(
-        //             () => {
-        //             this.$router.push('/profile');
-        //             },
-        //             error => {
-        //             this.loading = false;
-        //             this.message =
-        //                 (error.response && error.response.data) ||
-        //                 error.message ||
-        //                 error.toString();
-        //             }
-        //         );
-        //         }
-        //     });
-        // }
     },
     // computed: {
-    //     loggedIn() {
-    //         return this.$store.googleUser;
+    //     loggingIn () {
+    //         return this.$store.state.auth.status.loggingIn;
     //     }
     // },
-    // async created() {
-    //     if (this.loggedIn) {
-    //         this.$router.push('/user');
-    //     }
+    // created () {
+    //     // reset login status
+    //     this.$store.dispatch('auth/logout');
     // },
+    
+    methods: {
+        onSuccess(googleUser) {
+            // console.log(googleUser);
+            // console.log('getAuthResponse', googleUser.getAuthResponse())
+            // console.log('getBasicProfile', googleUser.getBasicProfile())
 
+            var userInfo = {
+                name: googleUser.Rs.Te,
+                fName: googleUser.Rs.BT,
+                lName: googleUser.Rs.xR,
+                email: googleUser.Rs.At,
+                token: googleUser.tc.access_token
+            }
+        // console.log(userInfo)
+        // localStorage.setItem('user', JSON.stringify(userInfo))
+        // this.$store.commit("setUserInfo", userInfo)
+
+            UserDataservice.getAll() 
+                .then(response => {
+                    // console.log(response.data)
+                    var i;
+                    for (i in response.data) {
+                        if(userInfo.email === response.data[i].Email) {
+                            // console.log(response.data)
+                            // var email = response.data[i].Email;
+                            // var permission = response.data[i].Permission
+                            var userID = {
+                                email:response.data[i].Email,
+                                userid: response.data[i].User_ID,
+                                depart_id: response.data[i].D_ID,
+                                permission: response.data[i].Permission,
+                                depart_name: response.data[i].departments.D_Name
+                            }
+                            // console.log("ID = ",userID)
+                            localStorage.setItem('user', JSON.stringify(userID))
+                            this.$store.commit("setUser", userID)
+
+                            // console.log("D_ID",depart_id)
+                            // localStorage.setItem("setUserInfo", response.data)
+                            // this.$router.push(`/user/${userID.permission}`)
+                            this.$router.push('/user')
+                            
+                        }
+                        
+                        
+                    }
+                    if (response.data.accessToken) {
+                            console.log(response.data.accessToken)
+                            localStorage.setItem('user', JSON.stringify(response.data));
+                        }
+                        // return response.data;
+                    
+                })
+        // window.sessionStorage.clear()
+        },
+    },
 }
-
-
 </script>
 
-<style lang="scss">
+<style lang="scss" scope>
 .imgen {
   width: 100%;
   height: 100%;
-  
 }
 .bgcard{
     background-color: #BEBEBE;
@@ -162,5 +160,4 @@ export default {
 }
 .btn-login:hover {background-color: #6d6b6b}
 
-    
 </style>

@@ -215,7 +215,7 @@ export default {
           }
         }
 
-        //listAddMP = [{MP_Name: "Nurse"}]
+        listAddMP = [{MP_Name: "Nurse"}]
         this.checkNewProject(table, countDb, listAddMP)
         listAddMP.reverse()
         if (listAddMP.length != 0) {
@@ -267,7 +267,7 @@ export default {
             console.log(e);
           })
     },
-    
+  
     checkNewProject(table, countDb, listAddMP) {
       var rowCount = table.getDataCount();
       var data = table.getData();

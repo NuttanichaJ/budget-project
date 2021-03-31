@@ -16,7 +16,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import { LoaderPlugin } from 'vue-google-login';
-// import axios from 'axios'
+import VeeValidate from 'vee-validate';
 
 
 library.add(fas)
@@ -32,6 +32,7 @@ Vue.use(LoaderPlugin, {
   scope: 'profile email',
   prompt: 'select_account'
 });
+Vue.use(VeeValidate);
 
 new Vue({
   router,

@@ -9,6 +9,9 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.json());
+// app.use(express.notFound());
+
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -37,6 +40,8 @@ app.listen(PORT, () => {
 });
 
 const db = require("./src/models");
+const { request } = require("express");
 db.sequelize.sync({ force: false }).then(() => {
   console.log("Drop and re-sync db.");
 });
+
