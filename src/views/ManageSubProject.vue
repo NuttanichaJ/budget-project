@@ -5,7 +5,7 @@
       <div class="header">
         <div class="pb-xlg h-100">
            <div class="d-flex justify-content-between align-items-center mb-lg">
-              <h3>ส่งเสริมให้นักศึกษามีภาวะผู้นำ และคิดวิเคราะห์</h3>
+              <h3>{{mainprojectData.MP_Name}}</h3>
               <i class="la la-arrow-right text-primary la-lg rotate-315"/>
             </div>
         </div>
@@ -18,18 +18,18 @@
                     <h5>ข้อมูลโครงการ</h5>
                     <div class="d-flex flex-wrap justify-content-between">
                         <div class="mt">
-                          <p class="text-muted mb-0 mr"><small>ประเด็นยุทธศาสตร์ : 1</small></p>
-                          <p class="text-muted mb-0 mr"><small>ยุทธศาสตร์ : 1</small></p>
-                          <p class="text-muted mb-0 mr"><small>กลยุทธ์ : 1</small></p>
-                          <p class="text-muted mb-0 mr"><small>ผู้รับผิดชอบ : วิศวกรรมคอมพิวเตอร์</small></p>
-                          <p class="text-muted mb-0 mr"><small>ตัวชี้วัด : ร้อยละนักศึกษาที่สำเร็จการศึกษาตามระยะเวลาที่หลักสูตรกำหนด</small></p>
-                          <p class="text-muted mb-0 mr"><small>ค่าเป้าหมาย : ร้อยละ 55</small></p>
+                          <p class="text-muted mb-0 mr"><small>ประเด็นยุทธศาสตร์ : {{mainprojectData.Strategic_Issue_ID}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>ยุทธศาสตร์ : {{mainprojectData.Strategic_ID}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>กลยุทธ์ : {{mainprojectData.Strategy_ID}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>ผู้รับผิดชอบ : {{mainprojectData.MP_Owner}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>ตัวชี้วัด : {{mainprojectData.MP_Indicator}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>ค่าเป้าหมาย : {{mainprojectData.MP_Target_Value}}</small></p>
                         </div>
                         <div class="mt">
-                          <p class="text-muted mb-0 mr"><small>ผลการดำเนินงาน : </small></p>
-                          <p class="text-muted mb-0 mr"><small>ปัญหาและอุปสรรค : </small></p>
-                          <p class="text-muted mb-0 mr"><small>รายละเอียดผลการดำเนินงาน : </small></p>
-                          <p class="text-muted mb-0 mr"><small>หมายเหตุ : </small></p>
+                          <p class="text-muted mb-0 mr"><small>ผลการดำเนินงาน : {{mainprojectData.Performance_Result}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>ปัญหาและอุปสรรค : {{mainprojectData.Problem}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>รายละเอียดผลการดำเนินงาน : {{mainprojectData.Detail_Result}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>หมายเหตุ : {{mainprojectData.Annotation}}</small></p>
                         </div>
                     </div>
                 </b-col>
@@ -40,22 +40,22 @@
                       <div class="d-flex flex-wrap justify-content-betweet">
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>งบประมาณตามแผน</small></p>
-                          <h5 class="mb-0 text-center">163470</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Budget}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>โอนเข้า</small></p>
-                          <h5 class="mb-0 text-center">0</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Income}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>โอนออก</small></p>
-                          <h5 class="mb-0 text-center">0</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Outcome}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>คงเหลือตามแผน</small></p>
-                          <h5 class="mb-0 text-center">163470</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Total_Amount}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                       </div>  
@@ -64,22 +64,22 @@
                       <div class="d-flex flex-wrap justify-content-betweet">
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>ขออนุมัติใช้</small></p>
-                          <h5 class="mb-0 text-center">107340</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Approve_Use}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>เบิกจ่าย</small></p>
-                          <h5 class="mb-0 text-center">87777</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Disburse}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>คงเหลือตามหลักการ</small></p>
-                          <h5 class="mb-0 text-center">56130</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Total_From_Priciple}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>คงเหลือจากเบิกจ่ายจริง</small></p>
-                          <h5 class="mb-0 text-center">154693</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Total_From_Disburse}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                       </div>  
@@ -148,6 +148,7 @@ export default {
       return {
         // user: this.$store.state.user,
         tableData: [], //data for table to display
+        mainprojectData: []
       }
   },
 
@@ -318,6 +319,7 @@ export default {
     getSubProject(MP_ID) {
           MainprojectDataservice.get(MP_ID)
             .then(response => {
+              this.mainprojectData = response.data
               this.tableData = response.data.subprojects;
               table.setData(this.tableData);
               console.log(this.tableData);

@@ -140,9 +140,7 @@ export default {
                 //   //   index++;
                 //   // }
                 // }
-
               }
-
             })
             .catch(e => {
               console.log(e);
@@ -153,11 +151,10 @@ export default {
                   var i;
                   //var index = 0;
                   for (i in response.data) {
-                    if(dapartment_id == response.data[i].D_ID){
+                    //if(dapartment_id == response.data[i].D_ID){
                       if (selectedProjectIn[1] == 'SP_ID') {
                         if (selectedProjectIn[2] == response.data[i].SP_ID_In) {
                           // if(response.data[i].MPtranfers_Out != null) {
-                            
                           //   var index3;
                           //   for (index3 in optionsProjectOut) {
                           //     var getoptionsProjectOut3 = optionsProjectOut[index3].split(': ')
@@ -180,7 +177,7 @@ export default {
                             }
                           }
                             
-                        }
+                        //}
                       }
                     }
                     // if (selectedProjectIn[0] == 'MP_ID') {
@@ -360,30 +357,31 @@ export default {
           var action = listEdit[i].Action
           var edit_ID = listEdit[i].Transfer_ID
           if (action == 'edit') {
-            // var totalAmountIncome = table.getCalcResults().top.Amount;
-            // totalAmountIncome = parseFloat(totalAmountIncome)
-            // console.log(results)
-            // console.log(listEdit[i])
-            this.updateTransfer(edit_ID, listEdit[i])
-            this.updateTransferToMainAndSubproject(listEdit[i]) 
+            console.log(listEdit[i])
+            this.updateProject = this.updateTransfer(edit_ID, listEdit[i])
+            // this.updateTransferToMainAndSubproject(listEdit[i])
+            
           }
           else if (action == 'del'){
 
-            // console.log(listEdit[i])
-            this.deleteTransfer(edit_ID)
-            this.updateTransferToMainAndSubproject(listEdit[i])
-            // this.deleteTransferToMainAndSubproject(listEdit[i])
+            console.log(listEdit[i])
+            this.updateProject = this.deleteTransfer(edit_ID)
+            // this.updateTransferToMainAndSubproject(listEdit[i])
+            
             
           }
           else if (action == 'add'){
-            this.addNewTransfer(listEdit[i])
-            this.addTransferToMainAndSubproject(listEdit[i])
+            console.log(listEdit[i])
+            this.updateProject = this.addNewTransfer(listEdit[i])
+            //this.updateTransferToMainAndSubproject(listEdit[i])
           }
+
+          this.updateTransferToMainAndSubproject(listEdit[i])
         }
         
-        window.location.reload()
+       
         listEdit = [];
-  
+        // window.location.reload()
         //do something...
       });
     },
@@ -394,8 +392,9 @@ export default {
       " ",
       "error",
       ).then(() => {
-          window.location.reload()
+          
           listEdit = [];
+          window.location.reload()
           //do something...
         });
     },
@@ -428,12 +427,9 @@ export default {
     retrieveTransfer() {
         TransferDataService.getAll()
             .then(response => {
-    
-              for(var j in response.data) {
-                if(this.user.depart_id == response.data[j].D_ID)
-                this.tableData.push(response.data[j]);
-              }
               
+              this.tableData = response.data;
+          
               var i;
               //var index = 0;
               for (i in response.data) {
@@ -493,6 +489,9 @@ export default {
         var SP_ID_In2 = data.SP_ID_In;
         var SP_ID_Out2 = data.SP_ID_Out;
 
+        console.log(SP_ID_In2)
+        console.log(SP_ID_Out2)
+
         if([SP_ID_In2, SP_ID_Out2].every(x=>x!== null)){
           SubprojectDataService.get(SP_ID_In2)
           .then(response => {
@@ -507,8 +506,8 @@ export default {
               var amount = transfer.Amount
               totalAmount += amount
               // console.log(transfer)
-              // console.log(totalAmount)
-            }
+              
+            } console.log("S", totalAmount)
             SubprojectDataService.update(SP_ID_In2, {SP_Income: totalAmount})
             // console.log(totalAmount)
 
@@ -524,11 +523,11 @@ export default {
               // console.log(totalIncome)
               for(var i in Subprojects) {
               
-              var SP_Income = Subprojects[i].SP_Income
-              totalIncome += SP_Income
+                var SP_Income = Subprojects[i].SP_Income
+                totalIncome += SP_Income
 
-              //console.log(totalIncome)
               }
+              console.log("M",totalIncome)
             MainprojectDataService.update(MP_ID_In, {MP_Income: totalIncome})
             })
           })
@@ -550,7 +549,7 @@ export default {
               // console.log(totalAmount)
             }
             SubprojectDataService.update(SP_ID_Out2, {SP_Outcome: totalAmount})
-            // console.log(totalAmount)
+            console.log("S", totalAmount)
 
             var MP_ID_Out = response.data.MP_ID;
             //Update Mainproject
@@ -565,11 +564,12 @@ export default {
               for(var i in Subprojects) {
               
               var SP_Outcome = Subprojects[i].SP_Outcome
+              //console.log(SP_Outcome)
               totalOutcome += SP_Outcome
 
-              //console.log(totalOutcome)
               }
-            MainprojectDataService.update(MP_ID_Out, {MP_Outcome: totalOutcome})
+              console.log("M", totalOutcome)
+              MainprojectDataService.update(MP_ID_Out, {MP_Outcome: totalOutcome})
 
             })
           })
@@ -819,81 +819,82 @@ export default {
     addTransferToMainAndSubproject(data){
         //new value
         var amount2 = data.Amount;
-        var MP_ID_In2 = data.MP_ID_In;
-        var MP_ID_Out2 = data.MP_ID_Out;
+        // var MP_ID_In2 = data.MP_ID_In;
+        // var MP_ID_Out2 = data.MP_ID_Out;
         var SP_ID_In2 = data.SP_ID_In;
         var SP_ID_Out2 = data.SP_ID_Out;
 
-                if([MP_ID_In2, MP_ID_Out2].every(x=>x!== null)){
-                      //update MP_Income
-                      //var oldOutcome;
-                      //find old MP_Income
-                      MainprojectDataService.get(MP_ID_In2)
-                        .then(response => {
-                          //MP_Income in database
-                          const oldIncome = response.data.MP_Income
-                          // console.log(oldIncome)
-                          const newIncome = oldIncome + amount2
-                          console.log(newIncome)
-                          MainprojectDataService.update(MP_ID_In2, {MP_Income: newIncome})
+                // if([MP_ID_In2, MP_ID_Out2].every(x=>x!== null)){
+                //       //update MP_Income
+                //       //var oldOutcome;
+                //       //find old MP_Income
+                //       MainprojectDataService.get(MP_ID_In2)
+                //         .then(response => {
+                //           //MP_Income in database
+                //           const oldIncome = response.data.MP_Income
+                //           // console.log(oldIncome)
+                //           const newIncome = oldIncome + amount2
+                //           console.log(newIncome)
+                //           MainprojectDataService.update(MP_ID_In2, {MP_Income: newIncome})
                           
-                          //update MP_Outcome
-                          //find old MP_Outcome
-                          MainprojectDataService.get(MP_ID_Out2)
-                          .then(response => {
-                            //MP_Income in database
-                            const oldOutcome = response.data.MP_Outcome
-                            // console.log(oldIncome)
-                            const newOutcome = oldOutcome + amount2
-                            console.log(newOutcome)
-                            MainprojectDataService.update(MP_ID_Out2, {MP_Outcome: newOutcome})
-                          })
-                        })     
-                }
-                else if([MP_ID_Out2, SP_ID_In2].every(x=>x!== null)){
-                      //update MP_Income
-                      //var oldOutcome;
-                      //find old MP_Income
-                      MainprojectDataService.get(MP_ID_Out2)
-                        .then(response => {
-                          //MP_Income in database
-                          const MP_oldOutcome = response.data.MP_Outcome
-                          const MP_newOutcome = MP_oldOutcome + amount2
-                          console.log(MP_newOutcome)
-                          MainprojectDataService.update(MP_ID_Out2, {MP_Outcome: MP_newOutcome})
-                          //update SP_Outcome
-                          //var oldOutcome;
-                          //find old SP_Outcome
-                          SubprojectDataService.get(SP_ID_In2)
-                            .then(response => {
-                              //MP_Income in database
-                              const oldIncome = response.data.SP_Income
-                              // console.log(oldIncome)
-                              const newIncome = oldIncome + amount2
-                              console.log(newIncome)
-                              SubprojectDataService.update(SP_ID_In2, {SP_Income: newIncome})
+                //           //update MP_Outcome
+                //           //find old MP_Outcome
+                //           MainprojectDataService.get(MP_ID_Out2)
+                //           .then(response => {
+                //             //MP_Income in database
+                //             const oldOutcome = response.data.MP_Outcome
+                //             // console.log(oldIncome)
+                //             const newOutcome = oldOutcome + amount2
+                //             console.log(newOutcome)
+                //             MainprojectDataService.update(MP_ID_Out2, {MP_Outcome: newOutcome})
+                //           })
+                //         })     
+                // }
+                // else if([MP_ID_Out2, SP_ID_In2].every(x=>x!== null)){
+                //       //update MP_Income
+                //       //var oldOutcome;
+                //       //find old MP_Income
+                //       MainprojectDataService.get(MP_ID_Out2)
+                //         .then(response => {
+                //           //MP_Income in database
+                //           const MP_oldOutcome = response.data.MP_Outcome
+                //           const MP_newOutcome = MP_oldOutcome + amount2
+                //           console.log(MP_newOutcome)
+                //           MainprojectDataService.update(MP_ID_Out2, {MP_Outcome: MP_newOutcome})
+                //           //update SP_Outcome
+                //           //var oldOutcome;
+                //           //find old SP_Outcome
+                //           SubprojectDataService.get(SP_ID_In2)
+                //             .then(response => {
+                //               //MP_Income in database
+                //               const oldIncome = response.data.SP_Income
+                //               // console.log(oldIncome)
+                //               const newIncome = oldIncome + amount2
+                //               console.log(newIncome)
+                //               SubprojectDataService.update(SP_ID_In2, {SP_Income: newIncome})
 
-                              const MP_ID_In = response.data.MP_ID
-                              MainprojectDataService.get(MP_ID_In)
-                                .then(response => {
-                                  const MP_oldIncome = response.data.MP_Outcome
-                                  const MP_newIncome = MP_oldIncome + amount2
-                                  MainprojectDataService.update(MP_ID_In, {MP_Income: MP_newIncome})
-                              })
-                            })
-                        })
-                }
-                else if([SP_ID_In2, SP_ID_Out2].every(x=>x!== null)){
+                //               const MP_ID_In = response.data.MP_ID
+                //               MainprojectDataService.get(MP_ID_In)
+                //                 .then(response => {
+                //                   const MP_oldIncome = response.data.MP_Outcome
+                //                   const MP_newIncome = MP_oldIncome + amount2
+                //                   MainprojectDataService.update(MP_ID_In, {MP_Income: MP_newIncome})
+                //               })
+                //             })
+                //         })
+                // }
+                if([SP_ID_In2, SP_ID_Out2].every(x=>x!== null)){
                       //update SP_Income
                       //var oldOutcome;
                       //find old SP_Income
+                      console.log(SP_ID_In2, SP_ID_Out2)
                       SubprojectDataService.get(SP_ID_In2)
                         .then(response => {
                           //SP_Income in database
                           const oldIncome = response.data.SP_Income
                           // console.log(oldIncome)
                           const newIncome = oldIncome + amount2
-                          console.log(newIncome)
+                          // console.log(newIncome)
                           SubprojectDataService.update(SP_ID_In2, {SP_Income: newIncome})
 
                           const MP_ID_In = response.data.MP_ID
