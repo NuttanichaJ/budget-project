@@ -12,7 +12,7 @@
             </b-form>
           </div>
 
-        <b-row class="row" >
+        <!-- <b-row class="row" >
           <b-col xs="12" lg="6" xl="12">
             <Widget class="h-100 mb-0" title="">
               <div class="d-flex justify-content-between align-items-center mb-lg">
@@ -69,7 +69,7 @@
               <apexchart type="pie" height="300" :series="cd.apex.pie.series" :options="cd.apex.pie.options"/>
             </Widget>
           </b-col>
-        </b-row>
+        </b-row> -->
       </div>
     </div>
   

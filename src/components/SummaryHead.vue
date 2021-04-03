@@ -144,12 +144,12 @@
                 <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
               </div>
               <div class="mr-2 mb-1" id="border">
-                <p class="mb-0"><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
+                <p class="mb-0"><small>งบประมาณคงเหลือ (ตามแผน)</small></p>
                 <h2 class="mb-0 text-center">5,538,020</h2>
                 <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
               </div>
               <div class="" id="border">
-                <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
+                <p class="mb-0"><small>งบประมาณคงเหลือ (เบิกจ่ายจริง)</small></p>
                 <h2 class="mb-0 text-center">5,459,515</h2>
                 <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
               </div>
@@ -250,7 +250,7 @@ export default {
   padding: 10px;  
   border: 0.3px solid black;
   border-radius: 5px;
-  width: 210px;
+  width: 250px;
   background-color: white;
 
 }

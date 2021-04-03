@@ -295,7 +295,7 @@ export default {
           }
         }
         
-        window.location.reload()
+        // window.location.reload()
         listEditSP, listAddSP = [];
         
         //do something...
@@ -362,12 +362,13 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import  "~vue-tabulator/dist/scss/bootstrap/tabulator_bootstrap4";
 
 #managesubproject {
   margin: 20px;
 }
+
 
 
 </style>

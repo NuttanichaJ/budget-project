@@ -27,7 +27,7 @@ export default new Vuex.Store({
     //   'permission':''
     // }
     // loginUser: user
-    
+  
   },
   mutations: {
     setUser(state,user){
@@ -44,13 +44,12 @@ export default new Vuex.Store({
     //   state.status.loggedIn = false;
     //   state.user = null;
     // },
-    logout(state) {
-      
-      state.status.setUserInfo = false;
-      state.status.setUserID = false;
-      state.user = null;
-      localStorage.removeItem('user')
-    }
+    // logout(state) {
+    //   state.status.setUserInfo = false;
+    //   state.status.setUserID = false;
+    //   state.user = null;
+    //   localStorage.removeItem('user')
+    // }
   },
   actions: {
 

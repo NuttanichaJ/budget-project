@@ -75,7 +75,8 @@ export default {
       // this.$store.dispatch('logout');
       // localStorage.removeItem("user");
       window.localStorage.removeItem('user');
-      window.localStorage.removeItem('vuex');
+      // window.localStorage.removeItem('vuex');
+      // window.localStorage.removeItem('');
       window.sessionStorage.clear()
       this.$router.push('/login');
     }

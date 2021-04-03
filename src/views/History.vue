@@ -28,12 +28,18 @@
 
 <script>
 import Tabulator from 'tabulator-tables';
+// import  HistoryDataservice from '../services/history.dataservice.js'
+
 var table;
 
 export default {
   name: "History",
   data () {
     return {
+      // user: this.$store.state.user,
+      // tabulator: null
+      // tableData: [],
+
       // selected Permissin
       selectedBranch: null,
       optionsBranch: [
@@ -57,6 +63,11 @@ export default {
   },
   
     mounted(){
+      //retrieve Main Project
+      // this.getSubProject(this.$route.params.id);
+
+      // this.getHistoryDataservice()
+
       //instantiate Tabulator when element is mounted
       table = new Tabulator("#table", {
         data: this.tableData, //link data to table
@@ -80,8 +91,7 @@ export default {
       })
       var selectEl = document.getElementById("select-branch");
       selectEl.addEventListener("change", function(){
-        //table.setFilter("branch",'regex', selectEl.value);
-        table.setFilter('branch','like', selectEl.options[selectEl.selectedIndex].text);  
+        table.setFilter('branch','like', selectEl.options[selectEl.selectedIndex].value);  
       })
 
       //undo button
@@ -99,14 +109,40 @@ export default {
   },
   //template: '<div ref="table"></div>', //create table holder element
   methods: {
+
+
+    // getHistoryDataservice(Edited_User_ID) {
+    //   HistoryDataservice.getAll()
+    //   .then( response => {
+    //     var i;
+    //     for(i in response.data) {
+    //       if(Edited_User_ID == response.data[i]) {
+
+    //       }
+    //     }
+      
+    //   })
+    // }
+
+    // getHistoryDataservice(id) {
+    //   HistoryDataservice.get(id)
+    //     .then((response) => {
+    //       this.historyid = response.data;
+    //       console.log(response.data);
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // },
+
+
      
   },
 };
 
-
 </script>
 
-<style lang="scss">
+<style lang="scss" scope>
 
 @import  "~vue-tabulator/dist/scss/bootstrap/tabulator_bootstrap4";
 
@@ -122,6 +158,5 @@ export default {
   font-size: 18px;
   color: black;
 }
-
 
 </style>

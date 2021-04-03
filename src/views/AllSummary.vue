@@ -39,12 +39,12 @@
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
-                    <p class="mb-0 "><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
+                    <p class="mb-0 "><small>งบประมาณคงเหลือ (ตามแผน)</small></p>
                     <h2 class="mb-0 text-center">2,881,340</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
-                    <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
+                    <p class="mb-0"><small>งบประมาณคงเหลือ (เบิกจ่ายจริง)</small></p>
                     <h2 class="mb-0 text-center">2,881,340</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
@@ -89,12 +89,12 @@
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
-                    <p class="mb-0 "><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
+                    <p class="mb-0 "><small>งบประมาณคงเหลือ (ตามแผน)</small></p>
                     <h2 class="mb-0 text-center">1,667,400</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
-                    <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
+                    <p class="mb-0"><small>งบประมาณคงเหลือ (เบิกจ่ายจริง)</small></p>
                     <h2 class="mb-0 text-center">1,639,650</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
@@ -139,12 +139,12 @@
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
-                    <p class="mb-0 "><small>งบประมาณทคงเหลือ (ตามแผน)</small></p>
+                    <p class="mb-0 "><small>งบประมาณคงเหลือ (ตามแผน)</small></p>
                     <h2 class="mb-0 text-center">989,280</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
                   <div class="">
-                    <p class="mb-0"><small>งบประมาณทคงเหลือ (เบิกจ่ายจริง)</small></p>
+                    <p class="mb-0"><small>งบประมาณคงเหลือ (เบิกจ่ายจริง)</small></p>
                     <h2 class="mb-0 text-center">938,525</h2>
                     <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                   </div>
@@ -184,7 +184,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .brancebtn:focus {
     outline: none !important;
     border: none !important;

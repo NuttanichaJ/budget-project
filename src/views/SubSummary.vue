@@ -108,7 +108,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scope>
 @import  "~vue-tabulator/dist/scss/bootstrap/tabulator_bootstrap4.scss";
 
 .summary2{

@@ -225,7 +225,7 @@ export default {
           }, //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
         ], //define table columns
     });
-    
+  
       // search name
       var valueEl = document.getElementById("search");
       valueEl.addEventListener("keyup", function(){
@@ -382,7 +382,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import  "~vue-tabulator/dist/scss/bootstrap/tabulator_bootstrap4";
 
 #manageproject {

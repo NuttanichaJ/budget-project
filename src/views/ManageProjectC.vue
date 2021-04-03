@@ -176,7 +176,6 @@ export default {
         ], //define table columns
     });   
 
-
       // search name
       var valueEl = document.getElementById("search");
       valueEl.addEventListener("keyup", function(){

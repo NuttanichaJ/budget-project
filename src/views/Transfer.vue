@@ -381,7 +381,7 @@ export default {
           }
         }
         
-        window.location.reload()
+        // window.location.reload()
         listEdit = [];
   
         //do something...
@@ -453,7 +453,6 @@ export default {
       
           
     },
-
     deleteTransfer(listDel) {
       TransferDataService.delete(listDel)
           .then(response => {

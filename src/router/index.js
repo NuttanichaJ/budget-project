@@ -15,6 +15,7 @@ import adminManagement from '@/views/adminManagement.vue'
 import AllSummary from '@/views/AllSummary.vue'
 import SubSummary from '@/views/SubSummary.vue'
 import Login from '@/views/Login.vue'
+import Summary from '@/views/Summary.vue'
 
 Vue.use(VueRouter)
 
@@ -50,6 +51,11 @@ const routes = [
       component: SubSummary,
     },
     {
+      path: '/summary',
+      name: 'Summary',
+      component: Summary,
+    },
+    {
     path: '/history',
     name: 'History',
     component: History,
@@ -82,7 +88,8 @@ const routes = [
   path: '/login',
   name: 'login',
   component: Login,
-}
+},
+{ path: '*', redirect: '/login' }
 ]
 
 const router = new VueRouter({
@@ -96,13 +103,10 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['/login'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
-
   if (authRequired && !loggedIn) {
     return next('/login');
   }
-
   next();
 })
-
 
 export default router

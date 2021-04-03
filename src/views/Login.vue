@@ -24,9 +24,9 @@
                                     </b-form-group> -->
                                     <GoogleLogin
                                     :params="params"
-                                    :renderParams="renderParams"
                                     :onSuccess="onSuccess"
-                                    >
+                                    class="btn-login"
+                                    >Login with Google
                                     </GoogleLogin>
                                 </b-form>
                               
@@ -55,39 +55,17 @@ export default {
     },
     data() {
         return {
-            // user: new User('', ''),
-            // loading: false,
-            // message: '',
-                    
             // client_id google api
             params: {
                 client_id:'739770244137-b1d92li2tcs044jsj49ck7qmvbnchr9c.apps.googleusercontent.com',
-            
             },
-            renderParams: {
-                width: 250,
-                height: 50,
-                // name: "Login with Google"
-                // longtitle: true
-            },
+           
         }
     },
-    // computed: {
-    //     loggingIn () {
-    //         return this.$store.state.auth.status.loggingIn;
-    //     }
-    // },
-    // created () {
-    //     // reset login status
-    //     this.$store.dispatch('auth/logout');
-    // },
     
     methods: {
         onSuccess(googleUser) {
             // console.log(googleUser);
-            // console.log('getAuthResponse', googleUser.getAuthResponse())
-            // console.log('getBasicProfile', googleUser.getBasicProfile())
-
             var userInfo = {
                 name: googleUser.Rs.Te,
                 fName: googleUser.Rs.BT,
@@ -101,7 +79,6 @@ export default {
         // var nurse = {User_FName: 'Nurse2', Email: 'nursenicha13812@gmail.com', D_ID: 1, Permission: 'Center'}
 
         // UserDataservice.create(nurse)
-
             UserDataservice.getAll() 
                 .then(response => {
                     // console.log(response.data)
@@ -128,19 +105,12 @@ export default {
                             this.$router.push('/user')
                             
                         }
-                        
-                        
                     }
-                    if (response.data.accessToken) {
-                            console.log(response.data.accessToken)
-                            localStorage.setItem('user', JSON.stringify(response.data));
-                        }
-                        // return response.data;
-                    
                 })
-        // window.sessionStorage.clear()
         },
+        
     },
+    
 }
 </script>
 
