@@ -1,7 +1,6 @@
 <template>
   <div id="home">
       <div id="contents">
-      
           <div class="header">
             <!-- <h1>หน้าหลัก ฝ่าย/สาขา... {{userID.permission}} </h1> -->
             <h1>หน้าหลัก  {{ user.depart_name}}</h1>
@@ -70,24 +69,27 @@
             </Widget>
           </b-col>
         </b-row> -->
+
+      
       </div>
     </div>
   
 </template>
 
 <script>
-import Widget from '../components/Widget.vue';
-import {chartData} from './chartdata';
+
+// import {chartData} from './chartdata';
 export default {
   name: 'Home',
   components: {
-    Widget
+
   },
   data() {
       return {
         user : this.$store.state.user,
 
-      cd: chartData,
+      // ************************
+      // cd: chartData,
       selectedYear: '2564',
         optionsYear: [
           { value: '2564', text: '2564' },
