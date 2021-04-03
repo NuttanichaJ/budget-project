@@ -48,6 +48,7 @@ import GoogleLogin from 'vue-google-login';
 // import User from '../models/user.model';
 // import UserService from "../services/user.sevice"
 import UserDataservice from "../services/user.dataservice.js";
+import DepartmentDataservice from "../services/department.dataservice"
 export default {
     name: "login",
     components: {
@@ -98,9 +99,20 @@ export default {
         // console.log(userInfo)
         // localStorage.setItem('user', JSON.stringify(userInfo))
         // this.$store.commit("setUserInfo", userInfo)
-        // var nurse = {User_FName: 'Nurse2', Email: 'nursenicha13812@gmail.com', D_ID: 1, Permission: 'Center'}
 
+
+        // var departments = {D_Name: 'สาขาวิชาคอมพิวเตอร์'}
+        // var departments2 = {D_Name: 'ฝ่ายแผน'}
+        // DepartmentDataservice.create(departments)
+        // DepartmentDataservice.create(departments2)
+
+        // var nurse = {User_FName: 'Nurse1', Email: 'nuttanicha_j@kkumail.com', D_ID: 1, Permission: 'สาขาวิชา'}
+        // var nurse2 = {User_FName: 'Nurse2', Email: 'nursenicha13812@gmail.com', D_ID: 2, Permission: 'ส่วนกลาง'}
         // UserDataservice.create(nurse)
+        // UserDataservice.create(nurse2)
+
+        
+
 
             UserDataservice.getAll() 
                 .then(response => {

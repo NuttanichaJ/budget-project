@@ -1,7 +1,7 @@
 const db = require("../models");
 const Mainproject = db.mainproject;
 const Subproject = db.subproject;
-const Transfer = db.transfer;
+
 
 const User = db.user;
 const Op = db.Sequelize.Op;
@@ -89,16 +89,7 @@ exports.findOne = (req, res) => {
   Mainproject.findByPk(id,
     {
       include: 
-      ["subprojects","transfers_in","transfers_Out",
-        {
-          model: User,
-          as: "users",
-          attributes: ["User_ID", "User_FName", "User_LName", "Email",],
-          through: {
-            attributes: [],
-          }
-        },
-        
+      ["subprojects",
       ],
     })
   .then(data => {

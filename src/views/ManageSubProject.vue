@@ -137,10 +137,12 @@
 import Tabulator from 'tabulator-tables'; 
 import SubprojectDataService from "../services/subproject.dataservice";
 import MainprojectDataservice from "../services/mainproject.dataservice.js"
+import HistoryDataservice from "../services/history.dataservice"
 
 var table;
 var listEditSP = [];
 var listAddSP = [];
+var listHistory = [];
 
 export default {
   name: "ManageSubProject",
@@ -148,7 +150,8 @@ export default {
       return {
         // user: this.$store.state.user,
         tableData: [], //data for table to display
-        mainprojectData: []
+        mainprojectData: [],
+        user: this.$store.state.user,
       }
   },
 
@@ -169,6 +172,22 @@ export default {
         if (cell.getRow().getData().SP_ID != undefined) {
             data.Action = 'edit';
             listEditSP.push(data)
+
+            //Record history
+            var cellValue = cell.getValue(); //new value
+            var cellInitialValue = cell.getInitialValue(); //data in database
+            var title = cell.getColumn()._column.definition.title; // get column name
+            var projectname = data.SP_Name; // get project name
+            var message = '';
+
+            if(cellInitialValue == null) {
+              cellInitialValue = ''
+            }
+            if(cellValue == null) {
+              cellValue = ''
+            }
+            message ='แก้ไข ' + projectname + ' : ' + title + ' จาก ' + cellInitialValue + ' เป็น ' + cellValue
+            listHistory.push({Message: message, Edited_SP_ID: cell.getRow().getData().SP_ID});
         }
       return listEditSP
     }
@@ -186,13 +205,22 @@ export default {
         if (SP_ID != undefined) {
           data.Action = 'del';
           listEditSP.push(data)
-        } 
+        }
+
+        if(listAddSP.length != 0) {      
+          for(var i in listAddSP){
+            if(listAddSP[i].SP_Name == data.SP_Name) {
+              listAddSP.splice(i, 1)
+            }
+            
+          }
+        }
       },
       history: true,
       layout:"fitDataStretch",
       addRowPos: "bottom",
       columns: [
-        {title:"ชื่อโครงการ", field:"SP_Name", width:140, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true},
+        {title:"ชื่อโครงการ", field:"SP_Name", width:140, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true,},
         {title:"ผู้รับผิดชอบ", field:"SP_Owner", width:140, editor:"input", editable:editCheck, hozAlign:"left",},
         {title:"ตัวชี้วัด", field:"SP_Indicator",  width:140, editor:"input", editable:editCheck, hozAlign:"left", },
         {title:"ค่าเป้าหมาย", field:"SP_Target_Value", editor:"input",  editable:editCheck, width:140, hozAlign:"left",}, //define table columns
@@ -273,17 +301,22 @@ export default {
       " ",
       "question"
       ).then(() => {
-
+        
         var i;
         for (i in listEditSP) {
           var action = listEditSP[i].Action
           var editSP_ID = listEditSP[i].SP_ID
+          var projectname = listEditSP[i].SP_Name; // get project name
+          var message = '';
           console.log(editSP_ID)
           if (action == 'edit') {
             this.updateProject(editSP_ID, listEditSP[i])
           }
           else if (action == 'del'){
+            //Record history
+            message ='ลบ ' + projectname;
             this.deleteSubProject(editSP_ID)
+            
           }
         }
         
@@ -291,8 +324,24 @@ export default {
           var j;
           for (j in listAddSP) {
               listAddSP[j].MP_ID = this.$route.params.id
-              console.log(listAddSP[j])
+
+              if(listAddSP[j].SP_Name != undefined){
+                message ='เพิ่ม ' + listAddSP[j].SP_Name;
+                listHistory.push({Message: message});
+              }
               this.addNewProject(listAddSP[j])
+
+          }
+          
+        }
+
+         if (listHistory.length != 0) {
+          var k;
+          for (k in listHistory) {
+            
+            listHistory[k].Edited_User_ID = this.user.userid
+            // console.log(listHistory[k])
+            this.history(listHistory[k])
           }
         }
         
@@ -351,6 +400,16 @@ export default {
 
     updateProject(SP_ID, data) {
       SubprojectDataService.update(SP_ID, data)
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    },
+
+    history(data) {
+      HistoryDataservice.create(data)
       .then(response => {
         console.log(response.data)
       })

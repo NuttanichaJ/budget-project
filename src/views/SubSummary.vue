@@ -71,7 +71,7 @@ export default {
             {title:"ยุทธศาสตร์", field:"strategic", width:180,hozAlign:"right",},
             {title:"กลยุทธ", field:"strategy", width:180,hozAlign:"right"},
            
-        ],    
+        ],   
         // rowFormatter:function(row){
         //     //create and style holder elements
         //     var holderEl = document.createElement("div");

@@ -5,16 +5,16 @@ const History = db.history;
 // Create and Save a new history
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.History_ID) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-    return;
-  }
+  // if (!req.body.History_ID) {
+  //   res.status(400).send({
+  //     message: "Content can not be empty!"
+  //   });
+  //   return;
+  // }
 
   // Create a history
   const history = {
-    Massage: req.body.Massage,
+    Message: req.body.Message,
     Edited_User_ID: req.body.Edited_User_ID,
     Edited_MP_ID: req.body.Edited_MP_ID,
     Edited_SP_ID: req.body.Edited_SP_ID,
@@ -41,7 +41,7 @@ exports.findAll = (req, res) => {
     History.findAll(
       { where: condition },
       {
-        include: ["user", "mainproject", "subproject"]
+        include: ["user",],
       })
       .then(data => {
         res.send(data);
@@ -60,7 +60,7 @@ exports.findOne = (req, res) => {
 
   History.findByPk(id, 
     {
-      include: ["user", "mainproject", "subproject"]
+      include: ["user"]
     })
   .then(data => {
     res.send(data)
@@ -79,7 +79,15 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-  
+  const History_ID = req.params.id;
+  History.destroy({
+    where: { History_ID: History_ID }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "ไม่สามารถลบได้"
+    });
+  });
 };
 
 // Delete all Tutorials from the database.

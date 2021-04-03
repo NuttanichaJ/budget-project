@@ -48,10 +48,12 @@
 <script>
 import Tabulator from 'tabulator-tables';
 import MainprojectDataservice from "../services/mainproject.dataservice.js";
+import HistoryDataservice from "../services/history.dataservice"
 
 var table;
 var listEditMP = [];
 var listAddMP = [];
+var listHistory= [];
 
 export default {
   name: "ManageProject",
@@ -82,25 +84,6 @@ export default {
         cell, formatterParams, onRendered;
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
     };
-    var editCheck = function(cell){
-        //cell - the cell component for the editable cell
-        //get row data
-        var data = cell.getRow().getData();
-        var MP_ID = cell.getRow().getData().MP_ID;
-        if (MP_ID != undefined) {
-          // if(listEditMP.some(listEditMP => listEditMP.Action === 'edit' + MP_ID)){
-          //   var index = listEditMP.map(function(o) { return o.Action; }).indexOf('edit' + MP_ID);
-          //   listEditMP[index] = data;
-          // } else {
-          //   data.Action = 'edit' + MP_ID;
-          //   listEditMP.push(data)
-          // }
-          data.Action = 'edit';
-          listEditMP.push(data)
-        }
-
-      return listEditMP
-    };
 
     //instantiate Tabulator when element is mounted
     table = new Tabulator("#table", {
@@ -117,21 +100,55 @@ export default {
         if (MP_ID != undefined) {
           data.Action = 'del';
           listEditMP.push(data)
-        } 
+        }
+        if(listAddMP.length != 0) {      
+          for(var i in listAddMP){
+            if(listAddMP[i].MP_Name == data.MP_Name) {
+              listAddMP.splice(i, 1)
+            }
+          }
+        }
+      },
+
+      cellEdited:function(cell){
+        //cell - cell component
+        //update edited data
+        var data = cell.getRow().getData();
+        var MP_ID = cell.getRow().getData().MP_ID;
+        if (MP_ID != undefined) {
+          data.Action = 'edit';
+          listEditMP.push(data)
+
+          //Record history
+          var cellValue = cell.getValue(); //new value
+          var cellInitialValue = cell.getInitialValue(); //data in database
+          var title = cell.getColumn()._column.definition.title; // get column name
+          var projectname = data.MP_Name; // get project name
+          var message = '';
+
+          if(cellInitialValue == null) {
+            cellInitialValue = ''
+          }
+          if(cellValue == null) {
+            cellValue = ''
+          }
+          message ='แก้ไข ' + projectname + ' : ' + title + ' จาก ' + cellInitialValue + ' เป็น ' + cellValue
+          listHistory.push({Message: message, Edited_MP_ID: MP_ID});
+        }
       },
       
       history: true,
       layout:"fitDataStretch",
       addRowPos: "bottom",
       columns: [
-        {title:"ชื่อโครงการ", field:"MP_Name", width:200, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
-        {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
-        {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right", },
-        {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right",},
-        {title:"ผู้รับผิดชอบ", field:"MP_Owner", width:140, editor:"input",  editable:editCheck, hozAlign:"left",},
-        {title:"ตัวชี้วัด", field:"MP_Indicator",  width:140, editor:"input",  editable:editCheck, hozAlign:"left", },
-        {title:"ค่าเป้าหมาย", field:"MP_Target_Value", editor:"input",   editable:editCheck, width:140, hozAlign:"left",}, //define table columns
-        {title:"งบประมาณตามแผน", field:"MP_Budget", editor:"number",   editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
+        {title:"ชื่อโครงการ", field:"MP_Name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
+        {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"input", hozAlign:"right", },
+        {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"input",  hozAlign:"right", },
+        {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"input",  hozAlign:"right",},
+        {title:"ผู้รับผิดชอบ", field:"MP_Owner", width:140, editor:"input", hozAlign:"left",},
+        {title:"ตัวชี้วัด", field:"MP_Indicator",  width:140, editor:"input",  hozAlign:"left", },
+        {title:"ค่าเป้าหมาย", field:"MP_Target_Value", editor:"input",   width:140, hozAlign:"left",}, //define table columns
+        {title:"งบประมาณตามแผน", field:"MP_Budget", editor:"number",  width:140, hozAlign:"right", formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
@@ -143,23 +160,23 @@ export default {
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือตามแผน", field:"MP_Total_Amount", editor:"number",   editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามแผน", field:"MP_Total_Amount", editor:"number", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"ขออนุมัติใช้", field:"MP_Approve_Use", editor:"number", editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"ขออนุมัติใช้", field:"MP_Approve_Use", editor:"number", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"เบิกจ่าย", field:"MP_Disburse", editor:"number", editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"เบิกจ่าย", field:"MP_Disburse", editor:"number", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือตามหลักการ", field:"MP_Total_From_Priciple",  editable:editCheck, editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามหลักการ", field:"MP_Total_From_Priciple", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
-        {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_Total_From_Disburse", editor:"number",  editable:editCheck, width:160, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_Total_From_Disburse", editor:"number", width:160, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns
@@ -208,32 +225,56 @@ export default {
       " ",
       "question"
       ).then(() => {
-        console.log(listEditMP)
+
+        //console.log(listEditMP)
         var i;
         for (i in listEditMP) {
           var action = listEditMP[i].Action
           var editMP_ID = listEditMP[i].MP_ID
-          console.log(editMP_ID)
+          var projectname = listEditMP[i].MP_Name; // get project name
+          var message = '';
+      
           if (action == 'edit') {
             this.updateProject(editMP_ID, listEditMP[i])
           }
           else if (action == 'del'){
+            //Record history
+            message ='ลบ ' + projectname;
+            listHistory.push({Message: message});
             this.deleteMainProject(editMP_ID)
           }
-        }
+      }
         
         if (listAddMP.length != 0) {
           var j;
           for (j in listAddMP) {
             listAddMP[j].D_ID = this.user.depart_id
-            // console.log(listAddMP[j])
+            listAddMP[j].MP_Create_User_ID = this.user.userid
+
+            //Record history
+            
+            if(listAddMP[j].MP_Name != undefined){
+              message ='เพิ่ม ' + listAddMP[j].MP_Name;
+              listHistory.push({Message: message});
+            }
+            //console.log(listAddMP[j])
+
             this.addNewProject(listAddMP[j])
           }
         }
 
+        if (listHistory.length != 0) {
+          var k;
+          for (k in listHistory) {
+            
+            listHistory[k].Edited_User_ID = this.user.userid
+            console.log(listHistory[k])
+            this.history(listHistory[k])
+          }
+        }
+
         window.location.reload()
-        listEditMP, listAddMP = [];
-        
+        listEditMP, listAddMP, listHistory = [];
         //do something...
       });
     },
@@ -244,24 +285,23 @@ export default {
       " ",
       "error"
       ).then(() => {
-          //window.location.reload()
-          listEditMP, listAddMP = [];
+          window.location.reload()
+          listEditMP, listAddMP, listHistory = [];
           //do something...
 
-           this.history()
         });
     },
 
 
     //fetch Main Project data
     retrieveMainProject(D_ID) {
-          MainprojectDataservice.getAll()
+          MainprojectDataservice.getAll({where: {D_ID: D_ID}})
             .then(response => {
+              //this.tableData = response.data
               for( var i in response.data) {
                 if(D_ID == response.data[i].D_ID)
                 this.tableData.push(response.data[i]);
               }
-              
               table.setData(this.tableData);
               console.log(this.tableData);
             })
@@ -301,10 +341,15 @@ export default {
       })
     },
 
-    history() {
-      var editedCells = table.getEditedCells()
-      console.log(editedCells)
-    }
+    history(data) {
+      HistoryDataservice.create(data)
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    },
 
   },
 
