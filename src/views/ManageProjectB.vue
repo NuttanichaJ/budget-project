@@ -229,7 +229,7 @@ export default {
       // search name
       var valueEl = document.getElementById("search");
       valueEl.addEventListener("keyup", function(){
-        table.setFilter('MP_NAME','like', valueEl.value);
+        table.setFilter('MP_Name','like', valueEl.value);
       })
 
       //add row

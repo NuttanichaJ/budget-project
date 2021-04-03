@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             primaryKey: true,
         },
-        Massage : DataTypes.STRING,
+        Message : DataTypes.STRING,
     })
 
     return History

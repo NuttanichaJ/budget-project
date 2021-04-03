@@ -40,7 +40,6 @@ app.listen(PORT, () => {
 });
 
 const db = require("./src/models");
-const { request } = require("express");
 db.sequelize.sync({ force: false }).then(() => {
   console.log("Drop and re-sync db.");
 });

@@ -5,7 +5,7 @@
       <div class="header">
         <div class="pb-xlg h-100">
            <div class="d-flex justify-content-between align-items-center mb-lg">
-              <h3>ส่งเสริมให้นักศึกษามีภาวะผู้นำ และคิดวิเคราะห์</h3>
+              <h3>{{mainprojectData.MP_Name}}</h3>
               <i class="la la-arrow-right text-primary la-lg rotate-315"/>
             </div>
         </div>
@@ -18,18 +18,18 @@
                     <h5>ข้อมูลโครงการ</h5>
                     <div class="d-flex flex-wrap justify-content-between">
                         <div class="mt">
-                          <p class="text-muted mb-0 mr"><small>ประเด็นยุทธศาสตร์ : 1</small></p>
-                          <p class="text-muted mb-0 mr"><small>ยุทธศาสตร์ : 1</small></p>
-                          <p class="text-muted mb-0 mr"><small>กลยุทธ์ : 1</small></p>
-                          <p class="text-muted mb-0 mr"><small>ผู้รับผิดชอบ : วิศวกรรมคอมพิวเตอร์</small></p>
-                          <p class="text-muted mb-0 mr"><small>ตัวชี้วัด : ร้อยละนักศึกษาที่สำเร็จการศึกษาตามระยะเวลาที่หลักสูตรกำหนด</small></p>
-                          <p class="text-muted mb-0 mr"><small>ค่าเป้าหมาย : ร้อยละ 55</small></p>
+                          <p class="text-muted mb-0 mr"><small>ประเด็นยุทธศาสตร์ : {{mainprojectData.Strategic_Issue_ID}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>ยุทธศาสตร์ : {{mainprojectData.Strategic_ID}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>กลยุทธ์ : {{mainprojectData.Strategy_ID}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>ผู้รับผิดชอบ : {{mainprojectData.MP_Owner}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>ตัวชี้วัด : {{mainprojectData.MP_Indicator}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>ค่าเป้าหมาย : {{mainprojectData.MP_Target_Value}}</small></p>
                         </div>
                         <div class="mt">
-                          <p class="text-muted mb-0 mr"><small>ผลการดำเนินงาน : </small></p>
-                          <p class="text-muted mb-0 mr"><small>ปัญหาและอุปสรรค : </small></p>
-                          <p class="text-muted mb-0 mr"><small>รายละเอียดผลการดำเนินงาน : </small></p>
-                          <p class="text-muted mb-0 mr"><small>หมายเหตุ : </small></p>
+                          <p class="text-muted mb-0 mr"><small>ผลการดำเนินงาน : {{mainprojectData.Performance_Result}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>ปัญหาและอุปสรรค : {{mainprojectData.Problem}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>รายละเอียดผลการดำเนินงาน : {{mainprojectData.Detail_Result}}</small></p>
+                          <p class="text-muted mb-0 mr"><small>หมายเหตุ : {{mainprojectData.Annotation}}</small></p>
                         </div>
                     </div>
                 </b-col>
@@ -40,22 +40,22 @@
                       <div class="d-flex flex-wrap justify-content-betweet">
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>งบประมาณตามแผน</small></p>
-                          <h5 class="mb-0 text-center">163470</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Budget}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>โอนเข้า</small></p>
-                          <h5 class="mb-0 text-center">0</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Income}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>โอนออก</small></p>
-                          <h5 class="mb-0 text-center">0</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Outcome}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>คงเหลือตามแผน</small></p>
-                          <h5 class="mb-0 text-center">163470</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Total_Amount}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                       </div>  
@@ -64,22 +64,22 @@
                       <div class="d-flex flex-wrap justify-content-betweet">
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>ขออนุมัติใช้</small></p>
-                          <h5 class="mb-0 text-center">107340</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Approve_Use}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>เบิกจ่าย</small></p>
-                          <h5 class="mb-0 text-center">87777</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Disburse}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>คงเหลือตามหลักการ</small></p>
-                          <h5 class="mb-0 text-center">56130</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Total_From_Priciple}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>คงเหลือจากเบิกจ่ายจริง</small></p>
-                          <h5 class="mb-0 text-center">154693</h5>
+                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Total_From_Disburse}}</h5>
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                       </div>  
@@ -137,10 +137,12 @@
 import Tabulator from 'tabulator-tables'; 
 import SubprojectDataService from "../services/subproject.dataservice";
 import MainprojectDataservice from "../services/mainproject.dataservice.js"
+import HistoryDataservice from "../services/history.dataservice"
 
 var table;
 var listEditSP = [];
 var listAddSP = [];
+var listHistory = [];
 
 export default {
   name: "ManageSubProject",
@@ -148,6 +150,8 @@ export default {
       return {
         // user: this.$store.state.user,
         tableData: [], //data for table to display
+        mainprojectData: [],
+        user: this.$store.state.user,
       }
   },
 
@@ -168,6 +172,22 @@ export default {
         if (cell.getRow().getData().SP_ID != undefined) {
             data.Action = 'edit';
             listEditSP.push(data)
+
+            //Record history
+            var cellValue = cell.getValue(); //new value
+            var cellInitialValue = cell.getInitialValue(); //data in database
+            var title = cell.getColumn()._column.definition.title; // get column name
+            var projectname = data.SP_Name; // get project name
+            var message = '';
+
+            if(cellInitialValue == null) {
+              cellInitialValue = ''
+            }
+            if(cellValue == null) {
+              cellValue = ''
+            }
+            message ='แก้ไข ' + projectname + ' : ' + title + ' จาก ' + cellInitialValue + ' เป็น ' + cellValue
+            listHistory.push({Message: message, Edited_SP_ID: cell.getRow().getData().SP_ID});
         }
       return listEditSP
     }
@@ -185,13 +205,22 @@ export default {
         if (SP_ID != undefined) {
           data.Action = 'del';
           listEditSP.push(data)
-        } 
+        }
+
+        if(listAddSP.length != 0) {      
+          for(var i in listAddSP){
+            if(listAddSP[i].SP_Name == data.SP_Name) {
+              listAddSP.splice(i, 1)
+            }
+            
+          }
+        }
       },
       history: true,
       layout:"fitDataStretch",
       addRowPos: "bottom",
       columns: [
-        {title:"ชื่อโครงการ", field:"SP_Name", width:140, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true},
+        {title:"ชื่อโครงการ", field:"SP_Name", width:140, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true,},
         {title:"ผู้รับผิดชอบ", field:"SP_Owner", width:140, editor:"input", editable:editCheck, hozAlign:"left",},
         {title:"ตัวชี้วัด", field:"SP_Indicator",  width:140, editor:"input", editable:editCheck, hozAlign:"left", },
         {title:"ค่าเป้าหมาย", field:"SP_Target_Value", editor:"input",  editable:editCheck, width:140, hozAlign:"left",}, //define table columns
@@ -272,17 +301,22 @@ export default {
       " ",
       "question"
       ).then(() => {
-
+        
         var i;
         for (i in listEditSP) {
           var action = listEditSP[i].Action
           var editSP_ID = listEditSP[i].SP_ID
+          var projectname = listEditSP[i].SP_Name; // get project name
+          var message = '';
           console.log(editSP_ID)
           if (action == 'edit') {
             this.updateProject(editSP_ID, listEditSP[i])
           }
           else if (action == 'del'){
+            //Record history
+            message ='ลบ ' + projectname;
             this.deleteSubProject(editSP_ID)
+            
           }
         }
         
@@ -290,8 +324,24 @@ export default {
           var j;
           for (j in listAddSP) {
               listAddSP[j].MP_ID = this.$route.params.id
-              console.log(listAddSP[j])
+
+              if(listAddSP[j].SP_Name != undefined){
+                message ='เพิ่ม ' + listAddSP[j].SP_Name;
+                listHistory.push({Message: message});
+              }
               this.addNewProject(listAddSP[j])
+
+          }
+          
+        }
+
+         if (listHistory.length != 0) {
+          var k;
+          for (k in listHistory) {
+            
+            listHistory[k].Edited_User_ID = this.user.userid
+            // console.log(listHistory[k])
+            this.history(listHistory[k])
           }
         }
         
@@ -318,6 +368,7 @@ export default {
     getSubProject(MP_ID) {
           MainprojectDataservice.get(MP_ID)
             .then(response => {
+              this.mainprojectData = response.data
               this.tableData = response.data.subprojects;
               table.setData(this.tableData);
               console.log(this.tableData);
@@ -349,6 +400,16 @@ export default {
 
     updateProject(SP_ID, data) {
       SubprojectDataService.update(SP_ID, data)
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    },
+
+    history(data) {
+      HistoryDataservice.create(data)
       .then(response => {
         console.log(response.data)
       })

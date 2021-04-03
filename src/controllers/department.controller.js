@@ -5,12 +5,12 @@ const Department = db.department;
 // Create and Save a new department
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.D_ID) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-    return;
-  }
+  // if (!req.body.D_ID) {
+  //   res.status(400).send({
+  //     message: "Content can not be empty!"
+  //   });
+  //   return;
+  // }
 
   // Create a department
   const department = {
@@ -36,10 +36,7 @@ exports.findAll = (req, res) => {
     var condition = D_Name ? { D_Name: { [Op.like]: `%${D_Name}%` } } : null;
   
     Department.findAll(
-      { where: condition },
-      {
-        include: ["users", "mainprojects"]
-      })
+      { where: condition },)
       .then(data => {
         res.send(data);
       })
@@ -55,16 +52,13 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Department.findByPk(id,
-    {
-      include: ["users", "mainprojects"]
-    })
+  Department.findByPk(id)
   .then(data => {
     res.send(data)
   })
   .catch(err => {
     res.status(500).send({
-      message: "Eroror retrieving MP_ID=" + id
+      message: "Eroror retrieving D_ID=" + id
     });
   });
 };

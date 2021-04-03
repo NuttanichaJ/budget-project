@@ -64,9 +64,9 @@ export default {
         selectedPermissin: null,
         optionsPermissin: [
           {value: null, text: 'สิทธ์ผู้ใช้งาน', disabled: true},
-          { value: 'Dean', text: 'ผู้บริหาร' },
-          { value: 'Center', text: 'ส่วนกลาง' },
-          { value: 'Branch', text: 'สาขาวิชา' },
+          { value: 'ผู้บริหาร', text: 'ผู้บริหาร' },
+          { value: 'ส่วนกลาง', text: 'ส่วนกลาง' },
+          { value: 'สาขาวิชา', text: 'สาขาวิชา' },
         ],
 
         modalShow: false,
