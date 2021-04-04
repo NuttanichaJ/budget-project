@@ -426,8 +426,8 @@ export default {
             });
     },
 
-    deleteSubProject(listDelSP) {
-      SubprojectDataService.delete(listDelSP)
+    deleteSubProject(SP_ID) {
+      SubprojectDataService.delete(SP_ID)
           .then(response => {
             console.log(response.data);
           })
