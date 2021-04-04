@@ -1,7 +1,7 @@
 const db = require("../models");
 const Mainproject = db.mainproject;
 const Subproject = db.subproject;
-
+const Transfer = db.transfer
 
 const User = db.user;
 const Op = db.Sequelize.Op;
@@ -138,8 +138,6 @@ exports.delete = (req, res) => {
       message: "ไม่สามารถลบได้"
     });
   });
-
-  
 };
 
 // Delete all Tutorials from the database.

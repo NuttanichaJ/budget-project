@@ -41,6 +41,7 @@
                         <div class="mr-2 col-sm-2" id="border">
                           <p class="mb-0"><small>งบประมาณตามแผน</small></p>
                           <h5 class="mb-0 text-center">{{mainprojectData.MP_Budget}}</h5>
+                          <input type="hidden" id='budget' :value="mainprojectData.MP_Budget">
                           <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
                         </div>
                         <div class="mr-2 col-sm-2" id="border">
@@ -165,6 +166,34 @@ export default {
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
     };
 
+    var Total_Amount = function(value, data){
+      //value - original value of the cell
+      //data - the data for the row
+      return data.SP_Budget + data.SP_Income - data.SP_Outcome; //return the sum of the other two columns.
+    }
+    var Total_From_Priciple = function(value, data){
+      //value - original value of the cell
+      //data - the data for the row
+      return data.SP_Total_Amount - data.SP_Approve_Use; //return the sum of the other two columns.
+    }
+    var Total_From_Disburse = function(value, data){
+      //value - original value of the cell
+      //data - the data for the row
+      return data.SP_Total_Amount - data.SP_Disburse; //return the sum of the other two columns.
+    }
+    
+    var checkSP_Budget = function(cell, value){
+      // var results = table.getCalcResults().bottom.SP_Budget;
+      var budget = document.getElementById("budget").value;
+      var totalSP_Budget = parseFloat(table.getCalcResults().bottom.SP_Budget) + value
+      // return value <= cell.getRow().getData().MP_Budget
+      return totalSP_Budget <= budget
+    }
+    
+    var checkApproveuseAndDisburse = function(cell, value){
+      return value <= cell.getRow().getData().SP_Budget
+    }
+
     var editCheck = function(cell){
       //cell - the cell component for the editable cell
       //get row data
@@ -211,8 +240,7 @@ export default {
           for(var i in listAddSP){
             if(listAddSP[i].SP_Name == data.SP_Name) {
               listAddSP.splice(i, 1)
-            }
-            
+            } 
           }
         }
       },
@@ -224,38 +252,54 @@ export default {
         {title:"ผู้รับผิดชอบ", field:"SP_Owner", width:140, editor:"input", editable:editCheck, hozAlign:"left",},
         {title:"ตัวชี้วัด", field:"SP_Indicator",  width:140, editor:"input", editable:editCheck, hozAlign:"left", },
         {title:"ค่าเป้าหมาย", field:"SP_Target_Value", editor:"input",  editable:editCheck, width:140, hozAlign:"left",}, //define table columns
-        {title:"งบประมาณตามแผน", field:"SP_Budget", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
+        {title:"งบประมาณตามแผน", field:"SP_Budget", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".", thousand:",",}, validator:checkSP_Budget, bottomCalc:"sum", bottomCalcParams:{precision:2,},
+          cellEdited: function(cell) {
+            //Update คงเหลือตามแผน
+            var totalTransfer = cell.getRow().getData().SP_Income - cell.getRow().getData().SP_Outcome
+            var Total_Amount = cell.getRow().getData().SP_Budget + totalTransfer
+            cell.getRow().getCell("SP_Total_Amount").setValue(Total_Amount);
+            //Update คงเหลือตามหลักการ
+            var Total_From_Priciple = cell.getRow().getData().SP_Total_Amount - cell.getRow().getData().SP_Approve_Use
+            cell.getRow().getCell("SP_Total_From_Priciple").setValue(Total_From_Priciple);
+            //Update คงเหลือจากเบิกจ่ายจริง
+            var Total_From_Disburse = cell.getRow().getData().SP_Total_Amount - cell.getRow().getData().SP_Disburse
+            cell.getRow().getCell("SP_Total_From_Disburse").setValue(Total_From_Disburse);
+          } 
+        }, //define table columns
         {title:"โอนเข้า", field:"SP_Income", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
-        }}, //define table columns
+        }, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
         {title:"โอนออก", field:"SP_Outcome", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
-        }}, //define table columns
-        {title:"คงเหลือตามแผน", field:"SP_Total_Amount", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        }, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
+        {title:"คงเหลือตามแผน", field:"SP_Total_Amount", editor:"number",  mutator:Total_Amount, mutatorEdit:Total_Amount, editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
-        }}, //define table columns
-        {title:"ขออนุมัติใช้", field:"SP_Approve_Use", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        }, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
+        {title:"ขออนุมัติใช้", field:"SP_Approve_Use", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, validator: checkApproveuseAndDisburse, bottomCalc:"sum", bottomCalcParams:{precision:2,},
+          cellEdited: function(cell) {
+            //Update คงเหลือตามหลักการ
+            var Total_From_Priciple = cell.getRow().getData().SP_Total_Amount - cell.getRow().getData().SP_Approve_Use
+            cell.getRow().getCell("SP_Total_From_Priciple").setValue(Total_From_Priciple);
+          } 
+        }, //define table columns
+        {title:"เบิกจ่าย", field:"SP_Disburse", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, validator: checkApproveuseAndDisburse, bottomCalc:"sum", bottomCalcParams:{precision:2,},
+          cellEdited: function(cell) {
+            //Update คงเหลือจากเบิกจ่ายจริง
+            var Total_From_Disburse = cell.getRow().getData().SP_Total_Amount - cell.getRow().getData().SP_Disburse
+            cell.getRow().getCell("SP_Total_From_Disburse").setValue(Total_From_Disburse);
+          }
+        }, //define table columns
+        {title:"คงเหลือตามหลักการ", field:"SP_Total_From_Priciple",  mutator:Total_From_Priciple, mutatorEdit:Total_From_Priciple, editable:editCheck, editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
-        }}, //define table columns
-        {title:"เบิกจ่าย", field:"SP_Disburse", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        }, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
+        {title:"คงเหลือจากเบิกจ่ายจริง", field:"SP_Total_From_Disburse",  mutator:Total_From_Disburse, mutatorEdit:Total_From_Disburse, editable:editCheck, editor:"number",  width:160, hozAlign:"right", formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
-        }}, //define table columns
-        {title:"คงเหลือตามหลักการ", field:"SP_Total_From_Priciple", editable:editCheck, editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"คงเหลือจากเบิกจ่ายจริง", field:"SP_Total_From_Disburse", editable:editCheck, editor:"number",  width:160, hozAlign:"right", formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
+        }, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
         {title:"ผลการดำเนินงาน", field:"Performance_Result", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
         {title:"ปัญหาและอุปสรรค", field:"Problem", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
         {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
@@ -279,7 +323,7 @@ export default {
 
       //add row
       document.getElementById("add-project").addEventListener("click", function(){
-        table.addRow({});
+        table.addRow({SP_Approve_Use: 0, SP_Disburse: 0, SP_Total_Amount: 0, SP_Total_From_Priciple: 0, SP_Total_From_Disburse: 0, SP_Income: 0, SP_Outcome: 0, SP_Budget: 0});
       });
 
       //undo button
@@ -310,13 +354,12 @@ export default {
           var message = '';
           console.log(editSP_ID)
           if (action == 'edit') {
-            this.updateProject(editSP_ID, listEditSP[i])
+            this.updateSubProject(editSP_ID, listEditSP[i])
           }
           else if (action == 'del'){
             //Record history
             message ='ลบ ' + projectname;
             this.deleteSubProject(editSP_ID)
-            
           }
         }
         
@@ -330,10 +373,12 @@ export default {
                 listHistory.push({Message: message});
               }
               this.addNewProject(listAddSP[j])
-
           }
-          
         }
+
+        var calcValue = table.getCalcResults().bottom
+        var dataMainproject = {MP_Approve_Use: calcValue.SP_Approve_Use, MP_Disburse: calcValue.SP_Disburse, MP_Total_Amount: calcValue.SP_Total_Amount, MP_Total_From_Priciple: calcValue.SP_Total_From_Priciple, MP_Total_From_Disburse: calcValue.SP_Total_From_Disburse}
+        this.updateMainProject(this.$route.params.id, dataMainproject)
 
          if (listHistory.length != 0) {
           var k;
@@ -370,6 +415,9 @@ export default {
             .then(response => {
               this.mainprojectData = response.data
               this.tableData = response.data.subprojects;
+              // for(var i in this.tableData) {
+              //   this.tableData[i].MP_Budget = response.data.MP_Budget
+              // }
               table.setData(this.tableData);
               console.log(this.tableData);
             })
@@ -378,8 +426,8 @@ export default {
             });
     },
 
-    deleteSubProject(listDelSP) {
-      SubprojectDataService.delete(listDelSP)
+    deleteSubProject(SP_ID) {
+      SubprojectDataService.delete(SP_ID)
           .then(response => {
             console.log(response.data);
           })
@@ -398,8 +446,18 @@ export default {
           });
     },
 
-    updateProject(SP_ID, data) {
+    updateSubProject(SP_ID, data) {
       SubprojectDataService.update(SP_ID, data)
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    },
+
+    updateMainProject(MP_ID, data) {
+      MainprojectDataservice.update(MP_ID, data)
       .then(response => {
         console.log(response.data)
       })

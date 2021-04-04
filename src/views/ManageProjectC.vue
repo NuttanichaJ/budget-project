@@ -85,6 +85,27 @@ export default {
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
     };
 
+    var Total_Amount = function(value, data){
+      //value - original value of the cell
+      //data - the data for the row
+      return data.MP_Budget + data.MP_Income - data.MP_Outcome; //return the sum of the other two columns.
+    }
+    var Total_From_Priciple = function(value, data){
+      //value - original value of the cell
+      //data - the data for the row
+      return data.MP_Total_Amount - data.MP_Approve_Use; //return the sum of the other two columns.
+    }
+    var Total_From_Disburse = function(value, data){
+      //value - original value of the cell
+      //data - the data for the row
+      return data.MP_Total_Amount - data.MP_Disburse; //return the sum of the other two columns.
+    }
+
+    var checkApproveuseAndDisburse = function(cell, value){
+      return value <= cell.getRow().getData().MP_Budget
+    }
+  
+
     //instantiate Tabulator when element is mounted
     table = new Tabulator("#table", {
       //data: this.tableData, //link data to table
@@ -141,6 +162,7 @@ export default {
       layout:"fitDataStretch",
       addRowPos: "bottom",
       columns: [
+        
         {title:"ชื่อโครงการ", field:"MP_Name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
         {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"input", hozAlign:"right", },
         {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"input",  hozAlign:"right", },
@@ -148,38 +170,39 @@ export default {
         {title:"ผู้รับผิดชอบ", field:"MP_Owner", width:140, editor:"input", hozAlign:"left",},
         {title:"ตัวชี้วัด", field:"MP_Indicator",  width:140, editor:"input",  hozAlign:"left", },
         {title:"ค่าเป้าหมาย", field:"MP_Target_Value", editor:"input",   width:140, hozAlign:"left",}, //define table columns
-        {title:"งบประมาณตามแผน", field:"MP_Budget", editor:"number",  width:140, hozAlign:"right", formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"โอนเข้า", field:"MP_Income", width:140, hozAlign:"right", formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"โอนออก", field:"MP_Outcome", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"คงเหลือตามแผน", field:"MP_Total_Amount", editor:"number", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"ขออนุมัติใช้", field:"MP_Approve_Use", editor:"number", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"เบิกจ่าย", field:"MP_Disburse", editor:"number", width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"คงเหลือตามหลักการ", field:"MP_Total_From_Priciple", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_Total_From_Disburse", editor:"number", width:160, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
+        {title:"งบประมาณตามแผน", field:"MP_Budget", editor:"number",  width:140, hozAlign:"right", formatter:"money", formatterParams:{decimal:".", thousand:",",},
+          cellEdited: function(cell) {
+            //Update คงเหลือตามแผน
+            var totalTransfer = cell.getRow().getData().MP_Income - cell.getRow().getData().MP_Outcome
+            var Total_Amount = cell.getRow().getData().MP_Budget + totalTransfer
+            cell.getRow().getCell("MP_Total_Amount").setValue(Total_Amount);
+            //Update คงเหลือตามหลักการ
+            var Total_From_Priciple = cell.getRow().getData().MP_Total_Amount - cell.getRow().getData().MP_Approve_Use
+            cell.getRow().getCell("MP_Total_From_Priciple").setValue(Total_From_Priciple);
+            //Update คงเหลือจากเบิกจ่ายจริง
+            var Total_From_Disburse = cell.getRow().getData().MP_Total_Amount - cell.getRow().getData().MP_Disburse
+            cell.getRow().getCell("MP_Total_From_Disburse").setValue(Total_From_Disburse);
+          }, bottomCalc:"sum", bottomCalcParams:{precision:2,},
+        }, //define table columns
+        {title:"โอนเข้า", field:"MP_Income", width:140, hozAlign:"right", formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
+        {title:"โอนออก", field:"MP_Outcome", width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
+        {title:"คงเหลือตามแผน", field:"MP_Total_Amount", mutator: Total_Amount, width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, mutatorEdit: Total_Amount, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
+        {title:"ขออนุมัติใช้", field:"MP_Approve_Use", width:140, hozAlign:"right", formatter:"money", formatterParams:{decimal:".",thousand:",",}, validator: checkApproveuseAndDisburse,
+          // cellEdited: function(cell) {
+          //   //Update คงเหลือตามหลักการ
+          //   var Total_From_Priciple = cell.getRow().getData().MP_Total_Amount - cell.getRow().getData().MP_Approve_Use
+          //   cell.getRow().getCell("MP_Total_From_Priciple").setValue(Total_From_Priciple);
+          // }, bottomCalc:"sum", bottomCalcParams:{precision:2,},
+        }, //define table columns
+        {title:"เบิกจ่าย", field:"MP_Disburse", width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, validator: checkApproveuseAndDisburse,
+          // cellEdited: function(cell) {
+          //   //Update คงเหลือจากเบิกจ่ายจริง
+          //   var Total_From_Disburse = cell.getRow().getData().MP_Total_Amount - cell.getRow().getData().MP_Disburse
+          //   cell.getRow().getCell("MP_Total_From_Disburse").setValue(Total_From_Disburse);
+          // }, bottomCalc:"sum", bottomCalcParams:{precision:2,},
+        }, //define table columns
+        {title:"คงเหลือตามหลักการ", field:"MP_Total_From_Priciple", mutator:Total_From_Priciple, mutatorEdit:Total_From_Priciple, width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
+        {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_Total_From_Disburse", mutator:Total_From_Disburse, mutatorEdit:Total_From_Disburse, width:160, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
         {title:"ผลการดำเนินงาน", field:"Performance_Result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"ปัญหาและอุปสรรค", field:"Problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
@@ -201,7 +224,7 @@ export default {
 
       //add row
       document.getElementById("add-project").addEventListener("click", function(){
-        table.addRow({});
+        table.addRow({MP_Approve_Use: 0, MP_Disburse: 0, MP_Total_Amount: 0, MP_Total_From_Priciple: 0, MP_Total_From_Disburse: 0, MP_Income: 0, MP_Outcome: 0, MP_Budget: 0});
       });
 
       //undo button

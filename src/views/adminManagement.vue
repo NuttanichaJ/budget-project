@@ -3,14 +3,8 @@
     <b-nav class="mt-3">
       <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-0 ml-0 mr-auto">
         <b-nav-form>
-          <b-input-group>
-              <b-button class="mb-2 ml-sm-2 mb-sm-0 mr-1" variant="primary" id='history-undo' v-b-tooltip.hover title="เลิกทำ">
-                <font-awesome-icon :icon="['fas', 'undo']"/></b-button>
-              <b-button class="mb-2 ml-sm-2 mb-sm-0" variant="primary" id='history-redo' v-b-tooltip.hover title="ทำซ้ำ">
-                <font-awesome-icon :icon="['fas', 'redo']"/></b-button> 
-          </b-input-group>
-          <b-form inline class="ml-3 p-1" >
-            <b-form-select v-model="selectedPermissin" :options="optionsPermissin" 
+          <b-form inline class="mb-2 ml-sm-2 mb-sm-0 mr-1" >
+            <b-form-select v-model="selectedPermission" :options="optionsPermisson" 
               size="sm" id="selectPer">
             </b-form-select>
           </b-form> 
@@ -49,7 +43,7 @@
 <script>
 import Tabulator from 'tabulator-tables'; 
 import UserDataService from "../services/user.dataservice";
-// import DepartmentDataservice from "../services/department.dataservice";
+import DepartmentDataservice from "../services/department.dataservice";
 
 var table;
 var listEdit = [];
@@ -59,11 +53,9 @@ export default {
   data() {
       return {
         user: this.$store.state.user,
-
-
-        selectedPermissin: null,
-        optionsPermissin: [
-          {value: null, text: 'สิทธ์ผู้ใช้งาน', disabled: true},
+        selectedPermisson: null,
+        optionsPermisson: [
+          { value: 'refresh', text: 'ทั้งหมด'},
           { value: 'ผู้บริหาร', text: 'ผู้บริหาร' },
           { value: 'ส่วนกลาง', text: 'ส่วนกลาง' },
           { value: 'สาขาวิชา', text: 'สาขาวิชา' },
@@ -72,10 +64,13 @@ export default {
         modalShow: false,
         tabulator: null, //variable to hold your table
         tableData: [], //data for table to display
+        optionsDepartment: [],
+        Department: [],
       }
   },
 
   mounted(){
+    this.getDepartmentOptions()
     this.retrieveUser();
 
     var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
@@ -102,6 +97,7 @@ export default {
       rowAdded:function(row){
         //row - row component
         var data = row.getData();
+        data.Action = 'add';
         listEdit.push(data)
       },
 
@@ -115,11 +111,16 @@ export default {
       },
       addRowPos:"bottom",
       columns: [
-        {title:"ชื่อ - นามสกุล", field:"User_FName", width:300, editor:"input", editable:editCheck, headerHozAlign:"center",validator:"required"},
+        {title:"ชื่อ", field:"User_FName", width:300, editor:"input", editable:editCheck, headerHozAlign:"center",validator:"required"},
+        {title:"นามสกุล", field:"User_LName", width:300, editor:"input", editable:editCheck, headerHozAlign:"center",validator:"required"},
         {title:"E-mail", field:"Email", headerSort:false, headerHozAlign:"center", editable:editCheck, width:350, editor:"input" ,validator:"required"},
+
         {title:"ฝ่าย / สาขาวิชา", field:"D_ID", width:200,validator:"required", editor:false, editable:editCheck, editorParams:{values:{"วิศวกรรมคอมพิวเตอร์":"วิศวกรรมคอมพิวเตอร์", "วิศวกรรมโยธา":"วิศวกรรมโยธา", "วิศวกรรมไฟฟ้า":"วิศวกรรมไฟฟ้า"}}},
+
+        {title:"ฝ่าย / สาขาวิชา", field:"Department_name", width:200,validator:"required", editor:"select", editable:editCheck, editorParams:{allowEmpty:false, values: this.optionsDepartment}},
+
         {title:"สิทธิ์การใช้งาน", field:"Permission", width:200,validator:"required", editor:"select", editable:editCheck, editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
-        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().USER_FNAME + " ใช่หรือไม่?")== true){
+        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().User_FName + ' ' + cell.getRow().getData().User_LName + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}}, frozen:true, headerSort:false,},
       ], //define table columns
     });
@@ -136,10 +137,14 @@ export default {
       })
       var selectEl = document.getElementById("selectPer");
       selectEl.addEventListener("change", function(){
-        table.setFilter('Permission','like', selectEl.options[selectEl.selectedIndex].value);
+        var value = selectEl.options[selectEl.selectedIndex].value
+        if(value != null){
+            table.setFilter('Permission','like', value);
+        }
+        if (value =='refresh'){
+            table.clearFilter();
+        }
       })
-   
-
   },
   // template: '<div ref="table"></div>', //create table holder element
   
@@ -154,30 +159,28 @@ export default {
 
         for (var i in listEdit) {
           var action = listEdit[i].Action
-          var edit_ID = listEdit[i].Transfer_ID
+          var edit_ID = listEdit[i].User_ID
+          var depament_name = listEdit[i].Department_name
+          for(var j in this.Department){
+            if(depament_name == this.Department[j].D_Name){
+              listEdit[i].D_ID = this.Department[j].D_ID
+            }
+          }
           if (action == 'edit') {
-            // var totalAmountIncome = table.getCalcResults().top.Amount;
-            // totalAmountIncome = parseFloat(totalAmountIncome)
-            // console.log(results)
-            // console.log(listEdit[i])
+            console.log(listEdit[i])
             this.updateUser(edit_ID, listEdit[i])
-
           }
           else if (action == 'del'){
-
-            // console.log(listEdit[i])
             this.deleteUser(edit_ID)
-            // this.deleteTransferToMainAndSubproject(listEdit[i])
-            
           }
           else if (action == 'add'){
             this.addNewUser(listEdit[i])
           }
         }
         
-        // window.location.reload()
+        //window.location.reload()
         listEdit = [];
-  
+
         //do something...
       });
     },
@@ -188,7 +191,7 @@ export default {
       " ",
       "error",
       ).then(() => {
-          // window.location.reload()
+          window.location.reload()
           listEdit = [];
           //do something...
         });
@@ -198,6 +201,14 @@ export default {
       UserDataService.getAll()
         .then(response => {
           this.tableData = response.data;
+          for(var i in this.tableData) {
+            var UserD_ID = this.tableData[i].D_ID
+            for(var j in this.Department){
+              if(UserD_ID == this.Department[j].D_ID){
+                this.tableData[i].Department_name = this.Department[j].D_Name
+              }
+            }
+          }
           table.setData(this.tableData)
           console.log(response.data);
         })
@@ -206,8 +217,8 @@ export default {
         });
     },
 
-    deleteUser(listDelMP) {
-      UserDataService.delete(listDelMP)
+    deleteUser(User_ID) {
+      UserDataService.delete(User_ID)
           .then(response => {
             console.log(response.data);
           })
@@ -235,6 +246,16 @@ export default {
         console.log(e)
       })
     },
+
+    getDepartmentOptions() {
+      DepartmentDataservice.getAll()
+      .then(response => {
+        for(var i in response.data){
+          this.optionsDepartment.push(response.data[i].D_Name)
+          this.Department.push({D_ID: response.data[i].D_ID, D_Name: response.data[i].D_Name})
+        }
+      })
+    }
     
        
   },
