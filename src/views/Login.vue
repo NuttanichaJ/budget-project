@@ -73,9 +73,9 @@ export default {
                 email: googleUser.Rs.At,
                 token: googleUser.tc.access_token
             }
-        // console.log(userInfo)
+        console.log(userInfo.token)
         // localStorage.setItem('user', JSON.stringify(userInfo))
-        // this.$store.commit("setUserInfo", userInfo)
+        this.$store.commit("setUser", userInfo.token)
 
 
         // var departments = {D_Name: 'สาขาวิชาคอมพิวเตอร์'}
@@ -99,26 +99,33 @@ export default {
                             // var email = response.data[i].Email;
                             // var permission = response.data[i].Permission
                             var userID = {
-                                email:response.data[i].Email,
+                                email: response.data[i].Email,
+                                fName : response.data[i].User_FName,
                                 userid: response.data[i].User_ID,
                                 depart_id: response.data[i].D_ID,
                                 permission: response.data[i].Permission,
                                 depart_name: response.data[i].departments.D_Name
                             }
-                            // console.log("ID = ",userID)
+                            console.log("permission = ", userID.permission)
                             localStorage.setItem('user', JSON.stringify(userID))
                             this.$store.commit("setUser", userID)
 
                             // console.log("D_ID",depart_id)
                             // localStorage.setItem("setUserInfo", response.data)
                             // this.$router.push(`/user/${userID.permission}`)
-                            this.$router.push('/user')
-                            
+                            if(userID.permission == "admin") {
+                                this.$router.push('/admin')
+                            }
+                            else if(userID.permission == "สาขาวิชา") {
+                                this.$router.push('/user')
+                            }
+                            else if(userID.permission == "ผู้บริหาร") {
+                                this.$router.push('/dean')
+                            }
                         }
                     }
                 })
         },
-        
     },
     
 }

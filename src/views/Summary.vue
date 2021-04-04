@@ -1,75 +1,18 @@
 <template>
     <div id="summary">
-
-        <div class="mt-2 mb-5">
-            <b-form inline class="p-2 mx-3 nav">
-                <label class="mr-sm-2" for="select-year">ปีงบประมาณ</label>
-                <b-form-select id="select-year" class="mb-2 mr-sm-2 mb-sm-0"
-                v-model="selectedYear" :options="optionsYear" size="sm" >
-                </b-form-select>
-                <b-button class="ml-auto px-3 btnprint " variant="primary" @click="$bvModal.show('model-print')">
-                <font-awesome-icon :icon="['fas', 'file-excel']" class="mr-2" />พิมพ์</b-button>
-            </b-form>
-      
-            <!-- model พิมพ์ -->
-            <b-modal id="model-print" hide-footer centered>
-                <template #modal-title>
-                <font-awesome-icon :icon="['fas', 'file-excel']" class="mr-2" />พิมพ์
-                </template>
-                <div class="d-block text-center">
-                <b-row class="pt-5 pb-5">
-                    <b-col cols="3">
-                    <label class="mr-sm-2" for="select-printYear">ปีงบประมาณ</label>
-                    </b-col>
-                    <b-col cols="9"> 
-                    <b-form inline class="p-2 mx-3">
-                        
-                    </b-form>
-                    </b-col>
-                </b-row>
-
-                <b-row class="pt-5 pb-5">
-                    <b-col cols="3">
-                    <label class="mr-sm-2" for="select-printBranch">ฝ่าย/สาขา</label>
-                    </b-col>
-                    <b-col cols="9"> 
-                    <b-form inline class="p-2 mx-3">
-                    
-                    </b-form>
-                    </b-col>
-                </b-row>
-                
-                <b-row class="pt-5 pb-5">
-                    <b-col cols="3">
-                    <label class="mr-sm-2 " for="select-printBranch">ผู้รับผิดชอบ</label>
-                    </b-col>
-                    <b-col cols="9"> 
-                    <b-form inline class="p-2 mx-3">
-                    
-                    </b-form>
-                    </b-col>
-                </b-row>
-
-                </div>
-                <b-row class="justify-content-md-center"> 
-                <b-button class="mt-3 mr-2 px-3 w-25" variant="success" @click="$bvModal.hide('model-print')">พิมพ์</b-button>
-                <b-button class="mt-3 ml-2 px-3 w-25" variant="danger" @click="$bvModal.hide('model-print')">ยกเลิก</b-button>
-                </b-row> 
-                
-            </b-modal>
-
-        </div>
+        <SummaryHead />
+        
 
         <!-- budget -->
-        <div class="">
-            <b-container fluid="lg">
+        <div class="mt-3">
+            <b-container fluid="lg" class="mt-3">
                 <b-row>
-                    <b-col col lg="10" md="9" sm="12">
+                    <b-col col lg="10" md="9" sm="12" class="mr-0 shadow p-3 mb-1 bg-white rounded">
                         <h6 class="mb-3">สรุปงบประมาณของสาขาวิชา</h6>
                         <apexchart width="100%" type="bar" :options="chartBudgetOptions" :series="seriesBudget"></apexchart>
                     </b-col>
                     <b-col col lg='2' md="3" sm="12">
-                        <p>รายละเอียดเพิ่มเติม</p>
+                        <p>รายละเอียดของสาขาวิชา</p>
                         <ul class="listdepart">
                             <li><a href="/SubSummary">วิศวกรรมโยธา</a></li>
                             <li><a href="/SubSummary">วิศวกรรมไฟฟ้า</a></li>
@@ -98,9 +41,12 @@
 </template>
 
 <script>
-
+import SummaryHead from "@/components/SummaryHead.vue"
 export default {
     name: "Summary",
+    components :{
+        SummaryHead
+    },
     data() {
         return {
         chartBudgetOptions: {
@@ -123,54 +69,53 @@ export default {
           },
           yaxis: {
                title: {
-                    text: "จำนวนเงิน",
+                    text: "จำนวนเงิน (บาท)",
                     style: {
                         fontSize: '14px'
                     }
                 }
           }
         },
-        color: ['#99C2A2', '#C5EDAC', '#66C7F4'],
         seriesBudget: [
             {
                 name: 'วิศวกรรมโยธา',
                 data: [90, 40, 45, 50],
-                color: '#63AFAE'
+                color: '#775DD0'
             },
             {
                 name: 'วิศวกรรมไฟฟ้า',
                 data: [94,46,66,70],
-                color: '#b0aaa3'
+                color: '#FF9800'
             },
             {
                 name: 'วิศวกรรมเกษตร',
                 data: [95,37,38,50],
-                color: '#008080'
+                color: '#A5978B'
             },
             {
                 name: 'วิศวกรรมอุตสาหการ',
                 data: [87,41,62,45],
-                color: '#ff9a5b'
+                color: '#FD6A6A'
             },
             {
                 name: 'วิศวกรรมเครื่องกล',
                 data: [90,51,72,63],
-                color: '#1E90FF'
+                color: '#69D2E7'
             },
             {
                 name: 'วิศวกรรมสิ่งแวดล้อม',
                 data: [85,44,60,64],
-                color: '#506c5c'
+                color: '#C5D86D'
             },
             {
                 name: 'วิศวกรรมเคมี',
                 data: [89,45,90,83],
-                color: '#687bbe'
+                color: '#E2C044'
             },
             {
                 name: 'วิศวกรรมคออมพิวเตอร์',
                 data: [92,57,49,65],
-                color: '#ff9c38'
+                color: '#43BCCD'
             },
         ],
         donutProjectOption: {

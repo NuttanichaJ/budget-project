@@ -40,7 +40,7 @@
                 <span id="user-depart">{{user.depart_name}}</span>
                 <br />
                 <div id="status">
-                  <span><font-awesome-icon :icon="['fas', 'check-circle']"/>&nbsp;User</span>
+                  <span><font-awesome-icon :icon="['fas', 'check-circle']"/>&nbsp;{{user.permission}}</span>
                 </div>
               </div>
             </template>
@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       user : this.$store.state.user,
-      userID : this.$store.state.userID
+      
     }
   },
 
@@ -79,7 +79,7 @@ export default {
       // window.localStorage.removeItem('');
       window.sessionStorage.clear()
       this.$router.push('/login');
-    }
+    },
   },
 };
 </script>

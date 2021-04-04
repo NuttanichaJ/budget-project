@@ -177,8 +177,8 @@ export default {
         {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"input",  editable:editCheck, hozAlign:"right",},
         {title:"ผู้รับผิดชอบ", field:"MP_Owner", width:140, editor:"input",  editable:editCheck, hozAlign:"left",},
         {title:"ตัวชี้วัด", field:"MP_Indicator",  width:140, editor:"input",  editable:editCheck, hozAlign:"left", },
-        {title:"ค่าเป้าหมาย", field:"MP_Target_Value", editor:"input",   editable:editCheck, width:140, hozAlign:"left",}, //define table columns
-        {title:"งบประมาณตามแผน", field:"MP_Budget", editor:"number",   editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
+        {title:"ค่าเป้าหมาย", field:"MP_Target_Value", editor:"input", editable:editCheck, width:140, hozAlign:"left",}, //define table columns
+        {title:"งบประมาณตามแผน", field:"MP_Budget", editor:"number", editable:editCheck, width:140, hozAlign:"right", formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }}, //define table columns

@@ -16,6 +16,7 @@ import AllSummary from '@/views/AllSummary.vue'
 import SubSummary from '@/views/SubSummary.vue'
 import Login from '@/views/Login.vue'
 import Summary from '@/views/Summary.vue'
+import DeanLayout from "@/components/DeanLayout"
 
 Vue.use(VueRouter)
 
@@ -50,11 +51,11 @@ const routes = [
       name: 'SubSummary',
       component: SubSummary,
     },
-    {
-      path: '/summary',
-      name: 'Summary',
-      component: Summary,
-    },
+    // {
+    //   path: '/summary',
+    //   name: 'Summary',
+    //   component: Summary,
+    // },
     {
     path: '/history',
     name: 'History',
@@ -81,6 +82,19 @@ const routes = [
       path: '/adminmanagement',
       name: 'adminManagement',
       component: adminManagement,
+    },
+    
+  ]
+},
+{
+  path: '/dean',
+  name: 'deanLayout',
+  component: DeanLayout,
+  children: [
+    {
+      path: '/summary',
+      name: 'summary',
+      component: Summary,
     }
   ]
 },

@@ -3,7 +3,7 @@
         <SummaryHead />
         <div class="sumsummary">
             <h5 class="pt-2 ml-4 pb-0">โครงการทั้งหมด</h5>
-            <div ref="table" class="table-sty"></div>
+            <!-- <div ref="table" class="table-sty"></div> -->
         </div>
 
     </div>

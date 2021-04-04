@@ -117,7 +117,7 @@ export default {
       columns: [
         {title:"ชื่อ - นามสกุล", field:"User_FName", width:300, editor:"input", editable:editCheck, headerHozAlign:"center",validator:"required"},
         {title:"E-mail", field:"Email", headerSort:false, headerHozAlign:"center", editable:editCheck, width:350, editor:"input" ,validator:"required"},
-        {title:"ฝ่าย / สาขาวิชา", field:"D_ID", width:200,validator:"required", editor:"select", editable:editCheck, editorParams:{values:{"วิศวกรรมคอมพิวเตอร์":"วิศวกรรมคอมพิวเตอร์", "วิศวกรรมโยธา":"วิศวกรรมโยธา", "วิศวกรรมไฟฟ้า":"วิศวกรรมไฟฟ้า"}}},
+        {title:"ฝ่าย / สาขาวิชา", field:"D_ID", width:200,validator:"required", editor:false, editable:editCheck, editorParams:{values:{"วิศวกรรมคอมพิวเตอร์":"วิศวกรรมคอมพิวเตอร์", "วิศวกรรมโยธา":"วิศวกรรมโยธา", "วิศวกรรมไฟฟ้า":"วิศวกรรมไฟฟ้า"}}},
         {title:"สิทธิ์การใช้งาน", field:"Permission", width:200,validator:"required", editor:"select", editable:editCheck, editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
         {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().USER_FNAME + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}}, frozen:true, headerSort:false,},

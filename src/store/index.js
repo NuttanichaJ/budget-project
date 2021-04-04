@@ -14,51 +14,28 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {
-      "name" : "",
+      "fName" : "",
       "email": "",
       "userid" : "",
       "depart_id" : "",
-      "permission" : ""
+      "permission" : "",
+      "token" :""
 
     },
-    // userID :{
-    //   'userid':'',
-    //   'depart_id':'',
-    //   'permission':''
-    // }
-    // loginUser: user
-  
+    
   },
   mutations: {
     setUser(state,user){
       state.user = user;
     },
-    // setUserID(state, user) {
-    //   state.userID = user;
-    // },
-    // loginSuccess(state, user) {
-    //   state.status.loggedIn = true;
-    //   state.user = user;
-    // },
-    // loginFailure(state) {
-    //   state.status.loggedIn = false;
-    //   state.user = null;
-    // },
-    // logout(state) {
-    //   state.status.setUserInfo = false;
-    //   state.status.setUserID = false;
-    //   state.user = null;
-    //   localStorage.removeItem('user')
-    // }
   },
   actions: {
 
   },
   modules: {
-    // auth
    
   },
-  plugins: [createPersistedState({
-    storage: window.sessionStorage
-  })]
+  plugins: [createPersistedState(
+    // {storage: window.sessionStorage,}
+    )]
 })

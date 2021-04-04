@@ -1,39 +1,38 @@
 <template>
-  <div id="adminheader">
+  <div id="header">
     <b-navbar toggleable="sm" type="light" variant="light">
-        <b-navbar-brand to="/admin">
-          <img id="img" src="@/assets/en-logo.png" />
-          <div id="logo-name">
-            <span>EN KKU</span>
-            <br />
-            <span id="fullname">Engineering KKU</span>
-          </div>
-        </b-navbar-brand>
+      <b-navbar-brand to="/summary">
+        <img src="@/assets/en-logo.png" />
+        <div id="logo-name">
+          <span>EN KKU</span>
+          <br />
+          <span id="fullname">Engineering KKU</span>
+        </div>
+      </b-navbar-brand>
 
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item id="menu-bar" to="/adminmanagement" exact exact-active-class="active"
-              ><font-awesome-icon
-              :icon="['fas', 'user']"
-              />&nbsp;จัดการสมาชิก</b-nav-item
-            >
+        
+          <b-navbar-nav>
+          
+          <b-nav-item id="menu-bar" to="/summary" exact exact-active-class="active"
+            ><font-awesome-icon
+              :icon="['fas', 'chart-bar']"
+            />&nbsp;สรุปงบประมาณ</b-nav-item>
+          
         </b-navbar-nav>
 
-        <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
             <template #button-content>
-              <div id="admin-info">
-                <!-- <span id="adminname">ADMIN's Name</span> -->
-                 <span id="adminname">{{ user.email }}</span>
+              <div id="user-info">
+                <span id="username">{{ user.email }}</span>
                 <br />
                 <span id="user-depart">{{user.depart_name}}</span>
                 <br />
                 <div id="status">
-                  <span><font-awesome-icon :icon="['fas', 'check-circle']"/>&nbsp;{{user.depart_name}}</span>
+                  <span><font-awesome-icon :icon="['fas', 'check-circle']"/>&nbsp;{{user.permission}}</span>
                 </div>
               </div>
             </template>
@@ -43,15 +42,16 @@
       </b-collapse>
     </b-navbar>
   </div>
-  
 </template>
+
 <script>
+
 export default {
-  name: 'Adminheader',
-  components: {},
+  name: "Header",
   data() {
     return {
       user : this.$store.state.user,
+      
     }
   },
   methods: {
@@ -65,12 +65,11 @@ export default {
       this.$router.push('/login');
     }
   },
-}
+};
 </script>
 
-
-<style lang="scss">
-#img {
+<style lang="scss" scoped>
+img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -81,15 +80,20 @@ export default {
   float: right;
   font-size: 14px;
   padding-left: 5px;
+
   #fullname {
     font-size: 12px;
     color: #817979;
   }
 }
 
-#admin-info {
+#user-depart {
+  font-size: 14px;
+}
+#user-info {
   float: left;
   text-align: center;
+
   #status {
     color: #ffffff;
     border: 2px solid;
@@ -98,8 +102,8 @@ export default {
     background: rgb(237, 118, 94);
     background: linear-gradient(
       90deg,
-      rgb(108, 195, 245) 7%,
-      rgb(206, 56, 243) 93%
+      rgba(237, 118, 94, 1) 7%,
+      rgba(242, 185, 33, 1) 93%
     );
     font-weight: bold;
   }
