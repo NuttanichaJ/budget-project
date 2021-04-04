@@ -84,9 +84,6 @@ exports.update = (req, res) => {
       message: 'Error updating MainProject with TRANSFER_ID=' + Transfer_ID
     })
   })
-
-  Subproject.increment(('SP_Income', { by: 10, where: { SP_ID: 21 }}));
-
   
 };
 

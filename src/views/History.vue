@@ -5,9 +5,6 @@
         <b-nav-form>
           <b-form-select class="font-18 rounded-2" id="select-branch" 
             v-model="selectedDepartment" :options="optionsDepartment" size="sm">
-             <template #first>
-              <b-form-select-option :value="null">-- เลือกฝ่าย/สาขาวิชา --</b-form-select-option>
-            </template>
           </b-form-select>
         </b-nav-form>
       </b-navbar-nav>
@@ -35,7 +32,6 @@ import Tabulator from 'tabulator-tables';
 // import  HistoryDataservice from '../services/history.dataservice.js'
 
 import HistoryDataservice from '../services/history.dataservice';
-import UserDataservice from '../services/user.dataservice';
 import DepartmentDataservice from '../services/department.dataservice';
 
 var table;
@@ -50,9 +46,10 @@ export default {
 
       // selected Permissin
       selectedDepartment: null,
-      optionsDepartment: [],
+      optionsDepartment: [{value: 'refresh', text: 'ทั้งหมด'}],
       tabulator: null, //variable to hold your table
       tableData: [],
+      Department: [],
     }
   },
   
@@ -62,7 +59,6 @@ export default {
       // this.getSubProject(this.$route.params.id);
 
       // this.getHistoryDataservice()
-
 
       this.getDepartmentOptions()
       this.retrieveHistory()
@@ -85,17 +81,21 @@ export default {
       var valueEl = document.getElementById("search-his");
       valueEl.addEventListener("keyup", function(){
         table.setFilter('Username','like', valueEl.value);
-        
       })
       var selectEl = document.getElementById("select-branch");
       selectEl.addEventListener("change", function(){
-
-        table.setFilter('branch','like', selectEl.options[selectEl.selectedIndex].value);  
+        
+        var value = selectEl.options[selectEl.selectedIndex].value
+        if(value != null){
+            table.setFilter('Department_name','like', value);
+        }
+        if (value =='refresh'){
+            table.clearFilter();
+        }
       })
 
       //undo button
       document.getElementById("history-undo").addEventListener("click", function(){
-        console.log(this.tableData)
         table.undo();
       });
 
@@ -104,20 +104,10 @@ export default {
         table.redo();
       });
       
-     
-        //table.setFilter("branch",'regex', selectEl.value);
-        var value = selectEl.options[selectEl.selectedIndex].value
-        if(value != null){
-          table.setFilter('Department_name','like', value);
-        } else {
-          table.clearFilter();
-        }
          
   },
   //template: '<div ref="table"></div>', //create table holder element
   methods: {
-
-
 
     // getHistoryDataservice(Edited_User_ID) {
     //   HistoryDataservice.getAll()
@@ -150,23 +140,22 @@ export default {
             .then(response => {
               this.tableData = response.data
               for( var i in response.data) {
-                UserDataservice.get(this.tableData[i].Edited_User_ID)
-                .then(response => {
-                  if(response.data.User_LName == null){
-                    response.data.User_LName = ''
+                if(response.data[i].user.User_FName == null) {
+                  response.data[i].user.User_FName = ''
+                }
+                if(response.data[i].user.User_LName == null) {
+                  response.data[i].user.User_LName = ''
+                }
+                
+                this.tableData[i].Username = response.data[i].user.User_FName + ' ' + response.data[i].user.User_LName
+                var UserD_ID = response.data[i].user.D_ID
+                for(var j in this.Department){
+                  if(UserD_ID == this.Department[j].D_ID){
+                    this.tableData[i].Department_name = this.Department[j].D_Name
                   }
-                  if(response.data.User_FName == null){
-                    response.data.User_FName = ''
-                  }
-                  this.tableData[i].Username = response.data.User_FName + ' ' + response.data.User_LName
-                  var D_ID = response.data.D_ID
-                  DepartmentDataservice.get(D_ID)
-                  .then(response => {
-                    this.tableData[i].Department_name = response.data.D_Name
-
-                    table.setData(this.tableData);
-                  })
-                })
+                }
+                table.setData(this.tableData);
+                
               }
             })
             .catch(e => {
@@ -179,11 +168,10 @@ export default {
       .then(response => {
         for(var i in response.data){
           this.optionsDepartment.push({value: response.data[i].D_Name, text: response.data[i].D_Name})
+          this.Department.push({D_ID: response.data[i].D_ID, D_Name: response.data[i].D_Name})
         }
       })
     }
-
-     
   },
 };
 

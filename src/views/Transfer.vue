@@ -467,9 +467,7 @@ export default {
     retrieveTransfer() {
         TransferDataService.getAll()
             .then(response => {
-              
               this.tableData = response.data;
-              
               var i;
               //var index = 0;
               for (i in response.data) {

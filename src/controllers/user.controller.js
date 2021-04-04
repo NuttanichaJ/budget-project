@@ -21,7 +21,6 @@ exports.create = (req, res) => {
     User_LName: req.body.User_LName,
     Email: req.body.Email,
     Permission: req.body.Permission,
-    Password: req.body.Password,
     D_ID : req.body.D_ID,
   };
 
@@ -179,12 +178,30 @@ exports.findOne = (req, res) => {
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
-  
+  const User_ID = req.params.id;
+
+  User.update(req.body, {
+    where: { User_ID: User_ID }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: 'Error updating User=' + User_ID
+    })
+  })
 };
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
+  const User_ID = req.params.id;
   
+  User.destroy({
+    where: { User_ID: User_ID }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "ไม่สามารถลบได้"
+    });
+  });
 };
 
 // Delete all Tutorials from the database.

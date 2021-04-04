@@ -35,11 +35,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-    const History_ID = req.query.History_ID;
-    var condition = History_ID ? { HISTORY_ID: { [Op.like]: `%${History_ID}%` } } : null;
   
     History.findAll(
-      { where: condition },
       {
         include: ["user",],
       })
