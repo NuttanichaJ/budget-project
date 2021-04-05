@@ -1,6 +1,6 @@
 <template>
   <div id="managesubproject">
-    <h1>จัดการโครงการ</h1>
+    <h1>จัดการโครงการย่อย</h1>
     <div>
       <div class="header">
         <div class="pb-xlg h-100">

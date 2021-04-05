@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <b-navbar toggleable="sm" type="light" variant="light">
-      <b-navbar-brand to="/home">
+      <b-navbar-brand to="/homecenter">
         <img src="@/assets/en-logo.png" />
         <div id="logo-name">
           <span>EN KKU</span>
@@ -13,18 +13,23 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
+        
         <b-navbar-nav>
-          <b-nav-item id="menu-bar" to="/manageprojectbrance" exact exact-active-class="active"
+          <b-nav-item-dropdown id="menu-bar" to="/manageprojectcenter" text="จัดการโครงการ" xact exact-active-class="active">
+            <b-dropdown-item href="/manageprojectcenter">จัดการโครงการ{{user.depart_name}}</b-dropdown-item>
+            <b-dropdown-item href="/managemainprojectbrance">จัดการโครงการของสาขา</b-dropdown-item>
+          </b-nav-item-dropdown>
+          <!-- <b-nav-item id="menu-bar" to="/manageprojectcenter" exact exact-active-class="active"
             ><font-awesome-icon
               :icon="['fas', 'clipboard-list']"
             />&nbsp;จัดการโครงการ</b-nav-item
-          >
-          <b-nav-item id="menu-bar" to="/summary" exact exact-active-class="active"
+          > -->
+          <b-nav-item id="menu-bar" to="/summarycenter" exact exact-active-class="active"
             ><font-awesome-icon
               :icon="['fas', 'chart-bar']"
             />&nbsp;สรุปงบประมาณ</b-nav-item
           >
-          <b-nav-item id="menu-bar" to="/history" exact exact-active-class="active"
+          <b-nav-item id="menu-bar" to="/historycenter" exact exact-active-class="active"
             ><font-awesome-icon
               :icon="['fas', 'history']"
             />&nbsp;ประวัติการแก้ไข</b-nav-item
@@ -57,7 +62,7 @@
 // import {mapGetters} from 'vuex'
 // import UserDataservice from "../services/user.datasevice.js";
 export default {
-  name: "Header",
+  name: "CenterHeader",
   data() {
     return {
       user : this.$store.state.user,

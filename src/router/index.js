@@ -5,14 +5,15 @@ import VueRouter from 'vue-router'
 
 import Home from '@/views/Home.vue'
 import Layout from '@/components/Layout.vue'
+import CenterLayout from '@/components/CenterLayout.vue'
 import ManageProjectC from '@/views/ManageProjectC.vue'
+import ManageMainProjectB from '@/views/ManageMainProjectB.vue'
 import ManageProjectB from '@/views/ManageProjectB.vue'
 import History from '@/views/History.vue'
 import Transfer from '@/views/Transfer.vue'
 import ManageSubProject from '@/views/ManageSubProject.vue'
 import AdminLayout from '@/components/AdminLayout.vue'
 import adminManagement from '@/views/adminManagement.vue'
-import AllSummary from '@/views/AllSummary.vue'
 import SubSummary from '@/views/SubSummary.vue'
 import Login from '@/views/Login.vue'
 import Summary from '@/views/Summary.vue'
@@ -22,19 +23,14 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/user',
+    path: '/userbrance',
     name: 'Layout',
     component: Layout,
     children: [
     {
       path: '/home',
-      name: 'Home',
+      name: 'home',
       component: Home,
-    },
-    {
-      path: '/manageprojectcenter',
-      name: 'ManageProjectCenter',
-      component: ManageProjectC,
     },
     {
       path: '/manageprojectbrance',
@@ -43,8 +39,8 @@ const routes = [
     },
     {
       path: '/allsummary',
-      name: 'AllSummary',
-      component: AllSummary,
+      name: 'Summary',
+      component: Summary,
     },
     {
       path: '/subsummary',
@@ -73,6 +69,58 @@ const routes = [
   },
   ],
 },
+  {
+    path: '/usercenter',
+    name: 'CenterLayout',
+    component: CenterLayout,
+    children: [
+    {
+      path: '/homecenter',
+      name: 'Homecenter',
+      component: Home,
+    },
+    {
+      path: '/manageprojectcenter',
+      name: 'ManageProjectCenter',
+      component: ManageProjectC,
+    },
+    {
+      path: '/managemainprojectbrance',
+      name: 'ManageMainProjectBrance',
+      component: ManageMainProjectB,
+    },
+    {
+      path: '/summarycenter',
+      name: 'summarycenter',
+      component: Summary,
+    },
+    {
+      path: '/subsummarycenter',
+      name: 'Subsummarycenter',
+      component: SubSummary,
+    },
+    // {
+    //   path: '/summary',
+    //   name: 'Summary',
+    //   component: Summary,
+    // },
+    {
+    path: '/historycenter',
+    name: 'Historycenter',
+    component: History,
+  },
+  {
+    path: '/transfercenter',
+    name: 'Transfercenter',
+    component: Transfer,
+  },
+  {
+    path: '/managesubprojectcenter/:id',
+    name: 'ManageSubProjectcenter',
+    component: ManageSubProject,
+  },
+  ],
+},
 {
   path: '/admin',
   name: 'adminLayout',
@@ -95,7 +143,7 @@ const routes = [
       path: '/summary',
       name: 'summary',
       component: Summary,
-    }
+    },
   ]
 },
 {

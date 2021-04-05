@@ -117,7 +117,10 @@ export default {
                                 this.$router.push('/admin')
                             }
                             else if(userID.permission == "สาขาวิชา") {
-                                this.$router.push('/user')
+                                this.$router.push('/userbrance')
+                            }
+                            else if(userID.permission == "ส่วนกลาง") {
+                                this.$router.push('/usercenter')
                             }
                             else if(userID.permission == "ผู้บริหาร") {
                                 this.$router.push('/dean')

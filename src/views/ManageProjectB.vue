@@ -57,46 +57,6 @@ export default {
       layout:"fitDataStretch",
       addRowPos: "bottom",
       columns: [
-
-        {title:"ชื่อโครงการ", field:"MP_Name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
-        {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"input",  hozAlign:"right", },
-        {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"input",  hozAlign:"right", },
-        {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"input",  hozAlign:"right",},
-        {title:"ผู้รับผิดชอบ", field:"MP_Owner", width:140, editor:"input",  hozAlign:"left",},
-        {title:"ตัวชี้วัด", field:"MP_Indicator",  width:140, editor:"input",  hozAlign:"left", },
-        {title:"ค่าเป้าหมาย", field:"MP_Target_Value", editor:"input", width:140, hozAlign:"left",}, //define table columns
-        {title:"งบประมาณตามแผน", field:"MP_Budget", editor:"number", width:140, hozAlign:"right", formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"โอนเข้า", field:"MP_Income", editor:"number",   width:140, hozAlign:"right", formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"โอนออก", field:"MP_Outcome", editor:"number",   width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"คงเหลือตามแผน", field:"MP_Total_Amount", editor:"number",   width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"ขออนุมัติใช้", field:"MP_Approve_Use", editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"เบิกจ่าย", field:"MP_Disburse", editor:"number",   width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"คงเหลือตามหลักการ", field:"MP_Total_From_Priciple",  editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
-        {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_Total_From_Disburse", editor:"number",  width:160, hozAlign:"right",  formatter:"money", formatterParams:{
-          decimal:".",
-          thousand:",",
-        }}, //define table columns
         // {title:"ผลการดำเนินงาน", field:"performance_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         // {title:"ปัญหาและอุปสรรค", field:"problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         // {title:"รายละเอียดผลการดำเนินงาน", field:"detail_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
@@ -140,7 +100,6 @@ export default {
               console.log(e);
             });
     },
-
   },
 
 };

@@ -1,6 +1,6 @@
 <template>
   <div id="manageproject">
-    <h1 class="ml-2">จัดการโครงการหลัก{{user.depart_name}}</h1>
+    <h1 class="ml-2">จัดการโครงการหลักของสาขา</h1>
     <b-nav class="mt-3">
       <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-0 ml-0 mr-auto">
         <b-nav-form>
@@ -31,7 +31,7 @@
                 <b-nav-form>
                   <!-- @click='addRow' -->
                     <b-input-group>
-                        <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0 mr-1" variant="dark">เพิ่มโครงการหลัก</b-button>
+                        <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0 mr-1" variant="dark">เพิ่มโครงการหลักของสาขา</b-button>
                         <b-button class="mb-2 ml-sm-2 mb-sm-0" variant="dark" to="/transfer">โอนเงินเข้า-ออก</b-button>
                     </b-input-group>
                 </b-nav-form>        
@@ -49,26 +49,31 @@
 import Tabulator from 'tabulator-tables';
 import MainprojectDataservice from "../services/mainproject.dataservice.js";
 import HistoryDataservice from "../services/history.dataservice"
+import DepartmentDataservice from "../services/department.dataservice"
 
 var table;
 var listEditMP = [];
 var listAddMP = [];
 var listHistory= [];
+var Department = []
 
 export default {
-  name: "ManageProject",
+  name: "ManageMainProjectB",
   data() {
       return {
         user: this.$store.state.user,
         modalShow: false,
         tabulator: null, //variable to hold your table
         tableData: [],
+        optionsDepartment: [],
     }
   },
   
     mounted(){  
+
+    this.getDepartmentOptions();
     //retrieve Main Project
-    this.retrieveMainProject(this.user.depart_id);
+    this.retrieveMainProject(this.user.userid, this.user.depart_id);
    
     //Edit Sub-Project button
     var printSPIcon = function(cell, formatterParams, onRendered){ //plain text value
@@ -139,7 +144,6 @@ export default {
         if (MP_ID != undefined) {
           data.Action = 'edit';
           listEditMP.push(data)
-
           //Record history
           var cellValue = cell.getValue(); //new value
           var cellInitialValue = cell.getInitialValue(); //data in database
@@ -162,7 +166,6 @@ export default {
       layout:"fitDataStretch",
       addRowPos: "bottom",
       columns: [
-        
         {title:"ชื่อโครงการ", field:"MP_Name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
         {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"input", hozAlign:"right", },
         {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"input",  hozAlign:"right", },
@@ -207,7 +210,7 @@ export default {
         {title:"ปัญหาและอุปสรรค", field:"Problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"หมายเหตุ", field:"Annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
-        {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว" }, hozAlign:"left",},  width:160},
+        {title:"สาขาวิชา", field:"D_Name", editor:"select", editorParams:this.optionsDepartment,  width:160},
         {formatter:printSPIcon, hozAlign:"left",headerSort:false, },
         {formatter:printDelIcon, hozAlign:"left",headerSort:false, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().MP_Name + " ใช่หรือไม่?")== true){
             cell.getRow().delete()
@@ -250,11 +253,20 @@ export default {
 
         //console.log(listEditMP)
         var i;
+        console.log(Department)
         for (i in listEditMP) {
           var action = listEditMP[i].Action
           var editMP_ID = listEditMP[i].MP_ID
           var projectname = listEditMP[i].MP_Name; // get project name
           var message = '';
+          var dapart_name = listEditMP[i].D_Name;
+
+          for(i in Department){
+              
+              if(dapart_name == Department[i].D_Name){
+                  listEditMP[i].D_ID = Department[i].D_ID
+              }
+          }
       
           if (action == 'edit') {
             this.updateProject(editMP_ID, listEditMP[i])
@@ -270,11 +282,18 @@ export default {
         if (listAddMP.length != 0) {
           var j;
           for (j in listAddMP) {
-            listAddMP[j].D_ID = this.user.depart_id
+              console.log(listAddMP)
+            var dapart_name2 = listAddMP[j].D_Name;
+
+            for(i in Department){
+                
+                if(dapart_name2 == Department[i].D_Name){
+                    listAddMP[i].D_ID = Department[i].D_ID
+                }
+            }
             listAddMP[j].MP_Create_User_ID = this.user.userid
 
             //Record history
-            
             if(listAddMP[j].MP_Name != undefined){
               message ='เพิ่ม ' + listAddMP[j].MP_Name;
               listHistory.push({Message: message});
@@ -295,7 +314,7 @@ export default {
           }
         }
 
-        window.location.reload()
+        //window.location.reload()
         listEditMP, listAddMP, listHistory = [];
         //do something...
       });
@@ -316,13 +335,22 @@ export default {
 
 
     //fetch Main Project data
-    retrieveMainProject(D_ID) {
-          MainprojectDataservice.getAll({where: {D_ID: D_ID}})
+    retrieveMainProject(User_ID, D_ID) {
+          MainprojectDataservice.getAll()
             .then(response => {
               //this.tableData = response.data
               for( var i in response.data) {
-                if(D_ID == response.data[i].D_ID)
-                this.tableData.push(response.data[i]);
+                if(User_ID == response.data[i].MP_Create_User_ID && D_ID != response.data[i].D_ID){
+                    for(var j in Department){
+                        // console.log(this.Department)
+                        if(response.data[i].D_ID == Department[j].D_ID){
+                            response.data[i].D_Name = Department[j].D_Name
+                            this.tableData.push(response.data[i]);
+                        }
+                    }
+                    
+                }
+                 
               }
               table.setData(this.tableData);
               console.log(this.tableData);
@@ -372,6 +400,18 @@ export default {
         console.log(e)
       })
     },
+
+    getDepartmentOptions() {
+      DepartmentDataservice.getAll()
+      .then(response => {
+        for(var i in response.data){
+          if(response.data[i].D_Name.includes('สาขา')) {
+            this.optionsDepartment.push({value: response.data[i].D_Name, label: response.data[i].D_Name})
+            Department.push({D_ID: response.data[i].D_ID, D_Name: response.data[i].D_Name})
+          }
+        }
+      })
+    }
 
   },
 
