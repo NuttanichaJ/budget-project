@@ -118,6 +118,11 @@ export default {
                             }
                             else if(userID.permission == "สาขาวิชา") {
                                 this.$router.push('/user')
+                                // this.$route.push('/manageprojectbrance')
+                            }
+                            else if(userID.permission == "ส่วนกลาง") {
+                                this.$router.push('/user')
+                                
                             }
                             else if(userID.permission == "ผู้บริหาร") {
                                 this.$router.push('/dean')
