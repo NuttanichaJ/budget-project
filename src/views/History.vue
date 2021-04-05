@@ -73,7 +73,6 @@ export default {
           {title: "ชื่อ-นามสกุล", field:"Username", hozAlign:"center", width: 300 ,headerHozAlign:"center", editor: false,},
           {title: "ฝ่าย/สาขาวิชา", field:"Department_name", hozAlign:"center", width: 300, headerHozAlign:"center", },
           {title: "รายการแก้ไข", field:"Message", hozAlign:"center", headerHozAlign:"center",headerSort:false,},  
-          
         ], //define table columns
       
       });
@@ -154,9 +153,8 @@ export default {
                     this.tableData[i].Department_name = this.Department[j].D_Name
                   }
                 }
-                table.setData(this.tableData);
-                
               }
+              table.setData(this.tableData);
             })
             .catch(e => {
               console.log(e);
@@ -167,8 +165,8 @@ export default {
       DepartmentDataservice.getAll()
       .then(response => {
         for(var i in response.data){
-          this.optionsDepartment.push({value: response.data[i].D_Name, text: response.data[i].D_Name})
-          this.Department.push({D_ID: response.data[i].D_ID, D_Name: response.data[i].D_Name})
+            this.optionsDepartment.push({value: response.data[i].D_Name, text: response.data[i].D_Name})
+            this.Department.push({D_ID: response.data[i].D_ID, D_Name: response.data[i].D_Name})
         }
       })
     }
