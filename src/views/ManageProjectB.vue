@@ -67,7 +67,22 @@ export default {
         {title:"คงเหลือตามแผน", field:"MP_Total_Amount", width:250, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
         {title:"คงเหลือตามหลักการ", field:"MP_Total_From_Priciple", width:250, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
         {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_Total_From_Disburse", width:250, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
-        {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว" }, hozAlign:"left",},  width:160},
+        {title:"สถานะโครงการ", field:"MP_Status", width:160,
+        formatter:function(cell){
+            var value = cell.getValue();
+            var color;
+              if(value == "ยังไม่ดำเนินการ"){
+                  color = '#EA3546'
+                  
+              } else if(value == "กำลังดำเนินการ"){
+                  color = '#F9CE1D'
+                  
+              } else if(value == "เสร็จสิ้น"){
+                  color = '#4CAF50'
+              }
+              return "<button style='color: white; background-color:"+ color +"; display: inline-block; border: none; outline: none; text-align: center; text-decoration: none; padding: .4em .4em .55em; border-radius: .4em;'>" + value + "</button>";
+          }
+        },
         {formatter:printSPIcon, hozAlign:"left",headerSort:false, },
         ], //define table columns
     });   

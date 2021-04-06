@@ -15,7 +15,12 @@
       <b-collapse id="nav-collapse" is-nav>
         
         <b-navbar-nav>
-          <b-nav-item-dropdown id="menu-bar" to="/manageprojectcenter" text="จัดการโครงการ" xact exact-active-class="active">
+          <b-nav-item-dropdown id="menu-bar" xact exact-active-class="active">
+            <template slot="button-content">
+              <font-awesome-icon
+                :icon="['fas', 'clipboard-list']"
+              />&nbsp;จัดการโครงการ
+            </template>
             <b-dropdown-item href="/manageprojectcenter">จัดการโครงการ{{user.depart_name}}</b-dropdown-item>
             <b-dropdown-item href="/managemainprojectbrance">จัดการโครงการของสาขา</b-dropdown-item>
           </b-nav-item-dropdown>

@@ -38,7 +38,8 @@ exports.create = (req, res) => {
     Performance_Result: req.body.Performance_Result,
     Detail_Result: req.body.Detail_Result,
     D_ID: req.body.D_ID,
-    MP_Create_User_ID: req.body.MP_Create_User_ID
+    MP_Create_User_ID: req.body.MP_Create_User_ID,
+    MP_Status: req.body.MP_Status
   };
 
   // Save Main Project in the database
@@ -60,14 +61,14 @@ exports.findAll = (req, res) => {
     {
       include: 
       ["subprojects",
-        {
-          model: User,
-          as: "users",
-          attributes: ["User_ID", "User_FName", "User_LName", "Email",],
-          through: {
-            attributes: [],
-          }
-        },
+        // {
+        //   model: User,
+        //   as: "users",
+        //   attributes: ["User_ID", "User_FName", "User_LName", "Email",],
+        //   through: {
+        //     attributes: [],
+        //   }
+        // },
       ],
     })
       .then(data => {

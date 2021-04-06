@@ -194,33 +194,6 @@ export default {
       return value <= cell.getRow().getData().SP_Budget
     }
 
-    var editCheck = function(cell){
-      //cell - the cell component for the editable cell
-      //get row data
-      var data = cell.getRow().getData();
-        if (cell.getRow().getData().SP_ID != undefined) {
-            data.Action = 'edit';
-            listEditSP.push(data)
-
-            //Record history
-            var cellValue = cell.getValue(); //new value
-            var cellInitialValue = cell.getInitialValue(); //data in database
-            var title = cell.getColumn()._column.definition.title; // get column name
-            var projectname = data.SP_Name; // get project name
-            var message = '';
-
-            if(cellInitialValue == null) {
-              cellInitialValue = ''
-            }
-            if(cellValue == null) {
-              cellValue = ''
-            }
-            message ='แก้ไข ' + projectname + ' : ' + title + ' จาก ' + cellInitialValue + ' เป็น ' + cellValue
-            listHistory.push({Message: message, Edited_SP_ID: cell.getRow().getData().SP_ID});
-        }
-      return listEditSP
-    }
-
     ///instantiate Tabulator when element is mounted
     table = new Tabulator("#table", {
       rowAdded:function(row){
@@ -244,15 +217,40 @@ export default {
           }
         }
       },
+      cellEdited:function(cell){
+        //cell - the cell component for the editable cell
+        //get row data
+        var data = cell.getRow().getData();
+        if (cell.getRow().getData().SP_ID != undefined) {
+            data.Action = 'edit';
+            listEditSP.push(data)
+
+            //Record history
+            var cellValue = cell.getValue(); //new value
+            var cellInitialValue = cell.getInitialValue(); //data in database
+            var title = cell.getColumn()._column.definition.title; // get column name
+            var projectname = data.SP_Name; // get project name
+            var message = '';
+
+            if(cellInitialValue == null) {
+              cellInitialValue = ''
+            }
+            if(cellValue == null) {
+              cellValue = ''
+            }
+            message ='แก้ไข ' + projectname + ' : ' + title + ' จาก ' + cellInitialValue + ' เป็น ' + cellValue
+            listHistory.push({Message: message, Edited_SP_ID: cell.getRow().getData().SP_ID});
+        }
+      },
       history: true,
       layout:"fitDataStretch",
       addRowPos: "bottom",
       columns: [
-        {title:"ชื่อโครงการ", field:"SP_Name", width:140, editor:"input", editable:editCheck, hozAlign:"left", formatter:"textarea", frozen:true,},
-        {title:"ผู้รับผิดชอบ", field:"SP_Owner", width:140, editor:"input", editable:editCheck, hozAlign:"left",},
-        {title:"ตัวชี้วัด", field:"SP_Indicator",  width:140, editor:"input", editable:editCheck, hozAlign:"left", },
-        {title:"ค่าเป้าหมาย", field:"SP_Target_Value", editor:"input",  editable:editCheck, width:140, hozAlign:"left",}, //define table columns
-        {title:"งบประมาณตามแผน", field:"SP_Budget", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".", thousand:",",}, validator:checkSP_Budget, bottomCalc:"sum", bottomCalcParams:{precision:2,},
+        {title:"ชื่อโครงการ", field:"SP_Name", width:250, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true,},
+        {title:"ผู้รับผิดชอบ", field:"SP_Owner", width:140, editor:"input", hozAlign:"left",},
+        {title:"ตัวชี้วัด", field:"SP_Indicator",  width:140, editor:"input", hozAlign:"left", },
+        {title:"ค่าเป้าหมาย", field:"SP_Target_Value", editor:"input", width:140, hozAlign:"left",}, //define table columns
+        {title:"งบประมาณตามแผน", field:"SP_Budget", editor:"number", width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".", thousand:",",}, validator:checkSP_Budget, bottomCalc:"sum", bottomCalcParams:{precision:2,},
           cellEdited: function(cell) {
             //Update คงเหลือตามแผน
             var totalTransfer = cell.getRow().getData().SP_Income - cell.getRow().getData().SP_Outcome
@@ -274,41 +272,55 @@ export default {
           decimal:".",
           thousand:",",
         }, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
-        {title:"คงเหลือตามแผน", field:"SP_Total_Amount", editor:"number",  mutator:Total_Amount, mutatorEdit:Total_Amount, editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามแผน", field:"SP_Total_Amount", editor:"number",  mutator:Total_Amount, mutatorEdit:Total_Amount, width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
-        {title:"ขออนุมัติใช้", field:"SP_Approve_Use", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, validator: checkApproveuseAndDisburse, bottomCalc:"sum", bottomCalcParams:{precision:2,},
+        {title:"ขออนุมัติใช้", field:"SP_Approve_Use", editor:"number", width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, validator: checkApproveuseAndDisburse, bottomCalc:"sum", bottomCalcParams:{precision:2,},
           cellEdited: function(cell) {
             //Update คงเหลือตามหลักการ
             var Total_From_Priciple = cell.getRow().getData().SP_Total_Amount - cell.getRow().getData().SP_Approve_Use
             cell.getRow().getCell("SP_Total_From_Priciple").setValue(Total_From_Priciple);
           } 
         }, //define table columns
-        {title:"เบิกจ่าย", field:"SP_Disburse", editor:"number",  editable:editCheck, width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, validator: checkApproveuseAndDisburse, bottomCalc:"sum", bottomCalcParams:{precision:2,},
+        {title:"เบิกจ่าย", field:"SP_Disburse", editor:"number", width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, validator: checkApproveuseAndDisburse, bottomCalc:"sum", bottomCalcParams:{precision:2,},
           cellEdited: function(cell) {
             //Update คงเหลือจากเบิกจ่ายจริง
             var Total_From_Disburse = cell.getRow().getData().SP_Total_Amount - cell.getRow().getData().SP_Disburse
             cell.getRow().getCell("SP_Total_From_Disburse").setValue(Total_From_Disburse);
           }
         }, //define table columns
-        {title:"คงเหลือตามหลักการ", field:"SP_Total_From_Priciple",  mutator:Total_From_Priciple, mutatorEdit:Total_From_Priciple, editable:editCheck, editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
+        {title:"คงเหลือตามหลักการ", field:"SP_Total_From_Priciple",  mutator:Total_From_Priciple, mutatorEdit:Total_From_Priciple, editor:"number",  width:140, hozAlign:"right",  formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
-        {title:"คงเหลือจากเบิกจ่ายจริง", field:"SP_Total_From_Disburse",  mutator:Total_From_Disburse, mutatorEdit:Total_From_Disburse, editable:editCheck, editor:"number",  width:160, hozAlign:"right", formatter:"money", formatterParams:{
+        {title:"คงเหลือจากเบิกจ่ายจริง", field:"SP_Total_From_Disburse",  mutator:Total_From_Disburse, mutatorEdit:Total_From_Disburse, editor:"number",  width:160, hozAlign:"right", formatter:"money", formatterParams:{
           decimal:".",
           thousand:",",
         }, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
-        {title:"ผลการดำเนินงาน", field:"Performance_Result", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
-        {title:"ปัญหาและอุปสรรค", field:"Problem", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
-        {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
-        {title:"หมายเหตุ", field:"Annotation", editor:"input",  editable:editCheck, width:160, hozAlign:"left",}, //define table columns
-        {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว", }, hozAlign:"left"},  width:160}, 
+        {title:"ผลการดำเนินงาน", field:"Performance_Result", editor:"input", width:160, hozAlign:"left",}, //define table columns
+        {title:"ปัญหาและอุปสรรค", field:"Problem", editor:"input", width:160, hozAlign:"left",}, //define table columns
+        {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", editor:"input", width:160, hozAlign:"left",}, //define table columns
+        {title:"หมายเหตุ", field:"Annotation", editor:"input", width:160, hozAlign:"left",}, //define table columns
+        {title:"สถานะโครงการ", field:"SP_Status", editor:"select", editorParams:{values:{"ยังไม่ดำเนินการ":"ยังไม่ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "เสร็จสิ้น":"เสร็จสิ้น" },},  width:160,
+          formatter:function(cell){
+              var value = cell.getValue();
+              var color;
+                if(value == "ยังไม่ดำเนินการ"){
+                    color = '#EA3546'
+                    
+                } else if(value == "กำลังดำเนินการ"){
+                    color = '#F9CE1D'
+                    
+                } else if(value == "เสร็จสิ้น"){
+                    color = '#4CAF50'
+                }
+                return "<button style='color: white; background-color:"+ color +"; display: inline-block; border: none; outline: none; text-align: center; text-decoration: none; padding: .4em .4em .55em; border-radius: .4em;'>" + value + "</button>"
+          }
+        },
         {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){
           if(confirm("ต้องการลบ " + cell.getRow().getData().SP_Name + " ใช่หรือไม่?")== true){
           cell.getRow().delete()
-
           }
           }
         } //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}
@@ -323,7 +335,7 @@ export default {
 
       //add row
       document.getElementById("add-project").addEventListener("click", function(){
-        table.addRow({SP_Approve_Use: 0, SP_Disburse: 0, SP_Total_Amount: 0, SP_Total_From_Priciple: 0, SP_Total_From_Disburse: 0, SP_Income: 0, SP_Outcome: 0, SP_Budget: 0});
+        table.addRow({SP_Status: 'ยังไม่ดำเนินการ', SP_Approve_Use: 0, SP_Disburse: 0, SP_Total_Amount: 0, SP_Total_From_Priciple: 0, SP_Total_From_Disburse: 0, SP_Income: 0, SP_Outcome: 0, SP_Budget: 0});
       });
 
       //undo button
@@ -345,53 +357,73 @@ export default {
       " ",
       "question"
       ).then(() => {
-        
-        var i;
-        for (i in listEditSP) {
-          var action = listEditSP[i].Action
-          var editSP_ID = listEditSP[i].SP_ID
-          var projectname = listEditSP[i].SP_Name; // get project name
-          var message = '';
-          console.log(editSP_ID)
-          if (action == 'edit') {
-            this.updateSubProject(editSP_ID, listEditSP[i])
-          }
-          else if (action == 'del'){
-            //Record history
-            message ='ลบ ' + projectname;
-            this.deleteSubProject(editSP_ID)
-          }
-        }
-        
-        if (listAddSP.length != 0) {
-          var j;
-          for (j in listAddSP) {
-              listAddSP[j].MP_ID = this.$route.params.id
 
-              if(listAddSP[j].SP_Name != undefined){
-                message ='เพิ่ม ' + listAddSP[j].SP_Name;
-                listHistory.push({Message: message});
+        var namenotnull = true;
+        var invalid = table.getInvalidCells();
+        var warningMassage = 'กรุณาตรวจสอบข้อมูลอีกครั้ง\n'
+        if(invalid.length != 0){
+          warningMassage += invalid[0].getRow().getData().SP_Name + ': ' +invalid[0]._cell.column.definition.title + '\n'
+          alert(warningMassage)
+        } else {
+          if (listAddSP.length != 0) {
+            var j;
+            for (j in listAddSP) {
+              var SP_Name = listAddSP[j].SP_Name
+              if(SP_Name == null){
+                alert('กรุณาใส่ชื่อโครงการ')
+                namenotnull = false;
+              } else {
+                listAddSP[j].MP_ID = this.$route.params.id
+                if(listAddSP[j].SP_Name != undefined){
+                  message ='เพิ่ม ' + listAddSP[j].SP_Name;
+                  listHistory.push({Message: message});
+                }
+                this.addNewProject(listAddSP[j])
               }
-              this.addNewProject(listAddSP[j])
+            }
           }
-        }
 
-        var calcValue = table.getCalcResults().bottom
-        var dataMainproject = {MP_Approve_Use: calcValue.SP_Approve_Use, MP_Disburse: calcValue.SP_Disburse, MP_Total_Amount: calcValue.SP_Total_Amount, MP_Total_From_Priciple: calcValue.SP_Total_From_Priciple, MP_Total_From_Disburse: calcValue.SP_Total_From_Disburse}
-        this.updateMainProject(this.$route.params.id, dataMainproject)
+          if(namenotnull) {
+            this.checkStatus();
+            var i;
+            for (i in listEditSP) {
+              console.log(listEditSP[i])
+              var action = listEditSP[i].Action
+              var editSP_ID = listEditSP[i].SP_ID
+              var projectname = listEditSP[i].SP_Name; // get project name
+              var message = '';
+              console.log(editSP_ID)
+              if (action == 'edit') {
+                this.updateSubProject(editSP_ID, listEditSP[i])
+              }
+              else if (action == 'del'){
+                //Record history
+                message ='ลบ ' + projectname;
+                this.deleteSubProject(editSP_ID)
+              }
+            }
 
-         if (listHistory.length != 0) {
-          var k;
-          for (k in listHistory) {
-            
-            listHistory[k].Edited_User_ID = this.user.userid
-            // console.log(listHistory[k])
-            this.history(listHistory[k])
+            var calcValue = table.getCalcResults().bottom
+            var dataMainproject = {MP_Approve_Use: calcValue.SP_Approve_Use, MP_Disburse: calcValue.SP_Disburse, MP_Total_Amount: calcValue.SP_Total_Amount, MP_Total_From_Priciple: calcValue.SP_Total_From_Priciple, MP_Total_From_Disburse: calcValue.SP_Total_From_Disburse}
+            this.updateMainProject(this.$route.params.id, dataMainproject)
+
+            if (listHistory.length != 0) {
+              var k;
+              for (k in listHistory) {
+                
+                listHistory[k].Edited_User_ID = this.user.userid
+                // console.log(listHistory[k])
+                this.history(listHistory[k])
+              }
+            }
+
+            window.location.reload()
+            listEditSP, listAddSP = [];
+
           }
+          
         }
         
-        // window.location.reload()
-        listEditSP, listAddSP = [];
         
         //do something...
       });
@@ -407,6 +439,43 @@ export default {
           listEditSP, listAddSP = [];
           //do something...
         });
+    },
+
+
+    checkStatus(){
+
+      var data = table.getData();
+      var numberOfdata = data.length
+      var alldoneStatus = false
+      var notStartStatus = false
+      var numberOfnotStart = 0;
+      var numberOfDoneData = 0;
+
+      for(var i in data){
+        var status = data[i].SP_Status
+        if(status == 'ยังไม่ดำเนินการ'){
+          numberOfnotStart += 1;
+        } else if(status == 'เสร็จสิ้น'){
+          numberOfDoneData += 1;
+        }
+
+        if(numberOfDoneData == numberOfdata){
+          alldoneStatus = true
+        }
+        else if(numberOfnotStart == numberOfdata){
+          notStartStatus = true
+        }
+      }
+
+      if(alldoneStatus){
+        MainprojectDataservice.update(this.$route.params.id, {MP_Status: 'เสร็จสิ้น'})
+      } else if(notStartStatus){
+        MainprojectDataservice.update(this.$route.params.id, {MP_Status: 'ยังไม่ดำเนินการ'})
+      } else {
+        MainprojectDataservice.update(this.$route.params.id, {MP_Status: 'กำลังดำเนินการ'})
+      }
+
+      
     },
 
     //fetch Sub Project data from MP_ID

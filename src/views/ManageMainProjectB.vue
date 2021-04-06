@@ -76,13 +76,13 @@ export default {
     this.retrieveMainProject(this.user.userid, this.user.depart_id);
    
     //Edit Sub-Project button
-    var printSPIcon = function(cell, formatterParams, onRendered){ //plain text value
-        cell, formatterParams, onRendered;
-        var MP_ID = cell.getRow().getData().MP_ID
-        if(cell.getRow().getData().MP_Name != undefined) {
-          return '<a class="btn btn-secondary" href="/managesubproject/' + MP_ID + '"' + 'target="_self">แก้ไขโครงการย่อย</a>'
-        }
-    };
+    // var printSPIcon = function(cell, formatterParams, onRendered){ //plain text value
+    //     cell, formatterParams, onRendered;
+    //     var MP_ID = cell.getRow().getData().MP_ID
+    //     if(cell.getRow().getData().MP_Name != undefined) {
+    //       return '<a class="btn btn-secondary" href="/managesubproject/' + MP_ID + '"' + 'target="_self">แก้ไขโครงการย่อย</a>'
+    //     }
+    // };
 
     //Delete button
     var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
@@ -211,7 +211,23 @@ export default {
         {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"หมายเหตุ", field:"Annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"สาขาวิชา", field:"D_Name", editor:"select", editorParams:this.optionsDepartment,  width:160},
-        {formatter:printSPIcon, hozAlign:"left",headerSort:false, },
+        {title:"สถานะโครงการ", field:"MP_Status", width:160,
+        formatter:function(cell){
+            var value = cell.getValue();
+            var color;
+              if(value == "ยังไม่ดำเนินการ"){
+                  color = '#EA3546'
+                  
+              } else if(value == "กำลังดำเนินการ"){
+                  color = '#F9CE1D'
+                  
+              } else if(value == "เสร็จสิ้น"){
+                  color = '#4CAF50'
+              }
+              return "<button style='color: white; background-color:"+ color +"; display: inline-block; border: none; outline: none; text-align: center; text-decoration: none; padding: .4em .4em .55em; border-radius: .4em;'>" + value + "</button>";
+          }
+        },
+        // {formatter:printSPIcon, hozAlign:"left",headerSort:false, },
         {formatter:printDelIcon, hozAlign:"left",headerSort:false, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().MP_Name + " ใช่หรือไม่?")== true){
             cell.getRow().delete()
           }}
@@ -227,7 +243,7 @@ export default {
 
       //add row
       document.getElementById("add-project").addEventListener("click", function(){
-        table.addRow({MP_Approve_Use: 0, MP_Disburse: 0, MP_Total_Amount: 0, MP_Total_From_Priciple: 0, MP_Total_From_Disburse: 0, MP_Income: 0, MP_Outcome: 0, MP_Budget: 0});
+        table.addRow({MP_Status: 'ยังไม่ดำเนินการ', MP_Approve_Use: 0, MP_Disburse: 0, MP_Total_Amount: 0, MP_Total_From_Priciple: 0, MP_Total_From_Disburse: 0, MP_Income: 0, MP_Outcome: 0, MP_Budget: 0});
       });
 
       //undo button
@@ -250,72 +266,88 @@ export default {
       " ",
       "question"
       ).then(() => {
+        var namenotnull = true;
+        var invalid = table.getInvalidCells();
+        var warningMassage = 'กรุณาตรวจสอบข้อมูลอีกครั้ง\n'
+        if(invalid.length != 0){
+          warningMassage += invalid[0].getRow().getData().MP_Name + ': ' +invalid[0]._cell.column.definition.title + '\n'
+          alert(warningMassage)
+        } else {
 
-        //console.log(listEditMP)
-        var i;
-        console.log(Department)
-        for (i in listEditMP) {
-          var action = listEditMP[i].Action
-          var editMP_ID = listEditMP[i].MP_ID
-          var projectname = listEditMP[i].MP_Name; // get project name
-          var message = '';
-          var dapart_name = listEditMP[i].D_Name;
+          //console.log(listEditMP)
+          
+          if (listAddMP.length != 0) {
+            var j;
+            for (j in listAddMP) {
+              var MP_Name = listAddMP[j].MP_Name
+              if(MP_Name == null){
+                alert('กรุณาใส่ชื่อโครงการ')
+                namenotnull = false
+              } else {
+                var dapart_name2 = listAddMP[j].D_Name;
 
-          for(i in Department){
-              
-              if(dapart_name == Department[i].D_Name){
-                  listEditMP[i].D_ID = Department[i].D_ID
-              }
-          }
-      
-          if (action == 'edit') {
-            this.updateProject(editMP_ID, listEditMP[i])
-          }
-          else if (action == 'del'){
-            //Record history
-            message ='ลบ ' + projectname;
-            listHistory.push({Message: message});
-            this.deleteMainProject(editMP_ID)
-          }
-      }
-        
-        if (listAddMP.length != 0) {
-          var j;
-          for (j in listAddMP) {
-              console.log(listAddMP)
-            var dapart_name2 = listAddMP[j].D_Name;
-
-            for(i in Department){
-                
-                if(dapart_name2 == Department[i].D_Name){
-                    listAddMP[i].D_ID = Department[i].D_ID
+                for(i in Department){
+                    
+                    if(dapart_name2 == Department[i].D_Name){
+                        listAddMP[i].D_ID = Department[i].D_ID
+                    }
                 }
+                listAddMP[j].MP_Create_User_ID = this.user.userid
+
+                //Record history
+                if(listAddMP[j].MP_Name != undefined){
+                  message ='เพิ่ม ' + listAddMP[j].MP_Name;
+                  listHistory.push({Message: message});
+                }
+                //console.log(listAddMP[j])
+
+                this.addNewProject(listAddMP[j])
+              }
             }
-            listAddMP[j].MP_Create_User_ID = this.user.userid
+          }
 
-            //Record history
-            if(listAddMP[j].MP_Name != undefined){
-              message ='เพิ่ม ' + listAddMP[j].MP_Name;
-              listHistory.push({Message: message});
+          if(namenotnull) {
+            var i;
+            for (i in listEditMP) {
+              var action = listEditMP[i].Action
+              var editMP_ID = listEditMP[i].MP_ID
+              var projectname = listEditMP[i].MP_Name; // get project name
+              var message = '';
+              var dapart_name = listEditMP[i].D_Name;
+              
+
+              for(i in Department){
+                  
+                  if(dapart_name == Department[i].D_Name){
+                      listEditMP[i].D_ID = Department[i].D_ID
+                  }
+              }
+          
+              if (action == 'edit') {
+                this.updateProject(editMP_ID, listEditMP[i])
+              }
+              else if (action == 'del'){
+                //Record history
+                message ='ลบ ' + projectname;
+                listHistory.push({Message: message});
+                this.deleteMainProject(editMP_ID)
+              }
             }
-            //console.log(listAddMP[j])
+            if (listHistory.length != 0) {
+              var k;
+              for (k in listHistory) {
+                
+                listHistory[k].Edited_User_ID = this.user.userid
+                console.log(listHistory[k])
+                this.history(listHistory[k])
+              }
+            }
 
-            this.addNewProject(listAddMP[j])
+            window.location.reload()
+            listEditMP, listAddMP, listHistory = [];
           }
-        }
 
-        if (listHistory.length != 0) {
-          var k;
-          for (k in listHistory) {
-            
-            listHistory[k].Edited_User_ID = this.user.userid
-            console.log(listHistory[k])
-            this.history(listHistory[k])
-          }
         }
-
-        //window.location.reload()
-        listEditMP, listAddMP, listHistory = [];
         //do something...
       });
     },
@@ -339,15 +371,18 @@ export default {
           MainprojectDataservice.getAll()
             .then(response => {
               //this.tableData = response.data
-              for( var i in response.data) {
-                if(User_ID == response.data[i].MP_Create_User_ID && D_ID != response.data[i].D_ID){
+              for(var i in response.data) {
+                if(User_ID == response.data[i].MP_Create_User_ID) {
+                  if(response.data[i].D_ID === null || D_ID != response.data[i].D_ID){
                     for(var j in Department){
                         // console.log(this.Department)
                         if(response.data[i].D_ID == Department[j].D_ID){
                             response.data[i].D_Name = Department[j].D_Name
-                            this.tableData.push(response.data[i]);
                         }
+                        this.tableData.push(response.data[i]);
                     }
+                  }
+                    
                     
                 }
                  

@@ -41,58 +41,58 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     User.findAll({
       include: ['departments',
-        {
-          model: Mainproject,
-          as: "managed_mainprojects",
-          attributes: [
-              "MP_ID", 
-              "MP_Name", 
-              "MP_Owner", 
-              "MP_Indicator", 
-              "MP_Budget", 
-              "MP_Target_Value", 
-              "MP_Total_Amount",
-              "MP_Approve_Use",
-              "MP_Disburse",
-              "MP_Total_From_Priciple",
-              "MP_Total_From_Disburse",
-              "MP_Income",
-              "MP_Outcome",
-              "Problem",
-              "Annotation",
-              "Performance_Result",
-              "Detail_Result",
-            ],
-          through: {
-            attributes: [],
-          }
-        },
-        {
-          model: Subproject,
-          as: "managed_subprojects",
-          attributes: [
-              "SP_ID", 
-              "SP_Name",
-              "SP_Owner", 
-              "SP_Indicator", 
-              "SP_Budget", 
-              "SP_Target_Value", 
-              "SP_Total_Amount",
-              "SP_Approve_Use",
-              "SP_Disburse",
-              "SP_Total_From_Priciple",
-              "SP_Total_From_Disburse",
-              "SP_Income",
-              "SP_Outcome",
-              "Problem",
-              "Annotation",
-              "Performance_Result",
-              "Detail_Result",
-            ],
-          through: {
-            attributes: [],
-          }
-        }, 
+        // {
+        //   model: Mainproject,
+        //   as: "managed_mainprojects",
+        //   attributes: [
+        //       "MP_ID", 
+        //       "MP_Name", 
+        //       "MP_Owner", 
+        //       "MP_Indicator", 
+        //       "MP_Budget", 
+        //       "MP_Target_Value", 
+        //       "MP_Total_Amount",
+        //       "MP_Approve_Use",
+        //       "MP_Disburse",
+        //       "MP_Total_From_Priciple",
+        //       "MP_Total_From_Disburse",
+        //       "MP_Income",
+        //       "MP_Outcome",
+        //       "Problem",
+        //       "Annotation",
+        //       "Performance_Result",
+        //       "Detail_Result",
+        //     ],
+        //   through: {
+        //     attributes: [],
+        //   }
+        // },
+        // {
+        //   model: Subproject,
+        //   as: "managed_subprojects",
+        //   attributes: [
+        //       "SP_ID", 
+        //       "SP_Name",
+        //       "SP_Owner", 
+        //       "SP_Indicator", 
+        //       "SP_Budget", 
+        //       "SP_Target_Value", 
+        //       "SP_Total_Amount",
+        //       "SP_Approve_Use",
+        //       "SP_Disburse",
+        //       "SP_Total_From_Priciple",
+        //       "SP_Total_From_Disburse",
+        //       "SP_Income",
+        //       "SP_Outcome",
+        //       "Problem",
+        //       "Annotation",
+        //       "Performance_Result",
+        //       "Detail_Result",
+        //     ],
+        //   through: {
+        //     attributes: [],
+        //   }
+        // }, 
       ],
     })
       .then(data => {
@@ -111,60 +111,60 @@ exports.findOne = (req, res) => {
   const id = req.params.id;
 
   User.findByPk(id ,{
-    include: [
-      {
-        model: Mainproject,
-        as: "managed_mainprojects",
-        attributes: [
-            "MP_ID", 
-            "MP_Name", 
-            "MP_Owner", 
-            "MP_Indicator", 
-            "MP_Budget", 
-            "MP_Target_Value", 
-            "MP_Total_Amount",
-            "MP_Approve_Use",
-            "MP_Disburse",
-            "MP_Total_From_Priciple",
-            "MP_Total_From_Disburse",
-            "MP_Income",
-            "MP_Outcome",
-            "Problem",
-            "Annotation",
-            "Performance_Result",
-            "Detail_Result",
-          ],
-        through: {
-          attributes: [],
-        }
-      },
-      {
-        model: Subproject,
-        as: "managed_subprojects",
-        attributes: [
-            "SP_ID", 
-            "SP_Name",
-            "SP_Owner", 
-            "SP_Indicator", 
-            "SP_Budget", 
-            "SP_Target_Value", 
-            "SP_Total_Amount",
-            "SP_Approve_Use",
-            "SP_Disburse",
-            "SP_Total_From_Priciple",
-            "SP_Total_From_Disburse",
-            "SP_Income",
-            "SP_Outcome",
-            "Problem",
-            "Annotation",
-            "Performance_Result",
-            "Detail_Result",
-          ],
-        through: {
-          attributes: [],
-        }
-      }, 
-    ],
+    // include: [
+    //   {
+    //     model: Mainproject,
+    //     as: "managed_mainprojects",
+    //     attributes: [
+    //         "MP_ID", 
+    //         "MP_Name", 
+    //         "MP_Owner", 
+    //         "MP_Indicator", 
+    //         "MP_Budget", 
+    //         "MP_Target_Value", 
+    //         "MP_Total_Amount",
+    //         "MP_Approve_Use",
+    //         "MP_Disburse",
+    //         "MP_Total_From_Priciple",
+    //         "MP_Total_From_Disburse",
+    //         "MP_Income",
+    //         "MP_Outcome",
+    //         "Problem",
+    //         "Annotation",
+    //         "Performance_Result",
+    //         "Detail_Result",
+    //       ],
+    //     through: {
+    //       attributes: [],
+    //     }
+    //   },
+    //   {
+    //     model: Subproject,
+    //     as: "managed_subprojects",
+    //     attributes: [
+    //         "SP_ID", 
+    //         "SP_Name",
+    //         "SP_Owner", 
+    //         "SP_Indicator", 
+    //         "SP_Budget", 
+    //         "SP_Target_Value", 
+    //         "SP_Total_Amount",
+    //         "SP_Approve_Use",
+    //         "SP_Disburse",
+    //         "SP_Total_From_Priciple",
+    //         "SP_Total_From_Disburse",
+    //         "SP_Income",
+    //         "SP_Outcome",
+    //         "Problem",
+    //         "Annotation",
+    //         "Performance_Result",
+    //         "Detail_Result",
+    //       ],
+    //     through: {
+    //       attributes: [],
+    //     }
+    //   }, 
+    // ],
   })
   .then(data => {
     res.send(data)

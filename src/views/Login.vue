@@ -47,6 +47,7 @@ import GoogleLogin from 'vue-google-login';
 
 // import User from '../models/user.model';
 // import UserService from "../services/user.sevice"
+import DepartmentDataservice from "../services/department.dataservice"
 import UserDataservice from "../services/user.dataservice.js";
 export default {
     name: "login",
@@ -73,7 +74,7 @@ export default {
                 email: googleUser.Rs.At,
                 token: googleUser.tc.access_token
             }
-        console.log(userInfo.token)
+        // console.log(userInfo.token)
         // localStorage.setItem('user', JSON.stringify(userInfo))
         this.$store.commit("setUser", userInfo.token)
 
@@ -86,7 +87,6 @@ export default {
         // var nurse = {User_FName: 'Nurse1', Email: 'nuttanicha_j@kkumail.com', D_ID: 1, Permission: 'สาขาวิชา'}
         // var nurse2 = {User_FName: 'Nurse2', Email: 'nursenicha13812@gmail.com', D_ID: 2, Permission: 'ส่วนกลาง'}
         // UserDataservice.create(nurse)
-
         // UserDataservice.create(nurse2)
 
             UserDataservice.getAll() 
@@ -106,7 +106,7 @@ export default {
                                 permission: response.data[i].Permission,
                                 depart_name: response.data[i].departments.D_Name
                             }
-                            console.log("permission = ", userID.permission)
+                            // console.log("permission = ", userID.permission)
                             localStorage.setItem('user', JSON.stringify(userID))
                             this.$store.commit("setUser", userID)
 
@@ -117,10 +117,10 @@ export default {
                                 this.$router.push('/admin')
                             }
                             else if(userID.permission == "สาขาวิชา") {
-                                this.$router.push('/userbrance')
+                                this.$router.push('/home')
                             }
                             else if(userID.permission == "ส่วนกลาง") {
-                                this.$router.push('/usercenter')
+                                this.$router.push('/homecenter')
                             }
                             else if(userID.permission == "ผู้บริหาร") {
                                 this.$router.push('/dean')

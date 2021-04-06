@@ -34,6 +34,7 @@ exports.create = (req, res) => {
     Performance_Result: req.body.Performance_Result,
     Detail_Result: req.body.Detail_Result,
     SP_Create_User_ID: req.body.SP_Create_User_ID,
+    SP_Status: req.body.SP_Status
   };
 
   // Save Tutorial in the database
@@ -55,14 +56,14 @@ exports.findAll = (req, res) => {
     Subproject.findAll(
       {
         include: ["transfers_in", "transfers_Out",
-          {
-            model: User,
-            as: "users",
-            attributes: ["User_ID", "User_FName", "User_LName", "Email",],
-            through: {
-              attributes: [],
-            }
-          },
+          // {
+          //   model: User,
+          //   as: "users",
+          //   attributes: ["User_ID", "User_FName", "User_LName", "Email",],
+          //   through: {
+          //     attributes: [],
+          //   }
+          // },
         ],
       })
       .then(data => {
@@ -84,14 +85,14 @@ exports.findOne = (req, res) => {
     {
       include: 
       ["transfers_in","transfers_Out",
-        {
-          model: User,
-          as: "users",
-          attributes: ["User_ID", "User_FName", "User_LName", "Email",],
-          through: {
-            attributes: [],
-          }
-        },
+        // {
+        //   model: User,
+        //   as: "users",
+        //   attributes: ["User_ID", "User_FName", "User_LName", "Email",],
+        //   through: {
+        //     attributes: [],
+        //   }
+        // },
         
       ],
     })

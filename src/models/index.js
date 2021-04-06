@@ -23,29 +23,29 @@ db.strategy = require("./strategy.model")(sequelize, Sequelize);
 db.history = require("./history.model")(sequelize, Sequelize);
 db.transfer = require("./transfer.model")(sequelize, Sequelize);
 
-//Define M:M USER + MAIN_PROJECT
-db.user.belongsToMany(db.mainproject, {
-  through: "MANAGEMENT_MP",
-  as: "managed_mainprojects",
-  foreignKey: "User_ID",
-})
-db.mainproject.belongsToMany(db.user, {
-  through: "MANAGEMENT_MP",
-  as: "users",
-  foreignKey: "MP_ID",
-})
+// //Define M:M USER + MAIN_PROJECT
+// db.user.belongsToMany(db.mainproject, {
+//   through: "MANAGEMENT_MP",
+//   as: "managed_mainprojects",
+//   foreignKey: "User_ID",
+// })
+// db.mainproject.belongsToMany(db.user, {
+//   through: "MANAGEMENT_MP",
+//   as: "users",
+//   foreignKey: "MP_ID",
+// })
 
-//Define M:M USER + SUB_PROJECT
-db.user.belongsToMany(db.subproject, {
-  through: "MANAGEMENT_SP",
-  as: "managed_subprojects",
-  foreignKey: "User_ID",
-})
-db.subproject.belongsToMany(db.user, {
-  through: "MANAGEMENT_SP",
-  as: "users",
-  foreignKey: "SP_ID",
-})
+// //Define M:M USER + SUB_PROJECT
+// db.user.belongsToMany(db.subproject, {
+//   through: "MANAGEMENT_SP",
+//   as: "managed_subprojects",
+//   foreignKey: "User_ID",
+// })
+// db.subproject.belongsToMany(db.user, {
+//   through: "MANAGEMENT_SP",
+//   as: "users",
+//   foreignKey: "SP_ID",
+// })
 
 //Define 1:M MAIN_PROJECT + SUB_PROJECT
 db.mainproject.hasMany(db.subproject, {

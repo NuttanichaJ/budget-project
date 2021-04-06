@@ -207,7 +207,22 @@ export default {
         {title:"ปัญหาและอุปสรรค", field:"Problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"หมายเหตุ", field:"Annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
-        {title:"สถานะโครงการ", field:"status", editor:"select", editorParams:{values:{"ยังไม่ได้ดำเนินการ":"ยังไม่ได้ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "ดำเนินการเสร็จแล้ว":"ดำเนินการเสร็จแล้ว" }, hozAlign:"left",},  width:160},
+        {title:"สถานะโครงการ", field:"MP_Status", width:160,
+        formatter:function(cell){
+            var value = cell.getValue();
+            var color;
+              if(value == "ยังไม่ดำเนินการ"){
+                  color = '#EA3546'
+                  
+              } else if(value == "กำลังดำเนินการ"){
+                  color = '#F9CE1D'
+                  
+              } else if(value == "เสร็จสิ้น"){
+                  color = '#4CAF50'
+              }
+              return "<button style='color: white; background-color:"+ color +"; display: inline-block; border: none; outline: none; text-align: center; text-decoration: none; padding: .4em .4em .55em; border-radius: .4em;'>" + value + "</button>";
+          }
+        },
         {formatter:printSPIcon, hozAlign:"left",headerSort:false, },
         {formatter:printDelIcon, hozAlign:"left",headerSort:false, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().MP_Name + " ใช่หรือไม่?")== true){
             cell.getRow().delete()
@@ -224,7 +239,7 @@ export default {
 
       //add row
       document.getElementById("add-project").addEventListener("click", function(){
-        table.addRow({MP_Approve_Use: 0, MP_Disburse: 0, MP_Total_Amount: 0, MP_Total_From_Priciple: 0, MP_Total_From_Disburse: 0, MP_Income: 0, MP_Outcome: 0, MP_Budget: 0});
+        table.addRow({MP_Status: 'ยังไม่ดำเนินการ' ,MP_Approve_Use: 0, MP_Disburse: 0, MP_Total_Amount: 0, MP_Total_From_Priciple: 0, MP_Total_From_Disburse: 0, MP_Income: 0, MP_Outcome: 0, MP_Budget: 0});
       });
 
       //undo button
@@ -247,56 +262,69 @@ export default {
       " ",
       "question"
       ).then(() => {
+        var namenotnull = true;
+        var invalid = table.getInvalidCells();
+        var warningMassage = 'กรุณาตรวจสอบข้อมูลอีกครั้ง\n'
+        if(invalid.length != 0){
+          warningMassage += invalid[0].getRow().getData().MP_Name + ': ' +invalid[0]._cell.column.definition.title + '\n'
+          alert(warningMassage)
+        } else {
 
-        //console.log(listEditMP)
-        var i;
-        for (i in listEditMP) {
-          var action = listEditMP[i].Action
-          var editMP_ID = listEditMP[i].MP_ID
-          var projectname = listEditMP[i].MP_Name; // get project name
-          var message = '';
-      
-          if (action == 'edit') {
-            this.updateProject(editMP_ID, listEditMP[i])
-          }
-          else if (action == 'del'){
-            //Record history
-            message ='ลบ ' + projectname;
-            listHistory.push({Message: message});
-            this.deleteMainProject(editMP_ID)
-          }
-      }
-        
-        if (listAddMP.length != 0) {
-          var j;
-          for (j in listAddMP) {
-            listAddMP[j].D_ID = this.user.depart_id
-            listAddMP[j].MP_Create_User_ID = this.user.userid
+          //console.log(listEditMP)
+          
+          if (listAddMP.length != 0) {
+            var j;
+            for (j in listAddMP) {
+              var MP_Name = listAddMP[j].MP_Name
+              if(MP_Name == null){
+                alert('กรุณาใส่ชื่อโครงการ')
+                namenotnull = false
+              } else {
+                listAddMP[j].D_ID = this.user.depart_id
+                listAddMP[j].MP_Create_User_ID = this.user.userid
 
-            //Record history
-            
-            if(listAddMP[j].MP_Name != undefined){
-              message ='เพิ่ม ' + listAddMP[j].MP_Name;
-              listHistory.push({Message: message});
+                //Record history
+                
+                if(listAddMP[j].MP_Name != undefined){
+                  message ='เพิ่ม ' + listAddMP[j].MP_Name;
+                  listHistory.push({Message: message});
+                }
+                this.addNewProject(listAddMP[j])
+              }
             }
-            //console.log(listAddMP[j])
+          }
+          if(namenotnull) {
+            var i;
+            for (i in listEditMP) {
+              var action = listEditMP[i].Action
+              var editMP_ID = listEditMP[i].MP_ID
+              var projectname = listEditMP[i].MP_Name; // get project name
+              var message = '';
+          
+              if (action == 'edit') {
+                this.updateProject(editMP_ID, listEditMP[i])
+              }
+              else if (action == 'del'){
+                //Record history
+                message ='ลบ ' + projectname;
+                listHistory.push({Message: message});
+                this.deleteMainProject(editMP_ID)
+              }
+            }
+            if (listHistory.length != 0) {
+              var k;
+              for (k in listHistory) {
+                
+                listHistory[k].Edited_User_ID = this.user.userid
+                console.log(listHistory[k])
+                this.history(listHistory[k])
+              }
+            }
 
-            this.addNewProject(listAddMP[j])
+            window.location.reload()
+            listEditMP, listAddMP, listHistory = [];
           }
         }
-
-        if (listHistory.length != 0) {
-          var k;
-          for (k in listHistory) {
-            
-            listHistory[k].Edited_User_ID = this.user.userid
-            console.log(listHistory[k])
-            this.history(listHistory[k])
-          }
-        }
-
-        window.location.reload()
-        listEditMP, listAddMP, listHistory = [];
         //do something...
       });
     },

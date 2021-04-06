@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             // enum: ["Branch", "Central", "Dean"]
         },
-        Password : DataTypes.STRING,
     })
 
     return User

@@ -4,11 +4,6 @@
           <div class="header">
             <!-- <h1>หน้าหลัก ฝ่าย/สาขา... {{userID.permission}} </h1> -->
             <h3>หน้าหลัก  {{ user.depart_name}}</h3>
-            <b-form inline class="mt-3">
-              <label class="mr-sm-2 mr-lg-2 font-20" for="inline-form-custom-select-pref">ปีงบประมาณ</label>
-              <b-form-select id="inline-form-custom-select-pref"
-                class="mb-2 mr-sm-2 mb-sm-0" v-model="selectedYear" :options="optionsYear" size="sm"></b-form-select>
-            </b-form>
           </div>
 
         <!-- <b-row class="row" >
@@ -97,12 +92,6 @@ export default {
 
       // cd: chartData,
       selectedYear: '2564',
-      optionsYear: [
-        { value: '2564', text: '2564' },
-        { value: '2563', text: '2563' },
-        { value: '2562', text: '2562' },
-        { value: '2561', text: '2561' },
-      ],
         // data dashbord
         chartBudgetOptions: {
           plotOptions: {

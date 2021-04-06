@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         Annotation : DataTypes.STRING,
         Performance_Result : DataTypes.STRING,
         Detail_Result : DataTypes.STRING,
+        MP_Status : DataTypes.STRING,
     })
 
     return Mainproject

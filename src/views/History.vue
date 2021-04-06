@@ -145,7 +145,6 @@ export default {
                 if(response.data[i].user.User_LName == null) {
                   response.data[i].user.User_LName = ''
                 }
-                
                 this.tableData[i].Username = response.data[i].user.User_FName + ' ' + response.data[i].user.User_LName
                 var UserD_ID = response.data[i].user.D_ID
                 for(var j in this.Department){
@@ -154,6 +153,7 @@ export default {
                   }
                 }
               }
+              this.tableData.reverse()
               table.setData(this.tableData);
             })
             .catch(e => {
