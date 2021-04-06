@@ -57,7 +57,7 @@
 // import {mapGetters} from 'vuex'
 // import UserDataservice from "../services/user.datasevice.js";
 export default {
-  name: "Header",
+  name: "BranchHeader",
   data() {
     return {
       user : this.$store.state.user,

@@ -1,17 +1,17 @@
 <template>
     <div id="adminlayout">
-        <Deanheader/>
+        <DeanHeader/>
         <router-view/>
     </div>
 </template>
 
 <script>
-import Deanheader from "./Deanheader"
+import DeanHeader from "./DeanHeader"
 
 export default {
     name: "DeanLayout",
     components: {
-       Deanheader
+       DeanHeader
     }
 }
 </script>

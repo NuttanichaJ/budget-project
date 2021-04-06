@@ -57,8 +57,6 @@ export default {
     },
 
     mounted(){
-        
-    
     //instantiate Tabulator when element is mounted
     this.tabulator = new Tabulator(this.$refs.table, {
         data: this.tableData, //link data to table

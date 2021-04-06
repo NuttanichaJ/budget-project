@@ -4,63 +4,12 @@
           <div class="header">
             <!-- <h1>หน้าหลัก ฝ่าย/สาขา... {{userID.permission}} </h1> -->
             <h3>หน้าหลัก  {{ user.depart_name}}</h3>
-            <b-form inline class="mt-3">
+            <!-- <b-form inline class="mt-3">
               <label class="mr-sm-2 mr-lg-2 font-20" for="inline-form-custom-select-pref">ปีงบประมาณ</label>
               <b-form-select id="inline-form-custom-select-pref"
                 class="mb-2 mr-sm-2 mb-sm-0" v-model="selectedYear" :options="optionsYear" size="sm"></b-form-select>
-            </b-form>
+            </b-form> -->
           </div>
-
-        <!-- <b-row class="row" >
-          <b-col xs="12" lg="6" xl="12">
-              <div class="d-flex justify-content-between align-items-center mb-lg">
-              <h4 class="ml-0 mt-0 mb-3">งบประมาณ</h4>
-              <i class="la la-arrow-right text-primary la-lg rotate-315" />
-            </div>
-            <div class="d-lg-flex flex-wrap justify-content-between mr-sm-0">
-              <div class="mt-sm-3">
-                <h2 class="">5,438,020</h2><p class="text-muted mb-0 mr"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
-              </div>
-              <div class="mt-sm-3">
-                <h2 class="">78,505</h2><p class="text-muted mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
-              </div>
-              <div class="mt-sm-3">
-                <h2 class="">5,538,020</h2><p class="text-muted mb-0 mr"><small>งบประมาณคงเหลือ (ตามแผน)</small></p>
-              </div>
-              <div class="mt-sm-3">
-                <h2 class="">5,459,515</h2><p class="text-muted mb-0 mr"><small>งบประมาณคงเหลือ (เบิกจ่ายจริง)</small></p>
-              </div>
-            </div>
-          </b-col>
-          <b-col class="col" xs="12" lg="6" xl="12">
-            
-          </b-col>
-        </b-row> -->
-        <!-- จำนวนโครงการ -->
-        <!-- <b-row class="row">
-          <b-col xs="12" lg="6" xl="12">
-              <div class="d-flex justify-content-between align-items-center mb-lg">
-                <h4 class="ml-0 mt-0 mb-3">จำนวนโครงการ</h4>
-                <i class="la la-arrow-right text-primary la-lg rotate-315" />
-              </div>
-              <div class="d-flex flex-wrap justify-content-between mt-sm-1">
-                <div class="mt">
-                  <h2 class="font-cent">21</h2><p class="text-muted mb-0 mr font-cent"><small>โครงการที่กำลังดำเนินการ</small></p>
-                </div>
-                <div class="mt">
-                  <h2 class="font-cent">32</h2><p class="text-muted mb-0 font-cent"><small>โครงการที่เสร็จสิ้น</small></p>
-                </div>
-                <div class="mt">
-                  <h2 class="font-cent">11</h2><p class="text-muted mb-0 mr font-cent"><small>โครงการที่ยังไม่ได้ดำเนินการ</small></p>
-                </div>
-                <div class="mt">
-                  <h2 class="font-cent">64</h2><p class="text-muted mb-0 mr font-cent"><small>โครงการทั้งหมด</small></p>
-                </div>
-              </div>
-            
-          </b-col>
-          
-        </b-row> -->
       </div>
 
       <div class="mt-4">
@@ -96,13 +45,13 @@ export default {
         user : this.$store.state.user,
 
       // cd: chartData,
-      selectedYear: '2564',
-      optionsYear: [
-        { value: '2564', text: '2564' },
-        { value: '2563', text: '2563' },
-        { value: '2562', text: '2562' },
-        { value: '2561', text: '2561' },
-      ],
+      // selectedYear: '2564',
+      // optionsYear: [
+      //   { value: '2564', text: '2564' },
+      //   { value: '2563', text: '2563' },
+      //   { value: '2562', text: '2562' },
+      //   { value: '2561', text: '2561' },
+      // ],
         // data dashbord
         chartBudgetOptions: {
           plotOptions: {
@@ -116,9 +65,9 @@ export default {
           xaxis: {
             categories: [
               ['งบประมาณทั้งหมด','(ตามแผน)'],
-              ['เบิกจ่ายทั้งหมด', ''],
-              ['งบประมาณคงเหลือ','(ตามแผน)'], 
-              ['งบประมาณคงเหลือ', '(เบิกจ่ายจริง)']
+              ['ยอดเงินคงเหลือ', '(ตามแผน)'],
+              ['ยอดเงินคงเหลือ','(หลักการ)'], 
+              ['ยอดเงินคงเหลือ', '(เบิกจ่ายจริง)']
             ]
           },
           yaxis: {
@@ -134,7 +83,7 @@ export default {
         // series data
         dataBudget:[{
           name: 'งบประมาณ',
-          data: [54380, 78505, 55380, 54595],
+          data: [907900, 907900, 846615, 892023],
         }],
 
         // number of project

@@ -23,10 +23,10 @@
                                         <a class="" href="">forget password</a>
                                     </b-form-group> -->
                                     <GoogleLogin
-                                    :params="params"
-                                    :onSuccess="onSuccess"
-                                    class="btn-login"
-                                    >Login with Google
+                                        :params="params"
+                                        :onSuccess="onSuccess"
+                                        class="btn-login">
+                                        Login with Google
                                     </GoogleLogin>
                                 </b-form>
                               
@@ -73,21 +73,25 @@ export default {
                 email: googleUser.Rs.At,
                 token: googleUser.tc.access_token
             }
-        console.log(userInfo.token)
-        // localStorage.setItem('user', JSON.stringify(userInfo))
-        this.$store.commit("setUser", userInfo.token)
+            // console.log(userInfo.token)
+            // localStorage.setItem('user', JSON.stringify(userInfo))
+            this.$store.commit("setUser", userInfo.token)
 
 
-        // var departments = {D_Name: 'สาขาวิชาคอมพิวเตอร์'}
-        // var departments2 = {D_Name: 'ฝ่ายแผน'}
-        // DepartmentDataservice.create(departments)
-        // DepartmentDataservice.create(departments2)
+            // var departments = {D_Name: 'สาขาวิชาคอมพิวเตอร์'}
+            // var departments2 = {D_Name: 'ฝ่ายแผน'}
+            // DepartmentDataservice.create(departments)
+            // DepartmentDataservice.create(departments2)
 
-        // var nurse = {User_FName: 'Nurse1', Email: 'nuttanicha_j@kkumail.com', D_ID: 1, Permission: 'สาขาวิชา'}
-        // var nurse2 = {User_FName: 'Nurse2', Email: 'nursenicha13812@gmail.com', D_ID: 2, Permission: 'ส่วนกลาง'}
-        // UserDataservice.create(nurse)
+            // var nurse = {User_FName: 'Nurse1', Email: 'nuttanicha_j@kkumail.com', D_ID: 1, Permission: 'สาขาวิชา'}
+            // var nurse2 = {User_FName: 'Nurse2', Email: 'nursenicha13812@gmail.com', D_ID: 2, Permission: 'ส่วนกลาง'}
+            // UserDataservice.create(nurse)
 
-        // UserDataservice.create(nurse2)
+            // UserDataservice.create(nurse2)
+            // var aoy1 = {User_FName: 'Aoy1', Email: 'm.thanwarat@kkumail.com', D_ID: 2, Permission: 'ส่วนกลาง'}
+            // var admin = {User_FName: 'admin', Email: 'kmunkam@gmail.com', D_ID: 4, Permission: 'Admin', D_Name: 'Admin'}
+            // UserDataservice.create(aoy2)
+            // UserDataservice.create(admin)
 
             UserDataservice.getAll() 
                 .then(response => {
@@ -117,22 +121,15 @@ export default {
                                 this.$router.push('/admin')
                             }
                             else if(userID.permission == "สาขาวิชา") {
-
-                                this.$router.push('/user')
-                                // this.$route.push('/manageprojectbrance')
+                                this.$router.push('/home')
                             }
-                            else if(userID.permission == "ส่วนกลาง") {
-                                this.$router.push('/user')
-                                
-
-                                this.$router.push('/userbrance')
-                            }
+                        
                             else if(userID.permission == "ส่วนกลาง") {
                                 this.$router.push('/usercenter')
 
                             }
                             else if(userID.permission == "ผู้บริหาร") {
-                                this.$router.push('/dean')
+                                this.$router.push('/allsummaryDean')
                             }
                         }
                     }

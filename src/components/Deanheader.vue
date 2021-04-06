@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <b-navbar toggleable="sm" type="light" variant="light">
-      <b-navbar-brand to="/summary">
+      <b-navbar-brand to="/allsummaryDean">
         <img src="@/assets/en-logo.png" />
         <div id="logo-name">
           <span>EN KKU</span>
@@ -16,7 +16,7 @@
         
           <b-navbar-nav>
           
-          <b-nav-item id="menu-bar" to="/summary" exact exact-active-class="active"
+          <b-nav-item id="menu-bar" to="/allsummaryDean" exact exact-active-class="active"
             ><font-awesome-icon
               :icon="['fas', 'chart-bar']"
             />&nbsp;สรุปงบประมาณ</b-nav-item>

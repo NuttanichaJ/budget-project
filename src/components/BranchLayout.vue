@@ -1,17 +1,17 @@
 <template>
     <div id="layout">
-        <Header/>
+        <BranchHeader/>
         <router-view />
     </div>
 </template>
 
 <script>
-import Header from "./Header.vue"
+import BranchHeader from "./BranchHeader.vue"
 
 export default {
-    name: "Layout",
+    name: "BranchLayout",
     components: {
-        Header
+        BranchHeader
     }
 }
 </script>
