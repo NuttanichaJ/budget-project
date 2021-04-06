@@ -1,6 +1,8 @@
 <template>
     <div id="summary">
-        <SummaryHead />
+        <div>
+            <SummaryHead />
+        </div>
         
 
         <!-- budget -->
@@ -14,14 +16,14 @@
                     <b-col col lg='2' md="3" sm="12">
                         <p>รายละเอียดของสาขาวิชา</p>
                         <ul class="listdepart">
-                            <li><a href="/SubSummary">วิศวกรรมโยธา</a></li>
-                            <li><a href="/SubSummary">วิศวกรรมไฟฟ้า</a></li>
-                            <li><a href="/SubSummary">วิศวกรรมเกษตร</a></li>
-                            <li><a href="/SubSummary">วิศวกรรมอุตสาหการ</a></li>
-                            <li><a href="/SubSummary">วิศวกรรมเครื่องกล</a></li>
-                            <li><a href="/SubSummary">วิศวกรรมสิ่งแวดล้อม</a></li>
-                            <li><a href="/SubSummary">วิศวกรรมเคมี</a></li>
-                            <li><a href="/SubSummary">วิศวกรรมคออมพิวเตอร์</a></li>
+                            <li><a v-if="sumpath" href="">วิศวกรรมโยธา</a></li>
+                            <li><a v-if="sumpath" href="">วิศวกรรมไฟฟ้า</a></li>
+                            <li><a v-if="sumpath" href="">วิศวกรรมเกษตร</a></li>
+                            <li><a v-if="sumpath" href="">วิศวกรรมอุตสาหการ</a></li>
+                            <li><a v-if="sumpath" href="">วิศวกรรมเครื่องกล</a></li>
+                            <li><a v-if="sumpath" href="">วิศวกรรมสิ่งแวดล้อม</a></li>
+                            <li><a v-if="sumpath" href="">วิศวกรรมเคมี</a></li>
+                            <li><a v-if="sumpath" href="">วิศวกรรมคออมพิวเตอร์</a></li>
                         </ul>
                     </b-col>
 
@@ -49,6 +51,8 @@ export default {
     },
     data() {
         return {
+            user : this.$store.state.user,
+
         chartBudgetOptions: {
           plotOptions: {
             bar: {
@@ -62,9 +66,9 @@ export default {
           xaxis: {
             categories: [
                 ['งบประมาณทั้งหมด','(ตามแผน)'],
-                ['เบิกจ่ายทั้งหมด', ''],
-                ['งบประมาณคงเหลือ','(ตามแผน)'], 
-                ['งบประมาณคงเหลือ', '(เบิกจ่ายจริง)']
+                ['ยอดเงินคงเหลือ', '(ตามแผน)'],
+                ['ยอดเงินคงเหลือ','(หลักการ)'], 
+                ['ยอดเงินคงเหลือ', '(เบิกจ่ายจริง)']
             ]
           },
           yaxis: {
@@ -134,11 +138,24 @@ export default {
         
       }
     },
+    methods: {
+        sumpath(){
+            if (this.$store.state.user.permissio == 'ผู้บริหาร') {
+               this.$route.push('/subSummaryDean')
+            }
+            if (this.$store.state.user.permissio == 'ส่วนกลาง') {
+                this.$route.push('/subSummary')
+            }
+        }
+    }
     
 }
 </script>
 
 <style lang="scss" scope>
+#summary {
+  margin: 30px;
+}
 .listdepart{
     list-style-type: none;
     font-size: 14px;

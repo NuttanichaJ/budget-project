@@ -1,13 +1,13 @@
 <template>
   <div class="summary">
     <div>
-        <b-form inline class="p-2 mx-3 nav">
+        <b-form inline class="mb-2 nav">
             <label class="mr-sm-2" for="select-year">ปีงบประมาณ</label>
             <b-form-select id="select-year" class="mb-2 mr-sm-2 mb-sm-0"
               v-model="selectedYear" :options="optionsYear" size="sm" >
             </b-form-select>
-            <b-button class="ml-auto px-3 btnprint " variant="primary" @click="$bvModal.show('model-print')">
-            <font-awesome-icon :icon="['fas', 'file-excel']" class="mr-2" />พิมพ์</b-button>
+            <!-- <b-button class="ml-auto px-3 btnprint " variant="primary" @click="$bvModal.show('model-print')">
+            <font-awesome-icon :icon="['fas', 'file-excel']" class="mr-2" />พิมพ์</b-button> -->
         </b-form>
       
     <!-- model พิมพ์ -->
@@ -114,7 +114,7 @@
     <!-- สรุปยอดโครงการ -->
     <div>
       <b-container fluid>
-        <b-row class="mt-2 mb-2">
+        <!-- <b-row class="mt-2 mb-2">
           <b-col class="mr-0" xs="12" lg="12">
             <div class="d-flex justify-content-betweet" >
               <div class="mr-2" id="border">
@@ -129,33 +129,34 @@
               </div>
             </div>  
           </b-col>
-        </b-row>
-        <b-row>
-          <b-col class="mt-1" xs="12" lg="12">
-            <div class="d-flex flex-wrap">
-              <div class="mr-2 mb-1" id="border">
-                <p class="mb-0"><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
-                <h2 class="mb-0 text-center">5,438,020</h2>
-                <p class="text-muted mt-0 mb-0 float-right" ><small>บาท</small></p>
-              </div>
-              <div class="mr-2 mb-1" id="border">
-                <p class="mb-0"><small>เบิกจ่ายทั้งหมด</small></p>
-                <h2 class="mb-0 text-center">78,505</h2>
-                <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-              </div>
-              <div class="mr-2 mb-1" id="border">
-                <p class="mb-0"><small>งบประมาณคงเหลือ (ตามแผน)</small></p>
-                <h2 class="mb-0 text-center">5,538,020</h2>
-                <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-              </div>
-              <div class="mr-2 mb-1" id="border">
-                <p class="mb-0"><small>งบประมาณคงเหลือ (เบิกจ่ายจริง)</small></p>
-                <h2 class="mb-0 text-center">5,459,515</h2>
-                <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-              </div>
+        </b-row> -->
+        
+        <div>
+                 <b-row class="mt-1 d-flex justify-content-betweet " >
+                    <!-- <div class="d-flex flex-wrap"> -->
+                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded" id="border">
+                        <p class="mb-0 pl-1 font16 "><small>งบประมาณทั้งหมด (ตามแผน)</small></p>
+                        <p class="mb-0 text-center font28 mt-2"><strong>907900</strong></p>
+                        <p class="text-muted mt-0 mb-0 float-right" ><small>บาท</small></p>
+                    </b-col>
+                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded" id="border">
+                        <p class="mb-0 pl-1 font16"><small>งบประมาณคงเหลือตามแผน</small></p>
+                        <p class="mb-0 text-center font28 mt-2"><strong>907900</strong></p>
+                        <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                    </b-col>
+                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded" id="border">
+                        <p class="mb-0 pl-1 font16"><small>งบประมาณคงเหลือจากหลักการ</small></p>
+                        <p class="mb-0 text-center font28 mt-2"><strong>846615</strong></p>
+                        <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                    </b-col>
+                    <b-col class="p-2 mb-1 border border-dark rounded" id="border">
+                        <p class="mb-0 pl-1 font16"><small>งบประมาณคงเหลือจากเบิกจ่ายจริง</small></p>
+                        <p class="mb-0 text-center font28 mt-2"><strong>892023</strong></p>
+                        <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
+                    </b-col>
+                    <!-- </div> -->
+                </b-row>
             </div>
-          </b-col>
-        </b-row>
       </b-container>
     </div>
 
@@ -233,35 +234,24 @@ export default {
 
 <style lang="scss" scoped>
 
-.summary{
-  margin: 20px;
-  margin-left: 30px;
-  margin-right: 30px;
-  
-}
-.baht{
-  float: right;
-  margin-bottom: 0px;
-  margin-top: 0px;
-
-}
-#border{
-  display: block;
-  padding: 10px;  
-  border: 0.3px solid black;
-  border-radius: 5px;
-  width: 250px;
-  background-color: white;
-
-}
 .show{
   display: none;
 }
 .nav .btnprint{
   font-size: 18px;
 }
+
+.font16{
+    font-size: 16px;
+}
 small{
-  font-size: 16px;
+  font-size: 14px;
+}
+.font18{
+    font-size: 18px;
+}
+.font28{
+    font-size: 28px;
 }
 
 </style>

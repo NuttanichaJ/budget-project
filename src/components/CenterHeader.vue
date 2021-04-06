@@ -22,7 +22,7 @@
               />&nbsp;จัดการโครงการ
             </template>
             <b-dropdown-item href="/manageprojectcenter">จัดการโครงการ{{user.depart_name}}</b-dropdown-item>
-            <b-dropdown-item href="/managemainprojectbrance">จัดการโครงการของสาขา</b-dropdown-item>
+            <b-dropdown-item href="/managemainprojectbranch">จัดการโครงการของสาขา</b-dropdown-item>
           </b-nav-item-dropdown>
           <!-- <b-nav-item id="menu-bar" to="/manageprojectcenter" exact exact-active-class="active"
             ><font-awesome-icon

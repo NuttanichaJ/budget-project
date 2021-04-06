@@ -23,10 +23,10 @@
                                         <a class="" href="">forget password</a>
                                     </b-form-group> -->
                                     <GoogleLogin
-                                    :params="params"
-                                    :onSuccess="onSuccess"
-                                    class="btn-login"
-                                    >Login with Google
+                                        :params="params"
+                                        :onSuccess="onSuccess"
+                                        class="btn-login">
+                                        Login with Google
                                     </GoogleLogin>
                                 </b-form>
                               
@@ -74,15 +74,20 @@ export default {
                 email: googleUser.Rs.At,
                 token: googleUser.tc.access_token
             }
+
         // console.log(userInfo.token)
         // localStorage.setItem('user', JSON.stringify(userInfo))
         this.$store.commit("setUser", userInfo.token)
+            // console.log(userInfo.token)
+            // localStorage.setItem('user', JSON.stringify(userInfo))
+            this.$store.commit("setUser", userInfo.token)
 
 
-        // var departments = {D_Name: 'สาขาวิชาคอมพิวเตอร์'}
-        // var departments2 = {D_Name: 'ฝ่ายแผน'}
-        // DepartmentDataservice.create(departments)
-        // DepartmentDataservice.create(departments2)
+
+            // var departments = {D_Name: 'สาขาวิชาคอมพิวเตอร์'}
+            // var departments2 = {D_Name: 'ฝ่ายแผน'}
+            // DepartmentDataservice.create(departments)
+            // DepartmentDataservice.create(departments2)
 
         // var nurse = {User_FName: 'Nurse1', Email: 'nuttanicha_j@kkumail.com', D_ID: 1, Permission: 'สาขาวิชา'}
         // var nurse2 = {User_FName: 'Nurse2', Email: 'nursenicha13812@gmail.com', D_ID: 2, Permission: 'ส่วนกลาง'}
@@ -119,11 +124,12 @@ export default {
                             else if(userID.permission == "สาขาวิชา") {
                                 this.$router.push('/home')
                             }
+                        
                             else if(userID.permission == "ส่วนกลาง") {
                                 this.$router.push('/homecenter')
                             }
                             else if(userID.permission == "ผู้บริหาร") {
-                                this.$router.push('/dean')
+                                this.$router.push('/allsummaryDean')
                             }
                         }
                     }
