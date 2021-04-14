@@ -360,7 +360,8 @@ export default {
 
         var namenotnull = true;
         var invalid = table.getInvalidCells();
-        var warningMassage = 'กรุณาตรวจสอบข้อมูลอีกครั้ง\n'
+        var warningMassage = 'กรุณาตรวจสอบข้อมูลอีกครั้ง\n' 
+
         if(invalid.length != 0){
           warningMassage += invalid[0].getRow().getData().SP_Name + ': ' +invalid[0]._cell.column.definition.title + '\n'
           alert(warningMassage)
@@ -384,15 +385,18 @@ export default {
           }
 
           if(namenotnull) {
+            
             this.checkStatus();
+            this.updateMainProject();
+
             var i;
             for (i in listEditSP) {
-              console.log(listEditSP[i])
+              //console.log(listEditSP[i])
               var action = listEditSP[i].Action
               var editSP_ID = listEditSP[i].SP_ID
               var projectname = listEditSP[i].SP_Name; // get project name
               var message = '';
-              console.log(editSP_ID)
+              //console.log(editSP_ID)
               if (action == 'edit') {
                 this.updateSubProject(editSP_ID, listEditSP[i])
               }
@@ -403,21 +407,17 @@ export default {
               }
             }
 
-            var calcValue = table.getCalcResults().bottom
-            var dataMainproject = {MP_Approve_Use: calcValue.SP_Approve_Use, MP_Disburse: calcValue.SP_Disburse, MP_Total_Amount: calcValue.SP_Total_Amount, MP_Total_From_Priciple: calcValue.SP_Total_From_Priciple, MP_Total_From_Disburse: calcValue.SP_Total_From_Disburse}
-            this.updateMainProject(this.$route.params.id, dataMainproject)
-
             if (listHistory.length != 0) {
               var k;
               for (k in listHistory) {
-                
                 listHistory[k].Edited_User_ID = this.user.userid
                 // console.log(listHistory[k])
                 this.history(listHistory[k])
               }
             }
 
-            window.location.reload()
+            //window.location.reload()
+            window.setInterval('window.location.reload()', 2000); 
             listEditSP, listAddSP = [];
 
           }
@@ -525,8 +525,19 @@ export default {
       })
     },
 
-    updateMainProject(MP_ID, data) {
-      MainprojectDataservice.update(MP_ID, data)
+    updateMainProject() {
+        var calcValue = table.getCalcResults().bottom
+        var MP_ID = this.$route.params.id;
+        var MP_Approve_Use = calcValue.SP_Approve_Use
+
+
+      MainprojectDataservice.update(MP_ID, {
+          MP_Approve_Use: MP_Approve_Use, 
+          MP_Disburse: calcValue.SP_Disburse, 
+          MP_Total_Amount: calcValue.SP_Total_Amount, 
+          MP_Total_From_Priciple: calcValue.SP_Total_From_Priciple, 
+          MP_Total_From_Disburse: calcValue.SP_Total_From_Disburse
+        })
       .then(response => {
         console.log(response.data)
       })

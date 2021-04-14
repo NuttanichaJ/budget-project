@@ -15,16 +15,31 @@
                     </b-col>
                     <b-col col lg='2' md="3" sm="12">
                         <p>รายละเอียดของสาขาวิชา</p>
-                        <ul class="listdepart">
-                            <li><a v-if="sumpath" href="">วิศวกรรมโยธา</a></li>
-                            <li><a v-if="sumpath" href="">วิศวกรรมไฟฟ้า</a></li>
-                            <li><a v-if="sumpath" href="">วิศวกรรมเกษตร</a></li>
-                            <li><a v-if="sumpath" href="">วิศวกรรมอุตสาหการ</a></li>
-                            <li><a v-if="sumpath" href="">วิศวกรรมเครื่องกล</a></li>
-                            <li><a v-if="sumpath" href="">วิศวกรรมสิ่งแวดล้อม</a></li>
-                            <li><a v-if="sumpath" href="">วิศวกรรมเคมี</a></li>
-                            <li><a v-if="sumpath" href="">วิศวกรรมคออมพิวเตอร์</a></li>
-                        </ul>
+                        <div class="listdepart" v-if="this.user.permission == 'ผู้บริหาร'">
+                            <ul class="listdepart">
+                                <li><a href="/subSummaryDean">วิศวกรรมโยธา</a></li>
+                                <li><a href="/subSummaryDean">วิศวกรรมไฟฟ้า</a></li>
+                                <li><a href="/subSummaryDean">วิศวกรรมเกษตร</a></li>
+                                <li><a href="/subSummaryDean">วิศวกรรมอุตสาหการ</a></li>
+                                <li><a href="/subSummaryDean">วิศวกรรมเครื่องกล</a></li>
+                                <li><a href="/subSummaryDean">วิศวกรรมสิ่งแวดล้อม</a></li>
+                                <li><a href="/subSummaryDean">วิศวกรรมเคมี</a></li>
+                                <li><a href="/subSummaryDean">วิศวกรรมคออมพิวเตอร์</a></li>
+                            </ul>
+                        </div>
+                        <div class="listdepart" v-if="this.user.permission == 'ส่วนกลาง'">
+                            <ul class="listdepart">
+                                <li><a href="/subSummary">วิศวกรรมโยธา</a></li>
+                                <li><a href="/subSummary">วิศวกรรมไฟฟ้า</a></li>
+                                <li><a href="/subSummary">วิศวกรรมเกษตร</a></li>
+                                <li><a href="/subSummary">วิศวกรรมอุตสาหการ</a></li>
+                                <li><a href="/subSummary">วิศวกรรมเครื่องกล</a></li>
+                                <li><a href="/subSummary">วิศวกรรมสิ่งแวดล้อม</a></li>
+                                <li><a href="/subSummary">วิศวกรรมเคมี</a></li>
+                                <li><a href="/subSummary">วิศวกรรมคออมพิวเตอร์</a></li>
+                            </ul>
+                        </div>
+                        
                     </b-col>
 
                 </b-row>
@@ -140,10 +155,11 @@ export default {
     },
     methods: {
         sumpath(){
-            if (this.$store.state.user.permissio == 'ผู้บริหาร') {
+            console.log(this.user.permission)
+            if (this.user.permission == 'ผู้บริหาร') {
                this.$route.push('/subSummaryDean')
             }
-            if (this.$store.state.user.permissio == 'ส่วนกลาง') {
+            if (this.user.permission == 'ส่วนกลาง') {
                 this.$route.push('/subSummary')
             }
         }

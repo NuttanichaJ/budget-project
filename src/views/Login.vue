@@ -84,13 +84,13 @@ export default {
 
 
 
-            // var departments = {D_Name: 'สาขาวิชาคอมพิวเตอร์'}
-            // var departments2 = {D_Name: 'ฝ่ายแผน'}
-            // DepartmentDataservice.create(departments)
-            // DepartmentDataservice.create(departments2)
+        //     var departments = {D_Name: 'Admin'}
+        //     var departments2 = {D_Name: 'ผู้บริหาร'}
+        //     DepartmentDataservice.create(departments)
+        //     DepartmentDataservice.create(departments2)
 
-        // var nurse = {User_FName: 'Nurse1', Email: 'nuttanicha_j@kkumail.com', D_ID: 1, Permission: 'สาขาวิชา'}
-        // var nurse2 = {User_FName: 'Nurse2', Email: 'nursenicha13812@gmail.com', D_ID: 2, Permission: 'ส่วนกลาง'}
+        // var nurse = {User_FName: 'Aoy1', Email: 'm.thanwarat@kkumail.com', D_ID: 3, Permission: 'admin'}
+        // var nurse2 = {User_FName: 'Aoy2', Email: 'mk.thanwarat@gmail.com', D_ID: 4, Permission: 'ผู้บริหาร'}
         // UserDataservice.create(nurse)
         // UserDataservice.create(nurse2)
 
@@ -119,7 +119,7 @@ export default {
                             // localStorage.setItem("setUserInfo", response.data)
                             // this.$router.push(`/user/${userID.permission}`)
                             if(userID.permission == "admin") {
-                                this.$router.push('/admin')
+                                this.$router.push('/adminmanagement')
                             }
                             else if(userID.permission == "สาขาวิชา") {
                                 this.$router.push('/home')

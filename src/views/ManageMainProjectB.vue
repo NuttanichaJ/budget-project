@@ -210,7 +210,7 @@ export default {
         {title:"ปัญหาและอุปสรรค", field:"Problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"หมายเหตุ", field:"Annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
-        {title:"สาขาวิชา", field:"D_Name", editor:"select", editorParams:this.optionsDepartment,  width:160},
+        {title:"สาขาวิชา", field:"D_Name", editor:"select", editorParams:{values: this.optionsDepartment},  width:160},
         {title:"สถานะโครงการ", field:"MP_Status", width:160,
         formatter:function(cell){
             var value = cell.getValue();
@@ -275,7 +275,6 @@ export default {
         } else {
 
           //console.log(listEditMP)
-          
           if (listAddMP.length != 0) {
             var j;
             for (j in listAddMP) {
@@ -314,16 +313,17 @@ export default {
               var projectname = listEditMP[i].MP_Name; // get project name
               var message = '';
               var dapart_name = listEditMP[i].D_Name;
-              
 
               for(i in Department){
                   
                   if(dapart_name == Department[i].D_Name){
                       listEditMP[i].D_ID = Department[i].D_ID
+                      
                   }
               }
           
               if (action == 'edit') {
+                console.log(listEditMP[i])
                 this.updateProject(editMP_ID, listEditMP[i])
               }
               else if (action == 'del'){
@@ -338,12 +338,11 @@ export default {
               for (k in listHistory) {
                 
                 listHistory[k].Edited_User_ID = this.user.userid
-                console.log(listHistory[k])
                 this.history(listHistory[k])
               }
             }
 
-            window.location.reload()
+            //window.location.reload()
             listEditMP, listAddMP, listHistory = [];
           }
 
@@ -441,7 +440,7 @@ export default {
       .then(response => {
         for(var i in response.data){
           if(response.data[i].D_Name.includes('สาขา')) {
-            this.optionsDepartment.push({value: response.data[i].D_Name, label: response.data[i].D_Name})
+            this.optionsDepartment.push(response.data[i].D_Name)
             Department.push({D_ID: response.data[i].D_ID, D_Name: response.data[i].D_Name})
           }
         }

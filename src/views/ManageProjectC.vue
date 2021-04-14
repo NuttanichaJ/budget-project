@@ -316,7 +316,7 @@ export default {
               for (k in listHistory) {
                 
                 listHistory[k].Edited_User_ID = this.user.userid
-                console.log(listHistory[k])
+                //console.log(listHistory[k])
                 this.history(listHistory[k])
               }
             }
