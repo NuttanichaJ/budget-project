@@ -18,7 +18,8 @@ import adminManagement from '@/views/adminManagement.vue'
 import Login from '@/views/Login.vue'
 import Summary from '@/views/Summary.vue'
 import SummaryBranch from '@/views/SummaryBranch.vue'
-import DeanLayout from "@/components/DeanLayout"
+import DeanLayout from "@/components/DeanLayout.vue"
+import store from "@/store/index.js"
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,7 @@ const routes = [
     path: '/userbranch',
     name: 'BranchLayout',
     component: BranchLayout,
+    // meta: { requiresLogin: true },
     children: [
       {
         path: '/home',
@@ -65,6 +67,17 @@ const routes = [
         component: ManageSubProject,
       },
     ],
+    beforeEnter: (to, from, next) => {
+      const permission_id = store.state.user.permission
+      const lastRouteName = localStorage.getItem('last_route');
+
+      // console.log(lastRouteName)
+      if(permission_id != 'สาขาวิชา'){
+        next(lastRouteName)
+      }else{
+        next();
+      }
+    }
   },
 
   // User Center
@@ -114,6 +127,18 @@ const routes = [
         component: ManageSubProject,
       },
     ],
+    beforeEnter: (to, from, next) => {
+      const permission_id = store.state.user.permission
+      const lastRouteName = localStorage.getItem('last_route');
+
+      console.log(lastRouteName)
+      if(permission_id != 'ส่วนกลาง'){
+        next(lastRouteName)
+      }else{
+        next();
+      }
+    }
+
   },
 
   // Admin
@@ -121,14 +146,28 @@ const routes = [
     path: '/admin',
     name: 'adminLayout',
     component: AdminLayout,
+    
     children: [
       {
         path: '/adminmanagement',
         name: 'adminManagement',
         component: adminManagement,
+  
       },
       
-    ]
+    ],
+    beforeEnter: (to, from, next) => {
+      const permission_id = store.state.user.permission
+      const lastRouteName = localStorage.getItem('last_route');
+
+      console.log(lastRouteName)
+      if(permission_id != 'admin'){
+        next(lastRouteName)
+      }else{
+        next();
+      }
+    }
+  
   },
 
   // Dean
@@ -144,10 +183,22 @@ const routes = [
       },
       {
         path: '/subSummaryDean',
-        name: 'Summary',
+        name: 'summary',
         component: SummaryBranch,
       },
-    ]
+    ],
+    beforeEnter: (to, from, next) => {
+      const permission_id = store.state.user.permission
+      const lastRouteName = localStorage.getItem('last_route');
+      console.log(permission_id)
+      console.log(lastRouteName)
+      if(permission_id != 'ผู้บริหาร'){
+        next(lastRouteName)
+      }else{
+        next();
+      }
+    }
+  
   },
 
   // login
@@ -170,10 +221,23 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['/login'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
+  window.previousUrl = from.path
   if (authRequired && !loggedIn) {
-    return next('/login');
+     next('/login');
   }
   next();
+  // else{
+  //   var permission_id = store.state.user.permission;
+  //   if (permission_id == "admin"){
+  //       next({name: 'adminLayout'})
+  //   }
+    
+  // }
 })
+router.afterEach((to) => {
+  localStorage.setItem('last_route', to.path);
+
+})
+
 
 export default router

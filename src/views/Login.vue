@@ -130,6 +130,8 @@ export default {
                             }
                             else if(userID.permission == "ผู้บริหาร") {
                                 this.$router.push('/allsummaryDean')
+                            }else{
+                                alert("not define")
                             }
                         }
                     }
