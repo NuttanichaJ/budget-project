@@ -9,7 +9,6 @@
 
       <div class="mt-4">
         <b-row align-h="center">
-          
             <b-col col lg="5" class="mr-3 shadow p-3 mb-1 bg-white rounded">
               <h5>งบประมาณของโครงการทั้งหมด</h5>
               <apexchart width="100%" type="bar" :options="chartBudgetOptions" :series="dataBudget"></apexchart>

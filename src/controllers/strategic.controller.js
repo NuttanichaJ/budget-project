@@ -36,7 +36,11 @@ exports.findAll = (req, res) => {
     const Strategic_Desc = req.query.Strategic_Desc;
     var condition = Strategic_Desc ? { Strategic_Desc: { [Op.like]: `%${Strategic_Desc}%` } } : null;
   
-    Strategic.findAll({ where: condition })
+    Strategic.findAll({ where: condition,
+      include: 
+      ["strategies",],
+    })
+    
       .then(data => {
         res.send(data);
       })
@@ -52,7 +56,10 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Strategic.findByPk(id)
+  Strategic.findByPk({id,
+    include:
+    ["strategies",],
+  })
   .then(data => {
     res.send(data)
   })

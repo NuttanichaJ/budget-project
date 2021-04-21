@@ -6,91 +6,92 @@
         <div class="pb-xlg h-100">
            <div class="d-flex justify-content-between align-items-center mb-lg">
               <h3>{{mainprojectData.MP_Name}}</h3>
-              <i class="la la-arrow-right text-primary la-lg rotate-315"/>
             </div>
         </div>
         <div>
-          <!-- <b-button v-b-toggle.collapse-1>ข้อมูลโครงการ</b-button> -->
-          <b-card>
-            <div id="collapseInfoSP">
-              <b-row>
-                <b-col lg="6" sm="10" xs="12" class="ml-2">
-                    <h5>ข้อมูลโครงการ</h5>
-                    <div class="d-flex flex-wrap justify-content-between">
+          <b-button v-b-toggle.collapseInfoSP class="mb-2 ml-sm-2 mb-sm-0">ข้อมูลโครงการหลัก <font-awesome-icon :icon="['fas', 'caret-down']"/></b-button>
+            <b-collapse id="collapseInfoSP" class="mt-2">
+              <b-card>
+                <div>
+                  <h5>ข้อมูลโครงการหลัก</h5>
+                  <b-container fluid>
+                    <b-row>
+                      <b-col cols="6" class="shadow p-3 bg-white rounde">
+                              <div class="mt">
+                                <p class="text-muted mb-0 mr"><small>ประเด็นยุทธศาสตร์ : {{mainprojectData.Strategic_Issue_ID}}</small></p>
+                                <p class="text-muted mb-0 mr"><small>ยุทธศาสตร์ : {{mainprojectData.Strategic_ID}}</small></p>
+                                <p class="text-muted mb-0 mr"><small>กลยุทธ์ : {{mainprojectData.Strategy_ID}}</small></p>
+                                <p class="text-muted mb-0 mr"><small>ผู้รับผิดชอบ : {{mainprojectData.MP_Owner}}</small></p>
+                                <p class="text-muted mb-0 mr"><small>ตัวชี้วัด : {{mainprojectData.MP_Indicator}}</small></p>
+                                <p class="text-muted mb-0 mr"><small>ค่าเป้าหมาย : {{mainprojectData.MP_Target_Value}}</small></p>
+                              </div>
+                      </b-col>
+                      <b-col cols="6" class="shadow p-3 bg-white rounde">
                         <div class="mt">
-                          <p class="text-muted mb-0 mr"><small>ประเด็นยุทธศาสตร์ : {{mainprojectData.Strategic_Issue_ID}}</small></p>
-                          <p class="text-muted mb-0 mr"><small>ยุทธศาสตร์ : {{mainprojectData.Strategic_ID}}</small></p>
-                          <p class="text-muted mb-0 mr"><small>กลยุทธ์ : {{mainprojectData.Strategy_ID}}</small></p>
-                          <p class="text-muted mb-0 mr"><small>ผู้รับผิดชอบ : {{mainprojectData.MP_Owner}}</small></p>
-                          <p class="text-muted mb-0 mr"><small>ตัวชี้วัด : {{mainprojectData.MP_Indicator}}</small></p>
-                          <p class="text-muted mb-0 mr"><small>ค่าเป้าหมาย : {{mainprojectData.MP_Target_Value}}</small></p>
+                                <p class="text-muted mb-0 mr"><small>ผลการดำเนินงาน : </small>{{mainprojectData.Performance_Result}}</p>
+                                <p class="text-muted mb-0 mr"><small>ปัญหาและอุปสรรค : </small>{{mainprojectData.Problem}}</p>
+                                <p class="text-muted mb-0 mr"><small>รายละเอียดผลการดำเนินงาน : </small>{{mainprojectData.Detail_Result}}</p>
+                                <p class="text-muted mb-0 mr"><small>หมายเหตุ : </small>{{mainprojectData.Annotation}}</p>
                         </div>
-                        <div class="mt">
-                          <p class="text-muted mb-0 mr"><small>ผลการดำเนินงาน : {{mainprojectData.Performance_Result}}</small></p>
-                          <p class="text-muted mb-0 mr"><small>ปัญหาและอุปสรรค : {{mainprojectData.Problem}}</small></p>
-                          <p class="text-muted mb-0 mr"><small>รายละเอียดผลการดำเนินงาน : {{mainprojectData.Detail_Result}}</small></p>
-                          <p class="text-muted mb-0 mr"><small>หมายเหตุ : {{mainprojectData.Annotation}}</small></p>
-                        </div>
-                    </div>
-                </b-col>
-              </b-row>
-              <b-container fluid>
-                  <b-row class="mt-3 mb-2">
-                    <b-col class="mr-0" cols="12" >
-                      <div class="d-flex flex-wrap justify-content-betweet">
-                        <div class="mr-2 col-sm-2" id="border">
-                          <p class="mb-0"><small>งบประมาณตามแผน</small></p>
-                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Budget}}</h5>
-                          <input type="hidden" id='budget' :value="mainprojectData.MP_Budget">
-                          <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                        </div>
-                        <div class="mr-2 col-sm-2" id="border">
-                          <p class="mb-0"><small>โอนเข้า</small></p>
-                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Income}}</h5>
-                          <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                        </div>
-                        <div class="mr-2 col-sm-2" id="border">
-                          <p class="mb-0"><small>โอนออก</small></p>
-                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Outcome}}</h5>
-                          <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                        </div>
-                        <div class="mr-2 col-sm-2" id="border">
-                          <p class="mb-0"><small>คงเหลือตามแผน</small></p>
-                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Total_Amount}}</h5>
-                          <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                        </div>
-                      </div>  
-                    </b-col>
-                    <b-col class="mr-0" cols="12">
-                      <div class="d-flex flex-wrap justify-content-betweet">
-                        <div class="mr-2 col-sm-2" id="border">
-                          <p class="mb-0"><small>ขออนุมัติใช้</small></p>
-                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Approve_Use}}</h5>
-                          <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                        </div>
-                        <div class="mr-2 col-sm-2" id="border">
-                          <p class="mb-0"><small>เบิกจ่าย</small></p>
-                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Disburse}}</h5>
-                          <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                        </div>
-                        <div class="mr-2 col-sm-2" id="border">
-                          <p class="mb-0"><small>คงเหลือตามหลักการ</small></p>
-                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Total_From_Priciple}}</h5>
-                          <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                        </div>
-                        <div class="mr-2 col-sm-2" id="border">
-                          <p class="mb-0"><small>คงเหลือจากเบิกจ่ายจริง</small></p>
-                          <h5 class="mb-0 text-center">{{mainprojectData.MP_Total_From_Disburse}}</h5>
-                          <p class="text-muted mt-0 mb-0 float-right"><small>บาท</small></p>
-                        </div>
-                      </div>  
-                    </b-col>
-                  </b-row>
-              </b-container>
-            </div>  
-          </b-card>
+                      </b-col>
+                    </b-row>
+                    <b-row class="mt-3 shadow p-3 bg-white rounded">
+                        <b-col cols="12">
+                          <div class="d-flex flex-wrap justify-content-betweet">
+                            <div class="border-right col-sm-3">
+                              <p><small>งบประมาณตามแผน</small></p>
+                              <h5 class="text-center">{{mainprojectData.MP_Budget}}</h5>
+                              <input type="hidden" id='budget' :value="mainprojectData.MP_Budget">
+                              <p class="text-muted float-right"><small>บาท</small></p>
+                            </div>
+                            <div class="border-right col-sm-3">
+                              <p><small>โอนเข้า</small></p>
+                              <h5 class="text-center">{{mainprojectData.MP_Income}}</h5>
+                              <p class="text-muted float-right"><small>บาท</small></p>
+                            </div>
+                            <div class="border-right col-sm-3">
+                              <p><small>โอนออก</small></p>
+                              <h5 class="text-center">{{mainprojectData.MP_Outcome}}</h5>
+                              <p class="text-muted float-right"><small>บาท</small></p>
+                            </div>
+                            <div class="col-sm-3">
+                              <p><small>คงเหลือตามแผน</small></p>
+                              <h5 class="text-center">{{mainprojectData.MP_Total_Amount}}</h5>
+                              <p class="text-muted float-right"><small>บาท</small></p>
+                            </div>
+                          </div>  
+                        </b-col>
+                        <b-col cols="12">
+                          <div class="d-flex flex-wrap justify-content-betweet">
+                            <div class="border-right border-top col-sm-3">
+                              <p><small>ขออนุมัติใช้</small></p>
+                              <h5 class="text-center">{{mainprojectData.MP_Approve_Use}}</h5>
+                              <p class="text-muted float-right"><small>บาท</small></p>
+                            </div>
+                            <div class="border-right border-top col-sm-3">
+                              <p><small>เบิกจ่าย</small></p>
+                              <h5 class="text-center">{{mainprojectData.MP_Disburse}}</h5>
+                              <p class="text-muted float-right"><small>บาท</small></p>
+                            </div>
+                            <div class="border-right border-top col-sm-3">
+                              <p><small>คงเหลือตามหลักการ</small></p>
+                              <h5 class="text-center">{{mainprojectData.MP_Total_From_Priciple}}</h5>
+                              <p class="text-muted float-right"><small>บาท</small></p>
+                            </div>
+                            <div class="border-top col-sm-3">
+                              <p><small>คงเหลือจากเบิกจ่ายจริง</small></p>
+                              <h5 class="text-center">{{mainprojectData.MP_Total_From_Disburse}}</h5>
+                              <p class="text-muted float-right"><small>บาท</small></p>
+                            </div>
+                          </div>  
+                        </b-col>
+                      </b-row>
+                  </b-container>
+                </div>  
+              </b-card>
+            </b-collapse>
+          </div>
         </div>
-      </div>
       <b-nav class="mt-3">
         <b-navbar-nav class="mb-2 mr-sm-2 mb-sm-0 mr-auto">
           <b-nav-form>
@@ -121,7 +122,7 @@
                   <b-nav-form>
                     <!-- @click='addRow' -->
                       <b-input-group>
-                          <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0">เพิ่มโครงการย่อย</b-button>      
+                          <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0"><font-awesome-icon :icon="['fas', 'plus-circle']"/> เพิ่มโครงการย่อย</b-button>      
                           <b-button class="mb-2 ml-sm-2 mb-sm-0" to="/transfer">โอนเงินเข้า-ออก</b-button>
                       </b-input-group>
                   </b-nav-form>        
@@ -129,7 +130,7 @@
         </b-nav>
       </div>
     </div>
-    <div id="table" class="sty-table"></div>
+    <div id="table" class="sty-table shadow bg-white rounde"></div>
   </div>
 
 </template>
@@ -307,18 +308,18 @@ export default {
               var value = cell.getValue();
               var color;
                 if(value == "ยังไม่ดำเนินการ"){
-                    color = '#EA3546'
+                    color = '#e62739'
                     
                 } else if(value == "กำลังดำเนินการ"){
-                    color = '#F9CE1D'
+                    color = '#F1B24A'
                     
                 } else if(value == "เสร็จสิ้น"){
-                    color = '#4CAF50'
+                    color = '#7ebc59'
                 }
-                return "<button style='color: white; background-color:"+ color +"; display: inline-block; border: none; outline: none; text-align: center; text-decoration: none; padding: .4em .4em .55em; border-radius: .4em;'>" + value + "</button>"
+                return "<button style='color: white; background-color:"+ color +"; display: inline-block; border: none; outline: none; text-align: center; text-decoration: none; padding: .4em .4em .55em; border-radius: .9em;'>" + value + "</button>"
           }
         },
-        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){
+        {formatter:printDelIcon, width:80, hozAlign:"left", cellClick:function(e, cell){
           if(confirm("ต้องการลบ " + cell.getRow().getData().SP_Name + " ใช่หรือไม่?")== true){
           cell.getRow().delete()
           }

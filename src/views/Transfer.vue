@@ -90,7 +90,7 @@
     </div>
 
     <!-- tabulator -->
-    <div id="table" class="sty-table"></div>
+    <div id="table" class="sty-table shadow bg-white rounde"></div>
   </div>
 </template>
 

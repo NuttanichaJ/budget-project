@@ -23,30 +23,6 @@ db.strategy = require("./strategy.model")(sequelize, Sequelize);
 db.history = require("./history.model")(sequelize, Sequelize);
 db.transfer = require("./transfer.model")(sequelize, Sequelize);
 
-// //Define M:M USER + MAIN_PROJECT
-// db.user.belongsToMany(db.mainproject, {
-//   through: "MANAGEMENT_MP",
-//   as: "managed_mainprojects",
-//   foreignKey: "User_ID",
-// })
-// db.mainproject.belongsToMany(db.user, {
-//   through: "MANAGEMENT_MP",
-//   as: "users",
-//   foreignKey: "MP_ID",
-// })
-
-// //Define M:M USER + SUB_PROJECT
-// db.user.belongsToMany(db.subproject, {
-//   through: "MANAGEMENT_SP",
-//   as: "managed_subprojects",
-//   foreignKey: "User_ID",
-// })
-// db.subproject.belongsToMany(db.user, {
-//   through: "MANAGEMENT_SP",
-//   as: "users",
-//   foreignKey: "SP_ID",
-// })
-
 //Define 1:M MAIN_PROJECT + SUB_PROJECT
 db.mainproject.hasMany(db.subproject, {
   foreignKey: "MP_ID",
@@ -107,6 +83,16 @@ db.mainproject.belongsTo(db.strategicissue, {
   as: "strategicissue"
 })
 
+//Define M:1 STRATEGIC + STRATEGIC_ISSUE
+db.strategicissue.hasMany(db.strategic, {
+  foreignKey: "SI_ID",
+  as: "strategics"
+})
+db.strategic.belongsTo(db.strategicissue, {
+  foreignKey: "SI_ID",
+  as: "strategicissue"
+})
+
 //Define M:1 MAIN_PROJECT + STRATEGIC
 db.strategic.hasOne(db.mainproject, {
   foreignKey: "Strategy_ID",
@@ -114,6 +100,16 @@ db.strategic.hasOne(db.mainproject, {
 })
 db.mainproject.belongsTo(db.strategic, {
   foreignKey: "Strategic_ID",
+  as: "strategic"
+})
+
+//Define M:1 STRATEGY + STRATEGIC
+db.strategic.hasMany(db.strategy, {
+  foreignKey: "S_ID",
+  as: "strategies"
+})
+db.strategy.belongsTo(db.strategic, {
+  foreignKey: "S_ID",
   as: "strategic"
 })
 

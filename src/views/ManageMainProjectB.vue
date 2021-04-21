@@ -31,7 +31,7 @@
                 <b-nav-form>
                   <!-- @click='addRow' -->
                     <b-input-group>
-                        <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0 mr-1" variant="dark">เพิ่มโครงการหลักของสาขา</b-button>
+                        <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0 mr-1" variant="dark"><font-awesome-icon :icon="['fas', 'plus-circle']"/> เพิ่มโครงการหลักของสาขา</b-button>
                         <b-button class="mb-2 ml-sm-2 mb-sm-0" variant="dark" to="/transfer">โอนเงินเข้า-ออก</b-button>
                     </b-input-group>
                 </b-nav-form>        
@@ -39,7 +39,7 @@
       </b-nav>
     </div>
 
-    <div id="table" class="sty-table"></div>
+    <div id="table" class="sty-table shadow bg-white rounde"></div>
   </div>
       
 
@@ -66,6 +66,9 @@ export default {
         tabulator: null, //variable to hold your table
         tableData: [],
         optionsDepartment: [],
+        optionsStategic: [],
+        optionsStategicIssue: [],
+        optionsStategy: [],
     }
   },
   
@@ -216,15 +219,15 @@ export default {
             var value = cell.getValue();
             var color;
               if(value == "ยังไม่ดำเนินการ"){
-                  color = '#EA3546'
-                  
-              } else if(value == "กำลังดำเนินการ"){
-                  color = '#F9CE1D'
-                  
-              } else if(value == "เสร็จสิ้น"){
-                  color = '#4CAF50'
-              }
-              return "<button style='color: white; background-color:"+ color +"; display: inline-block; border: none; outline: none; text-align: center; text-decoration: none; padding: .4em .4em .55em; border-radius: .4em;'>" + value + "</button>";
+                    color = '#e62739'
+                    
+                } else if(value == "กำลังดำเนินการ"){
+                    color = '#F1B24A'
+                    
+                } else if(value == "เสร็จสิ้น"){
+                    color = '#7ebc59'
+                }
+              return "<button style='color: white; background-color:"+ color +"; display: inline-block; border: none; outline: none; text-align: center; text-decoration: none; padding: .4em .4em .55em; border-radius: .9em;'>" + value + "</button>";
           }
         },
         // {formatter:printSPIcon, hozAlign:"left",headerSort:false, },

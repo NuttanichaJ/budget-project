@@ -21,7 +21,7 @@
     </b-nav>
     
     <!-- tabulator -->
-    <div id="table" class="sty-table"></div>
+    <div id="table" class="sty-table shadow bg-white rounde"></div>
   </div>
   
 </template>
@@ -40,7 +40,7 @@ export default {
   name: "History",
   data () {
     return {
-      // user: this.$store.state.user,
+      user: this.$store.state.user,
       // tabulator: null
       // tableData: [],
 
@@ -138,19 +138,26 @@ export default {
           HistoryDataservice.getAll()
             .then(response => {
               this.tableData = response.data
-              for( var i in response.data) {
-                if(response.data[i].user.User_FName == null) {
-                  response.data[i].user.User_FName = ''
-                }
-                if(response.data[i].user.User_LName == null) {
-                  response.data[i].user.User_LName = ''
-                }
-                this.tableData[i].Username = response.data[i].user.User_FName + ' ' + response.data[i].user.User_LName
+              for(var i in response.data) {
                 var UserD_ID = response.data[i].user.D_ID
-                for(var j in this.Department){
-                  if(UserD_ID == this.Department[j].D_ID){
-                    this.tableData[i].Department_name = this.Department[j].D_Name
+                if(UserD_ID == this.user.depart_id) {
+                  //console.log(this.user.depart_id)
+                  for(var j in this.Department){
+                    if(UserD_ID == this.Department[j].D_ID){
+                      this.tableData[i].Department_name = this.Department[j].D_Name
+                    }
                   }
+                  if(response.data[i].user.User_FName == null) {
+                    response.data[i].user.User_FName = ''
+                  }
+                  if(response.data[i].user.User_LName == null) {
+                    response.data[i].user.User_LName = ''
+                  }
+                  this.tableData[i].Username = response.data[i].user.User_FName + ' ' + response.data[i].user.User_LName
+                }
+                else {
+                  this.tableData.splice(i, 1)
+                  console.log(this.tableData)
                 }
               }
               this.tableData.reverse()
