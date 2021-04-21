@@ -47,7 +47,7 @@ import GoogleLogin from 'vue-google-login';
 
 // import User from '../models/user.model';
 // import UserService from "../services/user.sevice"
-import DepartmentDataservice from "../services/department.dataservice"
+// import DepartmentDataservice from "../services/department.dataservice"
 import UserDataservice from "../services/user.dataservice.js";
 export default {
     name: "login",
@@ -66,21 +66,34 @@ export default {
     
     methods: {
         onSuccess(googleUser) {
-            // console.log(googleUser);
+            
+            console.log("ID: " + googleUser.getBasicProfile().getId()); // Don't send this directly to your server!
+            console.log('Full Name: ' + googleUser.getBasicProfile().getName());
+            console.log('Given Name: ' + googleUser.getBasicProfile().getGivenName());
+            console.log('Family Name: ' + googleUser.getBasicProfile().getFamilyName());
+            console.log("Email: " + googleUser.getBasicProfile().getEmail());
+            // var userInfo = {
+            //     name: googleUser.Rs.Te,
+            //     fName: googleUser.Rs.BT,
+            //     lName: googleUser.Rs.xR,
+            //     email: googleUser.Rs.At,
+            //     token: googleUser.tc.access_token
+            // }
             var userInfo = {
-                name: googleUser.Rs.Te,
-                fName: googleUser.Rs.BT,
-                lName: googleUser.Rs.xR,
-                email: googleUser.Rs.At,
+                name: googleUser.getBasicProfile().getName(),
+                fName: googleUser.getBasicProfile().getGivenName(),
+                lName: googleUser.getBasicProfile().getFamilyName(),
+                email: googleUser.getBasicProfile().getEmail(),
                 token: googleUser.tc.access_token
             }
 
+
         // console.log(userInfo.token)
         // localStorage.setItem('user', JSON.stringify(userInfo))
-        this.$store.commit("setUser", userInfo.token)
+        // this.$store.commit("setUser", userInfo.token)
             // console.log(userInfo.token)
             // localStorage.setItem('user', JSON.stringify(userInfo))
-            this.$store.commit("setUser", userInfo.token)
+            // this.$store.commit("setUser", userInfo.token)
 
 
 
@@ -130,9 +143,10 @@ export default {
                             }
                             else if(userID.permission == "ผู้บริหาร") {
                                 this.$router.push('/allsummaryDean')
-                            }else{
-                                alert("not define")
                             }
+                            // else{
+                            //     alert("not define")
+                            // }
                         }
                     }
                 })
