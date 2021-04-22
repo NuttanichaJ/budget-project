@@ -3,7 +3,7 @@
       <div id="contents">
           <div class="header">
             <!-- <h1>หน้าหลัก ฝ่าย/สาขา... {{userID.permission}} </h1> -->
-            <h3>หน้าหลัก  {{ user.depart_name}}</h3>
+            <h1>หน้าหลัก  {{ user.depart_name}}</h1>
           </div>
       </div>
 

@@ -12,8 +12,8 @@ module.exports = app => {
     // // Retrieve all published Tutorials
     // router.get("/published", Strategic.findAllPublished);
   
-    // // Retrieve a single Tutorial with id
-    // router.get("/:id", Strategic.findOne);
+    // Retrieve a single Tutorial with id
+    router.get("/:id", Strategic.findOne);
   
     // // Update a Tutorial with id
     // router.put("/:id", Strategic.update);

@@ -66,12 +66,12 @@ export default {
     
     methods: {
         onSuccess(googleUser) {
-            
-            console.log("ID: " + googleUser.getBasicProfile().getId()); // Don't send this directly to your server!
-            console.log('Full Name: ' + googleUser.getBasicProfile().getName());
-            console.log('Given Name: ' + googleUser.getBasicProfile().getGivenName());
-            console.log('Family Name: ' + googleUser.getBasicProfile().getFamilyName());
-            console.log("Email: " + googleUser.getBasicProfile().getEmail());
+            // console.log(googleUser)
+            // console.log("ID: " + googleUser.getBasicProfile().getId()); // Don't send this directly to your server!
+            // console.log('Full Name: ' + googleUser.getBasicProfile().getName());
+            // console.log('Given Name: ' + googleUser.getBasicProfile().getGivenName());
+            // console.log('Family Name: ' + googleUser.getBasicProfile().getFamilyName());
+            // console.log("Email: " + googleUser.getBasicProfile().getEmail());
             // var userInfo = {
             //     name: googleUser.Rs.Te,
             //     fName: googleUser.Rs.BT,
@@ -84,11 +84,11 @@ export default {
                 fName: googleUser.getBasicProfile().getGivenName(),
                 lName: googleUser.getBasicProfile().getFamilyName(),
                 email: googleUser.getBasicProfile().getEmail(),
-                token: googleUser.tc.access_token
+                
             }
+            // console.log("email" + userInfo.email)
 
-
-        // console.log(userInfo.token)
+        
         // localStorage.setItem('user', JSON.stringify(userInfo))
         // this.$store.commit("setUser", userInfo.token)
             // console.log(userInfo.token)

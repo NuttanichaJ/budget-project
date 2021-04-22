@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import DeanHeader from "./DeanHeader"
+import DeanHeader from "./Deanheader"
 
 export default {
     name: "DeanLayout",

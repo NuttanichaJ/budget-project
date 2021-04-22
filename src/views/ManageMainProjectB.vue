@@ -5,9 +5,9 @@
       <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-0 ml-0 mr-auto">
         <b-nav-form>
           <b-input-group>
-              <b-button class="mb-2 ml-sm-2 mb-sm-0 mr-1" variant="primary" id='history-undo' v-b-tooltip.hover title="เลิกทำ">
+              <b-button class="mb-2 ml-sm-2 mb-sm-0 mr-1" style="font-size: 14px" id='history-undo' v-b-tooltip.hover title="เลิกทำ">
                 <font-awesome-icon :icon="['fas', 'undo']"/></b-button>
-              <b-button class="mb-2 ml-sm-2 mb-sm-0" variant="primary" id='history-redo' v-b-tooltip.hover title="ทำซ้ำ">
+              <b-button class="mb-2 ml-sm-2 mb-sm-0" style="font-size: 14px" id='history-redo' v-b-tooltip.hover title="ทำซ้ำ">
                 <font-awesome-icon :icon="['fas', 'redo']"/></b-button> 
           </b-input-group>
         </b-nav-form>
@@ -31,15 +31,14 @@
                 <b-nav-form>
                   <!-- @click='addRow' -->
                     <b-input-group>
-                        <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0 mr-1" variant="dark">เพิ่มโครงการหลักของสาขา</b-button>
-                        <b-button class="mb-2 ml-sm-2 mb-sm-0" variant="dark" to="/transfer">โอนเงินเข้า-ออก</b-button>
+                        <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0 mr-1" variant="primary"><font-awesome-icon :icon="['fas', 'plus-circle']"/> เพิ่มโครงการหลักของสาขา</b-button>
                     </b-input-group>
                 </b-nav-form>        
         </b-navbar-nav>
       </b-nav>
     </div>
 
-    <div id="table" class="sty-table"></div>
+    <div id="table" class="sty-table shadow bg-white rounded"></div>
   </div>
       
 
@@ -50,6 +49,7 @@ import Tabulator from 'tabulator-tables';
 import MainprojectDataservice from "../services/mainproject.dataservice.js";
 import HistoryDataservice from "../services/history.dataservice"
 import DepartmentDataservice from "../services/department.dataservice"
+import StrategicDataservice from "../services/strategic.dataservice"
 
 var table;
 var listEditMP = [];
@@ -66,12 +66,17 @@ export default {
         tabulator: null, //variable to hold your table
         tableData: [],
         optionsDepartment: [],
+        optionsStategic: [],
+        optionsStategicIssue: [],
+        optionsStategy: [],
     }
   },
   
     mounted(){  
 
-    this.getDepartmentOptions();
+    this.getOptionsDepartment();
+    this.getOptionsStrat_(null);
+
     //retrieve Main Project
     this.retrieveMainProject(this.user.userid, this.user.depart_id);
    
@@ -109,8 +114,11 @@ export default {
     var checkApproveuseAndDisburse = function(cell, value){
       return value <= cell.getRow().getData().MP_Budget
     }
-  
 
+    var optionsStategicIssue = this.optionsStategicIssue;
+    var optionsStategic = this.optionsStategic;
+    var optionsStategy = this.optionsStategy;
+  
     //instantiate Tabulator when element is mounted
     table = new Tabulator("#table", {
       //data: this.tableData, //link data to table
@@ -167,9 +175,86 @@ export default {
       addRowPos: "bottom",
       columns: [
         {title:"ชื่อโครงการ", field:"MP_Name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
-        {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"input", hozAlign:"right", },
-        {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"input",  hozAlign:"right", },
-        {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"input",  hozAlign:"right",},
+        {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"select", editorParams:{values: optionsStategicIssue}, hozAlign:"right", 
+          cellEdited: function(cell) {
+            var strategicIssue_ID = cell.getValue()
+            //this.getOptionsStrat_(null)
+            StrategicDataservice.getAll()
+              .then(response => {
+                var count = 0;
+                var k;
+                var n = 0;
+                  for(var i in response.data){
+                    if(strategicIssue_ID == response.data[i].strategicissue.Strategic_Issue_ID) {
+                      optionsStategic[count] = response.data[i].Strategic_ID
+                      count++
+                      //optionsStategicIssue[response.data[i].strategicissue.Strategic_Issue_ID] = response.data[i].strategicissue.Strategic_Issue_ID
+                      for(k in response.data[i].strategies){
+                        optionsStategy[response.data[i].strategies[k].Strategy_ID - 1] = response.data[i].strategies[k].Strategy_ID
+                        if(n < response.data[i].strategies[k].Strategy_ID) {
+                          n = response.data[i].strategies[k].Strategy_ID
+                        }
+                      }
+                    }
+                   
+                  } 
+                  
+                  optionsStategic.splice(count, optionsStategic.length)
+                  optionsStategy.splice(n, optionsStategy.length)
+              })
+          }
+        },
+        {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"select", editorParams:{values: optionsStategic}, hozAlign:"right", 
+          cellEdited: function(cell) {
+            var strategic_ID = cell.getValue()
+            //this.getOptionsStrat_(null)
+            StrategicDataservice.getAll()
+              .then(response => {
+                //var count = 0;
+                var n = 0;
+                var k;
+                  for(var i in response.data){
+                    if(strategic_ID == response.data[i].Strategic_ID) {
+                      // optionsStategicIssue[count] = response.data[i].strategicissue.Strategic_Issue_ID
+                      //count++
+                      for(k in response.data[i].strategies){
+                        optionsStategy[response.data[i].strategies[k].Strategy_ID - 1] = response.data[i].strategies[k].Strategy_ID
+                        if(n < response.data[i].strategies[k].Strategy_ID) {
+                          n = response.data[i].strategies[k].Strategy_ID
+                        }
+                      }
+                    }
+                   
+                  } 
+                  // optionsStategicIssue.splice(count + 1, optionsStategicIssue.length)
+                  optionsStategy.splice(n, optionsStategy.length)
+              })
+          } 
+        
+        },
+        {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"select", editorParams:{values: optionsStategy}, hozAlign:"right",
+          cellEdited: function(cell) {
+            var strategy_ID = cell.getValue()
+            //this.getOptionsStrat_(null)
+            StrategicDataservice.getAll()
+              .then(response => {
+                // var count = 0;
+                var k;
+                  for(var i in response.data){
+                    for(k in response.data[i].strategies){
+                      if(strategy_ID == response.data[i].strategies[k].Strategy_ID) {
+                        // optionsStategicIssue[count] = response.data[i].strategicissue.Strategic_Issue_ID
+                        // count++
+                        //console.log(response.data[i].Strategic_ID)
+                        optionsStategic[response.data[i].Strategic_ID - 1] = response.data[i].Strategic_ID
+                      }
+                    }
+                  }
+                  // optionsStategicIssue.splice(count + 1, optionsStategicIssue.length)
+                  optionsStategic.splice(parseInt(i) + 1, optionsStategic.length)
+              })
+          } 
+        },
         {title:"ผู้รับผิดชอบ", field:"MP_Owner", width:140, editor:"input", hozAlign:"left",},
         {title:"ตัวชี้วัด", field:"MP_Indicator",  width:140, editor:"input",  hozAlign:"left", },
         {title:"ค่าเป้าหมาย", field:"MP_Target_Value", editor:"input",   width:140, hozAlign:"left",}, //define table columns
@@ -435,7 +520,7 @@ export default {
       })
     },
 
-    getDepartmentOptions() {
+    getOptionsDepartment() {
       DepartmentDataservice.getAll()
       .then(response => {
         for(var i in response.data){
@@ -445,7 +530,22 @@ export default {
           }
         }
       })
-    }
+    },
+
+    getOptionsStrat_() {
+      StrategicDataservice.getAll()
+      .then(response => {
+        response.data
+        var i;
+          for(i in response.data){
+            this.optionsStategic[response.data[i].Strategic_ID - 1] = response.data[i].Strategic_ID
+            this.optionsStategicIssue[response.data[i].strategicissue.Strategic_Issue_ID - 1] = response.data[i].strategicissue.Strategic_Issue_ID
+            for(var k in response.data[i].strategies){
+              this.optionsStategy[response.data[i].strategies[k].Strategy_ID - 1] = response.data[i].strategies[k].Strategy_ID
+            }
+          }
+      })
+    },
 
   },
 
