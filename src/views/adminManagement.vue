@@ -35,8 +35,9 @@
           </b-nav-form>
         </b-navbar-nav>
       </b-nav>
+      <div id="table" class="table-sty shadow bg-white rounded"></div>
+
     </div>
-    <div id="table" class="table-sty"></div>
   </div>
 </template>
 
@@ -284,5 +285,22 @@ export default {
 .font16{
   font-size: 16px;
 }
+
+#table .tabulator-header {
+  border-bottom: 3px solid;
+  border-color:#AFB2BF;
+}
+
+// #table .tabulator-calcs-bottom {
+//   border-top: 3px solid;
+//   border-color:#333;
+// }
+
+#table .tabulator-frozen {
+    background-color:#fff;
+}
+
+
+
 
 </style>

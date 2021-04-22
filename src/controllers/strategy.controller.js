@@ -33,10 +33,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-    const Strategy_Desc = req.query.Strategy_Desc;
-    var condition = Strategy_Desc ? { Strategy_Desc: { [Op.like]: `%${Strategy_Desc}%` } } : null;
   
-    Strategy.findAll({ where: condition })
+    Strategy.findAll({include: ['strategic']})
       .then(data => {
         res.send(data);
       })
@@ -52,13 +50,13 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Strategy.findByPk(id)
+  Strategy.findByPk(id, {include: ['strategic']})
   .then(data => {
     res.send(data)
   })
   .catch(err => {
     res.status(500).send({
-      message: "Eroror retrieving MP_ID=" + id
+      message: "Error retrieving id=" + id
     });
   });
 };

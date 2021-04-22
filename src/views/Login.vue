@@ -53,20 +53,36 @@ export default {
     methods: {
         onSuccess(googleUser) {
             // console.log(googleUser)
-            
+            // console.log("ID: " + googleUser.getBasicProfile().getId()); 
             // console.log('Full Name: ' + googleUser.getBasicProfile().getName());
             // console.log('Given Name: ' + googleUser.getBasicProfile().getGivenName());
             // console.log('Family Name: ' + googleUser.getBasicProfile().getFamilyName());
             // console.log("Email: " + googleUser.getBasicProfile().getEmail());
-           
+
+            // var userInfo = {
+            //     name: googleUser.Rs.Te,
+            //     fName: googleUser.Rs.BT,
+            //     lName: googleUser.Rs.xR,
+            //     email: googleUser.Rs.At,
+            //     token: googleUser.tc.access_token
+            // }
+
             var userInfo = {
                 name: googleUser.getBasicProfile().getName(),
                 fName: googleUser.getBasicProfile().getGivenName(),
                 lName: googleUser.getBasicProfile().getFamilyName(),
                 email: googleUser.getBasicProfile().getEmail(),
+
+                
             }
-            // console.log("userInfo = "+userInfo.name)
-           
+            // console.log("email" + userInfo.email)
+
+        
+        // localStorage.setItem('user', JSON.stringify(userInfo))
+        // this.$store.commit("setUser", userInfo.token)
+            // console.log(userInfo.token)
+            // localStorage.setItem('user', JSON.stringify(userInfo))
+            // this.$store.commit("setUser", userInfo.token)
 
         //     var departments = {D_Name: 'Admin'}
         //     var departments2 = {D_Name: 'ผู้บริหาร'}

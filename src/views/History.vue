@@ -165,8 +165,12 @@ export default {
       DepartmentDataservice.getAll()
       .then(response => {
         for(var i in response.data){
+          if(response.data[i].D_Name != 'Admin') {
             this.optionsDepartment.push({value: response.data[i].D_Name, text: response.data[i].D_Name})
             this.Department.push({D_ID: response.data[i].D_ID, D_Name: response.data[i].D_Name})
+          }
+            
+
         }
       })
     }

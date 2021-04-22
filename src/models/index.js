@@ -107,6 +107,26 @@ db.mainproject.belongsTo(db.strategicissue, {
   as: "strategicissue"
 })
 
+//Define M:1 STRATEGIC + STRATEGIC_ISSUE 
+db.strategicissue.hasMany(db.strategic, {
+  foreignKey: "SI_ID",
+  as: "strategics"
+})
+db.strategic.belongsTo(db.strategicissue, {
+  foreignKey: "SI_ID",
+  as: "strategicissue"
+})
+
+//Define M:1 STRATEGIC + STRATEGY
+db.strategic.hasMany(db.strategy, {
+  foreignKey: "Strategic_ID",
+  as: "strategies"
+})
+db.strategy.belongsTo(db.strategic, {
+  foreignKey: "Strategic_ID",
+  as: "strategic"
+})
+
 //Define M:1 MAIN_PROJECT + STRATEGIC
 db.strategic.hasOne(db.mainproject, {
   foreignKey: "Strategy_ID",
