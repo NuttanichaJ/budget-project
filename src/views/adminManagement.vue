@@ -4,6 +4,7 @@
       <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-0 ml-0 mr-auto">
         <b-nav-form>
           <b-form inline class="mb-2 ml-sm-2 mb-sm-0 mr-1" >
+            <label class="mr-2 font16" for="selecPer">สิทธิ์การใช้งาน</label>
             <b-form-select v-model="selectedPermission" :options="optionsPermisson" 
               size="sm" id="selectPer">
             </b-form-select>
@@ -34,7 +35,6 @@
           </b-nav-form>
         </b-navbar-nav>
       </b-nav>
-      <div id="table" class="table-sty"></div>
     </div>
     <div id="table" class="table-sty"></div>
   </div>
@@ -111,11 +111,11 @@ export default {
       },
       addRowPos:"bottom",
       columns: [
-        {title:"ชื่อ", field:"User_FName", width:300, editor:"input", editable:editCheck, headerHozAlign:"center",validator:"required"},
-        {title:"นามสกุล", field:"User_LName", width:300, editor:"input", editable:editCheck, headerHozAlign:"center",validator:"required"},
-        {title:"E-mail", field:"Email", headerSort:false, headerHozAlign:"center", editable:editCheck, width:350, editor:"input" ,validator:"required"},
-        {title:"ฝ่าย / สาขาวิชา", field:"Department_name", width:200,validator:"required", editor:"select", editable:editCheck, editorParams:{allowEmpty:false, values: this.optionsDepartment}},
-        {title:"สิทธิ์การใช้งาน", field:"Permission", width:200,validator:"required", editor:"select", editable:editCheck, editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
+        {title:"ชื่อ", field:"User_FName", width:250, editor:"input", editable:editCheck, headerHozAlign:"center"},
+        {title:"นามสกุล", field:"User_LName", width:250, editor:"input", editable:editCheck, headerHozAlign:"center"},
+        {title:"E-mail", field:"Email", headerHozAlign:"center", editable:editCheck, width:350, editor:"input" },
+        {title:"ฝ่าย / สาขาวิชา", field:"Department_name", width:200, editor:"select", editable:editCheck, editorParams:{allowEmpty:false, values: this.optionsDepartment}},
+        {title:"สิทธิ์การใช้งาน", field:"Permission", width:200, editor:"select", editable:editCheck, editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา"}}},
         {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().User_FName + ' ' + cell.getRow().getData().User_LName + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}}, frozen:true, headerSort:false,},
       ], //define table columns
@@ -279,6 +279,10 @@ export default {
 #table {
   padding: 0;
   margin: 0;
+  font-size: 14px;
+}
+.font16{
+  font-size: 16px;
 }
 
 </style>
