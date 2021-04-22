@@ -11,17 +11,6 @@
                             <b-card-body>
                                 <h4>Login to your account</h4>
                                 <b-form @submit.prevent>
-                                    <!-- <b-form-group >
-                                        <label for="input-mail">E-mail</label>
-                                        <b-form-input id="input-mail" v-model="email" type="email"
-                                            placeholder="Enter your email"></b-form-input>
-
-                                        <label for="input-pass" class="mt-2">Password</label>
-                                        <b-form-input id="input-pass" v-model="password" type="password" 
-                                            placeholder="Enter your password"></b-form-input>
-                                        <b-button block pill class="mt-3" type="submit"><font-awesome-icon icon="sign-in-alt" />&nbsp;&nbsp;</b-button>
-                                        <a class="" href="">forget password</a>
-                                    </b-form-group> -->
                                     <GoogleLogin
                                         :params="params"
                                         :onSuccess="onSuccess"
@@ -42,7 +31,6 @@
 </template>
 <script src="https://apis.google.com/js/api.js?onload=onGoogleApiLoad" defer></script>
 <script>
-// import axios from 'axios';
 import GoogleLogin from 'vue-google-login';
 
 // import User from '../models/user.model';
@@ -60,42 +48,25 @@ export default {
             params: {
                 client_id:'739770244137-b1d92li2tcs044jsj49ck7qmvbnchr9c.apps.googleusercontent.com',
             },
-           
         }
     },
-    
     methods: {
         onSuccess(googleUser) {
+            // console.log(googleUser)
             
-            console.log("ID: " + googleUser.getBasicProfile().getId()); // Don't send this directly to your server!
-            console.log('Full Name: ' + googleUser.getBasicProfile().getName());
-            console.log('Given Name: ' + googleUser.getBasicProfile().getGivenName());
-            console.log('Family Name: ' + googleUser.getBasicProfile().getFamilyName());
-            console.log("Email: " + googleUser.getBasicProfile().getEmail());
-            // var userInfo = {
-            //     name: googleUser.Rs.Te,
-            //     fName: googleUser.Rs.BT,
-            //     lName: googleUser.Rs.xR,
-            //     email: googleUser.Rs.At,
-            //     token: googleUser.tc.access_token
-            // }
+            // console.log('Full Name: ' + googleUser.getBasicProfile().getName());
+            // console.log('Given Name: ' + googleUser.getBasicProfile().getGivenName());
+            // console.log('Family Name: ' + googleUser.getBasicProfile().getFamilyName());
+            // console.log("Email: " + googleUser.getBasicProfile().getEmail());
+           
             var userInfo = {
                 name: googleUser.getBasicProfile().getName(),
                 fName: googleUser.getBasicProfile().getGivenName(),
                 lName: googleUser.getBasicProfile().getFamilyName(),
                 email: googleUser.getBasicProfile().getEmail(),
-                token: googleUser.tc.access_token
             }
-
-
-        // console.log(userInfo.token)
-        // localStorage.setItem('user', JSON.stringify(userInfo))
-        // this.$store.commit("setUser", userInfo.token)
-            // console.log(userInfo.token)
-            // localStorage.setItem('user', JSON.stringify(userInfo))
-            // this.$store.commit("setUser", userInfo.token)
-
-
+            // console.log("userInfo = "+userInfo.name)
+           
 
         //     var departments = {D_Name: 'Admin'}
         //     var departments2 = {D_Name: 'ผู้บริหาร'}
@@ -114,8 +85,6 @@ export default {
                     for (i in response.data) {
                         if(userInfo.email === response.data[i].Email) {
                             // console.log(response.data)
-                            // var email = response.data[i].Email;
-                            // var permission = response.data[i].Permission
                             var userID = {
                                 email: response.data[i].Email,
                                 fName : response.data[i].User_FName,
@@ -129,7 +98,6 @@ export default {
                             this.$store.commit("setUser", userID)
 
                             // console.log("D_ID",depart_id)
-                            // localStorage.setItem("setUserInfo", response.data)
                             // this.$router.push(`/user/${userID.permission}`)
                             if(userID.permission == "admin") {
                                 this.$router.push('/adminmanagement')
@@ -137,16 +105,12 @@ export default {
                             else if(userID.permission == "สาขาวิชา") {
                                 this.$router.push('/home')
                             }
-                        
                             else if(userID.permission == "ส่วนกลาง") {
                                 this.$router.push('/homecenter')
                             }
                             else if(userID.permission == "ผู้บริหาร") {
                                 this.$router.push('/allsummaryDean')
                             }
-                            // else{
-                            //     alert("not define")
-                            // }
                         }
                     }
                 })
