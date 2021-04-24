@@ -105,9 +105,10 @@ const routes = [
         path: '/summarycenter',
         name: 'summarycenter',
         component: Summary,
+        
       },
       {
-        path: '/subSummary',
+        path: '/subsummary/:id',
         name: 'SubSummary',
         component: SummaryBranch1,
       },
