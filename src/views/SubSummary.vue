@@ -7,31 +7,31 @@
                         <b-tabs content-class="mt-3" fill>
                             <b-tab title="ฝ่ายแผนยุทธศาสตร์">
                                 <p>ฝ่ายแผนยุทธศาสตร์</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="ฝ่ายเหรัญญิก">
                                 <p>ฝ่ายเหรัญญิก</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="ฝ่ายวิชาการ">
                                 <p>ฝ่ายวิชาการ</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="ฝ่ายวิจัย" >
                                 <p>ฝ่ายวิจัย</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="ฝ่ายปฏิบัติการ">
                                 <p>ฝ่ายปฏิบัติการ</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="หน่วยวิเทศ">
                                 <p>หน่วยวิเทศ</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="หน่วยพัฒนานักศึกษา">
                                 <p>หน่วยพัฒนานักศึกษา</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                         </b-tabs>
                     </div>
@@ -43,35 +43,35 @@
                         <b-tabs content-class="mt-3" fill>
                             <b-tab title="วิศวกรรมโยธา">
                                 <p class="font16">วิศวกรรมโยธา</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="วิศวกรรมไฟฟ้า">
                                 <p>วิศวกรรมไฟฟ้า</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="วิศวกรรมเกษตร">
                                 <p>วิศวกรรมเกษตร</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="วิศวกรรมอุตสาหการ">
                                 <p>วิศวกรรมอุตสาหการ</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="วิศวกรรมเครื่องกล">
                                 <p>วิศวกรรมเครื่องกล</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="วิศวกรรมสิ่งแวดล้อม">
                                 <p>วิศวกรรมสิ่งแวดล้อม</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="วิศวกรรมเคมี">
                                 <p>วิศวกรรมเคมี</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                             <b-tab title="วิศวกรรมคออมพิวเตอร์" >
                                 <p>วิศวกรรมคออมพิวเตอร์</p>
-                                <SummaryBranch />
+                                <SummaryBranch1 />
                             </b-tab>
                         </b-tabs>
                     </div>
@@ -86,11 +86,11 @@
 </template>
 
 <script>
-import SummaryBranch from '../views/SummaryBranch.vue'
+import SummaryBranch1 from '../views/SummaryBranch1.vue'
 export default {
     name: "SubSummary",
     components :{
-       SummaryBranch
+       SummaryBranch1
     },
     data() {
       return {

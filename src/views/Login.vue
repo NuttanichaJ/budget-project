@@ -13,9 +13,10 @@
                                 <b-form @submit.prevent>
                                     <GoogleLogin
                                         :params="params"
+                                        :renderParams="renderParams"
                                         :onSuccess="onSuccess"
-                                        class="btn-login">
-                                        Login with Google
+                                        class="">
+                                        
                                     </GoogleLogin>
                                 </b-form>
                               
@@ -45,8 +46,15 @@ export default {
     data() {
         return {
             // client_id google api
+            
             params: {
                 client_id:'739770244137-b1d92li2tcs044jsj49ck7qmvbnchr9c.apps.googleusercontent.com',
+            },
+            
+            renderParams: {
+                width: 250,
+                height: 50,
+                longtitle: true
             },
         }
     },

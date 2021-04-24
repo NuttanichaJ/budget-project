@@ -29,9 +29,8 @@ Vue.use(VueTabulator);
 
 Vue.use(LoaderPlugin, {
   client_id: '739770244137-b1d92li2tcs044jsj49ck7qmvbnchr9c.apps.googleusercontent.com',
-  scope: 'profile email',
-  prompt: 'select_account'
 });
+
 Vue.use(VeeValidate);
 
 new Vue({

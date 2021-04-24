@@ -82,7 +82,7 @@
                         </b-col>
                         
                     </b-row>
-                    <b-row class="mt-3 mr-0 shadow-sm p-3 mb-1 bg-white rounded">
+                    <b-row align-h="center" class="mt-3 mr-0 shadow-sm p-3 mb-1 bg-white rounded">
                         <b-col lg="6" md="12" sm="12" class="mt-lg-0 mt-md-3 mt-sm-3 ">
                             <h6 class="mb-3 p-3"><strong>สรุปจำนวนโครงการของกองบริหารงานคณะ</strong></h6>
                             <apexchart width="80%" type="donut" :options="projectOption" :series="dataProject"></apexchart>
@@ -117,32 +117,30 @@ export default {
             user : this.$store.state.user,
 
             chartBudgetOptions: {
-            plotOptions: {
-                bar: {
-                columnWidth: '50%',
-                
-                //   distributed: true
-                }
-            },
-            dataLabels: {
-                enabled: false
+                plotOptions: {
+                    bar: {
+                    columnWidth: '50%',
+                    }
                 },
-            xaxis: {
-                categories: [
-                    ['งบประมาณทั้งหมด','(ตามแผน)'],
-                    ['ยอดเงินคงเหลือ', '(ตามแผน)'],
-                    ['ยอดเงินคงเหลือ','(หลักการ)'], 
-                    ['ยอดเงินคงเหลือ', '(เบิกจ่ายจริง)']
-                ]
-            },
-            yaxis: {
-                title: {
+                dataLabels: {
+                    enabled: false
+                    },
+                xaxis: {
+                    categories: [
+                        ['งบประมาณทั้งหมด','(ตามแผน)'],
+                        ['ยอดเงินคงเหลือ', '(ตามแผน)'],
+                        ['ยอดเงินคงเหลือ','(หลักการ)'], 
+                        ['ยอดเงินคงเหลือ', '(เบิกจ่ายจริง)']
+                    ]
+                },
+                yaxis: {
+                    title: {
                         text: "จำนวนเงิน (บาท)",
                         style: {
                             fontSize: '14px'
                         }
                     }
-            }
+                }
             },
             seriesBudgetBranch: [
                 {
@@ -227,7 +225,7 @@ export default {
             projectOption: {
                     legend: {
                         position: 'bottom',
-                        horizontalAlign: 'left'
+                       
                     },
                     labels: ['โครงการย่อยที่เสร็จสิ้น', 'โครงการย่อยที่กำลังดำเนินการ', 'โครงการที่ยังไม่ได้ดำเนินการ',],
                     colors: ['#7ebc59','#F1B24A','#E62739',],

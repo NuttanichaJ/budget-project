@@ -5,64 +5,20 @@
             <h4 class="mb-3 " v-else ></h4>
         </div>
 
-        <div>
-            <div>
-               <h6 class="ml-0 mt-2 mb-0 p-0">สรุปงบประมาณ</h6>
-            </div>
-            <b-container fluid>
-                <b-row class="mt-1 d-flex justify-content-betweet" >
-                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                        <p class="mb-0 pl-1 font14">งบประมาณทั้งหมด (ตามแผน)</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>907900</strong></p>
-                        <p class="text-muted mt-0 mb-0 float-right font14" >บาท</p>
-                    </b-col>
-                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                        <p class="mb-0 pl-1 font14">งบประมาณคงเหลือตามแผน</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>907900</strong></p>
-                        <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
-                    </b-col>
-                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                        <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากหลักการ</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>846615</strong></p>
-                        <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
-                    </b-col>
-                    <b-col class="p-2 mb-1 mr-2 border border-dark rounded">
-                        <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากเบิกจ่ายจริง</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>892023</strong></p>
-                        <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
-                    </b-col>
-                </b-row>
-            </b-container>
-        </div>
-        <div>
-            <div>
-               <h6 class="ml-0 mt-2 mb-0 p-0">จำนวนโครงการ</h6>
-            </div>
-            <b-container fluid>
-                <b-row class="mt-1 d-flex justify-content-betweet " >
-                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                        <p class="mb-0 pl-1 font14 ">จำนวนโครงการทั้งหมด</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>225</strong></p>
-                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                    </b-col>
-                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                        <p class="mb-0 pl-1 font14">โครงการที่ดำเนินการเสร็จสิ้น</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>175</strong></p>
-                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                    </b-col>
-                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                        <p class="mb-0 pl-1 font14">โครงการที่กำลังดำเนินการ</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>40</strong></p>
-                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                    </b-col>
-                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                        <p class="mb-0 pl-1 font14">โครงการที่ยังไม่ดำเนินการ</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>10</strong></p>
-                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                    </b-col>
-                </b-row>
-            </b-container>
-        </div>
+        <div class="mt-4">
+            <b-row align-h="center">
+            
+                <b-col col lg="5" class="mr-3 shadow p-2 mb-1 bg-white rounded">
+                    <h6 class="pl-1">งบประมาณของโครงการทั้งหมด</h6>
+                    <apexchart width="100%" type="bar" :options="chartBudgetOptions" :series="dataBudget"></apexchart>
+                </b-col>
+
+                <b-col lg="5" class="ml-1 shadow p-2 mb-1 bg-white rounded">
+                    <h6 class="pl-1">จำนวนโครงการ</h6>
+                    <apexchart width="90%" type="donut" :options="projectOption" :series="dataProject"></apexchart>
+                </b-col>
+            </b-row>
+      </div>
 
         <div class="mt-3" >
             <b-nav class="mt-2">
@@ -76,7 +32,7 @@
             </b-nav>
             <div ref="table"  class="table-sty"></div>
         </div>
-
+        
     </div>
 
 </template>
@@ -88,6 +44,56 @@ export default {
     data() {
         return {
             user : this.$store.state.user,
+
+            //
+            chartBudgetOptions: {
+                plotOptions: {
+                    bar: {
+                        columnWidth: '50%',
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                    },
+                xaxis: {
+                    categories: [
+                    ['งบประมาณทั้งหมด','(ตามแผน)'],
+                    ['ยอดเงินคงเหลือ', '(ตามแผน)'],
+                    ['ยอดเงินคงเหลือ','(หลักการ)'], 
+                    ['ยอดเงินคงเหลือ', '(เบิกจ่ายจริง)']
+                    ]
+                },
+                yaxis: {
+                    title: {
+                    text: "จำนวนเงิน",
+                    style: {
+                        fontSize: '14px'
+                    }
+                    }
+                }
+            },
+        
+            // series data
+            dataBudget:[{
+                name: 'งบประมาณ',
+                data: [907900, 907900, 846615, 892023],
+            }],
+
+            // number of project
+            projectOption: {
+                legend: {
+                    position: 'bottom'
+                },
+                plotOptions: {
+                    pie: {
+                        size: '65%',
+                    }
+                },
+                labels: ['โครงการย่อยที่เสร็จสิ้น', 'โครงการย่อยที่กำลังดำเนินการ', 'โครงการที่ยังไม่ได้ดำเนินการ',],
+                colors: ['#4CAF50','#F9CE1D', '#EA3546',],
+            }, 
+            dataProject: [ 21, 32, 11,],  // series data
+            
 
             // data table
             tableData: [
@@ -155,7 +161,7 @@ export default {
 
 <style lang="scss" scoped>
 @import  "~vue-tabulator/dist/scss/bootstrap/tabulator_bootstrap4";
-
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@100&display=swap');
 #subSummary {
   margin: 30px;
 }
@@ -173,6 +179,7 @@ export default {
   padding: 0;
   margin: 0;
   font-size: 14px;
+  
 }
 
 </style>

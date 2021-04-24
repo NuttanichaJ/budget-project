@@ -17,7 +17,7 @@ import adminManagement from '@/views/adminManagement.vue'
 // import SubSummary from '@/views/SubSummary.vue'
 import Login from '@/views/Login.vue'
 import Summary from '@/views/Summary.vue'
-import SummaryBranch from '@/views/SummaryBranch.vue'
+import SummaryBranch1 from '@/views/SummaryBranch1.vue'
 import DeanLayout from "@/components/DeanLayout.vue"
 import store from "@/store/index.js"
 
@@ -49,7 +49,7 @@ const routes = [
       {
         path: '/summary',
         name: 'SummaryBranch',
-        component: SummaryBranch,
+        component: SummaryBranch1,
       },
       {
         path: '/history',
@@ -109,7 +109,7 @@ const routes = [
       {
         path: '/subSummary',
         name: 'SubSummary',
-        component: SummaryBranch,
+        component: SummaryBranch1,
       },
       {
         path: '/historycenter',
@@ -131,7 +131,7 @@ const routes = [
       const permission_id = store.state.user.permission
       const lastRouteName = localStorage.getItem('last_route');
 
-      console.log(lastRouteName)
+      // console.log(lastRouteName)
       if(permission_id != 'ส่วนกลาง'){
         next(lastRouteName)
       }else{
@@ -160,7 +160,7 @@ const routes = [
       const permission_id = store.state.user.permission
       const lastRouteName = localStorage.getItem('last_route');
 
-      console.log(lastRouteName)
+      // console.log(lastRouteName)
       if(permission_id != 'admin'){
         next(lastRouteName)
       }else{
@@ -184,14 +184,14 @@ const routes = [
       {
         path: '/subSummaryDean',
         name: 'summary',
-        component: SummaryBranch,
+        component: SummaryBranch1,
       },
     ],
     beforeEnter: (to, from, next) => {
       const permission_id = store.state.user.permission
       const lastRouteName = localStorage.getItem('last_route');
-      console.log(permission_id)
-      console.log(lastRouteName)
+      // console.log(permission_id)
+      // console.log(lastRouteName)
       if(permission_id != 'ผู้บริหาร'){
         next(lastRouteName)
       }else{

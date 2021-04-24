@@ -3,11 +3,11 @@
       <div id="contents">
           <div class="header">
             <!-- <h1>หน้าหลัก ฝ่าย/สาขา... {{userID.permission}} </h1> -->
-            <h1>หน้าหลัก  {{ user.depart_name}}</h1>
+            <h3>หน้าหลัก  {{ user.depart_name}}</h3>
           </div>
       </div>
 
-      <div class="mt-4">
+      <!-- <div class="mt-4">
         <b-row align-h="center">
           
             <b-col col lg="5" class="mr-3 shadow p-3 mb-1 bg-white rounded">
@@ -20,6 +20,46 @@
               <apexchart width="90%" type="donut" :options="projectOption" :series="dataProject"></apexchart>
             </b-col>
         </b-row>
+      </div> -->
+
+      <div class="mt-5">
+        <b-card-group deck>
+          <b-card>
+            <b-card-text>
+              โครงการหลัก1
+            </b-card-text>
+            <template #footer>
+              <small class="text-muted">แก้ไขล่าสุด</small>
+            </template>
+          </b-card>
+          
+          <b-card>
+            <b-card-text>
+              โครงการหลัก2
+            </b-card-text>
+            <template #footer>
+              <small class="text-muted">แก้ไขล่าสุด</small>
+            </template>
+          </b-card>
+
+          <b-card>
+            <b-card-text>
+              โครงการหลัก3 เ้่า่กดาว่รไำพบะี่งเวทดกห่ิพกนพยะัวีน่ใมืิทอแิกหอเัีำรพนะยัวีา
+            </b-card-text>
+            <template #footer>
+              <small class="text-muted">แก้ไขล่าสุด</small>
+            </template>
+          </b-card>
+
+          <b-card>
+            <b-card-text>
+              โครงการหลัก4
+            </b-card-text>
+            <template #footer>
+              <small class="text-muted">แก้ไขล่าสุด</small>
+            </template>
+          </b-card>
+        </b-card-group>
       </div>
 
 
@@ -40,7 +80,7 @@ export default {
         user : this.$store.state.user,
 
       // cd: chartData,
-      selectedYear: '2564',
+        selectedYear: '2564',
         // data dashbord
         chartBudgetOptions: {
           plotOptions: {
@@ -92,7 +132,6 @@ export default {
         }
       
     },
-   
   
 }
 </script>
