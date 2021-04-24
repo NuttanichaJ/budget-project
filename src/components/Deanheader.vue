@@ -15,12 +15,10 @@
       <b-collapse id="nav-collapse" is-nav>
         
           <b-navbar-nav>
-          
           <b-nav-item id="menu-bar" to="/allsummaryDean" exact exact-active-class="active"
             ><font-awesome-icon
               :icon="['fas', 'chart-bar']"
             />&nbsp;สรุปงบประมาณ</b-nav-item>
-          
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">

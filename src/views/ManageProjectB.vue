@@ -61,7 +61,6 @@ export default {
         // {title:"ปัญหาและอุปสรรค", field:"problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         // {title:"รายละเอียดผลการดำเนินงาน", field:"detail_result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         // {title:"หมายเหตุ", field:"annotation", editor:"input",  width:160, hozAlign:"left",}, //define table columns
-
         {title:"ชื่อโครงการ", field:"MP_Name", width:400, hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
         {title:"งบประมาณตามแผน", field:"MP_Budget",  width:250, hozAlign:"right", formatter:"money", formatterParams:{decimal:".", thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
         {title:"คงเหลือตามแผน", field:"MP_Total_Amount", width:250, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
@@ -109,7 +108,6 @@ export default {
                 this.tableData.push(response.data[i]);
               }
               table.setData(this.tableData);
-              console.log(this.tableData);
             })
             .catch(e => {
               console.log(e);
