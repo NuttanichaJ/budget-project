@@ -312,21 +312,14 @@ export default {
 
                 plotOptions: {
                     bar: {
-                    columnWidth: '50%',
+                        columnWidth: '50%',
                     },
-            plotOptions: {
-                bar: {
-                    columnWidth: '50%',
-                    // distributed: true
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            dataLabels: {
-                enabled: false
-            },
-            xaxis: {
+                },
+                dataLabels: {
+                    enabled: false
+                },
+            
+                xaxis: {
                     categories: [
                         ['งบประมาณทั้งหมด','(ตามแผน)'],
                         ['ยอดเงินคงเหลือ', '(ตามแผน)'],
@@ -343,6 +336,7 @@ export default {
                     }
                 }
             },
+
             seriesBudgetBranch: [
                 {
                     name: 'วิศวกรรมโยธา',
@@ -424,13 +418,12 @@ export default {
             ],
 
             projectOption: {
-                    legend: {
-                        position: 'bottom',
-                       
-                    },
-                    labels: ['โครงการย่อยที่เสร็จสิ้น', 'โครงการย่อยที่กำลังดำเนินการ', 'โครงการที่ยังไม่ได้ดำเนินการ',],
-                    colors: ['#7ebc59','#F1B24A','#E62739',],
-                }, 
+                legend: {
+                    position: 'bottom', 
+                },
+                labels: ['โครงการย่อยที่เสร็จสิ้น', 'โครงการย่อยที่กำลังดำเนินการ', 'โครงการที่ยังไม่ได้ดำเนินการ',],
+                colors: ['#7ebc59','#F1B24A','#E62739',],
+            }, 
             dataProject: [ 28, 44, 55 ],  // series data
 
             selectedStrategic : 'all',
@@ -440,7 +433,7 @@ export default {
                  { value: '2', text: '2' },
                  { value: '3', text: '3' },
             ]
-            }
+            
         }
     },
 
