@@ -1,13 +1,13 @@
 <template>
   <div id="history">
     <b-nav class="mt-3 mb-3">
-      <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-0 ml-2 mr-auto">
+      <!-- <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-0 ml-2 mr-auto">
         <b-nav-form>
           <b-form-select class="font-18 rounded-2" id="select-branch" 
             v-model="selectedDepartment" :options="optionsDepartment" size="sm">
           </b-form-select>
         </b-nav-form>
-      </b-navbar-nav>
+      </b-navbar-nav> -->
       <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-0 ml-auto">
         <b-nav-form>
           <b-input-group>
@@ -28,11 +28,8 @@
 
 <script>
 import Tabulator from 'tabulator-tables';
-
-// import  HistoryDataservice from '../services/history.dataservice.js'
-
 import HistoryDataservice from '../services/history.dataservice';
-import DepartmentDataservice from '../services/department.dataservice';
+// import DepartmentDataservice from '../services/department.dataservice';
 
 var table;
 
@@ -40,27 +37,19 @@ export default {
   name: "History",
   data () {
     return {
-      // user: this.$store.state.user,
+      user: this.$store.state.user,
       // tabulator: null
       // tableData: [],
-
-      // selected Permissin
-      selectedDepartment: null,
-      optionsDepartment: [{value: 'refresh', text: 'ทั้งหมด'}],
+      // selectedDepartment: null,
+      // optionsDepartment: [{value: 'refresh', text: 'ทั้งหมด'}],
       tabulator: null, //variable to hold your table
       tableData: [],
-      Department: [],
+      // Department: [],
     }
   },
   
     mounted(){
-
-      //retrieve Main Project
-      // this.getSubProject(this.$route.params.id);
-
-      // this.getHistoryDataservice()
-
-      this.getDepartmentOptions()
+      // this.getDepartmentOptions()
       this.retrieveHistory()
 
       //instantiate Tabulator when element is mounted
@@ -69,10 +58,10 @@ export default {
         layout:"fitDataStretch",
         //responsiveLayout:"hide",
         columns: [
-          {title: "วัน-เวลา", field:"updatedAt", hozAlign:"center", width: 300, headerHozAlign:"center", editor: false,},
-          {title: "ชื่อ-นามสกุล", field:"Username", hozAlign:"center", width: 300 ,headerHozAlign:"center", editor: false,},
-          {title: "ฝ่าย/สาขาวิชา", field:"Department_name", hozAlign:"center", width: 300, headerHozAlign:"center", },
-          {title: "รายการแก้ไข", field:"Message", hozAlign:"center", headerHozAlign:"center",headerSort:false,},  
+          {title: "วัน-เวลา", field:"updatedAt", width: 300, formatter:"textarea", headerHozAlign:"center", editor: false,},
+          {title: "ชื่อ-นามสกุล", field:"Username", width: 300 , formatter:"textarea",headerHozAlign:"center", editor: false,},
+          // {title: "ฝ่าย/สาขาวิชา", field:"Department_name", formatter:"textarea", width: 300, headerHozAlign:"center", },
+          {title: "รายการแก้ไข", field:"Message", formatter:"textarea",headerHozAlign:"center",headerSort:false,},  
         ], //define table columns
       
       });
@@ -81,17 +70,17 @@ export default {
       valueEl.addEventListener("keyup", function(){
         table.setFilter('Username','like', valueEl.value);
       })
-      var selectEl = document.getElementById("select-branch");
-      selectEl.addEventListener("change", function(){
+      // var selectEl = document.getElementById("select-branch");
+      // selectEl.addEventListener("change", function(){
         
-        var value = selectEl.options[selectEl.selectedIndex].value
-        if(value != null){
-            table.setFilter('Department_name','like', value);
-        }
-        if (value =='refresh'){
-            table.clearFilter();
-        }
-      })
+      //   var value = selectEl.options[selectEl.selectedIndex].value
+      //   if(value != null){
+      //       table.setFilter('Department_name','like', value);
+      //   }
+      //   if (value =='refresh'){
+      //       table.clearFilter();
+      //   }
+      // })
 
       //undo button
       document.getElementById("history-undo").addEventListener("click", function(){
@@ -137,21 +126,25 @@ export default {
     retrieveHistory() {
           HistoryDataservice.getAll()
             .then(response => {
-              this.tableData = response.data
               for( var i in response.data) {
-                if(response.data[i].user.User_FName == null) {
-                  response.data[i].user.User_FName = ''
-                }
-                if(response.data[i].user.User_LName == null) {
-                  response.data[i].user.User_LName = ''
-                }
-                this.tableData[i].Username = response.data[i].user.User_FName + ' ' + response.data[i].user.User_LName
                 var UserD_ID = response.data[i].user.D_ID
-                for(var j in this.Department){
-                  if(UserD_ID == this.Department[j].D_ID){
-                    this.tableData[i].Department_name = this.Department[j].D_Name
+                if(UserD_ID == this.user.depart_id) {
+                  this.tableData[i] = response.data[i]
+                  if(response.data[i].user.User_FName == null) {
+                    response.data[i].user.User_FName = ''
                   }
+                  if(response.data[i].user.User_LName == null) {
+                    response.data[i].user.User_LName = ''
+                  }
+                  this.tableData[i].Username = response.data[i].user.User_FName + ' ' + response.data[i].user.User_LName
+                  
+                  // for(var j in this.Department){
+                  //   if(UserD_ID == this.Department[j].D_ID){
+                  //     this.tableData[i].Department_name = this.Department[j].D_Name
+                  //   }
+                  // }
                 }
+                
               }
               this.tableData.reverse()
               table.setData(this.tableData);
@@ -161,19 +154,17 @@ export default {
             });
     },
 
-    getDepartmentOptions() {
-      DepartmentDataservice.getAll()
-      .then(response => {
-        for(var i in response.data){
-          if(response.data[i].D_Name != 'Admin') {
-            this.optionsDepartment.push({value: response.data[i].D_Name, text: response.data[i].D_Name})
-            this.Department.push({D_ID: response.data[i].D_ID, D_Name: response.data[i].D_Name})
-          }
-            
-
-        }
-      })
-    }
+    // getDepartmentOptions() {
+    //   DepartmentDataservice.getAll()
+    //   .then(response => {
+    //     for(var i in response.data){
+    //       if(response.data[i].D_Name != 'Admin') {
+    //         this.optionsDepartment.push({value: response.data[i].D_Name, text: response.data[i].D_Name})
+    //         this.Department.push({D_ID: response.data[i].D_ID, D_Name: response.data[i].D_Name})
+    //       }
+    //     }
+    //   })
+    // }
   },
 };
 

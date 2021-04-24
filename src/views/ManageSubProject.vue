@@ -12,30 +12,59 @@
         <div>
           <b-button class="ml-sm-2 border" variant="white" v-b-toggle.collapseInfoSP>ข้อมูลโครงการหลัก <font-awesome-icon :icon="['fas', 'caret-down']"/></b-button>
           <b-collapse id="collapseInfoSP" class="mt-2">
-          <b-card class="bg-light">
+          <b-card>
             <div id="collapseInfoSP"> 
             <b-container fluid>
               <b-row>
-                <b-col cols="6" class="ml-auto shadow p-3 mb-1 bg-white rounded">
+                <b-col cols="6" class="ml-auto">
                     <div class="d-flex flex-wrap justify-content-between">
                         <div>
-                          <p class="text-muted mb-0 mr"><small><strong>ประเด็นยุทธศาสตร์ :</strong> {{mainprojectData.Strategic_Issue_ID}}</small></p>
-                          <p class="text-muted mb-0 mr"><small><strong>ยุทธศาสตร์ :</strong> {{mainprojectData.Strategic_ID}}</small></p>
-                          <p class="text-muted mb-0 mr"><small><strong>กลยุทธ์ :</strong> {{mainprojectData.Strategy_ID}}</small></p>
-                          <p class="text-muted mb-0 mr"><small><strong>ผู้รับผิดชอบ :</strong> {{mainprojectData.MP_Owner}}</small></p>
-                          <p class="text-muted mb-0 mr"><small><strong>ตัวชี้วัด :</strong> {{mainprojectData.MP_Indicator}}</small></p>
-                          <p class="text-muted mb-0 mr"><small><strong>ค่าเป้าหมาย :</strong> {{mainprojectData.MP_Target_Value}}</small></p>
+                          <div class="d-flex flex-row mb-1">
+                            <p class="mb-0 mr-auto"><small><strong>ประเด็นยุทธศาสตร์ :</strong></small></p>
+                            <span class="mb-0 ml-3">{{mainprojectData.Strategic_Issue_ID}}</span>
+                          </div>
+                          <div class="d-flex flex-row mb-1">
+                            <p class="mb-0 mr-auto"><small><strong>ยุทธศาสตร์ :</strong></small></p>
+                            <span class="mb-0 ml-3">{{mainprojectData.Strategic_ID}}</span>
+                          </div>
+                          <div class="d-flex flex-row mb-1">
+                            <p class="mb-0 mr-auto"><small><strong>กลยุทธ์ :</strong></small></p>
+                            <span class="mb-0 ml-3">{{mainprojectData.Strategy_ID}}</span>
+                          </div>
+                          <div class="d-flex flex-row mb-1">
+                            <p class="mb-0 mr-auto"><small><strong>ผู้รับผิดชอบ :</strong></small></p>
+                            <span class="mb-0 ml-3">{{mainprojectData.MP_Owner}}</span>
+                          </div>
+                          <div class="d-flex flex-row mb-1">
+                            <p class="mb-0 mr-auto"><small><strong>ตัวชี้วัด :</strong></small></p>
+                            <span class="mb-0 ml-3">{{mainprojectData.MP_Indicator}}</span>
+                          </div>
+                          <div class="d-flex flex-row mb-3">
+                            <p class="mb-0 mr-auto"><small><strong>ค่าเป้าหมาย :</strong></small></p>
+                            <span class="mb-0 ml-3">{{mainprojectData.MP_Target_Value}}</span>
+                          </div>
                         </div>
-                        
                     </div>
                 </b-col>
-                <b-col cols="6" class="mr-auto shadow p-3 mb-1 bg-white rounded">
+                <b-col cols="6" class="mr-auto">
                     <div class="d-flex flex-wrap justify-content-between">
                       <div>
-                          <p class="text-muted mb-0 mr"><small><strong>ผลการดำเนินงาน :</strong> {{mainprojectData.Performance_Result}}</small></p>
-                          <p class="text-muted mb-0 mr"><small><strong>ปัญหาและอุปสรรค :</strong> {{mainprojectData.Problem}}</small></p>
-                          <p class="text-muted mb-0 mr"><small><strong>รายละเอียดผลการดำเนินงาน :</strong> {{mainprojectData.Detail_Result}}</small></p>
-                          <p class="text-muted mb-0 mr"><small><strong>หมายเหตุ :</strong> {{mainprojectData.Annotation}}</small></p>
+                        <div class="d-flex flex-row mb-1">
+                            <p class="mb-0 mr-auto"><small><strong>ผลการดำเนินงาน :</strong></small></p>
+                            <span class="mb-0 ml-3">{{mainprojectData.Performance_Result}}</span>
+                          </div>
+                          <div class="d-flex flex-row mb-1">
+                            <p class="mb-0 mr-auto"><small><strong>ปัญหาและอุปสรรค :</strong></small></p>
+                            <span class="mb-0 ml-3">{{mainprojectData.Problem}}</span>
+                          </div>
+                          <div class="d-flex flex-row mb-1">
+                            <p class="mb-0 mr-auto"><small><strong>รายละเอียดผลการดำเนินงาน :</strong></small></p>
+                            <span class="mb-0 ml-3">{{mainprojectData.Detail_Result}}</span>
+                          </div>
+                          <div class="d-flex flex-row">
+                            <p class="mb-0 mr-auto"><small><strong>หมายเหตุ :</strong></small></p>
+                            <span class="mb-0 ml-3">{{mainprojectData.Annotation}}</span>
+                          </div>
                       </div>
                     </div>
                 </b-col>
@@ -129,7 +158,8 @@
                     <!-- @click='addRow' -->
                       <b-input-group>
                           <b-button id="add-project" class="mb-2 ml-sm-2 mb-sm-0" variant="primary"><font-awesome-icon :icon="['fas', 'plus-circle']"/> เพิ่มโครงการย่อย</b-button>      
-                          <b-button class="mb-2 ml-sm-2 mb-sm-0" to="/transfercenter" variant="primary">โอนเงินเข้า-ออก</b-button>
+                          <b-button class="mb-2 ml-sm-2 mb-sm-0" v-if="this.user.permission == 'สาขาวิชา' " to="/transfer" variant="primary">โอนเงินเข้า-ออก</b-button>
+                          <b-button class="mb-2 ml-sm-2 mb-sm-0" v-if="this.user.permission == 'ส่วนกลาง' " to="/transfercenter" variant="primary">โอนเงินเข้า-ออก</b-button>
                       </b-input-group>
                   </b-nav-form>        
           </b-navbar-nav>
@@ -495,7 +525,6 @@ export default {
               //   this.tableData[i].MP_Budget = response.data.MP_Budget
               // }
               table.setData(this.tableData);
-              console.log(this.tableData);
             })
             .catch(e => {
               console.log(e);
@@ -536,7 +565,6 @@ export default {
         var calcValue = table.getCalcResults().bottom
         var MP_ID = this.$route.params.id;
         var MP_Approve_Use = calcValue.SP_Approve_Use
-
 
       MainprojectDataservice.update(MP_ID, {
           MP_Approve_Use: MP_Approve_Use, 
