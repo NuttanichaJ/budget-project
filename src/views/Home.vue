@@ -26,7 +26,7 @@
         <b-card-group deck>
           <b-card>
             <b-card-text>
-              โครงการหลัก1
+              พัฒนาศักยภาพนักศึกษา
             </b-card-text>
             <template #footer>
               <small class="text-muted">แก้ไขล่าสุด</small>
@@ -35,7 +35,16 @@
           
           <b-card>
             <b-card-text>
-              โครงการหลัก2
+              กิจกรรมพัฒนานักศึกษา
+            </b-card-text>
+            <template #footer>
+              <small class="text-muted">แก้ไขล่าสุด</small>
+            </template>
+          </b-card>
+
+          <!-- <b-card>
+            <b-card-text>
+              โครงการทำบุญเลี้ยงพระและไหว้ครู
             </b-card-text>
             <template #footer>
               <small class="text-muted">แก้ไขล่าสุด</small>
@@ -44,21 +53,12 @@
 
           <b-card>
             <b-card-text>
-              โครงการหลัก3 เ้่า่กดาว่รไำพบะี่งเวทดกห่ิพกนพยะัวีน่ใมืิทอแิกหอเัีำรพนะยัวีา
+              โครงการอบรมภาษาอังกฤษเพื่อการสื่อสาร
             </b-card-text>
             <template #footer>
               <small class="text-muted">แก้ไขล่าสุด</small>
             </template>
-          </b-card>
-
-          <b-card>
-            <b-card-text>
-              โครงการหลัก4
-            </b-card-text>
-            <template #footer>
-              <small class="text-muted">แก้ไขล่าสุด</small>
-            </template>
-          </b-card>
+          </b-card> -->
         </b-card-group>
       </div>
 
