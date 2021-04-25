@@ -463,7 +463,7 @@ export default {
                         if(response.data[i].D_ID == Department[j].D_ID){
                             response.data[i].D_Name = Department[j].D_Name
                         }
-                        this.tableData.push(response.data[i]);
+                        this.tableData[i] = response.data[i];
                     }
                   }
                     
@@ -472,7 +472,7 @@ export default {
                  
               }
               table.setData(this.tableData);
-              console.log(this.tableData);
+              //console.log(this.tableData);
             })
             .catch(e => {
               console.log(e);
