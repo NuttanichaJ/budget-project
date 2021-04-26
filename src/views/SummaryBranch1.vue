@@ -26,11 +26,19 @@
                     <b-navbar-brand class="">รายละเอียดของโครงการ</b-navbar-brand>
                 </b-navbar-nav>
                 <b-navbar-nav class="ml-auto">
-                    <b-button class="ml-auto px-3 my-2" id="download-xlsx" @click="download">
-                    <font-awesome-icon :icon="['fas', 'file-excel']" class="mr-2" />พิมพ์</b-button>
+                    <b-button
+                            class="ml-auto px-3 my-2"
+                            style="background-color: #1d6f42"
+                            id="download-xlsx"
+                          >
+                            <font-awesome-icon
+                              :icon="['fas', 'file-excel']"
+                              class="mr-2"
+                            />พิมพ์</b-button
+                          >
                 </b-navbar-nav>
             </b-nav>
-            <div ref="table"  class="table-sty"></div>
+            <div id="table" class="sty-table shadow bg-white rounded"></div>
         </div>
         
     </div>
@@ -39,12 +47,15 @@
 
 <script>
 import Tabulator from 'tabulator-tables'; 
+import MainprojectDataservice from "../services/mainproject.dataservice.js";
+
+var table;
+
 export default {
     name: "SummaryBranch",
     data() {
         return {
             user : this.$store.state.user,
-
             //
             chartBudgetOptions: {
                 plotOptions: {
@@ -74,10 +85,7 @@ export default {
             },
         
             // series data
-            dataBudget:[{
-                name: 'งบประมาณ',
-                data: [907900, 907900, 846615, 892023],
-            }],
+            dataBudget:[],
 
             // number of project
             projectOption: {
@@ -92,69 +100,298 @@ export default {
                 labels: ['โครงการย่อยที่เสร็จสิ้น', 'โครงการย่อยที่กำลังดำเนินการ', 'โครงการที่ยังไม่ได้ดำเนินการ',],
                 colors: ['#4CAF50','#F9CE1D', '#EA3546',],
             }, 
-            dataProject: [ 21, 32, 11,],  // series data
+            dataProject: [],  // series data
             
 
             // data table
-            tableData: [
-                {SP_Name : 'โครงการ1'}
-            ],
+            tableData: [],
         }
 
     },
     // table
     mounted(){
-    //instantiate Tabulator when element is mounted
-        this.tabulator = new Tabulator(this.$refs.table, {
-        data: this.tableData, //link data to table
+        this.getProjects();
+
+        //instantiate Tabulator when element is mounted
+        table = new Tabulator("#table", {
+        layout: "fitDataStretch",
+        dataTreeStartExpanded: true,
+        dataTree: true,
+        dataTreeFilter: false, //disable child row filtering
+        printAsHtml: true, //enable html table printing
         columns: [
-            {title:"ชื่อโครงการ", field:"SP_Name", width:250, hozAlign:"left", formatter:"textarea", frozen:true,},
-            {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"input", hozAlign:"right", },
-            {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"input",  hozAlign:"right", },
-            {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"input",  hozAlign:"right",},
-            {title:"ผู้รับผิดชอบ", field:"SP_Owner", width:140, hozAlign:"left",},
-            {title:"ตัวชี้วัด", field:"SP_Indicator",  width:140,  hozAlign:"left", },
-            {title:"ค่าเป้าหมาย", field:"SP_Target_Value", width:140, hozAlign:"left",}, 
-            {title:"งบประมาณตามแผน", field:"SP_Budget", width:140, hozAlign:"right",  formatter:"money", } , 
-            {title:"โอนเข้า", field:"SP_Income", width:140, hozAlign:"right",  formatter:"money", }, 
-            {title:"โอนออก", field:"SP_Outcome", width:140, hozAlign:"right",  formatter:"money",}, 
-            {title:"คงเหลือตามแผน", field:"SP_Total_Amount",  width:140, hozAlign:"right",  formatter:"money", }, 
-            {title:"ขออนุมัติใช้", field:"SP_Approve_Use", width:140, hozAlign:"right",  formatter:"money", }, 
-            {title:"เบิกจ่าย", field:"SP_Disburse", width:140, hozAlign:"right",  formatter:"money",}, 
-            {title:"คงเหลือตามหลักการ", field:"SP_Total_From_Priciple",  width:140, hozAlign:"right",}, 
-            {title:"คงเหลือจากเบิกจ่ายจริง", field:"SP_Total_From_Disburse", width:160, hozAlign:"right", formatter:"money", }, 
-            {title:"ผลการดำเนินงาน", field:"Performance_Result", width:160, hozAlign:"left",}, 
-            {title:"ปัญหาและอุปสรรค", field:"Problem", width:160, hozAlign:"left",}, 
-            {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", width:160, hozAlign:"left",}, 
-            {title:"หมายเหตุ", field:"Annotation", width:160, hozAlign:"left",}, 
-            {title:"สถานะโครงการ", field:"SP_Status", editorParams:{values:{"ยังไม่ดำเนินการ":"ยังไม่ดำเนินการ", "กำลังดำเนินการ":"กำลังดำเนินการ", "เสร็จสิ้น":"เสร็จสิ้น" },},  width:160,
-                formatter:function(cell){
-                    var value = cell.getValue();
-                    var color;
-                        if(value == "ยังไม่ดำเนินการ"){
-                            color = '#EA3546'
-                            
-                        } else if(value == "กำลังดำเนินการ"){
-                            color = '#F9CE1D'
-                            
-                        } else if(value == "เสร็จสิ้น"){
-                            color = '#4CAF50'
-                        }
-                        return "<button style='color: white; background-color:"+ color +"; display: inline-block; border: none; outline: none; text-align: center; text-decoration: none; padding: .4em .4em .55em; border-radius: .4em;'>" + value + "</button>"
+            {
+            title: "ชื่อโครงการ",
+            field: "Name",
+            width: 250,
+            hozAlign: "left",
+            formatter: "textarea",
+            frozen: true,
+            },
+            {
+            title: "ประเด็นยุทธศาสตร์",
+            field: "Strategic_Issue_ID",
+            width: 100,
+            editor: "input",
+            hozAlign: "right",
+            },
+            {
+            title: "ยุทธศาสตร์",
+            field: "Strategic_ID",
+            width: 100,
+            editor: "input",
+            hozAlign: "right",
+            },
+            {
+            title: "กลยุทธ์",
+            field: "Strategy_ID",
+            width: 100,
+            editor: "input",
+            hozAlign: "right",
+            },
+            { title: "ผู้รับผิดชอบ", field: "Owner", width: 140, hozAlign: "left" },
+            {
+            title: "ตัวชี้วัด",
+            field: "Indicator",
+            width: 140,
+            hozAlign: "left",
+            },
+            {
+            title: "ค่าเป้าหมาย",
+            field: "Target_Value",
+            width: 140,
+            hozAlign: "left",
+            },
+            {
+            title: "งบประมาณตามแผน",
+            field: "Budget",
+            width: 140,
+            hozAlign: "right",
+            formatter: "money",
+            },
+            {
+            title: "โอนเข้า",
+            field: "Income",
+            width: 140,
+            hozAlign: "right",
+            formatter: "money",
+            },
+            {
+            title: "โอนออก",
+            field: "Outcome",
+            width: 140,
+            hozAlign: "right",
+            formatter: "money",
+            },
+            {
+            title: "คงเหลือตามแผน",
+            field: "Total_Amount",
+            width: 140,
+            hozAlign: "right",
+            formatter: "money",
+            },
+            {
+            title: "ขออนุมัติใช้",
+            field: "Approve_Use",
+            width: 140,
+            hozAlign: "right",
+            formatter: "money",
+            },
+            {
+            title: "เบิกจ่าย",
+            field: "Disburse",
+            width: 140,
+            hozAlign: "right",
+            formatter: "money",
+            },
+            {
+            title: "คงเหลือตามหลักการ",
+            field: "Total_From_Priciple",
+            width: 140,
+            hozAlign: "right",
+            },
+            {
+            title: "คงเหลือจากเบิกจ่ายจริง",
+            field: "Total_From_Disburse",
+            width: 160,
+            hozAlign: "right",
+            formatter: "money",
+            },
+            {
+            title: "ผลการดำเนินงาน",
+            field: "Performance_Result",
+            width: 160,
+            hozAlign: "left",
+            },
+            {
+            title: "ปัญหาและอุปสรรค",
+            field: "Problem",
+            width: 160,
+            hozAlign: "left",
+            },
+            {
+            title: "รายละเอียดผลการดำเนินงาน",
+            field: "Detail_Result",
+            width: 160,
+            hozAlign: "left",
+            },
+            {
+            title: "หมายเหตุ",
+            field: "Annotation",
+            width: 160,
+            hozAlign: "left",
+            },
+            {
+            title: "สถานะโครงการ",
+            field: "Status",
+            editorParams: {
+                values: {
+                ยังไม่ดำเนินการ: "ยังไม่ดำเนินการ",
+                กำลังดำเนินการ: "กำลังดำเนินการ",
+                เสร็จสิ้น: "เสร็จสิ้น",
+                },
+            },
+            width: 160,
+            formatter: function (cell) {
+                var value = cell.getValue();
+                var color;
+                if (value == "ยังไม่ดำเนินการ") {
+                color = "#EA3546";
+                } else if (value == "กำลังดำเนินการ") {
+                color = "#F9CE1D";
+                } else if (value == "เสร็จสิ้น") {
+                color = "#4CAF50";
                 }
+                return (
+                "<button style='color: white; background-color:" +
+                color +
+                "; display: inline-block; border: none; outline: none; text-align: center; text-decoration: none; padding: .4em .4em .55em; border-radius: .4em;'>" +
+                value +
+                "</button>"
+                );
+            },
             },
         ],
-    });
+        });
 
-    // export excel
-    document.getElementById("download-xlsx").addEventListener("click", function(){
-        this.tabulator.download("xlsx", "data.xlsx");
-    });
-
+        // export excel
+        document
+        .getElementById("download-xlsx")
+        .addEventListener("click", function () {
+            table.download("csv", "data.csv");
+        });
 
     },
-    template: '<div ref="table"></div>', //create table holder element
+
+    template: '<div id="table" class="sty-table"></div>', //create table holder element
+
+    methods: {
+        getProjects() {
+            MainprojectDataservice.getAll()
+                .then((response) => {
+                var totalMP_Budget = 0;
+                var totalMP_Total_Amount = 0;
+                var totalMP_Total_From_Disburse = 0;
+                var totalMP_Total_From_Priciple = 0;
+
+                var statusDone = 0;
+                var statusProcessing = 0;
+                var statusNo = 0;
+
+                for (var i in response.data) {
+                    if(response.data[i].D_ID == this.user.depart_id){
+                        totalMP_Budget += response.data[i].MP_Budget;
+                        totalMP_Total_Amount += response.data[i].MP_Total_Amount;
+                        totalMP_Total_From_Disburse +=
+                        response.data[i].MP_Total_From_Disburse;
+                        totalMP_Total_From_Priciple +=
+                        response.data[i].MP_Total_From_Priciple;
+
+                        var childrens = [];
+                        
+                        for (var j in response.data[i].subprojects) {
+                            if (response.data[i].subprojects[j].SP_Status == "เสร็จสิ้น") {
+                                statusDone += 1;
+                            } else if (
+                                response.data[i].subprojects[j].SP_Status == "กำลังดำเนินการ"
+                            ) {
+                                statusProcessing += 1;
+                            } else if (
+                                response.data[i].subprojects[j].SP_Status == "ยังไม่ดำเนินการ"
+                            ) {
+                                statusNo += 1;
+                            }
+
+                            childrens.push({
+                                Name: response.data[i].subprojects[j].SP_Name,
+                                Owner: response.data[i].subprojects[j].SP_Owner,
+                                Indicator: response.data[i].subprojects[j].SP_Indicator,
+                                Target_Value: response.data[i].subprojects[j].SP_Target_Value,
+                                Budget: response.data[i].subprojects[j].SP_Budget,
+                                Income: response.data[i].subprojects[j].SP_Income,
+                                Outcome: response.data[i].subprojects[j].SP_Outcome,
+                                Total_Amount: response.data[i].subprojects[j].SP_Total_Amount,
+                                Approve_Use: response.data[i].subprojects[j].SP_Approve_Use,
+                                Disburse: response.data[i].subprojects[j].SP_Disburse,
+                                Total_From_Priciple:
+                                response.data[i].subprojects[j].SP_Total_From_Priciple,
+                                Total_From_Disburse:
+                                response.data[i].subprojects[j].SP_Total_From_Disburse,
+                                Performance_Result:
+                                response.data[i].subprojects[j].Performance_Result,
+                                Problem: response.data[i].subprojects[j].Problem,
+                                Detail_Result: response.data[i].subprojects[j].Detail_Result,
+                                Annotation: response.data[i].subprojects[j].Annotation,
+                                Status: response.data[i].subprojects[j].SP_Status,
+                            });
+                        }
+
+                        this.tableData.push({
+                            Name: response.data[i].MP_Name,
+                            Strategic_Issue_ID: response.data[i].Strategic_Issue_ID,
+                            Strategic_ID: response.data[i].Strategic_ID,
+                            Strategy_ID: response.data[i].Strategy_ID,
+                            Owner: response.data[i].MP_Owner,
+                            Indicator: response.data[i].MP_Indicator,
+                            Target_Value: response.data[i].MP_Target_Value,
+                            Budget: response.data[i].MP_Budget,
+                            Income: response.data[i].MP_Income,
+                            Outcome: response.data[i].MP_Outcome,
+                            Total_Amount: response.data[i].MP_Total_Amount,
+                            Approve_Use: response.data[i].MP_Approve_Use,
+                            Disburse: response.data[i].MP_Disburse,
+                            Total_From_Priciple: response.data[i].MP_Total_From_Priciple,
+                            Total_From_Disburse: response.data[i].MP_Total_From_Disburse,
+                            Performance_Result: response.data[i].Performance_Result,
+                            Problem: response.data[i].Problem,
+                            Detail_Result: response.data[i].Detail_Result,
+                            Annotation: response.data[i].Annotation,
+                            Status: response.data[i].MP_Status,
+                            D_ID: response.data[i].D_ID,
+                            _children: childrens,
+                        });
     
+                    }
+                    }
+
+                    this.dataBudget.push({
+                        name: 'งบประมาณ',
+                        data: [
+                                totalMP_Budget,totalMP_Total_Amount, totalMP_Total_From_Priciple, totalMP_Total_From_Disburse,
+                              ],
+                    })
+
+                    this.dataProject = [statusDone, statusProcessing, statusNo]
+
+                    table.setData(this.tableData);
+                
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+            },
+    },
+        
 }
 
 </script>

@@ -374,8 +374,10 @@ export default {
                     
                     if(dapart_name2 == Department[i].D_Name){
                         listAddMP[i].D_ID = Department[i].D_ID
+                        console.log(listAddMP[i].D_ID)
                     }
                 }
+
                 listAddMP[j].MP_Create_User_ID = this.user.userid
 
                 //Record history
@@ -400,10 +402,8 @@ export default {
               var dapart_name = listEditMP[i].D_Name;
 
               for(i in Department){
-                  
                   if(dapart_name == Department[i].D_Name){
                       listEditMP[i].D_ID = Department[i].D_ID
-                      
                   }
               }
           
@@ -427,7 +427,7 @@ export default {
               }
             }
 
-            //window.location.reload()
+            window.location.reload()
             listEditMP, listAddMP, listHistory = [];
           }
 

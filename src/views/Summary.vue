@@ -1,6 +1,5 @@
 <template>
   <div id="summary">
-    <div></div>
     <b-form inline class="mb-2 mr-1 my-3">
       <label class="mr-2 ml-0 p-0" for="Strategic_Issue"
         >ประเด็นยุทธศาสตร์</label
@@ -18,28 +17,28 @@
       </div>
       <b-container fluid>
         <b-row class="mt-1 d-flex justify-content-betweet">
-          <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+          <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">งบประมาณทั้งหมด (ตามแผน)</p>
             <p class="mb-0 text-center font24 mt-2">
               <strong>{{ AllamountData.totalMP_Budget }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">บาท</p>
           </b-col>
-          <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+          <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">งบประมาณคงเหลือตามแผน</p>
             <p class="mb-0 text-center font24 mt-2">
               <strong>{{ AllamountData.totalMP_Total_Amount }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">บาท</p>
           </b-col>
-          <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+          <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">งบประมาณคงเหลือจากหลักการ</p>
             <p class="mb-0 text-center font24 mt-2">
               <strong>{{ AllamountData.totalMP_Total_From_Priciple }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">บาท</p>
           </b-col>
-          <b-col class="p-2 mb-1 mr-2 border border-dark rounded">
+          <b-col class="p-2 mb-1 mr-2 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">งบประมาณคงเหลือจากเบิกจ่ายจริง</p>
             <p class="mb-0 text-center font24 mt-2">
               <strong>{{ AllamountData.totalMP_Total_From_Disburse }}</strong>
@@ -56,28 +55,28 @@
       </div>
       <b-container fluid>
         <b-row class="mt-1 d-flex justify-content-betweet">
-          <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+          <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">จำนวนโครงการทั้งหมด</p>
             <p class="mb-0 text-center font24 mt-2">
               <strong>{{ AllstatusData.All }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">โครงการ</p>
           </b-col>
-          <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+          <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">โครงการที่ดำเนินการเสร็จสิ้น</p>
             <p class="mb-0 text-center font24 mt-2">
               <strong>{{ AllstatusData.Done }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">โครงการ</p>
           </b-col>
-          <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+          <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">โครงการที่กำลังดำเนินการ</p>
             <p class="mb-0 text-center font24 mt-2">
               <strong>{{ AllstatusData.Processing }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">โครงการ</p>
           </b-col>
-          <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+          <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">โครงการที่ยังไม่ดำเนินการ</p>
             <p class="mb-0 text-center font24 mt-2">
               <strong>{{ AllstatusData.No }}</strong>
@@ -91,7 +90,7 @@
     <!-- budget -->
     <div class="mt-3">
       <div class="mt-5 mx-2">
-        <b-row class="mr-0 shadow-sm p-3 mb-1 bg-white rounded">
+        <b-row class="mr-0 shadow-sm p-3 mb-1 bg-white rounded shadow bg-white">
           <b-col lg="6" md="12" sm="12" class="mt-lg-0 mt-md-3 mt-sm-3">
             <h6 class="mb-3">
               <strong>สรุปงบประมาณของกองบริหารงานคณะ</strong>
@@ -115,7 +114,7 @@
         </b-row>
         <b-row
           align-h="center"
-          class="mt-3 mr-0 shadow-sm p-3 mb-1 bg-white rounded"
+          class="mt-3 mr-0 shadow-sm p-3 mb-1 bg-white rounded shadow bg-white"
         >
           <b-col lg="6" md="12" sm="12" class="mt-lg-0 mt-md-3 mt-sm-3">
             <h6 class="mb-3 p-3">
@@ -147,11 +146,11 @@
         </b-row>
       </div>
     </div>
-    <div class="mt-5 mb-2 shadow p-3 mb-1 bg-white rounded">
-      <h6>รายละเอียดโครงการของ</h6>
+    <div class="mt-5 shadow p-3 mb-1 bg-white rounded">
+      <h6 class="ml-0 mt-2 mb-0 p-0"><strong>รายละเอียดโครงการของ</strong></h6>
       <div class="mt-3">
         <b-tabs content-class="mt-5 dark" fill>
-            <b-tab title="กองบริหารงานคณะ" @click="setFilterDataTable(Department[0].D_ID)">
+            <b-tab title="กองบริหารงานคณะ" @click="setFilterDataTable(seletedCenterD_IDNow)">
             <div>
               <b-tabs content-class="mt-3" fill>
                 <b-tab
@@ -172,7 +171,7 @@
                       <b-container fluid>
                         <b-row class="mt-1 d-flex justify-content-betweet">
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               งบประมาณทั้งหมด (ตามแผน)
@@ -187,7 +186,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               งบประมาณคงเหลือตามแผน
@@ -202,7 +201,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               งบประมาณคงเหลือจากหลักการ
@@ -218,7 +217,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mb-1 mr-2 border border-dark rounded"
+                            class="p-2 mb-1 mr-2 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               งบประมาณคงเหลือจากเบิกจ่ายจริง
@@ -243,7 +242,7 @@
                       <b-container fluid>
                         <b-row class="mt-1 d-flex justify-content-betweet">
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">จำนวนโครงการทั้งหมด</p>
                             <p class="mb-0 text-center font24 mt-2">
@@ -254,7 +253,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               โครงการที่ดำเนินการเสร็จสิ้น
@@ -267,7 +266,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               โครงการที่กำลังดำเนินการ
@@ -282,7 +281,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               โครงการที่ยังไม่ดำเนินการ
@@ -304,7 +303,7 @@
             </div>
           </b-tab>
 
-          <b-tab title="สาขาวิชา" @click.prevent="setFilterDataTable(BranchDepartment[0].D_ID)">
+          <b-tab title="สาขาวิชา" @click.prevent="setFilterDataTable(seletedBranchD_IDNow)">
             <div class="mt-0">
               <b-tabs content-class="mt-3" fill>
                 <b-tab
@@ -325,7 +324,7 @@
                       <b-container fluid>
                         <b-row class="mt-1 d-flex justify-content-betweet">
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               งบประมาณทั้งหมด (ตามแผน)
@@ -340,7 +339,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               งบประมาณคงเหลือตามแผน
@@ -355,7 +354,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               งบประมาณคงเหลือจากหลักการ
@@ -371,7 +370,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mb-1 mr-2 border border-dark rounded"
+                            class="p-2 mb-1 mr-2 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               งบประมาณคงเหลือจากเบิกจ่ายจริง
@@ -396,7 +395,7 @@
                       <b-container fluid>
                         <b-row class="mt-1 d-flex justify-content-betweet">
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">จำนวนโครงการทั้งหมด</p>
                             <p class="mb-0 text-center font24 mt-2">
@@ -407,7 +406,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               โครงการที่ดำเนินการเสร็จสิ้น
@@ -420,7 +419,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               โครงการที่กำลังดำเนินการ
@@ -435,7 +434,7 @@
                             </p>
                           </b-col>
                           <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded"
+                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
                           >
                             <p class="mb-0 pl-1 font14">
                               โครงการที่ยังไม่ดำเนินการ
@@ -459,11 +458,9 @@
           </b-tab> 
           <div class="mt-3">
                       <b-nav class="mt-2">
-                        <b-navbar-nav>
-                          <b-navbar-brand class=""
-                            >รายละเอียดของโครงการ</b-navbar-brand
-                          >
-                        </b-navbar-nav>
+                        <!-- <b-navbar-nav>
+                          <h5>รายละเอียดของโครงการ</h5>
+                        </b-navbar-nav> -->
                         <b-navbar-nav class="ml-auto">
                           <b-button
                             class="ml-auto px-3 my-2"
@@ -501,7 +498,8 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
-
+      seletedCenterD_IDNow: 0,
+      seletedBranchD_IDNow: -1,
       tableData: [],
 
       BranchDepartment: [],
@@ -570,6 +568,7 @@ export default {
         ],
         colors: ["#7ebc59", "#F1B24A", "#E62739"],
       },
+      
       dataStatusProjectCenter: [], // series data
       dataStatusProjectBranch: [], // series data
 
@@ -969,7 +968,26 @@ export default {
     },
 
     setFilterDataTable(dapartmentID) {
-      table.setFilter("D_ID", "=", dapartmentID);
+      if(dapartmentID == -1) {
+        table.setFilter("D_ID", "=", this.BranchDepartment[0].D_ID);
+      }
+      else if(dapartmentID == 0) {
+        table.setFilter("D_ID", "=", this.Department[0].D_ID);
+      } else {
+        table.setFilter("D_ID", "=", dapartmentID);
+        for(var i in this.Department) {
+          if(this.Department[i].D_ID == dapartmentID) {
+            this.seletedCenterD_IDNow = dapartmentID
+          }
+        }
+        for(var j in this.BranchDepartment) {
+          if(this.BranchDepartment[j].D_ID == dapartmentID) {
+            this.seletedBranchD_IDNow = dapartmentID
+          }
+        }
+        
+      }
+      
     },
 
 

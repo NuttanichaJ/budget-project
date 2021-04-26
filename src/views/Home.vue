@@ -3,60 +3,28 @@
       <div id="contents">
           <div class="header">
             <!-- <h1>หน้าหลัก ฝ่าย/สาขา... {{userID.permission}} </h1> -->
-            <h3>หน้าหลัก  {{ user.depart_name}}</h3>
+            <h3>หน้าหลัก  {{user.depart_name}}</h3>
           </div>
       </div>
 
-      <!-- <div class="mt-4">
-        <b-row align-h="center">
-          
-            <b-col col lg="5" class="mr-3 shadow p-3 mb-1 bg-white rounded">
-              <h5>งบประมาณของโครงการทั้งหมด</h5>
-              <apexchart width="100%" type="bar" :options="chartBudgetOptions" :series="dataBudget"></apexchart>
-            </b-col>
-
-            <b-col lg="5" class="ml-3 shadow p-3 mb-1 bg-white rounded">
-              <h5>จำนวนโครงการ</h5>
-              <apexchart width="90%" type="donut" :options="projectOption" :series="dataProject"></apexchart>
-            </b-col>
-        </b-row>
-      </div> -->
-
       <div class="mt-5">
-        <b-card-group deck>
-          <b-card>
-            <b-card-text>
-              โครงการหลัก1
-            </b-card-text>
-            <template #footer>
-              <small class="text-muted">แก้ไขล่าสุด</small>
+        <b-card-group class="justify-content-center" deck>
+          <b-card
+            class="mr-2 mb-1 shadow bg-white rounded" 
+            v-for="project in newlastEdit" 
+            :key="project.MP_ID"
+            :title="project.MP_Name"
+            tag="article"
+            style="max-width: 20rem;"
+          >
+            <template #header>
+               <h6 class="mb-4"></h6>
             </template>
-          </b-card>
-          
-          <b-card>
-            <b-card-text>
-              โครงการหลัก2
-            </b-card-text>
-            <template #footer>
-              <small class="text-muted">แก้ไขล่าสุด</small>
-            </template>
-          </b-card>
 
-          <b-card>
-            <b-card-text>
-              โครงการหลัก3 เ้่า่กดาว่รไำพบะี่งเวทดกห่ิพกนพยะัวีน่ใมืิทอแิกหอเัีำรพนะยัวีา
-            </b-card-text>
+            <b-button v-if="user.permission == 'ส่วนกลาง'" :to="`managesubprojectcenter/${project.MP_ID}`" variant="primary">แก้ไขโครงการย่อย</b-button>
+            <b-button v-if="user.permission == 'สาขาวิชา'" :to="`managesubproject/${project.MP_ID}`" variant="primary">แก้ไขโครงการย่อย</b-button>
             <template #footer>
-              <small class="text-muted">แก้ไขล่าสุด</small>
-            </template>
-          </b-card>
-
-          <b-card>
-            <b-card-text>
-              โครงการหลัก4
-            </b-card-text>
-            <template #footer>
-              <small class="text-muted">แก้ไขล่าสุด</small>
+                      <small class="text-muted">แก้ไขล่าสุด {{project.lastEditDate}}</small>
             </template>
           </b-card>
         </b-card-group>
@@ -68,70 +36,100 @@
 </template>
 
 <script>
-// import Widget from '../components/Widget.vue';
-// import {chartData} from './chartdata';
+import MainprojectDataservice from "../services/mainproject.dataservice.js";
+
 export default {
   name: 'Home',
-  components: {
-    
-  },
   data() {
       return {
         user : this.$store.state.user,
+        lastEdit: [],
+        newlastEdit: [],
+        DURATION_IN_SECONDS: {
+          epochs: ['year', 'month', 'day', 'hour', 'minute'],
+          year: 31536000,
+          month: 2592000,
+          day: 86400,
+          hour: 3600,
+          minute: 60
+        },
+      }
+    },
+  
+  mounted(){  
+    this.retrieveMainProject(this.user.depart_id);
+  },
+  
 
-      // cd: chartData,
-        selectedYear: '2564',
-        // data dashbord
-        chartBudgetOptions: {
-          plotOptions: {
-            bar: {
-              columnWidth: '30%',
-            }
-          },
-          dataLabels: {
-            enabled: false
-            },
-          xaxis: {
-            categories: [
-              ['งบประมาณทั้งหมด','(ตามแผน)'],
-              ['ยอดเงินคงเหลือ', '(ตามแผน)'],
-              ['ยอดเงินคงเหลือ','(หลักการ)'], 
-              ['ยอดเงินคงเหลือ', '(เบิกจ่ายจริง)']
-            ]
-          },
-          yaxis: {
-            title: {
-              text: "จำนวนเงิน",
-              style: {
-                fontSize: '14px'
+  methods: {
+    retrieveMainProject(depart_id) {
+      MainprojectDataservice.getAll()
+            .then(response => {
+              for(var i in response.data) {
+                  if(depart_id == response.data[i].D_ID) {
+                    //var time = this.timeSince(response.data[i].updatedAt)
+                    //response.data[i].lastEditDate = time
+                    //this.time_ago(response.data[i].updatedAt)
+                    
+                    var date = new Date(response.data[i].updatedAt);
+                    var lastdate = this.timeSince(date.getTime())
+                    response.data[i].lastEditDate = lastdate
+                    this.lastEdit.push(response.data[i]);
+                    this.lastEdit.sort((a, b) => (a.updatedAt < b.updatedAt) ? 1 : -1)
+                }
+              }
+              this.lastEdit.splice(4, this.lastEdit.length)
+              this.newlastEdit = this.lastEdit
+            })
+            .catch(e => {
+              console.log(e);
+            });
+    },
+
+    timeSince(date) {
+      if (typeof date !== 'object') {
+        date = new Date(date);
+      }
+
+      var seconds = Math.floor((new Date() - date) / 1000);
+      var intervalType;
+
+      var interval = Math.floor(seconds / 31536000);
+      if (interval >= 1) {
+        intervalType = 'year';
+      } else {
+        interval = Math.floor(seconds / 2592000);
+        if (interval >= 1) {
+          intervalType = 'month';
+        } else {
+          interval = Math.floor(seconds / 86400);
+          if (interval >= 1) {
+            intervalType = 'day';
+          } else {
+            interval = Math.floor(seconds / 3600);
+            if (interval >= 1) {
+              intervalType = "hour";
+            } else {
+              interval = Math.floor(seconds / 60);
+              if (interval >= 1) {
+                intervalType = "minute";
+              } else {
+                interval = seconds;
+                intervalType = "second";
               }
             }
           }
-        },
-        
-        // series data
-        dataBudget:[{
-          name: 'งบประมาณ',
-          data: [907900, 907900, 846615, 892023],
-        }],
-
-        // number of project
-        projectOption: {
-          legend: {
-            position: 'bottom'
-          },
-          plotOptions: {
-            pie: {
-              size: '65%',
-            }
-          },
-          labels: ['โครงการย่อยที่เสร็จสิ้น', 'โครงการย่อยที่กำลังดำเนินการ', 'โครงการที่ยังไม่ได้ดำเนินการ',],
-          colors: ['#4CAF50','#F9CE1D', '#EA3546',],
-        }, 
-        dataProject: [ 21, 32, 11, ],  // series data
         }
-      
-    },
+      }
+
+      if (interval > 1 || interval === 0) {
+        intervalType += 's';
+      }
+
+      return interval + ' ' + intervalType;
+    }
+
+  },
   
 }
 </script>
