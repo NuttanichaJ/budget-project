@@ -46,7 +46,6 @@ export default {
     data() {
         return {
             // client_id google api
-            
             params: {
                 client_id:'739770244137-b1d92li2tcs044jsj49ck7qmvbnchr9c.apps.googleusercontent.com',
             },

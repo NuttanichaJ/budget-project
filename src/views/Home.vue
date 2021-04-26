@@ -26,7 +26,7 @@
             <template #footer>
                       <small class="text-muted">แก้ไขล่าสุด {{project.lastEditDate}}</small>
             </template>
-          </b-card>
+          </b-card> -->
         </b-card-group>
       </div>
 
