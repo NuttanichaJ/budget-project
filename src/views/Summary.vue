@@ -1,16 +1,5 @@
 <template>
   <div id="summary">
-    <b-form inline class="mb-2 mr-1 my-3">
-      <label class="mr-2 ml-0 p-0" for="Strategic_Issue"
-        >ประเด็นยุทธศาสตร์</label
-      >
-      <b-form-select
-        v-model="selectedStrategic"
-        :options="optionsStrategic"
-        size="sm"
-        id="Strategic_Issue"
-      ></b-form-select>
-    </b-form>
     <div>
       <div>
         <h5 class="mb-0">งบประมาณ</h5>
@@ -114,8 +103,7 @@
         </b-row>
         <b-row
           align-h="center"
-          class="mt-3 mr-0 shadow-sm p-3 mb-1 bg-white rounded shadow bg-white"
-        >
+          class="mt-3 mr-0 shadow-sm p-3 mb-1 bg-white rounded shadow bg-white">
           <b-col lg="6" md="12" sm="12" class="mt-lg-0 mt-md-3 mt-sm-3">
             <h6 class="mb-3 p-3">
               <strong>สรุปจำนวนโครงการของกองบริหารงานคณะ</strong>
@@ -147,9 +135,9 @@
       </div>
     </div>
     <div class="mt-5 shadow p-3 mb-1 bg-white rounded">
-      <h6 class="ml-0 mt-2 mb-0 p-0"><strong>รายละเอียดโครงการของ</strong></h6>
+      <h6 class="ml-0 mt-2 mb-0 p-0 font18"><strong>รายละเอียดโครงการของ</strong></h6>
       <div class="mt-3">
-        <b-tabs content-class="mt-5 dark" fill>
+        <b-tabs card content-class="mt-3 text-dark" active-nav-item-class="font-weight-bold text-dark" fill>
             <b-tab title="กองบริหารงานคณะ" @click="setFilterDataTable(seletedCenterD_IDNow)">
             <div>
               <b-tabs content-class="mt-3" fill>
@@ -304,8 +292,8 @@
           </b-tab>
 
           <b-tab title="สาขาวิชา" @click.prevent="setFilterDataTable(seletedBranchD_IDNow)">
-            <div class="mt-0">
-              <b-tabs content-class="mt-3" fill>
+            <div >
+              <b-tabs content-class="mt-3 " fill>
                 <b-tab
                   v-for="item in BranchDepartment"
                   :key="item.D_ID"
@@ -394,57 +382,25 @@
                       </div>
                       <b-container fluid>
                         <b-row class="mt-1 d-flex justify-content-betweet">
-                          <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
-                          >
+                          <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                             <p class="mb-0 pl-1 font14">จำนวนโครงการทั้งหมด</p>
-                            <p class="mb-0 text-center font24 mt-2">
-                              <strong>{{ statusData[item.D_ID].All }}</strong>
-                            </p>
-                            <p class="text-muted mt-0 mb-0 float-right font14">
-                              โครงการ
-                            </p>
+                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].All }}</strong></p>
+                            <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                           </b-col>
-                          <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
-                          >
-                            <p class="mb-0 pl-1 font14">
-                              โครงการที่ดำเนินการเสร็จสิ้น
-                            </p>
-                            <p class="mb-0 text-center font24 mt-2">
-                              <strong>{{ statusData[item.D_ID].Done }}</strong>
-                            </p>
-                            <p class="text-muted mt-0 mb-0 float-right font14">
-                              โครงการ
-                            </p>
+                          <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
+                            <p class="mb-0 pl-1 font14">โครงการที่ดำเนินการเสร็จสิ้น</p>
+                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].Done }}</strong></p>
+                            <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                           </b-col>
-                          <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
-                          >
-                            <p class="mb-0 pl-1 font14">
-                              โครงการที่กำลังดำเนินการ
-                            </p>
-                            <p class="mb-0 text-center font24 mt-2">
-                              <strong>{{
-                                statusData[item.D_ID].Processing
-                              }}</strong>
-                            </p>
-                            <p class="text-muted mt-0 mb-0 float-right font14">
-                              โครงการ
-                            </p>
+                          <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
+                            <p class="mb-0 pl-1 font14">โครงการที่กำลังดำเนินการ</p>
+                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].Processing }}</strong></p>
+                            <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                           </b-col>
-                          <b-col
-                            class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white"
-                          >
-                            <p class="mb-0 pl-1 font14">
-                              โครงการที่ยังไม่ดำเนินการ
-                            </p>
-                            <p class="mb-0 text-center font24 mt-2">
-                              <strong>{{ statusData[item.D_ID].No }}</strong>
-                            </p>
-                            <p class="text-muted mt-0 mb-0 float-right font14">
-                              โครงการ
-                            </p>
+                          <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
+                            <p class="mb-0 pl-1 font14"> โครงการที่ยังไม่ดำเนินการ</p>
+                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].No }}</strong></p>
+                            <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                           </b-col>
                         </b-row>
                       </b-container>
@@ -1047,8 +1003,8 @@ export default {
   margin: 30px;
 }
 
-.font16 {
-  font-size: 16px;
+.font14 {
+  font-size: 14px;
 }
 
 small {
@@ -1065,6 +1021,12 @@ li {
 }
 #detail:hover,
 #detail:active {
-  color: blue;
+  color:green;
 }
+.tabs{
+  color: black;
+  background-color: rgb(247 247 247);
+}
+
+
 </style>

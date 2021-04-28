@@ -1,6 +1,6 @@
 <template>
   <div id="manageproject">
-    <h1 class="ml-2">จัดการโครงการ</h1>
+    <h3 class="ml-2">จัดการโครงการ</h3>
     <b-nav class="mt-3">
       <b-navbar-nav class="mt-2 mb-2 mr-sm-2 mb-sm-4 ml-auto">
             <b-nav-form>

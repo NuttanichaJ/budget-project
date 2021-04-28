@@ -1,124 +1,91 @@
 <template>
     <div id="subsummary">
         <div class=" mt-3">
-            <b-tabs content-class="mt-5 dark" fill>
-                <b-tab title="กองบริหารงานคณะ">
+            <b-tabs content-class="mt-5 danger" fill>
+                <b-tab title="กองบริหารงานคณะ" title-item-class="nav nav-tabs nav-fill">
                     <div class="">
-                        <b-tabs content-class="mt-3" fill>
+                        <b-tabs content-class="mt-3 " title-item-class="font-weight-bold tabs" fill>
                             <b-tab 
                                 v-for="item in Department" 
                                 :key="item.D_ID" 
-                                :title="item.D_Name"
-                            >
-                            <div>
-                                        <div>
-                                            <h4 class="mb-3 ">{{item.D_Name}}</h4>
-                                        </div>
-
-                                        <div>
-                                            <div>
-                                            <h6 class="ml-0 mt-2 mb-0 p-0">สรุปงบประมาณ</h6>
-                                            </div>
-                                            <b-container fluid>
-                                                <b-row class="mt-1 d-flex justify-content-betweet" >
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">งบประมาณทั้งหมด (ตามแผน)</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Budget}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14" >บาท</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">งบประมาณคงเหลือตามแผน</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_Amount}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากหลักการ</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mb-1 mr-2 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากเบิกจ่ายจริง</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
-                                                    </b-col>
-                                                </b-row>
-                                            </b-container>
-                                        </div>
-                                        <div>
-                                            <div>
-                                            <h6 class="ml-0 mt-2 mb-0 p-0">จำนวนโครงการ</h6>
-                                            </div>
-                                            <b-container fluid>
-                                                <b-row class="mt-1 d-flex justify-content-betweet " >
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14 ">จำนวนโครงการทั้งหมด</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.All}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">โครงการที่ดำเนินการเสร็จสิ้น</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Done}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">โครงการที่กำลังดำเนินการ</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Processing}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">โครงการที่ยังไม่ดำเนินการ</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.No}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                                                    </b-col>
-                                                </b-row>
-                                            </b-container>
-                                        </div>
-                                        <div class="mt-3" >
-                                            <b-nav class="mt-2">
-                                                <b-navbar-nav>
-                                                    <b-navbar-brand class="">รายละเอียดของโครงการ</b-navbar-brand>
-                                                </b-navbar-nav>            
-                                                <b-navbar-nav class="ml-auto">
-                                                    <b-button class="ml-auto px-3 my-2" style="background-color: #1d6f42" id="download-xlsx">
-                                                    <font-awesome-icon :icon="['fas', 'file-excel']" class="mr-2" />พิมพ์</b-button>
-                                                </b-navbar-nav>
-                                            </b-nav>
-                                            <!-- <div id="table" class="sty-table shadow bg-white rounded"></div> -->
-                                        </div>
+                                :title="item.D_Name">
+                                <div>
+                                    <div>
+                                        <h4 class="mb-3 ">{{item.D_Name}}</h4>
                                     </div>
-                            </b-tab>
-                            <!-- <b-tab title="ฝ่ายแผนยุทธศาสตร์">
-                                <p>ฝ่ายแผนยุทธศาสตร์</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="ฝ่ายเหรัญญิก">
-                                <p>ฝ่ายเหรัญญิก</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="ฝ่ายวิชาการ">
-                                <p>ฝ่ายวิชาการ</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="ฝ่ายวิจัย" >
-                                <p>ฝ่ายวิจัย</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="ฝ่ายปฏิบัติการ">
-                                <p>ฝ่ายปฏิบัติการ</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="หน่วยวิเทศ">
-                                <p>หน่วยวิเทศ</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="หน่วยพัฒนานักศึกษา">
-                                <p>หน่วยพัฒนานักศึกษา</p>
 
-                                <SummaryBranch1 />
+                                    <div>
+                                        <div>
+                                            <h6 class="ml-0 mt-2 mb-0 p-0">สรุปงบประมาณ</h6>
+                                        </div>
+                                        <b-container fluid>
+                                            <b-row class="mt-1 d-flex justify-content-betweet" >
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">งบประมาณทั้งหมด (ตามแผน)</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Budget}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14" >บาท</p>
+                                                </b-col>
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">งบประมาณคงเหลือตามแผน</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_Amount}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
+                                                </b-col>
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากหลักการ</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
+                                                </b-col>
+                                                <b-col class="p-2 mb-1 mr-2 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากเบิกจ่ายจริง</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
+                                                </b-col>
+                                            </b-row>
+                                        </b-container>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <h6 class="ml-0 mt-2 mb-0 p-0">จำนวนโครงการ</h6>
+                                        </div>
+                                        <b-container fluid>
+                                            <b-row class="mt-1 d-flex justify-content-betweet " >
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14 ">จำนวนโครงการทั้งหมด</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.All}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
+                                                </b-col>
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">โครงการที่ดำเนินการเสร็จสิ้น</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Done}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
+                                                </b-col>
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">โครงการที่กำลังดำเนินการ</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Processing}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
+                                                </b-col>
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">โครงการที่ยังไม่ดำเนินการ</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.No}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
+                                                </b-col>
+                                            </b-row>
+                                        </b-container>
+                                    </div>
+                                    <div class="mt-3" >
+                                        <b-nav class="mt-2">
+                                            <b-navbar-nav>
+                                                <b-navbar-brand class="">รายละเอียดของโครงการ</b-navbar-brand>
+                                            </b-navbar-nav>
+                                            <b-navbar-nav class="ml-auto">
+                                                <b-button class="ml-auto px-3 my-2" style="background-color: #1d6f42" id="download-xlsx">
+                                                <font-awesome-icon :icon="['fas', 'file-excel']" class="mr-2" />พิมพ์</b-button>
+                                            </b-navbar-nav>
+                                        </b-nav>
+                                                <!-- <div id="table" class="sty-table shadow bg-white rounded"></div> -->
+                                    </div>
+                                </div>
                             </b-tab>
-
-                                <SummaryBranch />
-                            </b-tab> -->
                         </b-tabs>
                     </div>
                 </b-tab>
@@ -129,151 +96,85 @@
                             <b-tab 
                                 v-for="item in BranchDepartment" 
                                 :key="item.D_ID" 
-                                :title="item.D_Name"
-                            >
+                                :title="item.D_Name">
                             <!-- :click="getAllProjects(item.D_ID)" -->
+                                <div>
+                                    <div>
+                                        <h4 class="mb-3 ">{{item.D_Name}}</h4>
+                                    </div>
+
                                     <div>
                                         <div>
-                                            <h4 class="mb-3 ">{{item.D_Name}}</h4>
-                                        </div>
-
-                                        <div>
-                                            <div>
                                             <h6 class="ml-0 mt-2 mb-0 p-0">สรุปงบประมาณ</h6>
-                                            </div>
-                                            <b-container fluid>
-                                                <b-row class="mt-1 d-flex justify-content-betweet" >
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">งบประมาณทั้งหมด (ตามแผน)</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Budget}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14" >บาท</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">งบประมาณคงเหลือตามแผน</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_Amount}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากหลักการ</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mb-1 mr-2 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากเบิกจ่ายจริง</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
-                                                    </b-col>
-                                                </b-row>
-                                            </b-container>
                                         </div>
-                                        <div>
-                                            <div>
-                                            <h6 class="ml-0 mt-2 mb-0 p-0">จำนวนโครงการ</h6>
-                                            </div>
-                                            <b-container fluid>
-                                                <b-row class="mt-1 d-flex justify-content-betweet " >
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14 ">จำนวนโครงการทั้งหมด</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.All}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">โครงการที่ดำเนินการเสร็จสิ้น</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Done}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">โครงการที่กำลังดำเนินการ</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Processing}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                                                    </b-col>
-                                                    <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
-                                                        <p class="mb-0 pl-1 font14">โครงการที่ยังไม่ดำเนินการ</p>
-                                                        <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.No}}</strong></p>
-                                                        <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
-                                                    </b-col>
-                                                </b-row>
-                                            </b-container>
-                                        </div>
-                                        <div class="mt-3" >
-                                            <b-nav class="mt-2">
-                                                <b-navbar-nav>
-                                                    <b-navbar-brand class="">รายละเอียดของโครงการ</b-navbar-brand>
-                                                </b-navbar-nav>            
-                                                <b-navbar-nav class="ml-auto">
-                                                    <b-button class="ml-auto px-3 my-2" style="background-color: #1d6f42" id="download-xlsx">
-                                                    <font-awesome-icon :icon="['fas', 'file-excel']" class="mr-2" />พิมพ์</b-button>
-                                                </b-navbar-nav>
-                                            </b-nav>
-                                            <!-- <div id="table" class="sty-table shadow bg-white rounded"></div> -->
-                                        </div>
+                                        <b-container fluid>
+                                            <b-row class="mt-1 d-flex justify-content-betweet" >
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">งบประมาณทั้งหมด (ตามแผน)</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Budget}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14" >บาท</p>
+                                                </b-col>
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">งบประมาณคงเหลือตามแผน</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_Amount}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
+                                                </b-col>
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากหลักการ</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
+                                                </b-col>
+                                                <b-col class="p-2 mb-1 mr-2 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากเบิกจ่ายจริง</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
+                                                </b-col>
+                                            </b-row>
+                                        </b-container>
                                     </div>
+                                    <div>
+                                        <div>
+                                            <h6 class="ml-0 mt-2 mb-0 p-0">จำนวนโครงการ</h6>
+                                        </div>
+                                        <b-container fluid>
+                                            <b-row class="mt-1 d-flex justify-content-betweet " >
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14 ">จำนวนโครงการทั้งหมด</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.All}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
+                                                </b-col>
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">โครงการที่ดำเนินการเสร็จสิ้น</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Done}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
+                                                </b-col>
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">โครงการที่กำลังดำเนินการ</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Processing}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
+                                                </b-col>
+                                                <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
+                                                    <p class="mb-0 pl-1 font14">โครงการที่ยังไม่ดำเนินการ</p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.No}}</strong></p>
+                                                    <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
+                                                </b-col>
+                                            </b-row>
+                                        </b-container>
+                                    </div>
+                                    <div class="mt-3" >
+                                        <b-nav class="mt-2">
+                                            <b-navbar-nav>
+                                                <b-navbar-brand class="">รายละเอียดของโครงการ</b-navbar-brand>
+                                            </b-navbar-nav>            
+                                            <b-navbar-nav class="ml-auto">
+                                                <b-button class="ml-auto px-3 my-2" style="background-color: #1d6f42" id="download-xlsx">
+                                                <font-awesome-icon :icon="['fas', 'file-excel']" class="mr-2" />พิมพ์</b-button>
+                                            </b-navbar-nav>
+                                        </b-nav>
+                                            <!-- <div id="table" class="sty-table shadow bg-white rounded"></div> -->
+                                    </div>
+                                </div>
                             </b-tab>
-
-                            <!-- <b-tab @click='alert()' title="วิศวกรรมโยธา">
-                                <p class="font16">วิศวกรรมโยธา</p>
-
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="วิศวกรรมไฟฟ้า">
-                                <p>วิศวกรรมไฟฟ้า</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="วิศวกรรมเกษตร">
-                                <p>วิศวกรรมเกษตร</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="วิศวกรรมอุตสาหการ">
-                                <p>วิศวกรรมอุตสาหการ</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="วิศวกรรมเครื่องกล">
-                                <p>วิศวกรรมเครื่องกล</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="วิศวกรรมสิ่งแวดล้อม">
-                                <p>วิศวกรรมสิ่งแวดล้อม</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="วิศวกรรมเคมี">
-                                <p>วิศวกรรมเคมี</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-                            <b-tab title="วิศวกรรมคออมพิวเตอร์" >
-                                <p>วิศวกรรมคออมพิวเตอร์</p>
-                                <SummaryBranch1 />
-                            </b-tab>
-
-   
-                            </b-tab>
-                            <b-tab title="วิศวกรรมไฟฟ้า">
-                                <p>วิศวกรรมไฟฟ้า</p>
-
-                            </b-tab>
-                            <b-tab title="วิศวกรรมเกษตร">
-                                <p>วิศวกรรมเกษตร</p>
-
-                            </b-tab>
-                            <b-tab title="วิศวกรรมอุตสาหการ">
-                                <p>วิศวกรรมอุตสาหการ</p>
-   
-                            </b-tab>
-                            <b-tab title="วิศวกรรมเครื่องกล">
-                                <p>วิศวกรรมเครื่องกล</p>
-    
-                            </b-tab>
-                            <b-tab title="วิศวกรรมสิ่งแวดล้อม">
-                                <p>วิศวกรรมสิ่งแวดล้อม</p>
-  
-                            </b-tab>
-                            <b-tab title="วิศวกรรมเคมี">
-                                <p>วิศวกรรมเคมี</p>
-
-                            </b-tab>
-                            <b-tab title="วิศวกรรมคออมพิวเตอร์" >
-                                <p>วิศวกรรมคออมพิวเตอร์</p>
-        
-                            </b-tab> -->
                         </b-tabs>
                     </div>
                 </b-tab>
@@ -492,5 +393,6 @@ export default {
 .font16{
     font-size: 16px;
 }
+
 
 </style>

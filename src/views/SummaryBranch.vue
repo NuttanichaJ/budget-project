@@ -1,7 +1,7 @@
 <template>
     <div id="subSummary">
         <div >
-            <h4 class="mb-3 " v-if="this.user.permission == 'สาขาวิชา'">{{ user.depart_name}}</h4>
+            <h3 class="mb-3 " v-if="this.user.permission == 'สาขาวิชา'">สรุปงบประมาณ {{ user.depart_name}}</h3>
             <h4 class="mb-3 " v-else ></h4>
         </div>
 
