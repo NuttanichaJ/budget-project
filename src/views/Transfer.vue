@@ -315,37 +315,6 @@ export default {
       return '<a class="btn btn-secondary" target="_self">ลบ</a>';
     };
 
-    var editCheck = function (cell) {
-      //cell - the cell component for the editable cell
-      //get row data
-      var data = cell.getRow().getData();
-
-      // console.log(data)
-      var Transfer_ID = data.Transfer_ID;
-      if (Transfer_ID != undefined) {
-        data.Action = "edit";
-        listEdit.push(data);
-
-        //Record history
-        var amount = data.Amount; //new value
-        var projectOutcome = data.ProjectOutcome; // get project name
-        var message = "";
-
-        message =
-          "โอนเงินออก: " +
-          projectOutcome +
-          " โอนเงินเข้า: " +
-          selectedProjectInName +
-          " จำนวน " +
-          amount;
-        listHistory.push({
-          Message: message,
-          Edited_SP_ID: cell.getRow().getData().SP_ID,
-        });
-      }
-      return listEdit;
-    };
-
     //instantiate Tabulator when element is mounted
     table = new Tabulator("#table", {
       data: this.tableData,
@@ -385,6 +354,36 @@ export default {
         }
       },
 
+      cellEdited:function(cell){
+        //cell - the cell component for the editable cell
+      //get row data
+      var data = cell.getRow().getData();
+
+      // console.log(data)
+      var Transfer_ID = data.Transfer_ID;
+      if (Transfer_ID != undefined) {
+        data.Action = "edit";
+        listEdit.push(data);
+
+        //Record history
+        var amount = data.Amount; //new value
+        var projectOutcome = data.ProjectOutcome; // get project name
+        var message = "";
+
+        message =
+          "โอนเงินออก: " +
+          projectOutcome +
+          " โอนเงินเข้า: " +
+          selectedProjectInName +
+          " จำนวน " +
+          amount;
+        listHistory.push({
+          Message: message,
+          Edited_SP_ID: cell.getRow().getData().SP_ID,
+        });
+      }
+      },
+
       history: true,
       addRowPos: "bottom",
       columns: [
@@ -392,7 +391,6 @@ export default {
           title: "โอนจาก",
           field: "ProjectOutcome",
           editor: "select",
-          editable: editCheck,
           editorParams: { allowEmpty: false, values: optionsProjectOut },
           width: 400,
         },
@@ -401,7 +399,6 @@ export default {
           field: "Amount",
           width: 150,
           editor: "number",
-          editable: editCheck,
           hozAlign: "right",
           formatter: "money",
           topCalc: "sum",
