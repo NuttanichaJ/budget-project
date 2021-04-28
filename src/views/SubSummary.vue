@@ -285,7 +285,7 @@
 
 <script>
 
-import SummaryBranch1 from '../views/SummaryBranch1.vue'
+import SummaryBranch1 from './SummaryBranch.vue'
 import MainprojectDataservice from "../services/mainproject.dataservice.js"
 import DepartmentDataservice from "../services/department.dataservice"
 import Tabulator from 'tabulator-tables';
@@ -373,7 +373,7 @@ export default {
           DepartmentDataservice.getAll()
           .then(response => {
             for(var i in response.data){
-              if(response.data[i].D_Name != 'Admin') {
+              if(response.data[i].D_Name != 'แอดมิน') {
                   if(response.data[i].D_Name.includes('สาขา')){
                     this.BranchDepartment.push({D_ID: response.data[i].D_ID, D_Name: response.data[i].D_Name})
                   }

@@ -5,9 +5,10 @@
         <b-nav-form>
           <b-form inline class="mb-2 ml-sm-2 mb-sm-0 mr-1" >
             <label class="mr-2 font16" for="selecPer">สิทธิ์การใช้งาน</label>
-            <b-form-select v-model="selectedPermission" :options="optionsPermisson" 
+            <b-form-select :options="optionsPermisson" 
               size="sm" id="selectPer">
             </b-form-select>
+
           </b-form> 
         </b-nav-form>
       </b-navbar-nav>
@@ -30,7 +31,7 @@
           <b-nav-form>
             <!-- @click='addRow' -->
             <b-input-group>
-              <b-button class="mb-2 ml-sm-2 mb-sm-0 mr-1" id="add-user" size="sm" @click="addRow">เพิ่มสมาชิก</b-button>
+              <b-button class="mb-2 ml-sm-2 mb-sm-0 mr-1" id="add-user" size="sm">เพิ่มสมาชิก</b-button>
             </b-input-group>
           </b-nav-form>
         </b-navbar-nav>
@@ -54,7 +55,7 @@ export default {
   data() {
       return {
         user: this.$store.state.user,
-        selectedPermisson: null,
+        selectedPermisson: 'refresh',
         optionsPermisson: [
           { value: 'refresh', text: 'ทั้งหมด'},
           { value: 'ผู้บริหาร', text: 'ผู้บริหาร' },
@@ -65,7 +66,7 @@ export default {
         modalShow: false,
         tabulator: null, //variable to hold your table
         tableData: [], //data for table to display
-        optionsDepartment: [],
+        optionsDepartment: {},
         Department: [],
       }
   },
@@ -77,21 +78,8 @@ export default {
     var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
         cell, formatterParams, onRendered;
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
-    };
-
-    var editCheck = function(cell){
-        //cell - the cell component for the editable cell
-        //get row data
-        var data = cell.getRow().getData();
-        
-        // console.log(data)
-        var User_ID = data.User_ID;
-        if (User_ID != undefined) {
-          data.Action = 'edit';
-          listEdit.push(data)
-        }
-      return listEdit
-    };
+    }
+    
     //instantiate Tabulator when element is mounted
     table = new Tabulator('#table', {
       //data: this.tableData, //link data to table
@@ -110,14 +98,24 @@ export default {
           listEdit.push(data)
         } 
       },
+      cellEdited:function(cell){
+       //cell - the cell component for the editable cell
+        //get row data
+        var data = cell.getRow().getData();
+        var User_ID = data.User_ID;
+        if (User_ID != undefined) {
+          data.Action = 'edit';
+          listEdit.push(data)
+        }
+      },
       addRowPos:"bottom",
       columns: [
-        {title:"ชื่อ", field:"User_FName", width:250, editor:"input", editable:editCheck, headerHozAlign:"center"},
-        {title:"นามสกุล", field:"User_LName", width:250, editor:"input", editable:editCheck, headerHozAlign:"center"},
-        {title:"E-mail", field:"Email", headerHozAlign:"center", editable:editCheck, width:350, editor:"input" },
-        {title:"ฝ่าย / สาขาวิชา", field:"Department_name", width:200, editor:"select", editable:editCheck, editorParams:{allowEmpty:false, values: this.optionsDepartment}},
-        {title:"สิทธิ์การใช้งาน", field:"Permission", width:200, editor:"select", editable:editCheck, editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา", "admin":"admin"}}},
-        {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().User_FName + ' ' + cell.getRow().getData().User_LName + " ใช่หรือไม่?")== true){
+        {title:"ชื่อ", field:"User_FName", width:300, editor:"input", headerHozAlign:"center"},
+        {title:"นามสกุล", field:"User_LName", width:300, editor:"input", headerHozAlign:"center"},
+        {title:"E-mail", field:"Email", headerHozAlign:"center", width:350, editor:"input" },
+        {title:"ฝ่าย / สาขาวิชา", field:"Department_name", width:200, editor:"select", editorParams:{values:this.optionsDepartment}, },
+        {title:"สิทธิ์การใช้งาน", field:"Permission", width:200, editor:"select", editorParams:{values:{"ผู้บริหาร":"ผู้บริหาร", "ส่วนกลาง":"ส่วนกลาง", "สาขาวิชา":"สาขาวิชา", "แอดมิน":"แอดมิน",}}},
+        {formatter:printDelIcon, hozAlign:"left",  width:80, cellClick:function(e, cell){if(confirm("ต้องการลบ " + cell.getRow().getData().User_FName + ' ' + cell.getRow().getData().User_LName + " ใช่หรือไม่?")== true){
           cell.getRow().delete()}}, frozen:true, headerSort:false,},
       ], //define table columns
     });
@@ -143,7 +141,6 @@ export default {
         }
       })
   },
-  // template: '<div ref="table"></div>', //create table holder element
   
  methods: {
 
@@ -164,7 +161,6 @@ export default {
             }
           }
           if (action == 'edit') {
-            console.log(listEdit[i])
             this.updateUser(edit_ID, listEdit[i])
           }
           else if (action == 'del'){
@@ -195,6 +191,7 @@ export default {
     },
 
     retrieveUser() {
+      
       UserDataService.getAll()
         .then(response => {
           this.tableData = response.data;
@@ -207,7 +204,6 @@ export default {
             }
           }
           table.setData(this.tableData)
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);
@@ -248,8 +244,9 @@ export default {
       DepartmentDataservice.getAll()
       .then(response => {
         for(var i in response.data){
-          this.optionsDepartment.push(response.data[i].D_Name)
-          this.Department.push({D_ID: response.data[i].D_ID, D_Name: response.data[i].D_Name})
+          var D_Name = response.data[i].D_Name
+          this.optionsDepartment[D_Name] = D_Name
+          this.Department.push({D_ID: response.data[i].D_ID, D_Name: D_Name})
         }
       })
     }

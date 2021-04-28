@@ -2,7 +2,6 @@
   <div id="home">
       <div id="contents">
           <div class="header">
-            <!-- <h1>หน้าหลัก ฝ่าย/สาขา... {{userID.permission}} </h1> -->
             <h3>หน้าหลัก  {{user.depart_name}}</h3>
           </div>
       </div>
@@ -26,7 +25,7 @@
             <template #footer>
                       <small class="text-muted">แก้ไขล่าสุด {{project.lastEditDate}}</small>
             </template>
-          </b-card> -->
+          </b-card>
         </b-card-group>
       </div>
 

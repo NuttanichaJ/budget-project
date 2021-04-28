@@ -171,86 +171,9 @@ export default {
       addRowPos: "bottom",
       columns: [
         {title:"ชื่อโครงการ", field:"MP_Name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
-        {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"select", editorParams:{values: optionsStategicIssue}, hozAlign:"right", 
-          cellEdited: function(cell) {
-            var strategicIssue_ID = cell.getValue()
-            //this.getOptionsStrat_(null)
-            StrategicDataservice.getAll()
-              .then(response => {
-                var count = 0;
-                var k;
-                var n = 0;
-                  for(var i in response.data){
-                    if(strategicIssue_ID == response.data[i].strategicissue.Strategic_Issue_ID) {
-                      optionsStategic[count] = response.data[i].Strategic_ID
-                      count++
-                      //optionsStategicIssue[response.data[i].strategicissue.Strategic_Issue_ID] = response.data[i].strategicissue.Strategic_Issue_ID
-                      for(k in response.data[i].strategies){
-                        optionsStategy[response.data[i].strategies[k].Strategy_ID - 1] = response.data[i].strategies[k].Strategy_ID
-                        if(n < response.data[i].strategies[k].Strategy_ID) {
-                          n = response.data[i].strategies[k].Strategy_ID
-                        }
-                      }
-                    }
-                   
-                  } 
-                  
-                  optionsStategic.splice(count, optionsStategic.length)
-                  optionsStategy.splice(n, optionsStategy.length)
-              })
-          }
-        },
-        {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"select", editorParams:{values: optionsStategic}, hozAlign:"right", 
-          cellEdited: function(cell) {
-            var strategic_ID = cell.getValue()
-            //this.getOptionsStrat_(null)
-            StrategicDataservice.getAll()
-              .then(response => {
-                //var count = 0;
-                var n = 0;
-                var k;
-                  for(var i in response.data){
-                    if(strategic_ID == response.data[i].Strategic_ID) {
-                      // optionsStategicIssue[count] = response.data[i].strategicissue.Strategic_Issue_ID
-                      //count++
-                      for(k in response.data[i].strategies){
-                        optionsStategy[response.data[i].strategies[k].Strategy_ID - 1] = response.data[i].strategies[k].Strategy_ID
-                        if(n < response.data[i].strategies[k].Strategy_ID) {
-                          n = response.data[i].strategies[k].Strategy_ID
-                        }
-                      }
-                    }
-                   
-                  } 
-                  // optionsStategicIssue.splice(count + 1, optionsStategicIssue.length)
-                  optionsStategy.splice(n, optionsStategy.length)
-              })
-          } 
-        
-        },
-        {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"select", editorParams:{values: optionsStategy}, hozAlign:"right",
-          cellEdited: function(cell) {
-            var strategy_ID = cell.getValue()
-            //this.getOptionsStrat_(null)
-            StrategicDataservice.getAll()
-              .then(response => {
-                // var count = 0;
-                var k;
-                  for(var i in response.data){
-                    for(k in response.data[i].strategies){
-                      if(strategy_ID == response.data[i].strategies[k].Strategy_ID) {
-                        // optionsStategicIssue[count] = response.data[i].strategicissue.Strategic_Issue_ID
-                        // count++
-                        //console.log(response.data[i].Strategic_ID)
-                        optionsStategic[response.data[i].Strategic_ID - 1] = response.data[i].Strategic_ID
-                      }
-                    }
-                  }
-                  // optionsStategicIssue.splice(count + 1, optionsStategicIssue.length)
-                  optionsStategic.splice(parseInt(i) + 1, optionsStategic.length)
-              })
-          } 
-        },
+        {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"select", editorParams:{values: optionsStategicIssue}, hozAlign:"right",},
+        {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"select", editorParams:{values: optionsStategic}, hozAlign:"right",},
+        {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"select", editorParams:{values: optionsStategy}, hozAlign:"right",},
         {title:"ผู้รับผิดชอบ", field:"MP_Owner", width:140, editor:"input", hozAlign:"left",},
         {title:"ตัวชี้วัด", field:"MP_Indicator",  width:140, editor:"input",  hozAlign:"left", },
         {title:"ค่าเป้าหมาย", field:"MP_Target_Value", editor:"input",   width:140, hozAlign:"left",}, //define table columns

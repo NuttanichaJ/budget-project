@@ -17,7 +17,7 @@ import adminManagement from '@/views/adminManagement.vue'
 // import SubSummary from '@/views/SubSummary.vue'
 import Login from '@/views/Login.vue'
 import Summary from '@/views/Summary.vue'
-import SummaryBranch1 from '@/views/SummaryBranch1.vue'
+import SummaryBranch from '@/views/SummaryBranch.vue'
 import DeanLayout from "@/components/DeanLayout.vue"
 import store from "@/store/index.js"
 
@@ -49,7 +49,7 @@ const routes = [
       {
         path: '/summary',
         name: 'SummaryBranch',
-        component: SummaryBranch1,
+        component: SummaryBranch,
       },
       {
         path: '/history',
@@ -110,7 +110,7 @@ const routes = [
       {
         path: '/subsummary/:id',
         name: 'SubSummary',
-        component: SummaryBranch1,
+        component: SummaryBranch,
       },
       {
         path: '/historycenter',
@@ -162,7 +162,7 @@ const routes = [
       const lastRouteName = localStorage.getItem('last_route');
 
       // console.log(lastRouteName)
-      if(permission_id != 'admin'){
+      if(permission_id != 'แอดมิน'){
         next(lastRouteName)
       }else{
         next();
@@ -185,7 +185,7 @@ const routes = [
       {
         path: '/subSummaryDean',
         name: 'summary',
-        component: SummaryBranch1,
+        component: SummaryBranch,
       },
     ],
     beforeEnter: (to, from, next) => {

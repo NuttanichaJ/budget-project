@@ -209,7 +209,7 @@
                             <p class="mb-0 text-center font24 mt-2">
                               <strong>{{
                                 amountData[item.D_ID]
-                                  .totalMP_Total_From_Disburse
+                                  .totalMP_Total_From_Priciple
                               }}</strong>
                             </p>
                             <p class="text-muted mt-0 mb-0 float-right font14">
@@ -362,7 +362,7 @@
                             <p class="mb-0 text-center font24 mt-2">
                               <strong>{{
                                 amountData[item.D_ID]
-                                  .totalMP_Total_From_Disburse
+                                  .totalMP_Total_From_Priciple
                               }}</strong>
                             </p>
                             <p class="text-muted mt-0 mb-0 float-right font14">
@@ -683,6 +683,7 @@ export default {
           field: "Total_From_Priciple",
           width: 140,
           hozAlign: "right",
+          formatter: "money",
         },
         {
           title: "คงเหลือจากเบิกจ่ายจริง",
@@ -765,7 +766,7 @@ export default {
     getDepartmentTabs() {
       DepartmentDataservice.getAll().then((response) => {
         for (var i in response.data) {
-          if (response.data[i].D_Name != "Admin") {
+          if (response.data[i].D_Name != "แอดมิน") {
             if (response.data[i].D_Name.includes("สาขา")) {
               this.BranchDepartment.push({
                 D_ID: response.data[i].D_ID,
@@ -928,7 +929,6 @@ export default {
                     totalMP_Total_Amount:MP_Total_Amount,
                     totalMP_Total_From_Disburse:MP_Total_From_Disburse,
                     totalMP_Total_From_Priciple:MP_Total_From_Priciple,    
-                
                 };
 
                 for(var n in this.tableData[k]._children) {

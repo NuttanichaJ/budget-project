@@ -20,27 +20,27 @@
                     <div class="d-flex flex-wrap justify-content-between">
                         <div>
                           <div class="d-flex flex-row mb-1">
-                            <p class="mb-0 mr-auto"><small><strong>ประเด็นยุทธศาสตร์ :</strong></small></p>
+                            <p class="mb-0"><small><strong>ประเด็นยุทธศาสตร์ :</strong></small></p>
                             <span class="mb-0 ml-3">{{mainprojectData.Strategic_Issue_ID}}</span>
                           </div>
                           <div class="d-flex flex-row mb-1">
-                            <p class="mb-0 mr-auto"><small><strong>ยุทธศาสตร์ :</strong></small></p>
+                            <p class="mb-0"><small><strong>ยุทธศาสตร์ :</strong></small></p>
                             <span class="mb-0 ml-3">{{mainprojectData.Strategic_ID}}</span>
                           </div>
                           <div class="d-flex flex-row mb-1">
-                            <p class="mb-0 mr-auto"><small><strong>กลยุทธ์ :</strong></small></p>
+                            <p class="mb-0"><small><strong>กลยุทธ์ :</strong></small></p>
                             <span class="mb-0 ml-3">{{mainprojectData.Strategy_ID}}</span>
                           </div>
                           <div class="d-flex flex-row mb-1">
-                            <p class="mb-0 mr-auto"><small><strong>ผู้รับผิดชอบ :</strong></small></p>
+                            <p class="mb-0"><small><strong>ผู้รับผิดชอบ :</strong></small></p>
                             <span class="mb-0 ml-3">{{mainprojectData.MP_Owner}}</span>
                           </div>
                           <div class="d-flex flex-row mb-1">
-                            <p class="mb-0 mr-auto"><small><strong>ตัวชี้วัด :</strong></small></p>
+                            <p class="mb-0"><small><strong>ตัวชี้วัด :</strong></small></p>
                             <span class="mb-0 ml-3">{{mainprojectData.MP_Indicator}}</span>
                           </div>
                           <div class="d-flex flex-row mb-3">
-                            <p class="mb-0 mr-auto"><small><strong>ค่าเป้าหมาย :</strong></small></p>
+                            <p class="mb-0"><small><strong>ค่าเป้าหมาย :</strong></small></p>
                             <span class="mb-0 ml-3">{{mainprojectData.MP_Target_Value}}</span>
                           </div>
                         </div>
@@ -50,19 +50,19 @@
                     <div class="d-flex flex-wrap justify-content-between">
                       <div>
                         <div class="d-flex flex-row mb-1">
-                            <p class="mb-0 mr-auto"><small><strong>ผลการดำเนินงาน :</strong></small></p>
+                            <p class="mb-0"><small><strong>ผลการดำเนินงาน :</strong></small></p>
                             <span class="mb-0 ml-3">{{mainprojectData.Performance_Result}}</span>
                           </div>
                           <div class="d-flex flex-row mb-1">
-                            <p class="mb-0 mr-auto"><small><strong>ปัญหาและอุปสรรค :</strong></small></p>
+                            <p class="mb-0"><small><strong>ปัญหาและอุปสรรค :</strong></small></p>
                             <span class="mb-0 ml-3">{{mainprojectData.Problem}}</span>
                           </div>
                           <div class="d-flex flex-row mb-1">
-                            <p class="mb-0 mr-auto"><small><strong>รายละเอียดผลการดำเนินงาน :</strong></small></p>
+                            <p class="mb-0"><small><strong>รายละเอียดผลการดำเนินงาน :</strong></small></p>
                             <span class="mb-0 ml-3">{{mainprojectData.Detail_Result}}</span>
                           </div>
                           <div class="d-flex flex-row">
-                            <p class="mb-0 mr-auto"><small><strong>หมายเหตุ :</strong></small></p>
+                            <p class="mb-0"><small><strong>หมายเหตุ :</strong></small></p>
                             <span class="mb-0 ml-3">{{mainprojectData.Annotation}}</span>
                           </div>
                       </div>
@@ -357,7 +357,7 @@ export default {
         },
         {formatter:printDelIcon, hozAlign:"left", cellClick:function(e, cell){
           if(confirm("ต้องการลบ " + cell.getRow().getData().SP_Name + " ใช่หรือไม่?")== true){
-          cell.getRow().delete()
+            cell.getRow().delete()
           }
           }
         } //cellClick:function(e, cell){alert("Printing row data for: " + cell.getRow().getData().name)}

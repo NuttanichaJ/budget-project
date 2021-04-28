@@ -122,7 +122,7 @@ export default {
 
                             // console.log("D_ID",depart_id)
                             // this.$router.push(`/user/${userID.permission}`)
-                            if(userID.permission == "admin") {
+                            if(userID.permission == "แอดมิน") {
                                 this.$router.push('/adminmanagement')
                             }
                             else if(userID.permission == "สาขาวิชา") {

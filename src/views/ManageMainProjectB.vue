@@ -79,15 +79,7 @@ export default {
 
     //retrieve Main Project
     this.retrieveMainProject(this.user.userid, this.user.depart_id);
-   
-    //Edit Sub-Project button
-    // var printSPIcon = function(cell, formatterParams, onRendered){ //plain text value
-    //     cell, formatterParams, onRendered;
-    //     var MP_ID = cell.getRow().getData().MP_ID
-    //     if(cell.getRow().getData().MP_Name != undefined) {
-    //       return '<a class="btn btn-secondary" href="/managesubproject/' + MP_ID + '"' + 'target="_self">แก้ไขโครงการย่อย</a>'
-    //     }
-    // };
+  
 
     //Delete button
     var printDelIcon = function(cell, formatterParams, onRendered){ //plain text value
@@ -95,21 +87,6 @@ export default {
         return '<a class="btn btn-secondary" target="_self">ลบ</a>'
     };
 
-    var Total_Amount = function(value, data){
-      //value - original value of the cell
-      //data - the data for the row
-      return data.MP_Budget + data.MP_Income - data.MP_Outcome; //return the sum of the other two columns.
-    }
-    var Total_From_Priciple = function(value, data){
-      //value - original value of the cell
-      //data - the data for the row
-      return data.MP_Total_Amount - data.MP_Approve_Use; //return the sum of the other two columns.
-    }
-    var Total_From_Disburse = function(value, data){
-      //value - original value of the cell
-      //data - the data for the row
-      return data.MP_Total_Amount - data.MP_Disburse; //return the sum of the other two columns.
-    }
 
     var checkApproveuseAndDisburse = function(cell, value){
       return value <= cell.getRow().getData().MP_Budget
@@ -175,86 +152,9 @@ export default {
       addRowPos: "bottom",
       columns: [
         {title:"ชื่อโครงการ", field:"MP_Name", width:200, editor:"input", hozAlign:"left", formatter:"textarea", frozen:true, responsive:0, },
-        {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"select", editorParams:{values: optionsStategicIssue}, hozAlign:"right", 
-          cellEdited: function(cell) {
-            var strategicIssue_ID = cell.getValue()
-            //this.getOptionsStrat_(null)
-            StrategicDataservice.getAll()
-              .then(response => {
-                var count = 0;
-                var k;
-                var n = 0;
-                  for(var i in response.data){
-                    if(strategicIssue_ID == response.data[i].strategicissue.Strategic_Issue_ID) {
-                      optionsStategic[count] = response.data[i].Strategic_ID
-                      count++
-                      //optionsStategicIssue[response.data[i].strategicissue.Strategic_Issue_ID] = response.data[i].strategicissue.Strategic_Issue_ID
-                      for(k in response.data[i].strategies){
-                        optionsStategy[response.data[i].strategies[k].Strategy_ID - 1] = response.data[i].strategies[k].Strategy_ID
-                        if(n < response.data[i].strategies[k].Strategy_ID) {
-                          n = response.data[i].strategies[k].Strategy_ID
-                        }
-                      }
-                    }
-                   
-                  } 
-                  
-                  optionsStategic.splice(count, optionsStategic.length)
-                  optionsStategy.splice(n, optionsStategy.length)
-              })
-          }
-        },
-        {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"select", editorParams:{values: optionsStategic}, hozAlign:"right", 
-          cellEdited: function(cell) {
-            var strategic_ID = cell.getValue()
-            //this.getOptionsStrat_(null)
-            StrategicDataservice.getAll()
-              .then(response => {
-                //var count = 0;
-                var n = 0;
-                var k;
-                  for(var i in response.data){
-                    if(strategic_ID == response.data[i].Strategic_ID) {
-                      // optionsStategicIssue[count] = response.data[i].strategicissue.Strategic_Issue_ID
-                      //count++
-                      for(k in response.data[i].strategies){
-                        optionsStategy[response.data[i].strategies[k].Strategy_ID - 1] = response.data[i].strategies[k].Strategy_ID
-                        if(n < response.data[i].strategies[k].Strategy_ID) {
-                          n = response.data[i].strategies[k].Strategy_ID
-                        }
-                      }
-                    }
-                   
-                  } 
-                  // optionsStategicIssue.splice(count + 1, optionsStategicIssue.length)
-                  optionsStategy.splice(n, optionsStategy.length)
-              })
-          } 
-        
-        },
-        {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"select", editorParams:{values: optionsStategy}, hozAlign:"right",
-          cellEdited: function(cell) {
-            var strategy_ID = cell.getValue()
-            //this.getOptionsStrat_(null)
-            StrategicDataservice.getAll()
-              .then(response => {
-                // var count = 0;
-                var k;
-                  for(var i in response.data){
-                    for(k in response.data[i].strategies){
-                      if(strategy_ID == response.data[i].strategies[k].Strategy_ID) {
-                        // optionsStategicIssue[count] = response.data[i].strategicissue.Strategic_Issue_ID
-                        // count++
-                        //console.log(response.data[i].Strategic_ID)
-                        optionsStategic[response.data[i].Strategic_ID - 1] = response.data[i].Strategic_ID
-                      }
-                    }
-                  }
-                  // optionsStategicIssue.splice(count + 1, optionsStategicIssue.length)
-                  optionsStategic.splice(parseInt(i) + 1, optionsStategic.length)
-              })
-          } 
-        },
+        {title:"ประเด็นยุทธศาสตร์", field:"Strategic_Issue_ID", width:100, editor:"select", editorParams:{values: optionsStategicIssue}, hozAlign:"right", },
+        {title:"ยุทธศาสตร์", field:"Strategic_ID", width:100, editor:"select", editorParams:{values: optionsStategic}, hozAlign:"right",},
+        {title:"กลยุทธ์", field:"Strategy_ID", width:100, editor:"select", editorParams:{values: optionsStategy}, hozAlign:"right",},
         {title:"ผู้รับผิดชอบ", field:"MP_Owner", width:140, editor:"input", hozAlign:"left",},
         {title:"ตัวชี้วัด", field:"MP_Indicator",  width:140, editor:"input",  hozAlign:"left", },
         {title:"ค่าเป้าหมาย", field:"MP_Target_Value", editor:"input",   width:140, hozAlign:"left",}, //define table columns
@@ -274,7 +174,7 @@ export default {
         }, //define table columns
         {title:"โอนเข้า", field:"MP_Income", width:140, hozAlign:"right", formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
         {title:"โอนออก", field:"MP_Outcome", width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
-        {title:"คงเหลือตามแผน", field:"MP_Total_Amount", mutator: Total_Amount, width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, mutatorEdit: Total_Amount, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
+        {title:"คงเหลือตามแผน", field:"MP_Total_Amount", width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
         {title:"ขออนุมัติใช้", field:"MP_Approve_Use", width:140, hozAlign:"right", formatter:"money", formatterParams:{decimal:".",thousand:",",}, validator: checkApproveuseAndDisburse,
           // cellEdited: function(cell) {
           //   //Update คงเหลือตามหลักการ
@@ -289,8 +189,8 @@ export default {
           //   cell.getRow().getCell("MP_Total_From_Disburse").setValue(Total_From_Disburse);
           // }, bottomCalc:"sum", bottomCalcParams:{precision:2,},
         bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
-        {title:"คงเหลือตามหลักการ", field:"MP_Total_From_Priciple", mutator:Total_From_Priciple, mutatorEdit:Total_From_Priciple, width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
-        {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_Total_From_Disburse", mutator:Total_From_Disburse, mutatorEdit:Total_From_Disburse, width:160, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
+        {title:"คงเหลือตามหลักการ", field:"MP_Total_From_Priciple", width:140, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
+        {title:"คงเหลือจากเบิกจ่ายจริง", field:"MP_Total_From_Disburse", width:160, hozAlign:"right",  formatter:"money", formatterParams:{decimal:".",thousand:",",}, bottomCalc:"sum", bottomCalcParams:{precision:2,},}, //define table columns
         {title:"ผลการดำเนินงาน", field:"Performance_Result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"ปัญหาและอุปสรรค", field:"Problem", editor:"input",  width:160, hozAlign:"left",}, //define table columns
         {title:"รายละเอียดผลการดำเนินงาน", field:"Detail_Result", editor:"input",  width:160, hozAlign:"left",}, //define table columns
@@ -374,7 +274,6 @@ export default {
                     
                     if(dapart_name2 == Department[i].D_Name){
                         listAddMP[i].D_ID = Department[i].D_ID
-                        console.log(listAddMP[i].D_ID)
                     }
                 }
 

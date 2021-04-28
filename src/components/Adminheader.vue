@@ -1,7 +1,7 @@
 <template>
   <div id="adminheader">
     <b-navbar toggleable="sm" type="light" variant="light">
-        <b-navbar-brand to="/admin">
+        <b-navbar-brand to="/adminmanagement">
           <img id="img" src="@/assets/en-logo.png" />
           <div id="logo-name">
             <span>EN KKU</span>
