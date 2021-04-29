@@ -30,6 +30,7 @@
                             class="ml-auto px-3 my-2"
                             style="background-color: #1d6f42"
                             id="download-xlsx"
+                            @click="onExport"
                           >
                             <font-awesome-icon
                               :icon="['fas', 'file-excel']"
@@ -48,6 +49,7 @@
 <script>
 import Tabulator from 'tabulator-tables'; 
 import MainprojectDataservice from "../services/mainproject.dataservice.js";
+import XLSX from 'xlsx' // import xlsx
 
 var table;
 
@@ -56,6 +58,7 @@ export default {
     data() {
         return {
             user : this.$store.state.user,
+            exportData: [],
             //
             chartBudgetOptions: {
                 plotOptions: {
@@ -273,14 +276,6 @@ export default {
             },
         ],
         });
-
-        // export excel
-        document
-        .getElementById("download-xlsx")
-        .addEventListener("click", function () {
-            table.download("csv", "data.csv");
-        });
-
     },
 
     template: '<div id="table" class="sty-table"></div>', //create table holder element
@@ -390,6 +385,68 @@ export default {
                     console.log(e);
                 });
             },
+
+             onExport() {
+                //console.log(this.tableData)
+                this.exportData = []
+                for(var i in this.tableData) {
+                    this.exportData.push({
+                        "ชื่อโครงการ" : this.tableData[i].Name,
+                        "ประเด็นยุทธศาสตร์" : this.tableData[i].Strategic_Issue_ID,
+                        "ยุทธศาสตร์" : this.tableData[i].Strategic_ID,
+                        "กลยุทธ์" : this.tableData[i].Strategy_ID,
+                        "ผู้รับผิดชอบ": this.tableData[i].Owner,
+                        "ตัวชี้วัด": this.tableData[i].Indicator,
+                        "ค่าเป้าหมาย": this.tableData[i].Target_Value,
+                        "งบประมาณตามแผน": this.tableData[i].Budget,
+                        "โอนเข้า": this.tableData[i].Income,
+                        "โอนออก": this.tableData[i].Outcome,
+                        "คงเหลือตามแผน": this.tableData[i].Total_Amount,
+                        "ขออนุมัติใช้": this.tableData[i].Approve_Use,
+                        "เบิกจ่าย": this.tableData[i].Disburse,
+                        "คงเหลือตามหลักการ": this.tableData[i].Total_From_Priciple,
+                        "คงเหลือจากเบิกจ่ายจริง": this.tableData[i].Total_From_Disburse,
+                        "ผลการดำเนินงาน": this.tableData[i].Performance_Result,
+                        "ปัญหาและอุปสรรค": this.tableData[i].Problem,
+                        "รายละเอียดผลการดำเนินงาน": this.tableData[i].Detail_Result,
+                        "หมายเหตุ": this.tableData[i].Annotation,
+                        })
+
+                    if(this.tableData[i]._children != undefined) {
+                        if(this.tableData[i]._children.length > 0){
+                        for(var j in this.tableData[i]._children) {
+                            this.exportData.push({
+                            "ชื่อโครงการ" : this.tableData[i]._children[j].Name,
+                            "ประเด็นยุทธศาสตร์" : this.tableData[i]._children[j].Strategic_Issue_ID,
+                            "ยุทธศาสตร์" : this.tableData[i]._children[j].Strategic_ID,
+                            "กลยุทธ์" : this.tableData[i]._children[j].Strategy_ID,
+                            "ผู้รับผิดชอบ": this.tableData[i]._children[j].Owner,
+                            "ตัวชี้วัด": this.tableData[i]._children[j].Indicator,
+                            "ค่าเป้าหมาย": this.tableData[i]._children[j].Target_Value,
+                            "งบประมาณตามแผน": this.tableData[i]._children[j].Budget,
+                            "โอนเข้า": this.tableData[i]._children[j].Income,
+                            "โอนออก": this.tableData[i]._children[j].Outcome,
+                            "คงเหลือตามแผน": this.tableData[i]._children[j].Total_Amount,
+                            "ขออนุมัติใช้": this.tableData[i]._children[j].Approve_Use,
+                            "เบิกจ่าย": this.tableData[i]._children[j].Disburse,
+                            "คงเหลือตามหลักการ": this.tableData[i]._children[j].Total_From_Priciple,
+                            "คงเหลือจากเบิกจ่ายจริง": this.tableData[i]._children[j].Total_From_Disburse,
+                            "ผลการดำเนินงาน": this.tableData[i]._children[j].Performance_Result,
+                            "ปัญหาและอุปสรรค": this.tableData[i]._children[j].Problem,
+                            "รายละเอียดผลการดำเนินงาน": this.tableData[i]._children[j].Detail_Result,
+                            "หมายเหตุ": this.tableData[i]._children[j].Annotation,
+                            })
+                        } 
+                    }
+                    
+                    }
+                }
+                
+                const dataWS = XLSX.utils.json_to_sheet(this.exportData)
+                const wb = XLSX.utils.book_new()
+                XLSX.utils.book_append_sheet(wb, dataWS)
+                XLSX.writeFile(wb,'export.xlsx')
+                },
     },
         
 }

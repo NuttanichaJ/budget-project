@@ -422,6 +422,7 @@
                             class="ml-auto px-3 my-2"
                             style="background-color: #1d6f42"
                             id="download-xlsx"
+                            @click="onExport(exportD_ID)"
                           >
                             <font-awesome-icon
                               :icon="['fas', 'file-excel']"
@@ -442,7 +443,8 @@
 import MainprojectDataservice from "../services/mainproject.dataservice.js";
 import DepartmentDataservice from "../services/department.dataservice";
 import Tabulator from "tabulator-tables";
-// import SummaryBranch from "./SummaryBranch"
+import XLSX from 'xlsx' // import xlsx
+
 
 var table;
 
@@ -456,7 +458,9 @@ export default {
       user: this.$store.state.user,
       seletedCenterD_IDNow: 0,
       seletedBranchD_IDNow: -1,
+      exportD_ID: 0,
       tableData: [],
+      exportData: [],
 
       BranchDepartment: [],
       Department: [],
@@ -541,7 +545,7 @@ export default {
   mounted() {
     this.getDepartmentTabs();
     this.getProjects();
-
+    
     //instantiate Tabulator when element is mounted
     table = new Tabulator("#table", {
       layout: "fitDataStretch",
@@ -705,13 +709,6 @@ export default {
       ],
     });
 
-    // export excel
-    document
-      .getElementById("download-xlsx")
-      .addEventListener("click", function () {
-        table.download("csv", "data.csv");
-      });
-
   },
 
   template: '<div id="table" class="sty-table"></div>', //create table holder element
@@ -734,6 +731,8 @@ export default {
                   D_ID: response.data[i].D_ID,
                   D_Name: response.data[i].D_Name,
                 });
+                
+
               }
             }
           }
@@ -750,6 +749,7 @@ export default {
             totalMP_Total_From_Priciple: 0,
           };
         }
+       this.exportD_ID = this.Department[0].D_ID
       });
     },
 
@@ -925,20 +925,24 @@ export default {
 
     setFilterDataTable(dapartmentID) {
       if(dapartmentID == -1) {
+        this.exportD_ID = this.BranchDepartment[0].D_ID
         table.setFilter("D_ID", "=", this.BranchDepartment[0].D_ID);
       }
       else if(dapartmentID == 0) {
+        this.exportD_ID = this.Department[0].D_ID
         table.setFilter("D_ID", "=", this.Department[0].D_ID);
       } else {
         table.setFilter("D_ID", "=", dapartmentID);
         for(var i in this.Department) {
           if(this.Department[i].D_ID == dapartmentID) {
             this.seletedCenterD_IDNow = dapartmentID
+            this.exportD_ID = dapartmentID
           }
         }
         for(var j in this.BranchDepartment) {
           if(this.BranchDepartment[j].D_ID == dapartmentID) {
             this.seletedBranchD_IDNow = dapartmentID
+            this.exportD_ID = dapartmentID
           }
         }
         
@@ -993,7 +997,72 @@ export default {
                 
         }  
         this.dataStatusProjectBranch = [Done2, Processing2, No2]
-    }
+    },
+    
+    onExport(exportD_ID) {
+      //console.log(this.tableData)
+      this.exportData = []
+      for(var i in this.tableData) {
+        if(exportD_ID == this.tableData[i].D_ID) {
+          this.exportData.push({
+            "ชื่อโครงการ" : this.tableData[i].Name,
+            "ประเด็นยุทธศาสตร์" : this.tableData[i].Strategic_Issue_ID,
+            "ยุทธศาสตร์" : this.tableData[i].Strategic_ID,
+            "กลยุทธ์" : this.tableData[i].Strategy_ID,
+            "ผู้รับผิดชอบ": this.tableData[i].Owner,
+            "ตัวชี้วัด": this.tableData[i].Indicator,
+            "ค่าเป้าหมาย": this.tableData[i].Target_Value,
+            "งบประมาณตามแผน": this.tableData[i].Budget,
+            "โอนเข้า": this.tableData[i].Income,
+            "โอนออก": this.tableData[i].Outcome,
+            "คงเหลือตามแผน": this.tableData[i].Total_Amount,
+            "ขออนุมัติใช้": this.tableData[i].Approve_Use,
+            "เบิกจ่าย": this.tableData[i].Disburse,
+            "คงเหลือตามหลักการ": this.tableData[i].Total_From_Priciple,
+            "คงเหลือจากเบิกจ่ายจริง": this.tableData[i].Total_From_Disburse,
+            "ผลการดำเนินงาน": this.tableData[i].Performance_Result,
+            "ปัญหาและอุปสรรค": this.tableData[i].Problem,
+            "รายละเอียดผลการดำเนินงาน": this.tableData[i].Detail_Result,
+            "หมายเหตุ": this.tableData[i].Annotation,
+            })
+
+          if(this.tableData[i]._children != undefined) {
+            if(this.tableData[i]._children.length > 0){
+              for(var j in this.tableData[i]._children) {
+                this.exportData.push({
+                  "ชื่อโครงการ" : this.tableData[i]._children[j].Name,
+                  "ประเด็นยุทธศาสตร์" : this.tableData[i]._children[j].Strategic_Issue_ID,
+                  "ยุทธศาสตร์" : this.tableData[i]._children[j].Strategic_ID,
+                  "กลยุทธ์" : this.tableData[i]._children[j].Strategy_ID,
+                  "ผู้รับผิดชอบ": this.tableData[i]._children[j].Owner,
+                  "ตัวชี้วัด": this.tableData[i]._children[j].Indicator,
+                  "ค่าเป้าหมาย": this.tableData[i]._children[j].Target_Value,
+                  "งบประมาณตามแผน": this.tableData[i]._children[j].Budget,
+                  "โอนเข้า": this.tableData[i]._children[j].Income,
+                  "โอนออก": this.tableData[i]._children[j].Outcome,
+                  "คงเหลือตามแผน": this.tableData[i]._children[j].Total_Amount,
+                  "ขออนุมัติใช้": this.tableData[i]._children[j].Approve_Use,
+                  "เบิกจ่าย": this.tableData[i]._children[j].Disburse,
+                  "คงเหลือตามหลักการ": this.tableData[i]._children[j].Total_From_Priciple,
+                  "คงเหลือจากเบิกจ่ายจริง": this.tableData[i]._children[j].Total_From_Disburse,
+                  "ผลการดำเนินงาน": this.tableData[i]._children[j].Performance_Result,
+                  "ปัญหาและอุปสรรค": this.tableData[i]._children[j].Problem,
+                  "รายละเอียดผลการดำเนินงาน": this.tableData[i]._children[j].Detail_Result,
+                  "หมายเหตุ": this.tableData[i]._children[j].Annotation,
+                  })
+              }
+            }
+            
+          }
+          
+        }
+      }
+      
+      const dataWS = XLSX.utils.json_to_sheet(this.exportData)
+      const wb = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(wb, dataWS)
+      XLSX.writeFile(wb,'export.xlsx')
+    },
   },
 };
 </script>
