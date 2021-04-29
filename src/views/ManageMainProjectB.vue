@@ -300,14 +300,14 @@ export default {
               var message = '';
               var dapart_name = listEditMP[i].D_Name;
 
-              for(i in Department){
-                  if(dapart_name == Department[i].D_Name){
-                      listEditMP[i].D_ID = Department[i].D_ID
+              for(var a in Department){
+                  if(dapart_name == Department[a].D_Name){
+                    
+                    listEditMP[i].D_ID = Department[a].D_ID
                   }
               }
           
               if (action == 'edit') {
-                console.log(listEditMP[i])
                 this.updateProject(editMP_ID, listEditMP[i])
               }
               else if (action == 'del'){
