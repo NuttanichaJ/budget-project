@@ -994,6 +994,7 @@ export default {
                     })
                 
         }  
+        console.log(this.seriesBudgetBranch)
         this.dataStatusProjectBranch = [Done2, Processing2, No2]
     },
     

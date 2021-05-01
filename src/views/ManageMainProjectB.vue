@@ -269,11 +269,9 @@ export default {
                 namenotnull = false
               } else {
                 var dapart_name2 = listAddMP[j].D_Name;
-
-                for(i in Department){
-                    
-                    if(dapart_name2 == Department[i].D_Name){
-                        listAddMP[i].D_ID = Department[i].D_ID
+                for(var b in Department){
+                    if(dapart_name2 == Department[b].D_Name){
+                        listAddMP[j].D_ID = Department[b].D_ID
                     }
                 }
 
@@ -302,7 +300,6 @@ export default {
 
               for(var a in Department){
                   if(dapart_name == Department[a].D_Name){
-                    
                     listEditMP[i].D_ID = Department[a].D_ID
                   }
               }
