@@ -115,23 +115,23 @@
                       <!-- <div class="d-flex flex-wrap"> -->
                       <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                         <p class="mb-0 pl-1 font14">งบประมาณตามแผน</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>{{ mainprojectData.MP_Budget }}</strong></p>
+                        <p class="mb-0 text-center font24 mt-2"><strong>{{ Number(mainprojectData.MP_Budget).toLocaleString() }}</strong></p>
                         <input type="hidden" id='budget' :value="mainprojectData.MP_Budget">
                         <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                       </b-col>
                       <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                         <p class="mb-0 pl-1 font14">โอนเข้า</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>{{ mainprojectData.MP_Income }}</strong></p>
+                        <p class="mb-0 text-center font24 mt-2"><strong>{{ Number(mainprojectData.MP_Income).toLocaleString() }}</strong></p>
                         <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                       </b-col>
                       <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                         <p class="mb-0 pl-1 font14">โอนออก</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>{{ mainprojectData.MP_Outcome }}</strong></p>
+                        <p class="mb-0 text-center font24 mt-2"><strong>{{ Number(mainprojectData.MP_Outcome).toLocaleString() }}</strong></p>
                         <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                       </b-col>
                       <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                         <p class="mb-0 pl-1 font14">คงเหลือตามแผน</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>{{ mainprojectData.MP_Total_Amount }}</strong></p>
+                        <p class="mb-0 text-center font24 mt-2"><strong>{{ Number(mainprojectData.MP_Total_Amount).toLocaleString() }}</strong></p>
                         <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                       </b-col>
                   </b-row>
@@ -139,22 +139,22 @@
                     <!-- <div class="d-flex flex-wrap"> -->
                       <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                         <p class="mb-0 pl-1 font14">ขออนุมัติใช้</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>{{ mainprojectData.MP_Approve_Use }}</strong></p>
+                        <p class="mb-0 text-center font24 mt-2"><strong>{{ Number(mainprojectData.MP_Approve_Use).toLocaleString() }}</strong></p>
                         <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                       </b-col>
                       <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                         <p class="mb-0 pl-1 font14">เบิกจ่าย</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>{{ mainprojectData.MP_Disburse }}</strong></p>
+                        <p class="mb-0 text-center font24 mt-2"><strong>{{ Number(mainprojectData.MP_Disburse).toLocaleString() }}</strong></p>
                         <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                       </b-col>
                       <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                         <p class="mb-0 pl-1 font14">คงเหลือตามหลักการ</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>{{ mainprojectData.MP_Total_From_Priciple }}</strong></p>
+                        <p class="mb-0 text-center font24 mt-2"><strong>{{ Number(mainprojectData.MP_Total_From_Priciple).toLocaleString() }}</strong></p>
                         <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                       </b-col>
                       <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                         <p class="mb-0 pl-1 font14">คงเหลือจากเบิกจ่ายจริง</p>
-                        <p class="mb-0 text-center font24 mt-2"><strong>{{ mainprojectData.MP_Total_From_Disburse }}</strong></p>
+                        <p class="mb-0 text-center font24 mt-2"><strong>{{ Number(mainprojectData.MP_Total_From_Disburse).toLocaleString() }}</strong></p>
                         <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                       </b-col>
                     <!-- </div> -->

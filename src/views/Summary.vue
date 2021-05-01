@@ -1,10 +1,12 @@
 <template>
   <div id="summary">
     <div>
+      
       <div>
         <h5 class="mb-0">งบประมาณ</h5>
       </div>
       <b-container fluid>
+        
         <b-row class="mt-1 d-flex justify-content-betweet">
           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">งบประมาณทั้งหมด (ตามแผน)</p>
@@ -405,7 +407,6 @@
                         </b-row>
                       </b-container>
                     </div>
-                    
                   </div>
                 </b-tab>
               </b-tabs>
