@@ -22,22 +22,22 @@
                                             <b-row class="mt-1 d-flex justify-content-betweet" >
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">งบประมาณทั้งหมด (ตามแผน)</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Budget}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Budget.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14" >บาท</p>
                                                 </b-col>
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">งบประมาณคงเหลือตามแผน</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_Amount}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_Amount.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                                                 </b-col>
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากหลักการ</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                                                 </b-col>
                                                 <b-col class="p-2 mb-1 mr-2 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากเบิกจ่ายจริง</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                                                 </b-col>
                                             </b-row>
@@ -51,22 +51,22 @@
                                             <b-row class="mt-1 d-flex justify-content-betweet " >
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14 ">จำนวนโครงการทั้งหมด</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.All}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.All.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                                                 </b-col>
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">โครงการที่ดำเนินการเสร็จสิ้น</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Done}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Done.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                                                 </b-col>
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">โครงการที่กำลังดำเนินการ</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Processing}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Processing.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                                                 </b-col>
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">โครงการที่ยังไม่ดำเนินการ</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.No}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.No.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                                                 </b-col>
                                             </b-row>
@@ -111,22 +111,22 @@
                                             <b-row class="mt-1 d-flex justify-content-betweet" >
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">งบประมาณทั้งหมด (ตามแผน)</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Budget}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Budget.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14" >บาท</p>
                                                 </b-col>
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">งบประมาณคงเหลือตามแผน</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_Amount}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_Amount.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                                                 </b-col>
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากหลักการ</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                                                 </b-col>
                                                 <b-col class="p-2 mb-1 mr-2 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">งบประมาณคงเหลือจากเบิกจ่ายจริง</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{amountData.totalMP_Total_From_Disburse.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">บาท</p>
                                                 </b-col>
                                             </b-row>
@@ -140,22 +140,22 @@
                                             <b-row class="mt-1 d-flex justify-content-betweet " >
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14 ">จำนวนโครงการทั้งหมด</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.All}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.All.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                                                 </b-col>
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">โครงการที่ดำเนินการเสร็จสิ้น</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Done}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Done.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                                                 </b-col>
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">โครงการที่กำลังดำเนินการ</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Processing}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.Processing.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                                                 </b-col>
                                                 <b-col class="p-2 mr-2 mb-1 border border-dark rounded">
                                                     <p class="mb-0 pl-1 font14">โครงการที่ยังไม่ดำเนินการ</p>
-                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.No}}</strong></p>
+                                                    <p class="mb-0 text-center font24 mt-2"><strong>{{statusData.No.toLocaleString()}}</strong></p>
                                                     <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                                                 </b-col>
                                             </b-row>
