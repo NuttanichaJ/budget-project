@@ -9,28 +9,28 @@
           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">งบประมาณทั้งหมด (ตามแผน)</p>
             <p class="mb-0 text-center font24 mt-2">
-              <strong>{{ AllamountData.totalMP_Budget.toLocaleString() }}</strong>
+              <strong>{{ AllamountData.totalMP_Budget }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">บาท</p>
           </b-col>
           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">งบประมาณคงเหลือตามแผน</p>
             <p class="mb-0 text-center font24 mt-2">
-              <strong>{{ AllamountData.totalMP_Total_Amount.toLocaleString() }}</strong>
+              <strong>{{ AllamountData.totalMP_Total_Amount }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">บาท</p>
           </b-col>
           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">งบประมาณคงเหลือจากหลักการ</p>
             <p class="mb-0 text-center font24 mt-2">
-              <strong>{{ AllamountData.totalMP_Total_From_Priciple.toLocaleString() }}</strong>
+              <strong>{{ AllamountData.totalMP_Total_From_Priciple }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">บาท</p>
           </b-col>
           <b-col class="p-2 mb-1 mr-2 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">งบประมาณคงเหลือจากเบิกจ่ายจริง</p>
             <p class="mb-0 text-center font24 mt-2">
-              <strong>{{ AllamountData.totalMP_Total_From_Disburse.toLocaleString() }}</strong>
+              <strong>{{ AllamountData.totalMP_Total_From_Disburse }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">บาท</p>
           </b-col>
@@ -47,28 +47,28 @@
           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">จำนวนโครงการทั้งหมด</p>
             <p class="mb-0 text-center font24 mt-2">
-              <strong>{{ AllstatusData.All.toLocaleString() }}</strong>
+              <strong>{{ AllstatusData.All }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">โครงการ</p>
           </b-col>
           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">โครงการที่ดำเนินการเสร็จสิ้น</p>
             <p class="mb-0 text-center font24 mt-2">
-              <strong>{{ AllstatusData.Done.toLocaleString() }}</strong>
+              <strong>{{ AllstatusData.Done }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">โครงการ</p>
           </b-col>
           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">โครงการที่กำลังดำเนินการ</p>
             <p class="mb-0 text-center font24 mt-2">
-              <strong>{{ AllstatusData.Processing.toLocaleString() }}</strong>
+              <strong>{{ AllstatusData.Processing }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">โครงการ</p>
           </b-col>
           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
             <p class="mb-0 pl-1 font16">โครงการที่ยังไม่ดำเนินการ</p>
             <p class="mb-0 text-center font24 mt-2">
-              <strong>{{ AllstatusData.No.toLocaleString() }}</strong>
+              <strong>{{ AllstatusData.No }}</strong>
             </p>
             <p class="text-muted mt-0 mb-0 float-right font16">โครงการ</p>
           </b-col>
@@ -384,22 +384,22 @@
                         <b-row class="mt-1 d-flex justify-content-betweet">
                           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                             <p class="mb-0 pl-1 font14">จำนวนโครงการทั้งหมด</p>
-                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].All.toLocaleString() }}</strong></p>
+                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].All }}</strong></p>
                             <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                           </b-col>
                           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                             <p class="mb-0 pl-1 font14">โครงการที่ดำเนินการเสร็จสิ้น</p>
-                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].Done.toLocaleString() }}</strong></p>
+                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].Done }}</strong></p>
                             <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                           </b-col>
                           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                             <p class="mb-0 pl-1 font14">โครงการที่กำลังดำเนินการ</p>
-                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].Processing.toLocaleString() }}</strong></p>
+                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].Processing }}</strong></p>
                             <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                           </b-col>
                           <b-col class="p-2 mr-2 mb-1 border border-dark rounded shadow bg-white">
                             <p class="mb-0 pl-1 font14"> โครงการที่ยังไม่ดำเนินการ</p>
-                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].No.toLocaleString() }}</strong></p>
+                            <p class="mb-0 text-center font24 mt-2"><strong>{{ statusData[item.D_ID].No }}</strong></p>
                             <p class="text-muted mt-0 mb-0 float-right font14">โครงการ</p>
                           </b-col>
                         </b-row>
@@ -847,10 +847,10 @@ export default {
           }
           //}
           this.AllamountData = {
-            totalMP_Budget: totalMP_Budget,
-            totalMP_Total_Amount: totalMP_Total_Amount,
-            totalMP_Total_From_Disburse: totalMP_Total_From_Disburse,
-            totalMP_Total_From_Priciple: totalMP_Total_From_Priciple,
+            totalMP_Budget: totalMP_Budget.toLocaleString(),
+            totalMP_Total_Amount: totalMP_Total_Amount.toLocaleString(),
+            totalMP_Total_From_Disburse: totalMP_Total_From_Disburse.toLocaleString(),
+            totalMP_Total_From_Priciple: totalMP_Total_From_Priciple.toLocaleString(),
           };
           this.AllstatusData = {
             All: statusDone + statusProcessing + statusNo,
@@ -878,7 +878,7 @@ export default {
                     MP_Total_From_Priciple += this.tableData[k].Total_From_Priciple
                 }
                 this.amountData[AllDepartment[c].D_ID] = {
-                    totalMP_Budget:MP_Budget,
+                    totalMP_Budget: MP_Budget,
                     totalMP_Total_Amount:MP_Total_Amount,
                     totalMP_Total_From_Disburse:MP_Total_From_Disburse,
                     totalMP_Total_From_Priciple:MP_Total_From_Priciple,    
